@@ -8,12 +8,15 @@ import com.itechart.restaurant_info_service.model.*;
 import com.itechart.restaurant_info_service.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
+@Validated
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final WorkingTimeRepository workingTimeRepository;
@@ -22,8 +25,7 @@ public class RestaurantService {
     private final IngredientRepository ingredientRepository;
     private final IngredientInItemRepository ingredientInItemRepository;
 
-    public void addRestaurant(RestaurantDTO restaurantDTO){
-        //TODO validation
+    public void addRestaurant(@Valid RestaurantDTO restaurantDTO){
         //TODO manager must exist
 
         Restaurant restaurant = Restaurant.builder()

@@ -7,17 +7,20 @@ import com.itechart.restaurant_info_service.repository.FoodOrderRepository;
 import com.itechart.restaurant_info_service.repository.ItemInOrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
 @AllArgsConstructor
+@Validated
 public class OrderService {
     private final FoodOrderRepository foodOrderRepository;
     private final ItemInOrderRepository itemInOrderRepository;
 
-    public void addOrder(FoodOrderDTO foodOrderDTO) {
+    public void addOrder(@Valid FoodOrderDTO foodOrderDTO) {
         //TODO do we need to check if the item is in restaurant's menu
         //TODO check if item is available
         //TODO amount validation
