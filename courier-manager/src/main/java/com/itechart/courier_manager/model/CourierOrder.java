@@ -1,11 +1,15 @@
 package com.itechart.courier_manager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -26,9 +30,7 @@ public class CourierOrder {
             strategy = SEQUENCE,
             generator = "courier_orders_id_seq"
     )
-    @Column(
-            name = "id"
-    )
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -38,24 +40,24 @@ public class CourierOrder {
                     name = "courier_id"
             )
     )
+    @NotNull(message = "Courier is required")
+    @JsonBackReference
     private Courier courier;
 
-    @Column(
-            name = "order_id",
-            nullable = false
-    )
+    @Column(name = "order_id")
+    @NotNull(message = "Order id is required")
     private Long orderId;
 
-    @Column(
-            name = "delivery_status",
-            nullable = false
-    )
+    @Column(name = "delivery_status")
+    @NotNull(message = "Delivery status is required")
+    @NotBlank(message = "Delivery status can't be empty")
+    @Size(max = 30, message = "Delivery status string length limits exceeded")
     private String deliveryStatus;
 
-    @Column(
-            name = "delivery_method",
-            nullable = false
-    )
+    @Column(name = "delivery_method")
+    @NotNull(message = "Delivery method is required")
+    @NotBlank(message = "Delivery method can't be empty")
+    @Size(max = 30, message = "Delivery method string length limits exceeded")
     private String deliveryMethod;
 }
 
