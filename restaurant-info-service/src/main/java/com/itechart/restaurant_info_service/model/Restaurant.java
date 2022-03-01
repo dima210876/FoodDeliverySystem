@@ -19,13 +19,16 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long managerId;
     private String name;
     private String phoneNumber;
     private String description;
     private String restaurantAddress;
     private double latitude;
     private double longitude;
+
+    @OneToOne
+    @JoinColumn(name = "manager_id", referencedColumnName = "user_id")
+    private Manager manager;
 
     @OneToMany(mappedBy = "restaurant")
     private Set<Feedback> feedbacks;

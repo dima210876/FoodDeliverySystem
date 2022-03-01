@@ -19,7 +19,7 @@ public class FoodOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String restaurantStatus;
+    private RestaurantStatus restaurantStatus;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)

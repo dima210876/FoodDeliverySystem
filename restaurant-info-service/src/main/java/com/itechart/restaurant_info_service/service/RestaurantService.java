@@ -24,9 +24,10 @@ public class RestaurantService {
 
     public void addRestaurant(RestaurantDTO restaurantDTO){
         //TODO validation
+        //TODO manager must exist
 
         Restaurant restaurant = Restaurant.builder()
-                .managerId(restaurantDTO.getManagerId())
+                .manager(Manager.builder().user_id(restaurantDTO.getManagerId()).build())
                 .name(restaurantDTO.getName())
                 .phoneNumber(restaurantDTO.getPhoneNumber())
                 .description(restaurantDTO.getDescription())
@@ -64,8 +65,6 @@ public class RestaurantService {
 
         restaurantRepository.save(restaurant);
 
-        Set<Item> items = new HashSet<>();
-
         for(ItemDTO itemDTO: restaurantDTO.getItems()){
             Item item = Item.builder()
                     .name(itemDTO.getName())
@@ -77,7 +76,6 @@ public class RestaurantService {
                     .restaurant(restaurant)
                     .build();
             itemRepository.save(item);
-            items.add(item);
 
             for(IngredientDTO ingredientDTO: itemDTO.getIngredients()){
                 Ingredient ingredient = Ingredient.builder()
