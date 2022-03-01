@@ -12,6 +12,6 @@ public class PaymentService
 {
     private final PaymentReceiptRepository paymentReceiptRepository;
     private final PaymentProviderRepository paymentProviderRepository;
-    private final PaymentAttemptRepository paymentAttemptRepository;   
+    private final PaymentAttemptRepository paymentAttemptRepository;
 
 }
