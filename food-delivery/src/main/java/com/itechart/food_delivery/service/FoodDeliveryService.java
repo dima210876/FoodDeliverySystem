@@ -5,8 +5,9 @@ import com.itechart.food_delivery.exception.OrderNotFound;
 import com.itechart.food_delivery.model.Order;
 import com.itechart.food_delivery.repository.FoodDeliveryRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.type.TimestampType;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -49,11 +50,11 @@ public class FoodDeliveryService {
         //TODO: write an implementation of the method getCustomerId
     }
 
-    private TimestampType getCreationTime(){
+    private LocalDateTime getCreationTime(){
         //TODO: write an implementation of the method getCreationTime
     }
 
-    private TimestampType getDeliveryTime(){
+    private LocalDateTime getDeliveryTime(){
         //TODO: write an implementation of the method getDeliveryTime
     }
 
