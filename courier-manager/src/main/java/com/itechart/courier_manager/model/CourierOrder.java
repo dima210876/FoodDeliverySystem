@@ -16,7 +16,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity(name = "CourierOrder")
 @Table(name = "courier_orders")
 public class CourierOrder {
-
     @Id
     @SequenceGenerator(
             name = "courier_orders_id_seq",
@@ -32,11 +31,15 @@ public class CourierOrder {
     )
     private Long id;
 
-    @Column(
-            name = "сourier_id",
-            nullable = false
+    @ManyToOne
+    @JoinColumn(
+            name = "FK_couriers_id",
+            foreignKey = @ForeignKey(
+                    name = "courier_id"
+            )
     )
-    private Long courierId;
+    private Courier courier;
+
     @Column(
             name = "order_id",
             nullable = false
