@@ -34,28 +34,24 @@ public class CourierOrder {
 
     @Column(
             name = "сourier_id",
-            nullable = false,
-            columnDefinition = "BIGINT"
+            nullable = false
     )
     private Long courierId;
     @Column(
             name = "order_id",
-            nullable = false,
-            columnDefinition = "BIGINT"
+            nullable = false
     )
     private Long orderId;
 
     @Column(
             name = "delivery_status",
-            nullable = false,
-            columnDefinition = "VARCHAR(30)"
+            nullable = false
     )
     private String deliveryStatus;
 
     @Column(
             name = "delivery_method",
-            nullable = false,
-            columnDefinition = "VARCHAR(30)"
+            nullable = false
     )
     private String deliveryMethod;
 }
