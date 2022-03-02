@@ -8,8 +8,10 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig
 {
     @Bean
-    RestTemplate restTemplate()
+    public RestTemplate restTemplate()
     {
         return new RestTemplate();
     }
+
+    //TODO: add abstract payment method
 }
