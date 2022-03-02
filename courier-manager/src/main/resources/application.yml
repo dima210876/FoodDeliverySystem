@@ -5,8 +5,8 @@ spring:
   application:
     name: courier-manager
   datasource:
-    username: username #edit
-    password: password #edit
+    username: postgres
+    password: 1234
     url: jdbc:postgresql://localhost:5432/courier_manager_service
   jpa:
     hibernate:
