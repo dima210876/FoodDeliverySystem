@@ -15,6 +15,7 @@
         <module>restaurant-info-service</module>
         <module>courier-manager</module>
         <module>eureka-server</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
