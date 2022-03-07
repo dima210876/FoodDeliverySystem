@@ -1,13 +1,20 @@
 package com.itechart.identity_service.model;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
-@ConfigurationProperties(prefix = "jwt")
 @Configuration
+@PropertySource("classpath:security.properties")
 @Data
 public class JwtProperties {
+    @Value("${jwt.secretKey}")
     private String secretKey;
-    private long validityInMilliseconds;
+
+    @Value("${jwt.accessTokenExpirationInMilliseconds}")
+    private long accessTokenExpirationInMilliseconds;
+
+    @Value("${jwt.refreshTokenExpirationInMilliseconds}")
+    private long refreshTokenExpirationInMilliseconds;
 }
