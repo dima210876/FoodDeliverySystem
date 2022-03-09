@@ -1,11 +1,11 @@
 package com.itechart.identity_service.filter;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itechart.identity_service.model.JwtProperties;
 import com.itechart.identity_service.model.LoginData;
 import com.itechart.identity_service.model.User;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,11 +13,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.security.Key;
+import java.time.Instant;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,19 +56,25 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
 
-        Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecretKey().getBytes());
-        String accessToken = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(calculateExpirationDate(jwtProperties.getAccessTokenExpirationInMilliseconds()))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("role", user.getAuthorities())
-                .sign(algorithm);
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(jwtProperties.getSecretKey());
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        String refreshToken = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(calculateExpirationDate(jwtProperties.getRefreshTokenExpirationInMilliseconds()))
-                .withIssuer(request.getRequestURL().toString())
-                .sign(algorithm);
+
+        String accessToken = Jwts.builder()
+                .claim("role", user.getAuthorities().toString())
+                .setSubject(user.getUsername())
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(calculateExpirationDate(jwtProperties.getAccessTokenExpirationInMilliseconds()))
+                .signWith(signatureAlgorithm, signingKey)
+                .compact();
+
+        String refreshToken = Jwts.builder()
+                .setSubject(user.getUsername())
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(calculateExpirationDate(jwtProperties.getAccessTokenExpirationInMilliseconds()))
+                .signWith(signatureAlgorithm, signingKey)
+                .compact();
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);

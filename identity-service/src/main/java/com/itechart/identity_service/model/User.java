@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,12 +57,16 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "account_non_expired")
     private Boolean accountNonExpired;
 
+    @Column(name = "account_non_locked")
     private Boolean accountNonLocked;
 
+    @Column(name = "credentials_non_expired")
     private Boolean credentialsNonExpired;
 
+    @Column(name = "enabled")
     private Boolean enabled;
 
     @Override

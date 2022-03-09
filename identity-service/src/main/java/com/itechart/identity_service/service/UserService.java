@@ -33,6 +33,10 @@ public class UserService implements UserDetailsService {
     public User saveUser(User user){
         //TODO user registration
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
         return userRepository.save(user);
     }
 
