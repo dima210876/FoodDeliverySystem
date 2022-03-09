@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(User user){
-        //TODO user registration
+        //TODO user registration - check if not exists and etc
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
