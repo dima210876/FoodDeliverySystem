@@ -10,9 +10,7 @@ function OurSalesCard(props){
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
 
-
     const increaseCountOfProducts = (id, title, discount, imageUrl, count, restaurant) => {
-
         dispatch({type: 'INCREASE_COUNT_OF_PRODUCT', payload: {
                 id: id,
                 title: title,
@@ -29,7 +27,7 @@ function OurSalesCard(props){
         dispatch({type: 'DECREASE_COUNT_OF_PRODUCT', payload: {
                 id: id,
                 count: count
-            }});
+        }});
     }
 
     function checkItems(id){
@@ -38,7 +36,6 @@ function OurSalesCard(props){
         } else {
             return items.filter(item => item.id === props.id)[0].count;
         }
-
     }
 
     return(

@@ -11,7 +11,6 @@ function MostPopularCard(props){
     const items = useSelector(state => state.cart.items);
 
     const increaseCountOfProducts = (id, title, price, imageUrl, count, restaurant) => {
-
         dispatch({type: 'INCREASE_COUNT_OF_PRODUCT', payload: {
                 id: id,
                 title: title,
@@ -21,7 +20,6 @@ function MostPopularCard(props){
                 count: count
             }
         });
-        console.log(items);
     }
 
 
@@ -29,7 +27,7 @@ function MostPopularCard(props){
         dispatch({type: 'DECREASE_COUNT_OF_PRODUCT', payload: {
                 id: id,
                 count: count
-            }});
+        }});
     }
 
     function checkItems(id){
@@ -38,7 +36,6 @@ function MostPopularCard(props){
         } else {
             return items.filter(item => item.id === props.id)[0].count;
         }
-
     }
 
     return(
@@ -51,12 +48,10 @@ function MostPopularCard(props){
                 </div>
                 <div className="btn-plus-minus">
                     <button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
-                    <span> {checkItems(props.id)}</span>
+                    <span>{checkItems(props.id)}</span>
                     <button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button>
                 </div>
             </div>
-            
-            
         </div>
     );
 }

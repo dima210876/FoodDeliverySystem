@@ -13,20 +13,19 @@ import "./MainPage.css"
 
 
 const MainPage = () => {
-
     return(
         <>
-        <div className='main-page-container'>
-            <div className='main-page'>
-                <OurSalesHeader />
-                <OurSalesList  />
-                <MostPopularHeader />
-                <MostPopularList />
-                <CategoryHeader />
-                <CategoryList />  
+            <div className='main-page-container'>
+                <div className='main-page'>
+                    <OurSalesHeader />
+                    <OurSalesList  />
+                    <MostPopularHeader />
+                    <MostPopularList />
+                    <CategoryHeader />
+                    <CategoryList />
+                </div>
             </div>
-        </div>
-        <Footer />
+            <Footer />
         </> 
     );
 }

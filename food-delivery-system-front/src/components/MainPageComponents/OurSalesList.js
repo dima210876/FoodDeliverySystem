@@ -25,11 +25,10 @@ function OurSalesList(){
 
     React.useEffect(() =>{
         axios.get('https://62265d432dfa524018038bde.mockapi.io/productsWithDiscount')
-  .then(function (response) {
+    .then(function (response) {
     setListWithDiscounts(response.data);
     console.log(listWithDiscounts);
-  })
-    }, [])
+    })}, [])
 
     return(
         <div className="most-popular-list">
@@ -44,7 +43,7 @@ function OurSalesList(){
                         restaurant={obj.restaurant}
                     />
                 ))}
-            </div>
+        </div>
     );
 }
 

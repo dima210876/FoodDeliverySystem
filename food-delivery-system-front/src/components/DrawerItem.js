@@ -12,12 +12,10 @@ function DrawerItem(props){
 
     function checkItems(id){
         if(items.filter(item => item.id === id).length === 0){
-
             return setStartCountOfProduct(id);
         } else {
             return items.filter(item => item.id === id)[0].count;
         }
-
     }
 
     const increaseCountOfProduct = (id, title, price, imageUrl, restaurant, count) => {
@@ -28,14 +26,14 @@ function DrawerItem(props){
                 imageUrl: imageUrl,
                 restaurant: restaurant,
                 count: count
-            }});
+        }});
     }
 
     const decreaseCountOfProduct = (id, count) => {
         dispatch({type: 'DECREASE_COUNT_OF_PRODUCT', payload: {
                 id: id,
                 count: count
-            }});
+        }});
     }
 
     const removeItem = (id) => {
@@ -57,7 +55,6 @@ function DrawerItem(props){
                 <span>{props.restaurant}</span>
               </div>
             </div>
-            
             <div className="row">
                 <div className="col price-in-item-drawer">
                     <span><b>{props.price}</b>$</span>

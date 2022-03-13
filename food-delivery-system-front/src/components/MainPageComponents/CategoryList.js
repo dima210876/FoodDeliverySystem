@@ -13,15 +13,14 @@ import "./CategoryList.css"
 
 function CategoryList(){
 
-    const [categoryList, setcategoryList] = React.useState([]);
+    const [categoryList, setCategoryList] = React.useState([]);
 
     React.useEffect(() =>{
         axios.get('https://62265d432dfa524018038bde.mockapi.io/categoryList')
-  .then(function (response) {
-    setcategoryList(response.data);
+    .then(function (response) {
+    setCategoryList(response.data);
     console.log(categoryList);
-  })
-    }, [])
+    })}, [])
 
     return(
         <div className="category-list">
@@ -30,8 +29,8 @@ function CategoryList(){
                         title={obj.title}
                         imageUrl={obj.imageUrl}
                     />
-                ))}
-            </div>
+            ))}
+        </div>
     );
 }
 

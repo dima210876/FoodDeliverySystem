@@ -59,9 +59,7 @@ function Drawer(){
                 />
             ))
         } else {
-
             return items.map((obj) => (
-
                 <DrawerItem
                     id={obj.id}
                     title={obj.title}

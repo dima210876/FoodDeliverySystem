@@ -23,13 +23,12 @@ function MostPopularList(){
         }
     }
 
-    React.useEffect(() =>{
+    React.useEffect(() => {
         axios.get('https://62265d432dfa524018038bde.mockapi.io/popularProducts')
-  .then(function (response) {
+    .then(function (response) {
     setMostPopularList(response.data);
     console.log(mostPopularList);
-  })
-    }, [])
+    })}, [])
 
     return(
         <div className="most-popular-list">   
@@ -43,7 +42,7 @@ function MostPopularList(){
                         restaurant={obj.restaurant}
                     />
                 ))}
-            </div>
+        </div>
     );
 }
 
