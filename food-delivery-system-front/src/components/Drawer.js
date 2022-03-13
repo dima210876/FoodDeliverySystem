@@ -75,18 +75,18 @@ function Drawer(){
 
     return(
         <div className="overlay">
-            <div className="drawer fixed-top col-md-2 offset-md-9">
-                <h5>Card</h5>
-                <div className='drawer-items'>
-                {checkAllItems()}
+            <div className="drawer fixed-top col-md-2 col-xs-2 col-sm-2 col-lg-2 offset-xs-9 offset-sm-9 offset-md-9 offset-lg-9">
+                <h5 className='drawer-name'>Card</h5>
+                <div className='col drawer-items'>
+                    {checkAllItems()}
                 </div>
                 <div className='drawer-footer'>
-                <h5>{checkTotalCount()} items selected</h5>
-                <hr/>
-                <div className="row">
-                    <div className="col"><span>Total price</span></div>
-                    <div className="col total-price"><span><b>{checkTotalPrice()}$</b></span></div>
-                </div>
+                    <h5 className="total-count">{checkTotalCount()} items selected</h5>
+                    <hr className="line"/>
+                    <div className="row drawer-price">
+                        <div className="col"><span>Total price</span></div>
+                        <div className="col total-price"><span><b>{checkTotalPrice()}$</b></span></div>
+                    </div>
                 </div>
             </div>
         </div>

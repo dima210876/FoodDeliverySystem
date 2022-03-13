@@ -12,8 +12,8 @@ function Footer(){
                 </div>
 
                 <div className="col offset-md-1">
-                    <a className="icons-contacts" href="#"><FaInstagramSquare /></a>
-                    <a className="icons-contacts" href="#"><FaFacebook /></a>   
+                    <a className="icons-contacts" href=""><FaInstagramSquare /></a>
+                    <a className="icons-contacts" href=""><FaFacebook /></a>
                 </div>
 
                 <div className="col">

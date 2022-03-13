@@ -11,10 +11,8 @@ function Navbar(){
     return(
         <div className="navbar navbar-inverse fixed-top header">
             {cartOpened ? <Drawer /> : null}
-            
-            <div className="container-fluid">
-                
-                <a className="navbar-brand nav-link-style" href="/"><b>Food<br/>Delivery</b></a>
+            <div className="container-fluid ">
+                <a className="navbar-brand nav-link-style " href="/"><b>Food<br/>Delivery</b></a>
             
                 <div className="row">
                     <a className="navbar-brand nav-link-style col" href="/">Main page</a>
@@ -29,8 +27,8 @@ function Navbar(){
                 </div>
                 
                 <div className="row">
-                    <a className="navbar-brand navbar-right col" href="#"><MdAccountCircle className='icons'/></a>
-                    <button className="navbar-brand col"  onClick={() => setCartOpened(!cartOpened)}><FaCartArrowDown className='icons'/></button>
+                    <button className="navbar-brand navbar-right col  btn-on-navbar"><MdAccountCircle className='icons'/></button>
+                    <button className="navbar-brand col btn-on-navbar"  onClick={() => setCartOpened(!cartOpened)}><FaCartArrowDown className='icons'/></button>
                 </div>
             </div>
         </div>

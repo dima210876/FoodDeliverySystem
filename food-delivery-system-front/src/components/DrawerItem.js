@@ -48,7 +48,7 @@ function DrawerItem(props){
                     <div className='col product-name-of-drawer-item'>
                         <span className='name-of-product'><b>{props.title}</b></span>
                     </div>
-                    <div  className='col'>
+                    <div className='col btn-remove'>
                         <button className='rm' onClick={() => removeItem(props.id)}>&times;</button>
                     </div>
                 </div>
