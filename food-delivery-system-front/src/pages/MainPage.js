@@ -18,8 +18,7 @@ const MainPage = (props) => {
         <div className='main-page-container'>
             <div className='main-page'>
                 <OurSalesHeader />
-                <OurSalesList  onClickPlus={({title, id, price}) => props.onClickPlus({title, id, price})}
-                />
+                <OurSalesList  /*onClickPlus={({title, id, price}) => props.onClickPlus({title, id, price})}*//>
                 <MostPopularHeader />
                 <MostPopularList />
                 <CategoryHeader />

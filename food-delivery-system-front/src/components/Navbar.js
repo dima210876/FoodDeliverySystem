@@ -30,7 +30,7 @@ function Navbar(){
                 
                 <div className="row">
                     <a className="navbar-brand navbar-right col" href="#"><MdAccountCircle className='icons'/></a>
-                    <a className="navbar-brand col" href="#" onClick={() => setCartOpened(!cartOpened)}><FaCartArrowDown className='icons'/></a>
+                    <button className="navbar-brand col"  onClick={() => setCartOpened(!cartOpened)}><FaCartArrowDown className='icons'/></button>
                 </div>
             </div>
         </div>

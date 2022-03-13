@@ -1,4 +1,4 @@
 export const addProductToCart = (product) => ({
-    type: 'ADD_PRODUCT_TO_CART',
+    type: 'INCREASE_COUNT_OF_PRODUCT',
     payload: product,
 });
