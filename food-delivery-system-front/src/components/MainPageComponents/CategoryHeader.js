@@ -1,3 +1,5 @@
+import './CategoryHeader.css'
+
 function CategoryHeader(){
     return(
         <div className="header-title">

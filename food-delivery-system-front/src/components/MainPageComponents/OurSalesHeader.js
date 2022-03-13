@@ -1,3 +1,5 @@
+import "./OurSalesHeader.css"
+
 function OurSalesHeader(){
     return(
         <div className="header-title">

@@ -9,16 +9,17 @@ import MostPopularList from '../components/MainPageComponents/MostPopularList';
 import OurSalesList from '../components/MainPageComponents/OurSalesList';
 import OurSalesHeader from '../components/MainPageComponents/OurSalesHeader';
 import Footer from '../components/footer';
+import "./MainPage.css"
 
 
-const MainPage = (props) => {
+const MainPage = () => {
 
     return(
         <>
         <div className='main-page-container'>
             <div className='main-page'>
                 <OurSalesHeader />
-                <OurSalesList  /*onClickPlus={({title, id, price}) => props.onClickPlus({title, id, price})}*//>
+                <OurSalesList  />
                 <MostPopularHeader />
                 <MostPopularList />
                 <CategoryHeader />

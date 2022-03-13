@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 import {useSelector} from "react-redux";
 import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
+import "./MostPopularList.css"
 
 /*var mostPopularList = [{"title":"Salat","price":4, "imageUrl":"/img/food.png"},
                          {"title":"Burger","price":5,"imageUrl":"/img/food.png"},

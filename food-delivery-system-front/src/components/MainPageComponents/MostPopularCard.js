@@ -3,6 +3,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
+import "./MostPopularCard.css";
 
 function MostPopularCard(props){
 
@@ -49,9 +50,9 @@ function MostPopularCard(props){
                     <span><b>{props.price}</b>$ for 1 portions</span>
                 </div>
                 <div className="btn-plus-minus">
-                    <button className="button button5" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
+                    <button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
                     <span> {checkItems(props.id)}</span>
-                    <button className="button button5" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button>
+                    <button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button>
                 </div>
             </div>
             

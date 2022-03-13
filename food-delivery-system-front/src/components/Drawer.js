@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import DrawerItem from "./DrawerItem";
 import React from "react";
 import setStartCountOfProduct from "../local_storage_helper/LocalStorageHelper";
+import "./Drawer.css"
 
 function Drawer(){
 

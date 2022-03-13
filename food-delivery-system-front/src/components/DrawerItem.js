@@ -3,6 +3,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import setStartCountOfProduct from "../local_storage_helper/LocalStorageHelper";
+import "./DrawerItem.css"
 
 function DrawerItem(props){
 
@@ -43,16 +44,16 @@ function DrawerItem(props){
 
     return(
         <div className='drawer-item'>
-            <div className='product-name-and-restaraunt'>
+            <div>
                 <div className='row'>
-                    <div className='col product-name-of-drawer-item'>
-                        <span className='name-of-product'><b>{props.title}</b></span>
+                    <div className='col'>
+                        <span><b>{props.title}</b></span>
                     </div>
                     <div className='col btn-remove'>
                         <button className='rm' onClick={() => removeItem(props.id)}>&times;</button>
                     </div>
                 </div>
-              <div className='name-of-restaurant'>
+              <div>
                 <span>{props.restaurant}</span>
               </div>
             </div>
@@ -61,10 +62,10 @@ function DrawerItem(props){
                 <div className="col price-in-item-drawer">
                     <span><b>{props.price}</b>$</span>
                 </div>
-                <div className="col btn-plus-minus-in-item-drawer">
+                <div className="col">
                     <button className="button-on-item-drawer" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
                     <span>{checkItems(props.id)}</span>
-                    <button className="button-on-item-drawer" onClick={()=>increaseCountOfProduct(props.id, props.title, props.price, props.imageUrl, props.restaurant, props.count)} /*onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl, props.discount, props.increaseTotalCount)}*/><FiPlusCircle /></button>
+                    <button className="button-on-item-drawer" onClick={()=>increaseCountOfProduct(props.id, props.title, props.price, props.imageUrl, props.restaurant, props.count)}><FiPlusCircle /></button>
                 </div>
             </div>
         </div>

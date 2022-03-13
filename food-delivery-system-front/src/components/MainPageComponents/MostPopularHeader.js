@@ -1,3 +1,5 @@
+import "./MostPopularHeader.css"
+
 function MostPopularHeader(){
     return(
         <div className="header-title">

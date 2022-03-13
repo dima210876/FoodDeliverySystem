@@ -1,6 +1,7 @@
 import CategoryCard from "./CategoryCard";
 import React from "react";
 import axios from "axios";
+import "./CategoryList.css"
 
 /*var categoryList = [{"title":"Pizzas","imageUrl":"/img/food.png"},
                         {"title":"Burgers","imageUrl":"/img/food.png"},
