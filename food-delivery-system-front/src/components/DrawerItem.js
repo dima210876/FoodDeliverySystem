@@ -37,12 +37,21 @@ function DrawerItem(props){
             }});
     }
 
+    const removeItem = (id) => {
+        dispatch({type: 'REMOVE_ITEM', payload: {id: id}});
+    }
+
     return(
         <div className='drawer-item'>
             <div className='product-name-and-restaraunt'>
-              <div className='product-name-of-drawer-item'>
-                <span className='name-of-product'><b>{props.title}</b></span>
-              </div>
+                <div className='row'>
+                    <div className='col product-name-of-drawer-item'>
+                        <span className='name-of-product'><b>{props.title}</b></span>
+                    </div>
+                    <div  className='col'>
+                        <button className='rm' onClick={() => removeItem(props.id)}>&times;</button>
+                    </div>
+                </div>
               <div className='name-of-restaurant'>
                 <span>{props.restaurant}</span>
               </div>

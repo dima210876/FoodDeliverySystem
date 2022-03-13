@@ -7,12 +7,34 @@ function Drawer(){
 
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
+    const totalCountOfAllProducts = useSelector(state => state.cart.totalCount);
+    let totalPriceOfAllProducts = useSelector(state => state.cart.totalPrice);
 
-    function checkItems(id){
-        if(items.filter(item => item.id === id).length === 0){
-            return setStartCountOfProduct(id);
+    function checkTotalPrice(){
+        const totalPrice = JSON.parse(localStorage.getItem('TOTAL_PRICE'));
+        if(totalPrice !== null && totalPrice.price !== totalPriceOfAllProducts){
+            if(totalPrice.price - 0.001 < 0)
+                totalPrice.price = 0;
+            return totalPrice.price.toFixed(2);
         } else {
-            return items.filter(item => item.id === id).count;
+            if(totalPrice === null){
+                localStorage.setItem('TOTAL_PRICE', JSON.stringify({price: totalPriceOfAllProducts}))
+            }
+            if(totalPriceOfAllProducts - 0.001 < 0)
+                totalPriceOfAllProducts = 0;
+            return totalPriceOfAllProducts.toFixed(2);
+        }
+    }
+
+    function checkTotalCount(){
+        const totalCount = JSON.parse(localStorage.getItem('TOTAL_COUNT'));
+        if(totalCount !== null && totalCount.count !== totalCountOfAllProducts){
+            return totalCount.count;
+        } else {
+            if(totalCount === null){
+                localStorage.setItem('TOTAL_COUNT', JSON.stringify({count: totalCountOfAllProducts}))
+            }
+            return totalCountOfAllProducts;
         }
     }
 
@@ -59,11 +81,11 @@ function Drawer(){
                 {checkAllItems()}
                 </div>
                 <div className='drawer-footer'>
-                <h5> items selected</h5>
+                <h5>{checkTotalCount()} items selected</h5>
                 <hr/>
                 <div className="row">
                     <div className="col"><span>Total price</span></div>
-                    <div className="col total-price"><span><b>$</b></span></div>
+                    <div className="col total-price"><span><b>{checkTotalPrice()}$</b></span></div>
                 </div>
                 </div>
             </div>
