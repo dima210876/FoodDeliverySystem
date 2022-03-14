@@ -56,5 +56,5 @@ eureka:
     register-with-eureka: true
 
 jwt:
-  secret: secretkey
+  secret: secret
 

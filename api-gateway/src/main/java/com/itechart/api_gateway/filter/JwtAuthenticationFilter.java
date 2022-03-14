@@ -21,6 +21,13 @@ import io.jsonwebtoken.Claims;
 public class JwtAuthenticationFilter implements GatewayFilter
 {
     private final JwtUtil jwtUtil;
+    private final List<String> generalEndpoints = List.of("/identity/register", "/identity/login", "/foodDelivery/menu");
+    private final List<String> customerEndpoints = List.of("/foodDelivery", "/payment");
+    private final List<String> restaurantManagerEndpoints = List.of("/restaurantInfo");
+    private final List<String> courierEndpoints = List.of("/courierManager/courier", "/foodDelivery", "/payment");
+    private final List<String> courierManagerEndpoints = List.of("/courierManager/company", "/courierManager/courier");
+    private final List<String> superAdminEndpoints = List.of("/identity/users", "/foodDelivery", "/restaurantInfo",
+            "/courierManager", "/restaurantInfo");
 
     @Autowired
     public JwtAuthenticationFilter(JwtUtil jwtUtil)
@@ -32,9 +39,8 @@ public class JwtAuthenticationFilter implements GatewayFilter
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
     {
         ServerHttpRequest request = exchange.getRequest();
-        final List<String> apiEndpoints = List.of("/identity/register", "/identity/login", "/foodDelivery");
 
-        Predicate<ServerHttpRequest> isApiSecured = r -> apiEndpoints.stream()
+        Predicate<ServerHttpRequest> isApiSecured = r -> generalEndpoints.stream()
                 .noneMatch(uri -> r.getURI().getPath().contains(uri));
 
         if (isApiSecured.test(request))
@@ -54,9 +60,55 @@ public class JwtAuthenticationFilter implements GatewayFilter
                 response.setStatusCode(HttpStatus.BAD_REQUEST);
                 return response.setComplete();
             }
-            Claims claims = jwtUtil.getClaims(token);
-            exchange.getRequest().mutate().header("id", String.valueOf(claims.get("id"))).build();
+
+            String userRole = String.valueOf(jwtUtil.getClaims(token).get("role"));
+            String path = request.getURI().getPath();
+            boolean haveAccess = false;
+            switch (userRole)
+            {
+                case "customer":
+                    if (checkAccess(customerEndpoints, path)) { haveAccess = true; }
+                    break;
+                case "restaurantManager":
+                    if (checkAccess(restaurantManagerEndpoints, path)) { haveAccess = true; }
+                    break;
+                case "courier":
+                    if (checkAccess(courierEndpoints, path)) { haveAccess = true; }
+                    break;
+                case "courierManager":
+                    if (checkAccess(courierManagerEndpoints, path)) { haveAccess = true; }
+                    break;
+                case "superAdmin":
+                    if (checkAccess(superAdminEndpoints, path)) { haveAccess = true; }
+                    break;
+                default:
+                    ServerHttpResponse response = exchange.getResponse();
+                    response.setStatusCode(HttpStatus.BAD_REQUEST);
+                    return response.setComplete();
+            }
+            if (!haveAccess)
+            {
+                ServerHttpResponse response = exchange.getResponse();
+                response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                return response.setComplete();
+            }
+            populateRequestWithHeaders(exchange, token);
         }
         return chain.filter(exchange);
+    }
+
+    private void populateRequestWithHeaders(ServerWebExchange exchange, String token)
+    {
+        Claims claims = jwtUtil.getClaims(token);
+        exchange.getRequest().mutate()
+                .header("userId", String.valueOf(claims.get("userId")))
+                .header("email", String.valueOf(claims.get("sub")))
+                .header("role", String.valueOf(claims.get("role")))
+                .build();
+    }
+
+    private boolean checkAccess(List<String> endpoints, String path)
+    {
+        return endpoints.stream().anyMatch(path::contains);
     }
 }
