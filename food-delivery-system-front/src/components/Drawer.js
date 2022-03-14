@@ -4,6 +4,11 @@ import React from "react";
 import setStartCountOfProduct from "../local_storage_helper/LocalStorageHelper";
 import "./Drawer.css"
 
+const TOTAL_PRICE = 'TOTAL_PRICE';
+const TOTAL_COUNT = 'TOTAL_COUNT';
+const PRODUCTS_WITH_DISCOUNT = 'PRODUCTS_WITH_DISCOUNT';
+const SET_STATE = 'SET_STATE';
+
 function Drawer(){
 
     const dispatch = useDispatch();
@@ -12,14 +17,14 @@ function Drawer(){
     let totalPriceOfAllProducts = useSelector(state => state.cart.totalPrice);
 
     function checkTotalPrice(){
-        const totalPrice = JSON.parse(localStorage.getItem('TOTAL_PRICE'));
+        const totalPrice = JSON.parse(localStorage.getItem(TOTAL_PRICE));
         if(totalPrice !== null && totalPrice.price !== totalPriceOfAllProducts){
             if(totalPrice.price - 0.001 < 0)
                 totalPrice.price = 0;
             return totalPrice.price.toFixed(2);
         } else {
             if(totalPrice === null){
-                localStorage.setItem('TOTAL_PRICE', JSON.stringify({price: totalPriceOfAllProducts}))
+                localStorage.setItem(TOTAL_PRICE, JSON.stringify({price: totalPriceOfAllProducts}))
             }
             if(totalPriceOfAllProducts - 0.001 < 0)
                 totalPriceOfAllProducts = 0;
@@ -28,27 +33,26 @@ function Drawer(){
     }
 
     function checkTotalCount(){
-        const totalCount = JSON.parse(localStorage.getItem('TOTAL_COUNT'));
+        const totalCount = JSON.parse(localStorage.getItem(TOTAL_COUNT));
         if(totalCount !== null && totalCount.count !== totalCountOfAllProducts){
             return totalCount.count;
         } else {
             if(totalCount === null){
-                localStorage.setItem('TOTAL_COUNT', JSON.stringify({count: totalCountOfAllProducts}))
+                localStorage.setItem(TOTAL_COUNT, JSON.stringify({count: totalCountOfAllProducts}))
             }
             return totalCountOfAllProducts;
         }
     }
 
     function checkAllItems(){
-        const productsWithDiscount = JSON.parse(localStorage.getItem('PRODUCTS_WITH_DISCOUNT'));
+        const productsWithDiscount = JSON.parse(localStorage.getItem(PRODUCTS_WITH_DISCOUNT));
         if (productsWithDiscount !== null && items.length !== productsWithDiscount.items.length){
-            if(localStorage.getItem('PRODUCTS_WITH_DISCOUNT') === null  || JSON.parse(localStorage.getItem('PRODUCTS_WITH_DISCOUNT')).items.length === 0){
+            if(localStorage.getItem(PRODUCTS_WITH_DISCOUNT) === null  ||
+                JSON.parse(localStorage.getItem(PRODUCTS_WITH_DISCOUNT)).items.length === 0){
                 return null;
             }
-
-            dispatch({type: 'SET_STATE', payload: {id: productsWithDiscount.items}});
+            dispatch({type: SET_STATE, payload: {id: productsWithDiscount.items}});
             return productsWithDiscount.items.map((obj) => (
-
                 <DrawerItem
                     id={obj.id}
                     title={obj.title}

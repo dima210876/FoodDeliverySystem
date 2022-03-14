@@ -15,7 +15,7 @@ function OurSalesList(){
     const [listWithDiscounts, setListWithDiscounts] = React.useState([]);
     const items = useSelector(state => state.cart.items);
 
-    function checkItems(id){
+    function checkCountOfItems(id){
         if(items.filter(item => item.id === id).length === 0){
             return setStartCountOfProduct(id);
         } else {
@@ -39,7 +39,7 @@ function OurSalesList(){
                         price={obj.price}
                         discount={obj.discount}
                         imageUrl={obj.imageUrl}
-                        count={checkItems(obj.id)}
+                        count={checkCountOfItems(obj.id)}
                         restaurant={obj.restaurant}
                     />
                 ))}

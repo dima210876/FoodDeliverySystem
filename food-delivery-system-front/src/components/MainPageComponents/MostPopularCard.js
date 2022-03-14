@@ -5,13 +5,16 @@ import {useDispatch, useSelector} from "react-redux";
 import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
 import "./MostPopularCard.css";
 
+const INCREASE_COUNT_OF_PRODUCT = 'INCREASE_COUNT_OF_PRODUCT';
+const DECREASE_COUNT_OF_PRODUCT = 'DECREASE_COUNT_OF_PRODUCT';
+
 function MostPopularCard(props){
 
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
 
     const increaseCountOfProducts = (id, title, price, imageUrl, count, restaurant) => {
-        dispatch({type: 'INCREASE_COUNT_OF_PRODUCT', payload: {
+        dispatch({type: INCREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 title: title,
                 price: price,
@@ -22,15 +25,14 @@ function MostPopularCard(props){
         });
     }
 
-
     const decreaseCountOfProduct = (id, count) => {
-        dispatch({type: 'DECREASE_COUNT_OF_PRODUCT', payload: {
+        dispatch({type: DECREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 count: count
         }});
     }
 
-    function checkItems(id){
+    function checkCountOfItems(id){
         if(items.filter(item => item.id === id).length === 0){
             return setStartCountOfProduct(id);
         } else {
@@ -44,11 +46,11 @@ function MostPopularCard(props){
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="popular-card-price">
-                    <span><b>{props.price}</b>$ for 1 portions</span>
+                    <span><b>{props.price.toFixed(2)}</b>$ for 1 portions</span>
                 </div>
                 <div className="btn-plus-minus">
                     <div><button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>
-                    <div className="count-of-product"><span>{checkItems(props.id)}</span></div>
+                    <div className="count-of-product"><span>{checkCountOfItems(props.id)}</span></div>
                     <div><button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button></div>
                 </div>
             </div>

@@ -44,7 +44,7 @@ function OurSalesCard(props){
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="our-sales">
-                    <div className="discount-block"><span className="discount"><b>{props.discount}$</b></span><span className="price"><b>{props.price}$</b></span></div>
+                    <div className="discount-block"><span className="discount"><b>{props.discount.toFixed(2)}$</b></span><span className="price"><b>{props.price.toFixed(2)}$</b></span></div>
                     <div className="price-block"><span className="price-text">for 1 portions</span></div>
                 </div>
                 <div className="btn-plus-minus-on-sales-car">
