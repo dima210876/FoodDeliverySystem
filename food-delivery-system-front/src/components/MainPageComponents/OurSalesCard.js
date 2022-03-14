@@ -5,13 +5,17 @@ import {useDispatch, useSelector} from "react-redux";
 import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
 import "./OurSalesCard.css"
 
+const INCREASE_COUNT_OF_PRODUCT = 'INCREASE_COUNT_OF_PRODUCT';
+const DECREASE_COUNT_OF_PRODUCT = 'DECREASE_COUNT_OF_PRODUCT';
+
+
 function OurSalesCard(props){
 
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
 
     const increaseCountOfProducts = (id, title, discount, imageUrl, count, restaurant) => {
-        dispatch({type: 'INCREASE_COUNT_OF_PRODUCT', payload: {
+        dispatch({type: INCREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 title: title,
                 price: discount,
@@ -24,7 +28,7 @@ function OurSalesCard(props){
     }
 
     const decreaseCountOfProduct = (id, count) => {
-        dispatch({type: 'DECREASE_COUNT_OF_PRODUCT', payload: {
+        dispatch({type: DECREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 count: count
         }});

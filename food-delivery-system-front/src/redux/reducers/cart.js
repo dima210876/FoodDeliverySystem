@@ -2,7 +2,7 @@ import React from "react";
 
 const TOTAL_PRICE = 'TOTAL_PRICE';
 const TOTAL_COUNT = 'TOTAL_COUNT';
-const PRODUCTS_WITH_DISCOUNT = 'PRODUCTS_WITH_DISCOUNT';
+const PRODUCTS = 'PRODUCTS';
 const INCREASE_COUNT_OF_PRODUCT = 'INCREASE_COUNT_OF_PRODUCT';
 const DECREASE_COUNT_OF_PRODUCT = 'DECREASE_COUNT_OF_PRODUCT';
 const SET_STATE = 'SET_STATE';
@@ -15,7 +15,7 @@ const decreaseCountOfProducts = (id) => {
 
     let totalPriceOfAllProducts = JSON.parse(localStorage.getItem(TOTAL_PRICE));
     let totalCountOfAllProducts = JSON.parse(localStorage.getItem(TOTAL_COUNT));
-    const products = JSON.parse(localStorage.getItem(PRODUCTS_WITH_DISCOUNT));
+    const products = JSON.parse(localStorage.getItem(PRODUCTS));
 
     for(let i = 0; i < products.items.length; i++){
         if(products.items[i].id === id) {
@@ -28,7 +28,7 @@ const decreaseCountOfProducts = (id) => {
                 totalCountOfAllProducts.count--;
             totalPriceOfAllProducts.price -= obj.price;
         }
-        localStorage.setItem(PRODUCTS_WITH_DISCOUNT, JSON.stringify(products));
+        localStorage.setItem(PRODUCTS, JSON.stringify(products));
     }
 
     if(totalPriceOfAllProducts.price - 0.01 < 0){
@@ -48,7 +48,7 @@ function increaseCountOfProducts (item){
         localStorage.setItem(TOTAL_PRICE, JSON.stringify({price: 0}))
     }
     let totalPriceOfAllProducts = JSON.parse(localStorage.getItem(TOTAL_PRICE));
-    if(localStorage.getItem(PRODUCTS_WITH_DISCOUNT) === null){
+    if(localStorage.getItem(PRODUCTS) === null){
         const object = {
             items: [
                     {id: item.id,
@@ -59,10 +59,10 @@ function increaseCountOfProducts (item){
                     count: 1}
             ]
         }
-        localStorage.setItem(PRODUCTS_WITH_DISCOUNT, JSON.stringify(object));
+        localStorage.setItem(PRODUCTS, JSON.stringify(object));
         totalPriceOfAllProducts.price += object.items[0].price;
     } else {
-        const products = JSON.parse(localStorage.getItem(PRODUCTS_WITH_DISCOUNT));
+        const products = JSON.parse(localStorage.getItem(PRODUCTS));
         let isFind = false;
         for(let i = 0; i < products.items.length; i++){
             if(products.items[i].id === item.id) {
@@ -83,7 +83,7 @@ function increaseCountOfProducts (item){
             totalPriceOfAllProducts.price += newItem.price;
             products.items.push(newItem);
         }
-        localStorage.setItem(PRODUCTS_WITH_DISCOUNT, JSON.stringify(products));
+        localStorage.setItem(PRODUCTS, JSON.stringify(products));
     }
 
     if(localStorage.getItem(TOTAL_COUNT) === null){
@@ -96,7 +96,7 @@ function increaseCountOfProducts (item){
 }
 
 function removeItem(id){
-    const products = JSON.parse(localStorage.getItem(PRODUCTS_WITH_DISCOUNT));
+    const products = JSON.parse(localStorage.getItem(PRODUCTS));
     let newProducts = {items: []};
     let newTotalCount = {count: 0};
     let newTotalPrice = {price: 0};
@@ -109,7 +109,7 @@ function removeItem(id){
     }
     localStorage.setItem(TOTAL_COUNT, JSON.stringify(newTotalCount));
     localStorage.setItem(TOTAL_PRICE, JSON.stringify(newTotalPrice));
-    localStorage.setItem(PRODUCTS_WITH_DISCOUNT, JSON.stringify(newProducts));
+    localStorage.setItem(PRODUCTS, JSON.stringify(newProducts));
 }
 
 const initialState = {

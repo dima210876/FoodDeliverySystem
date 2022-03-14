@@ -10,6 +10,8 @@ import "./MostPopularList.css"
                          {"title":"Rolls","price":11,"imageUrl":"/img/food.png"},
                          {"title":"Chocolate mues","price":9, "imageUrl":"/img/food.png"}];*/
 
+const endpointName = 'https://62265d432dfa524018038bde.mockapi.io/popularProducts';
+
 function MostPopularList(){
 
     const [mostPopularList, setMostPopularList] = React.useState([]);
@@ -24,7 +26,7 @@ function MostPopularList(){
     }
 
     React.useEffect(() => {
-        axios.get('https://62265d432dfa524018038bde.mockapi.io/popularProducts')
+        axios.get(endpointName)
     .then(function (response) {
     setMostPopularList(response.data);
     console.log(mostPopularList);

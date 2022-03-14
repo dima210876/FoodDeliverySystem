@@ -10,6 +10,8 @@ import "./OurSalesList.css"
                          {"title":"Rolls","price":11,"discount":3,"imageUrl":"/img/food.png"},
                          {"title":"Chocolate mues","price":9,"discount":3,"imageUrl":"/img/food.png"}];*/
 
+const endpointName = 'https://62265d432dfa524018038bde.mockapi.io/productsWithDiscount';
+
 function OurSalesList(){
 
     const [listWithDiscounts, setListWithDiscounts] = React.useState([]);
@@ -24,7 +26,7 @@ function OurSalesList(){
     }
 
     React.useEffect(() =>{
-        axios.get('https://62265d432dfa524018038bde.mockapi.io/productsWithDiscount')
+        axios.get(endpointName)
     .then(function (response) {
     setListWithDiscounts(response.data);
     console.log(listWithDiscounts);
