@@ -26,7 +26,7 @@ class UserControllerTest {
     @Test
     public void loginExistingUser() {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/login")
+                .post("http://localhost:8081/identity/login")
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"email\":\"user2@mail.ru\",\"password\":\"1234\"}")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -34,15 +34,14 @@ class UserControllerTest {
         mvc.perform(requestBuilder)
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.access_token").exists())
-                .andExpect(jsonPath("$.refresh_token").exists());
+                .andExpect(jsonPath("$.access_token").exists());
     }
 
     @SneakyThrows
     @Test
     public void loginNonExistingUserImpossible () {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/login")
+                .post("http://localhost:8081/identity/login")
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"email\":\"nonExisting\",\"password\":\"1234\"}")
                 .contentType(MediaType.APPLICATION_JSON);

@@ -7,6 +7,8 @@ import com.itechart.identity_service.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,10 +30,16 @@ import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtProperties jwtProperties;
+
+    @Override
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        super.setAuthenticationManager(authenticationManager);
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -62,13 +70,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String accessToken = Jwts.builder()
                 .claim("role", user.getAuthorities().toString())
-                .setSubject(user.getUsername())
-                .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(calculateExpirationDate(jwtProperties.getAccessTokenExpirationInMilliseconds()))
-                .signWith(signatureAlgorithm, signingKey)
-                .compact();
-
-        String refreshToken = Jwts.builder()
+                .claim("email", user.getEmail())
+                .claim("userId", user.getId())
                 .setSubject(user.getUsername())
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(calculateExpirationDate(jwtProperties.getAccessTokenExpirationInMilliseconds()))
@@ -77,7 +80,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);
-        tokens.put("refresh_token", refreshToken);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
