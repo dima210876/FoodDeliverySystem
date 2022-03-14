@@ -4,11 +4,11 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import {Button, ButtonGroup, Col, Form, Container, Row} from 'react-bootstrap';
 
-import '../loginReg.css';
+import './loginRegistration.css';
 import {Link} from "react-router-dom";
-import PhoneInputField from "./PhoneInputField";
+import PhoneInputField from "../../components/PhoneInputField";
 
-const RegistrationUser = () => {
+const RegistrationPage = () => {
 
     const schema = Yup.object().shape({
         firstName: Yup.string()
@@ -44,17 +44,17 @@ const RegistrationUser = () => {
             validationSchema={schema}
             validateOnChange={false}
             validateOnBlur={false}
-            onSubmit={(values, { validate }) => {
-                validate(values);
-            }}
+            onSubmit={(values =>
+                fetch('http://localhost:8080/someaddress', {
+                    method: 'POST',
+                    headers: {"Content.Type": "application/json"},
+                    body: JSON.stringify(values)
+                })
+            )}
         >
             {({
                   handleSubmit,
                   handleChange,
-                  handleBlur,
-                  values,
-                  touched,
-                  isValid,
                   errors, }) => (
             <Container id="main-container">
                 <Col lg={6} md={6} sm={12} className="m-auto shadow-sm full-width d-flex justify-content-center">
@@ -64,16 +64,6 @@ const RegistrationUser = () => {
                             <h6 className="mb-0">Already have an account?</h6>
                             <Link className="text-decoration-none" to="/login">
                                 <h6 className="mt-0 text-danger">Log in</h6>
-                            </Link>
-                            <h3 className="mt-4">Choose registration form</h3>
-                            <Link to="/registration-user">
-                                <Button className="m-1" variant="danger" disabled>User</Button>
-                            </Link>
-                            <Link to="/registration-courier">
-                                <Button className="m-1" variant="danger">Courier</Button>
-                            </Link>
-                            <Link to="/registration-manager">
-                                <Button className="m-1" variant="danger">Manager</Button>
                             </Link>
                         </div>
 
@@ -117,4 +107,4 @@ const RegistrationUser = () => {
     );
 };
 
-export default RegistrationUser;
+export default RegistrationPage;
