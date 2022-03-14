@@ -86,6 +86,7 @@ function Drawer(){
                         <div className="col"><span>Total price</span></div>
                         <div className="col total-price"><span><b>{checkTotalPrice()}$</b></span></div>
                     </div>
+                    <div className="blk-place-an-order"><button  className="place-an-order-btn">Place an order</button></div>
                 </div>
             </div>
         </div>

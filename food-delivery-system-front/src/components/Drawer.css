@@ -8,6 +8,21 @@
     background: rgba(0,0,0,.5);
 }
 
+.place-an-order-btn{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.place-an-order-btn:active{
+    width: 82%;
+}
+
+.blk-place-an-order{
+    text-align: center;
+}
 
 .drawer {
     padding: 5px;
@@ -16,13 +31,13 @@
     margin-top: 20px;
     border-radius: 10px;
     position:relative;
-    height: 50%;
-    font-size: 1.2vmax ;
+    height:60%;
+    font-size: 1.0vmax ;
 }
 
 .drawer-items{
     overflow-y:scroll;
-    height: 80%;
+    height: 75%;
 }
 
 .total-count{
@@ -31,7 +46,7 @@
 }
 
 .drawer-footer{
-    height: 30%;
+    height: 25%;
 }
 
 .line{
@@ -39,7 +54,7 @@
 }
 
 .drawer-price{
-    height: 20%;
+    height: 30%;
 }
 
 .drawer-name{

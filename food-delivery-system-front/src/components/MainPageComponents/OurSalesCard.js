@@ -44,12 +44,13 @@ function OurSalesCard(props){
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="our-sales">
-                    <span className="discount"><b>{props.discount}$</b></span><span className="price"><b>{props.price}$</b><br/></span><span className="price-text">for 1 portions</span>
+                    <div className="discount-block"><span className="discount"><b>{props.discount}$</b></span><span className="price"><b>{props.price}$</b></span></div>
+                    <div className="price-block"><span className="price-text">for 1 portions</span></div>
                 </div>
                 <div className="btn-plus-minus-on-sales-car">
-                    <button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
-                    {checkItems(props.id)}
-                    <button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.discount, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button>
+                    <div><button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>
+                    <div className="count-of-product"><span >{checkItems(props.id)}</span></div>
+                    <div><button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.discount, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button></div>
                 </div>
             </div>
         </div>

@@ -6,3 +6,16 @@
     border-radius: 10px;
     text-align: center;
 }
+
+.category-card:hover{
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, .2);
+}
+
+.text{
+    text-decoration: none;
+    color: black;
+}
+
+.text:hover{
+    color: black;
+}

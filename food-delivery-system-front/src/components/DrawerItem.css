@@ -5,6 +5,10 @@
     border-radius: 10px;
 }
 
+.drawer-item:hover{
+    box-shadow: -2px 2px 24px rgba(0, 0, 0, .2);
+}
+
 .btn-remove{
     text-align: right;
 }
@@ -16,6 +20,24 @@
 
 .price-in-item-drawer{
     padding-top: 10px;
+    flex:1;
+}
+
+.bottom{
+    display: flex;
+}
+
+.cnt-of-product{
+    padding-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btns{
+    flex:2;
+    font-size: 1.2vmax ;
+    display: inline-flex;
+    padding-top: 5px;
 }
 
 .button-on-item-drawer{
@@ -27,7 +49,6 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-color: white;
     border-style: solid;
     border-radius: 50%;
     border-color: aliceblue;

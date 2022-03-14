@@ -47,9 +47,9 @@ function MostPopularCard(props){
                     <span><b>{props.price}</b>$ for 1 portions</span>
                 </div>
                 <div className="btn-plus-minus">
-                    <button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
-                    <span>{checkItems(props.id)}</span>
-                    <button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button>
+                    <div><button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>
+                    <div className="count-of-product"><span>{checkItems(props.id)}</span></div>
+                    <div><button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button></div>
                 </div>
             </div>
         </div>

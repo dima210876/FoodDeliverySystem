@@ -56,13 +56,13 @@ function DrawerItem(props){
               </div>
             </div>
             <div className="row">
-                <div className="col price-in-item-drawer">
+                <div className=" col price-in-item-drawer">
                     <span><b>{props.price}</b>$</span>
                 </div>
-                <div className="col">
-                    <button className="button-on-item-drawer" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button>
-                    <span>{checkItems(props.id)}</span>
-                    <button className="button-on-item-drawer" onClick={()=>increaseCountOfProduct(props.id, props.title, props.price, props.imageUrl, props.restaurant, props.count)}><FiPlusCircle /></button>
+                <div className="col btns">
+                    <div><button className="button-on-item-drawer" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>
+                    <div className="cnt-of-product"><span>{checkItems(props.id)}</span></div>
+                    <div><button className="button-on-item-drawer" onClick={()=>increaseCountOfProduct(props.id, props.title, props.price, props.imageUrl, props.restaurant, props.count)}><FiPlusCircle /></button></div>
                 </div>
             </div>
         </div>

@@ -2,9 +2,13 @@
     background-color: white;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
     padding: 15px;
-    width:  240px;
+    width:  250px;
     border-radius: 10px;
     text-align: center;
+}
+
+.most-popular-card:hover{
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, .2);
 }
 
 .product-name{
@@ -16,7 +20,7 @@
 }
 
 .our-sales{
-    justify-content:flex-start;
+    display: block;
     font-size: 10px;
     margin-top: 10px;
 }
@@ -29,6 +33,13 @@
 
 .btn-plus-minus-on-sales-car{
     font-size: 20px;
+    display: flex;
+    padding-top: 5px;
+}
+
+.count-of-product{
+    width: 33px;
+    padding-top: 5px;
 }
 
 .button{
@@ -43,6 +54,10 @@
     border-color: white;
     border-style: solid;
     border-radius: 50%;
+}
+
+.button:active{
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, .2);
 }
 
 .price{
