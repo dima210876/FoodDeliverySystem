@@ -5,11 +5,14 @@ import * as Yup from 'yup';
 import {Button, ButtonGroup, Col, Form, Container, Row} from 'react-bootstrap';
 
 import './loginRegistration.css';
-import {Link} from "react-router-dom";
+import {Link, useHistory } from "react-router-dom";
 import PhoneInputField from "../../components/PhoneInputField";
-import authService from "../../services/AuthService";
+import * as authActions from "../../redux/actions/AuthActions";
+import {useDispatch} from "react-redux";
 
 const RegistrationPage = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const schema = Yup.object().shape({
         firstName: Yup.string()
@@ -46,10 +49,10 @@ const RegistrationPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                authService.register(values.firstName, values.lastName, values.email, values.phone, values.password).then(
-                    () => window.location.reload()
-                );}
-            }
+                authActions.register(values.firstName, values.lastName, values.email, values.phone, values.password)(dispatch).then(() => {
+                    history.push('/login');
+                });
+            }}
         >
             {({
                   handleSubmit,

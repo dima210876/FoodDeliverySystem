@@ -10,7 +10,7 @@ export const register = (firstName, lastName, email, phone, password) => (dispat
         (response) => {
             dispatch({
                 type: REGISTER_SUCCESS,
-                payload: response.data,
+                payload: response,
             });
              return Promise.resolve();
         })
@@ -21,7 +21,7 @@ export const login = (email, password) => (dispatch) => {
         (response) => {
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: response.data,
+                payload: response,
             });
             return Promise.resolve();
         })

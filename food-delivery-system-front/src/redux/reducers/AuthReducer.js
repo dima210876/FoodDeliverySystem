@@ -4,9 +4,7 @@ const initialState = {
     auth: {
         email: '',
         token: '',
-        // localId: '',
         // expiresIn: '',
-        // refreshToken: '',
     },
 };
 
@@ -14,17 +12,16 @@ export function AuthReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
         case REGISTER_SUCCESS:
-        {
             return {
                 ...state,
             };
-        }
 
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 auth: payload,
             };
+
         default:
             return state;
     }

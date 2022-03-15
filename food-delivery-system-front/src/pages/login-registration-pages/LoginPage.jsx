@@ -4,11 +4,14 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
 import './loginRegistration.css';
-import {Link} from "react-router-dom";
-import authService from "../../services/AuthService";
-
+import {Link, useHistory} from "react-router-dom";
+import * as authActions from "../../redux/actions/AuthActions";
+import {useDispatch} from "react-redux";
 
 const LoginPage = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const schema = Yup.object().shape({
         email: Yup.string()
             .email('Invalid email')
@@ -27,8 +30,9 @@ const LoginPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                authService.login(values.email, values.password).then(() =>
-                    window.location.reload()
+                authActions.login(values.email, values.password)(dispatch).then(() => {
+                        history.push('/registration');
+                    }
                 );
             }}
         >
