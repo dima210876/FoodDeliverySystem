@@ -5,8 +5,8 @@ spring:
   application:
     name: identity-service
   datasource:
-    username: postgres #edit
-    password: mnr1209 #edit
+    username: username #edit
+    password: password #edit
     url: jdbc:postgresql://localhost:5432/identity_service
   jpa:
     hibernate:
