@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 
 import './loginRegistration.css';
 import {Link} from "react-router-dom";
+import authService from "../../services/AuthService";
 
 
 const LoginPage = () => {
@@ -26,13 +27,10 @@ const LoginPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                fetch('http://localhost:8080/someaddress', {
-                    method: 'POST',
-                    headers: {"Content.Type": "application/json"},
-                    body: JSON.stringify(values)
-                })
+                authService.login(values.email, values.password).then(() =>
+                    window.location.reload()
+                );
             }}
-
         >
             {({
                   handleSubmit,
@@ -44,7 +42,7 @@ const LoginPage = () => {
                         <div className="text-center">
                             <h1 className="fs-0">Login</h1>
                             <h6 className="mb-0">Don't have an account?</h6>
-                            <Link className="text-decoration-none" to="/registration-user">
+                            <Link className="text-decoration-none" to="/registration">
                                 <h6 className="mt-0 text-danger">Register</h6>
                             </Link>
                            </div>

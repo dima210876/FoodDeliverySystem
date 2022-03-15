@@ -7,6 +7,7 @@ import {Button, ButtonGroup, Col, Form, Container, Row} from 'react-bootstrap';
 import './loginRegistration.css';
 import {Link} from "react-router-dom";
 import PhoneInputField from "../../components/PhoneInputField";
+import authService from "../../services/AuthService";
 
 const RegistrationPage = () => {
 
@@ -44,13 +45,11 @@ const RegistrationPage = () => {
             validationSchema={schema}
             validateOnChange={false}
             validateOnBlur={false}
-            onSubmit={(values =>
-                fetch('http://localhost:8080/someaddress', {
-                    method: 'POST',
-                    headers: {"Content.Type": "application/json"},
-                    body: JSON.stringify(values)
-                })
-            )}
+            onSubmit={(values) => {
+                authService.register(values.firstName, values.lastName, values.email, values.phone, values.password).then(
+                    () => window.location.reload()
+                );}
+            }
         >
             {({
                   handleSubmit,
