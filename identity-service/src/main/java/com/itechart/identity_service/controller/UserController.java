@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/identity")
-public class  UserController {
+public class UserController {
     private final UserService userService;
 
-    @PostMapping("/registration")
-    public ResponseEntity<User> registerUser(@RequestBody User user){
-            return ResponseEntity.ok().body(userService.saveUser(user));
+    @PostMapping("/register")
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        return ResponseEntity.ok().body(userService.saveUser(user));
     }
 }

@@ -28,11 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/identity/login").permitAll()
-                .antMatchers("/identity/register").permitAll()
+                .authorizeRequests().anyRequest().permitAll()
                 .and()
-                .addFilter(getJwtAuthenticationFilter());
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtProperties));
     }
 
     @Override
@@ -44,12 +42,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
-    }
-
-    @Bean
-    public JwtAuthenticationFilter getJwtAuthenticationFilter() throws Exception {
-        final JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManager(), jwtProperties);
-        filter.setFilterProcessesUrl("/identity/login");
-        return filter;
     }
 }

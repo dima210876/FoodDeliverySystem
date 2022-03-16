@@ -26,7 +26,7 @@ class UserControllerTest {
     @Test
     public void loginExistingUser() {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/identity/login")
+                .post("http://localhost:8081/login")
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"email\":\"user2@mail.ru\",\"password\":\"1234\"}")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -41,7 +41,7 @@ class UserControllerTest {
     @Test
     public void loginNonExistingUserImpossible () {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/identity/login")
+                .post("http://localhost:8081/login")
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"email\":\"nonExisting\",\"password\":\"1234\"}")
                 .contentType(MediaType.APPLICATION_JSON);
