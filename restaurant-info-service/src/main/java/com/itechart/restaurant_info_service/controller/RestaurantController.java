@@ -2,8 +2,11 @@ package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.FeedbackDTO;
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
+import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
 import com.itechart.restaurant_info_service.dto.RestaurantDTO;
+import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.service.FeedbackService;
+import com.itechart.restaurant_info_service.service.ManagerService;
 import com.itechart.restaurant_info_service.service.OrderService;
 import com.itechart.restaurant_info_service.service.RestaurantService;
 import lombok.AllArgsConstructor;
@@ -16,17 +19,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/restaurant")
 @AllArgsConstructor
 public class RestaurantController {
     private final FeedbackService feedbackService;
     private final RestaurantService restaurantService;
     private final OrderService orderService;
+    private final ManagerService managerService;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex)
-    {
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) ->
         {
@@ -37,18 +39,22 @@ public class RestaurantController {
         return errors;
     }
 
-    @PostMapping("/newRestaurant")
-    public void addRestaurant(@RequestBody RestaurantDTO restaurantDTO){
-        restaurantService.addRestaurant(restaurantDTO);
+    @PostMapping("/registerManager")
+    public void registerManager(@RequestBody ManagerRegistrationInfoDTO managerRegistrationInfoDTO) {
+        try {
+            managerService.registerManager(managerRegistrationInfoDTO);
+        } catch (ManagerRegistrationException e) {
+            //TODO log and process exception
+        }
     }
 
     @PostMapping("/newOrder")
-    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO){
+    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) {
         orderService.addOrder(foodOrderDTO);
     }
 
     @PostMapping("/newFeedback")
-    public void addFeedback(@RequestBody FeedbackDTO feedbackDTO){
+    public void addFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         feedbackService.addFeedback(feedbackDTO);
     }
 }

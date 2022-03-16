@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Copy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,11 +17,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "restaurants")
+@Table(name = "managers")
 public class Manager {
 
     @Id
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "email")
     @NotNull(message = "Email is required")
