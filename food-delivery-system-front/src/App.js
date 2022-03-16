@@ -1,20 +1,26 @@
-import React, {useState} from 'react';
+import React from "react";
+import { Routes, Route } from 'react-router-dom';
+import { RestaurantPage } from './pages/RestaurantPage';
+import { MainPage } from './pages/MainPage';
+import { OrderPage } from './pages/OrderPage';
+import Navbar from "./components/Navbar";
 import LoginPage from "./pages/login-registration-pages/LoginPage";
 import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import CourierRegistrationPage from "./pages/admin-account-pages/RestaurantRegistrationPage";
-import RestaurantRegistrationPage from "./pages/admin-account-pages/RestaurantRegistrationPage";
 
 function App() {
   return (
-      <BrowserRouter>
-        <Routes>
-            <Route path='/login' element={<LoginPage />}/>
-            <Route path='/registration' element={<RegistrationPage />}/>
-            <Route path='/admin/restaurant-registration' element={<RestaurantRegistrationPage />}/>
-        </Routes>
-      </BrowserRouter>
+    <>
+      <Navbar/>
+      <Routes>
+        <Route path='/' element={<MainPage/>}/>
+        <Route path='/restaurant' element={<RestaurantPage/>}/>
+        <Route path='/order' element={<OrderPage/>}/>
+          <Route path='/login' element={<LoginPage />}/>
+          <Route path='/registration' element={<RegistrationPage />}/>
+      </Routes>
+    </>
   );
 }
 
 export default App;
+>>>>>>> origin/JL2-11
