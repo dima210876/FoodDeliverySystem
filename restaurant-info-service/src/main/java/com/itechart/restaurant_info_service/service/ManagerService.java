@@ -22,8 +22,6 @@ public class ManagerService {
 
     private final ManagerRepository managerRepository;
     private final RestaurantService restaurantService;
-
-    @Autowired
     private RestTemplate restTemplate;
 
     @Transactional
@@ -57,7 +55,7 @@ public class ManagerService {
                 .role(ROLE_MANAGER)
                 .build();
 
-        manager = managerRepository.saveAndFlush(manager);
+        manager = managerRepository.save(manager);
 
         restaurantService.createDefaultRestaurant(manager, managerRegistrationInfoDTO.getRestaurantName());
 

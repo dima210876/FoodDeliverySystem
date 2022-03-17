@@ -16,10 +16,16 @@ public class RestaurantService {
 
     @Transactional
     public void createDefaultRestaurant(Manager manager, String restaurantName){
-        //TODO set default values: address, latitude, longitude
+        final String DEFAULT_ADDRESS = "Unknown";
+        final Double DEFAULT_LATITUDE = (double) 0;
+        final Double DEFAULT_LONGITUDE = (double) 0;
+
         Restaurant restaurant = Restaurant.builder()
                 .manager(manager)
                 .name(restaurantName)
+                .restaurantAddress(DEFAULT_ADDRESS)
+                .latitude(DEFAULT_LATITUDE)
+                .longitude(DEFAULT_LONGITUDE)
                 .build();
 
         restaurantRepository.save(restaurant);
