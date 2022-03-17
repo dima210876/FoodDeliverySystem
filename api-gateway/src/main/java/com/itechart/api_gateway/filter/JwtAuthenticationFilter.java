@@ -38,6 +38,7 @@ public class JwtAuthenticationFilter implements GatewayFilter
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
     {
+        //System.out.println("Filter started");
         ServerHttpRequest request = exchange.getRequest();
 
         Predicate<ServerHttpRequest> isApiSecured = r -> generalEndpoints.stream()
@@ -45,8 +46,10 @@ public class JwtAuthenticationFilter implements GatewayFilter
 
         if (isApiSecured.test(request))
         {
+            System.out.println("Requested resource secured");
             if (!request.getHeaders().containsKey("Authorization"))
             {
+                //System.out.println("No authorization header");
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return response.setComplete();
@@ -56,6 +59,7 @@ public class JwtAuthenticationFilter implements GatewayFilter
             catch (JwtTokenMalformedException | JwtTokenMissingException e)
             {
                 //TODO: log
+                //System.out.println("Token not valid");
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.BAD_REQUEST);
                 return response.setComplete();
@@ -88,10 +92,12 @@ public class JwtAuthenticationFilter implements GatewayFilter
             }
             if (!haveAccess)
             {
+                //System.out.println("User with that role doesn't have access to resource");
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return response.setComplete();
             }
+            //System.out.println("Access to secured resource confirmed");
             populateRequestWithHeaders(exchange, token);
         }
         return chain.filter(exchange);

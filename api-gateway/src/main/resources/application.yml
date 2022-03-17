@@ -12,41 +12,41 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: food-delivery
-          uri: lb://food-delivery
-          predicates:
-            - Path=/foodDelivery/**
-          filters:
-            - StripPrefix=1
-
-        - id: identity-service
-          uri: lb://identity-service
-          predicates:
-            - Path=/identity/**
-          filters:
-            - StripPrefix=1
-
-        - id: payment-service
-          uri: lb://payment-service
-          predicates:
-            - Path=/payment/**
-          filters:
-            - StripPrefix=1
-
-        - id: restaurant-info-service
-          uri: lb://restaurant-info-service
-          predicates:
-            - Path=/restaurantInfo/**
-          filters:
-            - StripPrefix=1
-
-        - id: courier-manager
-          uri: lb://courier-manager
-          predicates:
-            - Path=/courierManager/**
-          filters:
-            - StripPrefix=1
+#      routes:
+#        - id: food-delivery
+#          uri: lb://food-delivery
+#          predicates:
+#            - Path=/foodDelivery/**
+#          filters:
+#            - StripPrefix=1
+#
+#        - id: identity-service
+#          uri: lb://identity-service
+#          predicates:
+#            - Path=/identity/**
+#          filters:
+#            - StripPrefix=1
+#
+#        - id: payment-service
+#          uri: lb://payment-service
+#          predicates:
+#            - Path=/payment/**
+#          filters:
+#            - StripPrefix=1
+#
+#        - id: restaurant-info-service
+#          uri: lb://restaurant-info-service
+#          predicates:
+#            - Path=/restaurantInfo/**
+#          filters:
+#            - StripPrefix=1
+#
+#        - id: courier-manager
+#          uri: lb://courier-manager
+#          predicates:
+#            - Path=/courierManager/**
+#          filters:
+#            - StripPrefix=1
 
 eureka:
   client:
