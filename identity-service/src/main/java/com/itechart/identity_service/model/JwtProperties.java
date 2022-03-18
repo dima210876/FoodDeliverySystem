@@ -14,7 +14,4 @@ public class JwtProperties {
 
     @Value("${jwt.accessTokenExpirationInMilliseconds}")
     private long accessTokenExpirationInMilliseconds;
-
-    @Value("${jwt.refreshTokenExpirationInMilliseconds}")
-    private long refreshTokenExpirationInMilliseconds;
 }

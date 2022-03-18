@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 @Service
@@ -23,17 +24,17 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(email);
 
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return user.get();
         } else {
             throw new UsernameNotFoundException(String.format("User %s not found", email));
         }
     }
 
-    public User saveUser(User user){
+    public User saveUser(User user) {
         //TODO user registration - check if not exists and etc
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setAccountNonExpired(true);
+        user.setExpirationDate(new Timestamp(System.currentTimeMillis() + 157680000000L));
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
