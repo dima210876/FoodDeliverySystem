@@ -4,13 +4,13 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
 import './loginRegistration.css';
-import {Link, useHistory} from "react-router-dom";
+import {Link,  useNavigate } from "react-router-dom";
 import * as authActions from "../../redux/actions/AuthActions";
 import {useDispatch} from "react-redux";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const schema = Yup.object().shape({
         email: Yup.string()
@@ -31,7 +31,7 @@ const LoginPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 authActions.login(values.email, values.password)(dispatch).then(() => {
-                        history.push('/registration');
+                    // navigate('/main-page-link-from-another-ticket');
                     }
                 );
             }}

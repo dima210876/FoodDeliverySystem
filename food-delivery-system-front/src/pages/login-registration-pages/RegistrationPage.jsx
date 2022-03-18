@@ -5,14 +5,14 @@ import * as Yup from 'yup';
 import {Button, ButtonGroup, Col, Form, Container, Row} from 'react-bootstrap';
 
 import './loginRegistration.css';
-import {Link, useHistory } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import PhoneInputField from "../../components/PhoneInputField";
 import * as authActions from "../../redux/actions/AuthActions";
 import {useDispatch} from "react-redux";
 
 const RegistrationPage = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const schema = Yup.object().shape({
         firstName: Yup.string()
@@ -50,7 +50,7 @@ const RegistrationPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 authActions.register(values.firstName, values.lastName, values.email, values.phone, values.password)(dispatch).then(() => {
-                    history.push('/login');
+                    // navigate('/main-page-link-from-another-ticket');
                 });
             }}
         >
