@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/restaurant")
 @AllArgsConstructor
 public class RestaurantController {
     private final FeedbackService feedbackService;
@@ -35,6 +34,11 @@ public class RestaurantController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+
+    @PostMapping("/registerManager")
+    public void registerManager(){
+
     }
 
     @PostMapping("/newRestaurant")
