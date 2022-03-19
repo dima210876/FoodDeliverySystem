@@ -1,26 +1,17 @@
-import React from "react";
-import { Routes, Route } from 'react-router-dom';
-import { RestaurantPage } from './pages/RestaurantPage';
-import { MainPage } from './pages/MainPage';
-import { OrderPage } from './pages/OrderPage';
-import Navbar from "./components/Navbar";
+import React, {useState} from 'react';
 import LoginPage from "./pages/login-registration-pages/LoginPage";
 import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <Navbar/>
-      <Routes>
-        <Route path='/' element={<MainPage/>}/>
-        <Route path='/restaurant' element={<RestaurantPage/>}/>
-        <Route path='/order' element={<OrderPage/>}/>
-          <Route path='/login' element={<LoginPage />}/>
-          <Route path='/registration' element={<RegistrationPage />}/>
-      </Routes>
-    </>
+      <BrowserRouter>
+        <Routes>
+            <Route path='/login' element={<LoginPage />}/>
+            <Route path='/registration' element={<RegistrationPage />}/>
+        </Routes>
+      </BrowserRouter>
   );
 }
 
 export default App;
->>>>>>> origin/JL2-11
