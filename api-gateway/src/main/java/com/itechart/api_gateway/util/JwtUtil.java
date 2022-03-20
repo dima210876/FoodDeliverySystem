@@ -4,12 +4,14 @@ import com.itechart.api_gateway.exception.JwtTokenMalformedException;
 import com.itechart.api_gateway.exception.JwtTokenMissingException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
+@PropertySource("classpath:security.properties")
 public class JwtUtil
 {
-    @Value("${jwt.secret}")
+    @Value("${jwt.secretKey}")
     private String jwtSecret;
 
     public Claims getClaims(final String token)

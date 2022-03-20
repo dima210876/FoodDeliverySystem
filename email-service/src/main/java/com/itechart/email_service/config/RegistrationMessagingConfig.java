@@ -1,4 +1,4 @@
-package com.itechart.identity_service.config;
+package com.itechart.email_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.*;

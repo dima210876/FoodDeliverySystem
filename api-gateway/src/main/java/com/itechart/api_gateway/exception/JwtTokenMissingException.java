@@ -4,8 +4,8 @@ import javax.naming.AuthenticationException;
 
 public class JwtTokenMissingException extends AuthenticationException
 {
-    public JwtTokenMissingException(String msg)
+    public JwtTokenMissingException(String message)
     {
-        super(msg);
+        super(message);
     }
 }

@@ -1,21 +1,27 @@
 package com.itechart.identity_service.controller;
 
+import com.itechart.identity_service.exception.EmailDuplicationException;
 import com.itechart.identity_service.model.User;
 import com.itechart.identity_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class UserController {
+public class UserController
+{
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody @Valid User user) throws EmailDuplicationException
+    {
+        if (!userService.isEmailUnique(user.getEmail()))
+        {
+            throw new EmailDuplicationException("Email is already taken");
+        }
         return ResponseEntity.ok().body(userService.saveUser(user));
     }
 }

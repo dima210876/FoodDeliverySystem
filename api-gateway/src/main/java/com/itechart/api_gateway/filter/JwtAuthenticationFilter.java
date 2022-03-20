@@ -3,7 +3,7 @@ package com.itechart.api_gateway.filter;
 import com.itechart.api_gateway.exception.JwtTokenMalformedException;
 import com.itechart.api_gateway.exception.JwtTokenMissingException;
 import com.itechart.api_gateway.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 import io.jsonwebtoken.Claims;
 
 @Component
+@AllArgsConstructor
 public class JwtAuthenticationFilter implements GatewayFilter
 {
     private final JwtUtil jwtUtil;
@@ -28,12 +29,6 @@ public class JwtAuthenticationFilter implements GatewayFilter
     private final List<String> courierManagerEndpoints = List.of("/courierManager/company", "/courierManager/courier");
     private final List<String> superAdminEndpoints = List.of("/identity/users", "/foodDelivery", "/restaurantInfo",
             "/courierManager", "/restaurantInfo");
-
-    @Autowired
-    public JwtAuthenticationFilter(JwtUtil jwtUtil)
-    {
-        this.jwtUtil = jwtUtil;
-    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
@@ -46,7 +41,7 @@ public class JwtAuthenticationFilter implements GatewayFilter
 
         if (isApiSecured.test(request))
         {
-            System.out.println("Requested resource secured");
+            //System.out.println("Requested resource secured");
             if (!request.getHeaders().containsKey("Authorization"))
             {
                 //System.out.println("No authorization header");
@@ -70,19 +65,19 @@ public class JwtAuthenticationFilter implements GatewayFilter
             boolean haveAccess = false;
             switch (userRole)
             {
-                case "customer":
+                case "ROLE_CUSTOMER":
                     if (checkAccess(customerEndpoints, path)) { haveAccess = true; }
                     break;
-                case "restaurantManager":
+                case "ROLE_RESTAURANT_MANAGER":
                     if (checkAccess(restaurantManagerEndpoints, path)) { haveAccess = true; }
                     break;
-                case "courier":
+                case "ROLE_COURIER":
                     if (checkAccess(courierEndpoints, path)) { haveAccess = true; }
                     break;
-                case "courierManager":
+                case "ROLE_COURIER_SERVICE_MANAGER":
                     if (checkAccess(courierManagerEndpoints, path)) { haveAccess = true; }
                     break;
-                case "superAdmin":
+                case "ROLE_SUPER_ADMIN":
                     if (checkAccess(superAdminEndpoints, path)) { haveAccess = true; }
                     break;
                 default:
@@ -108,7 +103,7 @@ public class JwtAuthenticationFilter implements GatewayFilter
         Claims claims = jwtUtil.getClaims(token);
         exchange.getRequest().mutate()
                 .header("userId", String.valueOf(claims.get("userId")))
-                .header("email", String.valueOf(claims.get("sub")))
+                .header("email", String.valueOf(claims.get("email")))
                 .header("role", String.valueOf(claims.get("role")))
                 .build();
     }
