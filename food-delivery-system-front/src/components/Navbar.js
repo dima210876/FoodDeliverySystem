@@ -3,6 +3,7 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
 import Drawer from '../components/Drawer';
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 function Navbar(){
 
@@ -12,15 +13,15 @@ function Navbar(){
         <div className="navbar navbar-inverse fixed-top header">
             {cartOpened ? <Drawer /> : null}
             <div className="container-fluid ">
-                <a className="navbar-brand nav-link-style " href="/"><b>Food<br/>Delivery</b></a>
+                <Link className="navbar-brand nav-link-style " to="/main"><b>Food<br/>Delivery</b></Link>
                 <div className="row">
-                    <a className="navbar-brand nav-link-style col" href="/">Main page</a>
+                    <Link className="navbar-brand nav-link-style col" to="/main">Main page</Link>
                 </div>
                 <div className="row">
-                    <a className='navbar-brand nav-link-style col' href="/restaurant">Restaurant</a>
+                    <Link className='navbar-brand nav-link-style col' to="/restaurant">Restaurant</Link>
                 </div>
                 <div className="row">
-                    <a className="navbar-brand nav-link-style col" href="/order">Order</a>
+                    <Link className="navbar-brand nav-link-style col" to="/order">Order</Link>
                 </div>
                 <div className="row">
                     <button className="navbar-brand navbar-right col  btn-on-navbar"><MdAccountCircle className='icons'/></button>
