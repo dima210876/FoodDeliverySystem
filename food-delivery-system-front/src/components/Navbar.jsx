@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import { FaCartArrowDown } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
-import Drawer from '../components/Drawer';
 import React from 'react';
+
+import "./footerHeader.css"
 
 function Navbar(){
 
@@ -10,7 +11,6 @@ function Navbar(){
 
     return(
         <div className="navbar navbar-inverse fixed-top header">
-            {cartOpened ? <Drawer /> : null}
             <div className="container-fluid ">
                 <a className="navbar-brand nav-link-style " href="/"><b>Food<br/>Delivery</b></a>
                 <div className="row">

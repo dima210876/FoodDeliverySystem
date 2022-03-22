@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { Formik, Field } from 'formik';
+import {Formik, Field, useFormikContext} from 'formik';
 import * as Yup from 'yup';
 import {Button, ButtonGroup, Col, Form, Container, Row} from 'react-bootstrap';
 
@@ -12,7 +12,13 @@ import {useDispatch} from "react-redux";
 
 const RegistrationPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+
+    const [phone, setPhone] = useState([]);
+
+    const changePhone = (dataFromPhoneInput) => {
+        setPhone(dataFromPhoneInput);
+    }
 
     const schema = Yup.object().shape({
         firstName: Yup.string()
@@ -26,8 +32,6 @@ const RegistrationPage = () => {
         email: Yup.string()
             .email('Invalid email')
             .required('Email is required field'),
-        phone: Yup.string()
-            .required('Phone number is required field'),
         password: Yup.string()
             .required('Password is required field')
             .matches(
@@ -42,14 +46,13 @@ const RegistrationPage = () => {
                 firstName: '',
                 lastName: '',
                 email: '',
-                phone: '',
                 password: '',
             }}
             validationSchema={schema}
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                authActions.register(values.firstName, values.lastName, values.email, values.phone, values.password)(dispatch).then(() => {
+                authActions.registerUser(values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                     // navigate('/main-page-link-from-another-ticket');
                 });
             }}
@@ -57,10 +60,11 @@ const RegistrationPage = () => {
             {({
                   handleSubmit,
                   handleChange,
-                  errors, }) => (
+                  errors,
+              }) => (
             <Container id="main-container">
                 <Col lg={6} md={6} sm={12} className="m-auto shadow-sm full-width d-flex justify-content-center">
-                    <Form id="sign-in-form" className="m-5 p-4 rounded w-75" noValidate onSubmit={handleSubmit}>
+                    <Form id="sign-up-form" className="m-5 p-4 rounded w-75" noValidate onSubmit={handleSubmit}>
                         <div className="text-center">
                             <h1 className="fs-0">Registration</h1>
                             <h6 className="mb-0">Already have an account?</h6>
@@ -68,7 +72,6 @@ const RegistrationPage = () => {
                                 <h6 className="mt-0 text-danger">Log in</h6>
                             </Link>
                         </div>
-
                         <Form.Group className="p-4 mt-2" controlId="sign-up-first-name">
                             <Form.Label>First name</Form.Label>
                             <Form.Control type="textarea" name="firstName" placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
@@ -90,7 +93,7 @@ const RegistrationPage = () => {
                                 {errors.email}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <PhoneInputField />
+                        <PhoneInputField changePhone={changePhone}/>
                         <Form.Group className="p-4 pt-0" controlId="sign-up-password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>
