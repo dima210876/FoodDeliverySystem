@@ -10,17 +10,20 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
 @Service
 @AllArgsConstructor
+@Validated
 public class CourierService {
     private final CourierRepository courierRepository;
     private RestTemplate restTemplate;
 
     @Transactional
+
     public Courier registerCourier(@Valid CourierDto courierDto) throws CourierRegistrationException {
         final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
         final String ROLE_COURIER = "ROLE_COURIER";
