@@ -1,11 +1,13 @@
 package com.itechart.food_delivery.service;
 
+import com.itechart.food_delivery.config.DeletingUserConfig;
 import com.itechart.food_delivery.dto.CustomerDTO;
 import com.itechart.food_delivery.dto.IdentityRegistrationDTO;
 import com.itechart.food_delivery.exception.CustomerRegistrationException;
 import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +20,8 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     public Customer registerCustomer(@Valid CustomerDTO customerDTO) throws CustomerRegistrationException {
         final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
@@ -50,6 +53,17 @@ public class CustomerService {
                 .role(ROLE_CUSTOMER)
                 .build();
 
-        return customerRepository.save(customer);
+        try {
+            customer = customerRepository.save(customer);
+        } catch (RuntimeException ex) {
+            rabbitTemplate.convertAndSend(
+                    DeletingUserConfig.EXCHANGE,
+                    DeletingUserConfig.ROUTING_KEY,
+                    userId
+            );
+            throw new CustomerRegistrationException(ex.getMessage());
+        }
+
+        return customer;
     }
 }
