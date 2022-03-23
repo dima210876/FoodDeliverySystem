@@ -1,6 +1,7 @@
 package com.itechart.identity_service.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itechart.identity_service.dto.UserInfoDto;
 import com.itechart.identity_service.model.JwtProperties;
 import com.itechart.identity_service.model.LoginData;
 import com.itechart.identity_service.model.User;
@@ -16,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
@@ -53,6 +55,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
+        UserInfoDto userInfo = UserInfoDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .role(user.getRole().getAuthority())
+                .build();
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(jwtProperties.getSecretKey());
@@ -69,9 +78,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .compact();
 
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", accessToken);
+        tokens.put("token", accessToken);
+
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        ObjectMapper objectMapper = new ObjectMapper();
+        ServletOutputStream outputStream = response.getOutputStream();
+        objectMapper.writeValue(outputStream, userInfo);
+        objectMapper.writeValue(outputStream, tokens);
     }
 
     @Override
