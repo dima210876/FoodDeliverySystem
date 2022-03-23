@@ -34,7 +34,6 @@ function App() {
     }
 
     function renderSwitch() {
-        console.log(user.role);
         switch(user.role) {
             case 'admin':
                 return <AdminPage/>;

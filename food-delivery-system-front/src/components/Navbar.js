@@ -16,7 +16,7 @@ function Navbar(){
         setPersonalCard(false);
     }
 
-    const changeStateOfPersonalCard = () => {
+    const switchPersonalCardState = () => {
         setPersonalCard(!personalCard)
         setCartOpened(false);
     }
@@ -37,7 +37,7 @@ function Navbar(){
                     <Link className="navbar-brand nav-link-style col" to="/order">Order</Link>
                 </div>
                 <div className="row">
-                    <button className="navbar-brand navbar-right col  btn-on-navbar" onClick={() => changeStateOfPersonalCard()}><MdAccountCircle className='icons'/></button>
+                    <button className="navbar-brand navbar-right col  btn-on-navbar" onClick={() => switchPersonalCardState()}><MdAccountCircle className='icons'/></button>
                     <button className="navbar-brand col btn-on-navbar"  onClick={() => changeStateOfCart()}><FaCartArrowDown className='icons'/></button>
                 </div>
             </div>
