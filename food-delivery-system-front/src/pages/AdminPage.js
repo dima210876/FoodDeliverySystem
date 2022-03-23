@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import './AdminPage.css';
 
 const AdminPage = () => {
     return(
