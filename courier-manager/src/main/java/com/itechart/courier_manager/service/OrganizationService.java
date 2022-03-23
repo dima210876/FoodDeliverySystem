@@ -1,24 +1,27 @@
 package com.itechart.courier_manager.service;
 
-import com.itechart.courier_manager.dto.OrganizationDto;
+import com.itechart.courier_manager.model.CourierManager;
 import com.itechart.courier_manager.model.Organization;
 import com.itechart.courier_manager.repository.OrganizationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
 
-    public void addOrganization(OrganizationDto organizationDto) {
+    public Organization createDefaultOrganization(String organizationName) {
+        final String DEFAULT_ACCOUNT_NUMBER = "0";
+        final String DEFAULT_ADDRESS = "Unknown";
+
         Organization organization = Organization.builder()
-                .name(organizationDto.getName())
-                .accountNumber(organizationDto.getAccountNumber())
-                .phoneNumber(organizationDto.getPhoneNumber())
-                .officeAddress(organizationDto.getOfficeAddress())
-                .couriers(organizationDto.getCouriers())
+                .name(organizationName)
+                .accountNumber(DEFAULT_ACCOUNT_NUMBER)
+                .officeAddress(DEFAULT_ADDRESS)
                 .build();
-        organizationRepository.save(organization);
+
+        return organizationRepository.save(organization);
     }
 }

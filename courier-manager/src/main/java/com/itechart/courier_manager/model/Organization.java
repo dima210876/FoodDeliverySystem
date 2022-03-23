@@ -35,8 +35,6 @@ public class Organization {
     @Size(max = 200, message = "Account number string length limits exceeded")
     private String accountNumber;
 
-    @NotNull(message = "Phone number is required")
-    @NotBlank(message = "Phone number can't be empty")
     @Size(max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
@@ -47,7 +45,7 @@ public class Organization {
 
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            mappedBy = "delivery_organizations"
+            mappedBy = "organization"
     )
     @JsonManagedReference
     private Set<Courier> couriers;

@@ -23,7 +23,6 @@ public class CourierService {
     private RestTemplate restTemplate;
 
     @Transactional
-
     public Courier registerCourier(@Valid CourierDto courierDto) throws CourierRegistrationException {
         final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
         final String ROLE_COURIER = "ROLE_COURIER";
