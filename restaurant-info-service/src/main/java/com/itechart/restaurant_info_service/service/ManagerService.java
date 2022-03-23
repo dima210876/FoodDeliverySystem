@@ -9,6 +9,7 @@ import com.itechart.restaurant_info_service.repository.ManagerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +25,13 @@ public class ManagerService {
     private final RabbitTemplate rabbitTemplate;
     private final ManagerRepository managerRepository;
     private final RestaurantService restaurantService;
+
+    @LoadBalanced
     private final RestTemplate restTemplate;
 
     @Transactional
     public Manager registerManager(@Valid ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
-        final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
+        final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
         final String ROLE_MANAGER = "ROLE_MANAGER";
 
         IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
