@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
 
-    public Organization createDefaultOrganization(String organizationName) throws CourierRegistrationException {
+    public Organization createDefaultOrganization(String organizationName) throws RuntimeException {
         final String DEFAULT_ACCOUNT_NUMBER = "0";
         final String DEFAULT_ADDRESS = "Unknown";
 
@@ -25,7 +25,7 @@ public class OrganizationService {
         try {
             organization = organizationRepository.save(organization);;
         } catch (RuntimeException exception) {
-            throw new CourierRegistrationException(exception.getMessage());
+            throw new RuntimeException(exception.getMessage());
         }
 
         return organization;

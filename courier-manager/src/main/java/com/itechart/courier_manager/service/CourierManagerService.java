@@ -23,7 +23,7 @@ import javax.validation.Valid;
 public class CourierManagerService {
     private final CourierManagerRepository courierManagerRepository;
     private final OrganizationService organizationService;
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private final RabbitTemplate rabbitTemplate;
 
     @Transactional
@@ -49,36 +49,27 @@ public class CourierManagerService {
         Long userId = response.getBody().getId();
 
         Organization organization;
+        CourierManager courierManager;
+
         try {
             organization = organizationService.createDefaultOrganization(courierManagerDTO.getOrganizationName());
-        } catch (CourierRegistrationException ex) {
+            courierManager = CourierManager.builder()
+                    .userId(userId)
+                    .email(courierManagerDTO.getEmail())
+                    .firstName(courierManagerDTO.getFirstName())
+                    .lastName(courierManagerDTO.getLastName())
+                    .phoneNumber(courierManagerDTO.getPhoneNumber())
+                    .role(ROLE_COURIER_SERVICE_MANAGER)
+                    .organization(organization)
+                    .build();
+            courierManager = courierManagerRepository.save(courierManager);
+        } catch (RuntimeException ex) {
             rabbitTemplate.convertAndSend(
                     DeletingUserConfig.EXCHANGE,
                     DeletingUserConfig.ROUTING_KEY,
                     userId
             );
             throw new CourierRegistrationException(ex.getMessage());
-        }
-
-        CourierManager courierManager = CourierManager.builder()
-                .userId(userId)
-                .email(courierManagerDTO.getEmail())
-                .firstName(courierManagerDTO.getFirstName())
-                .lastName(courierManagerDTO.getLastName())
-                .phoneNumber(courierManagerDTO.getPhoneNumber())
-                .role(ROLE_COURIER_SERVICE_MANAGER)
-                .organization(organization)
-                .build();
-
-        try {
-            courierManager = courierManagerRepository.save(courierManager);
-        } catch (RuntimeException exception) {
-            rabbitTemplate.convertAndSend(
-                    DeletingUserConfig.EXCHANGE,
-                    DeletingUserConfig.ROUTING_KEY,
-                    courierManager.getUserId()
-            );
-            throw new CourierRegistrationException(exception.getMessage());
         }
 
         return courierManager;

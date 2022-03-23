@@ -22,8 +22,8 @@ import javax.validation.Valid;
 @Validated
 public class CourierService {
     private final CourierRepository courierRepository;
-    private RestTemplate restTemplate;
-    private RabbitTemplate rabbitTemplate;
+    private final RestTemplate restTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     @Transactional
     public Courier registerCourier(@Valid CourierDto courierDto) throws CourierRegistrationException {

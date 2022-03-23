@@ -16,7 +16,7 @@ public class DeletingUserConfig {
     public static final String ROUTING_KEY = "deleting_email_routing_key";
 
     @Bean
-    public Queue queue(){
+    public Queue queue() {
         return new Queue(QUEUE);
     }
 
@@ -26,21 +26,19 @@ public class DeletingUserConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange topicExchange){
+    public Binding binding(Queue queue, TopicExchange topicExchange) {
         return BindingBuilder.bind(queue).to(exchange()).with(ROUTING_KEY);
     }
 
     @Bean
-    public MessageConverter converter(){
+    public MessageConverter converter() {
         return new Jackson2JsonMessageConverter(new ObjectMapper());
     }
 
     @Bean
-    public AmqpTemplate template(ConnectionFactory connectionFactory){
+    public AmqpTemplate template(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
     }
-
-
 }
