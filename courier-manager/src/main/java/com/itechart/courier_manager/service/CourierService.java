@@ -9,6 +9,7 @@ import com.itechart.courier_manager.model.Organization;
 import com.itechart.courier_manager.repository.CourierRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +23,14 @@ import javax.validation.Valid;
 @Validated
 public class CourierService {
     private final CourierRepository courierRepository;
-    private final RestTemplate restTemplate;
     private final RabbitTemplate rabbitTemplate;
+
+    @LoadBalanced
+    private final RestTemplate restTemplate;
 
     @Transactional
     public Courier registerCourier(@Valid CourierDto courierDto) throws CourierRegistrationException {
-        final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
+        final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
         final String ROLE_COURIER = "ROLE_COURIER";
 
         IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
