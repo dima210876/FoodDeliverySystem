@@ -1,0 +1,59 @@
+.drawer-item{
+    padding: 5px;
+    background-color: aliceblue;
+    margin:10px;
+    border-radius: 10px;
+}
+
+.drawer-item:hover{
+    box-shadow: -2px 2px 24px rgba(0, 0, 0, .2);
+}
+
+.btn-remove{
+    text-align: right;
+}
+
+.rm{
+    border: none;
+    background-color: aliceblue;
+}
+
+.price-in-item-drawer{
+    padding-top: 10px;
+    flex:1;
+}
+
+.bottom{
+    display: flex;
+}
+
+.cnt-of-product{
+    padding-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btns{
+    flex:2;
+    font-size: 1.2vmax ;
+    display: inline-flex;
+    padding-top: 5px;
+}
+
+.button-on-item-drawer{
+    background-color:aliceblue;
+    color: red;
+    font-size: 1.4vmax ;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: aliceblue;
+}
+
+.button-on-item-drawer:active{
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, .2);
+}

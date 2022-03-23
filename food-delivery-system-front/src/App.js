@@ -20,9 +20,9 @@ function App() {
                 <Route path='/restaurant' element={<RestaurantPage/>}/>
                 <Route path='/order' element={<OrderPage/>}/>
                 <Route path='/account' element={<ChooseRole/>}/>
-                <Route path='/login' element={<LoginPage />}/>
-                <Route path='/registration' element={<RegistrationPage />}/>
-                <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage />}/>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/registration' element={<RegistrationPage/>}/>
+                <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
             </Routes>
         </>
     );
@@ -36,7 +36,7 @@ function App() {
     }
 
     function renderSwitch() {
-        switch(user.role) {
+        switch (user.role) {
             case 'admin':
                 return <AdminPage/>;
             /*case 'customer':
@@ -45,3 +45,7 @@ function App() {
                 return ;*/
         }
     }
+}
+
+
+export default App;

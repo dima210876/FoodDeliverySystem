@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import PhoneInputField from "../../components/PhoneInputField";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer"
+import Footer from "../../components/footer"
 
 import "./restaurantManagerRegPage.css"
 import * as authActions from "../../redux/actions/AuthActions";

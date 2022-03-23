@@ -4,8 +4,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const store = createStore(rootReducer, composeWithDevTools( ));
 
-window.store = store
-
 window.store = store;
 
 export default store;

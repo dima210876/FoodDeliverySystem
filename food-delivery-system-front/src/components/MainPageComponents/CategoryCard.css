@@ -1,0 +1,21 @@
+.category-card{
+    background-color: white;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    padding: 15px;
+    width:  150px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.category-card:hover{
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, .2);
+}
+
+.text{
+    text-decoration: none;
+    color: black;
+}
+
+.text:hover{
+    color: black;
+}
