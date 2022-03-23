@@ -30,11 +30,9 @@ const LoginPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                // authActions.login(values.email, values.password)(dispatch).then(() => {
-                //     // navigate('/main-page-link-from-another-ticket');
-                //     }
-                // );
-                console.log(values);
+                authActions.login(values.email, values.password)(dispatch).then(() => {
+                    // navigate('/main-page-link-from-another-ticket');
+                });
             }}
         >
             {({

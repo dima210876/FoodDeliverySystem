@@ -9,15 +9,19 @@ import {Link, useNavigate } from "react-router-dom";
 import PhoneInputField from "../../components/PhoneInputField";
 import * as authActions from "../../redux/actions/AuthActions";
 import {useDispatch} from "react-redux";
+import {isValidPhoneNumber} from "react-phone-number-input";
 
 const RegistrationPage = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
-
-    const [phone, setPhone] = useState([]);
+    const [phone, setPhone] = useState("");
+    const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
+    }
+    const changeSubmit = () => {
+        setSubmitClicked(!submitClicked);
     }
 
     const schema = Yup.object().shape({
@@ -52,9 +56,11 @@ const RegistrationPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                authActions.registerUser(values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                    // navigate('/main-page-link-from-another-ticket');
-                });
+                if (phone && isValidPhoneNumber(phone)) {
+                    authActions.registerUser(values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
+                        // navigate('/main-page-link-from-another-ticket');
+                    });
+                }
             }}
         >
             {({
@@ -93,7 +99,7 @@ const RegistrationPage = () => {
                                 {errors.email}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <PhoneInputField changePhone={changePhone}/>
+                        <PhoneInputField changePhone={changePhone}  submitClicked={submitClicked}/>
                         <Form.Group className="p-4 pt-0" controlId="sign-up-password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>
@@ -102,7 +108,7 @@ const RegistrationPage = () => {
                             </Form.Control.Feedback>
                         </Form.Group>
                         <div className="mt-3 text-center ">
-                            <Button type="submit" variant="danger" size="lg">Create account</Button>
+                            <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Create account</Button>
                         </div>
                     </Form>
                 </Col>
