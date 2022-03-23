@@ -10,11 +10,13 @@ import OurSalesList from '../components/MainPageComponents/OurSalesList';
 import OurSalesHeader from '../components/MainPageComponents/OurSalesHeader';
 import Footer from '../components/footer';
 import "./MainPage.css"
+import Navbar from "../components/Navbar";
 
 
 const MainPage = () => {
     return(
         <>
+            <Navbar/>
             <div className='main-page-container'>
                 <div className='main-page'>
                     <OurSalesHeader />

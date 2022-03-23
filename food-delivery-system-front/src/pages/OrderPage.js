@@ -1,8 +1,14 @@
+import Navbar from "../components/Navbar";
+import React from "react";
+
 const OrderPage = () => {
     return(
-        <div>
-            Order Page
-        </div>
+        <>
+            <Navbar/>
+            <div>
+                Order Page
+            </div>
+        </>
     );
 }
 

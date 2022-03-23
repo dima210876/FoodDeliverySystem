@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-import cartReducer from "./cart";
 import { AuthReducer } from "./AuthReducer";
+import cartReducer from "./cart";
 
 const rootReducer = combineReducers({
-    auth: AuthReducer,
     cart: cartReducer,
+    auth: AuthReducer,
 });
+
 export default rootReducer;

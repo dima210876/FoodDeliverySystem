@@ -1,17 +1,49 @@
-import React, {useState} from 'react';
+import React from 'react';
 import LoginPage from "./pages/login-registration-pages/LoginPage";
 import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
+import { RestaurantPage } from './pages/RestaurantPage';
+import { MainPage } from './pages/MainPage';
+import { OrderPage } from './pages/OrderPage';
+import { AdminPage} from "./pages/AdminPage";
+import {useSelector} from "react-redux";
 
 function App() {
+
+    const user = useSelector(state => state.auth.auth.user);
+
   return (
-      <BrowserRouter>
+      <>
         <Routes>
+            <Route path='/' element={<MainPage/>}/>
+            <Route path='/restaurant' element={<RestaurantPage/>}/>
+            <Route path='/order' element={<OrderPage/>}/>
+            <Route path='/account' element={<ChooseRole/>}/>
             <Route path='/login' element={<LoginPage />}/>
             <Route path='/registration' element={<RegistrationPage />}/>
         </Routes>
-      </BrowserRouter>
+      </>
   );
+
+    function ChooseRole() {
+        return (
+            <>
+                {renderSwitch()}
+            </>
+        );
+    }
+
+    function renderSwitch() {
+        switch(user.role) {
+            case 'admin':
+                return <AdminPage/>;
+            /*case 'customer':
+                return; */
+            /*default:
+                return ;*/
+        }
+    }
+
 }
 
 export default App;
