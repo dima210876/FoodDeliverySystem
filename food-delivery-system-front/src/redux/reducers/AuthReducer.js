@@ -2,7 +2,13 @@ import {REGISTER_SUCCESS, LOGIN_SUCCESS} from '../actions/AuthActions';
 
 const initialState = {
     auth: {
-        email: '',
+        user: {
+            email: '',
+            first_name: '',
+            last_name: '',
+            phone_number: '',
+            role: ''
+        },
         token: '',
         // expiresIn: '',
     },

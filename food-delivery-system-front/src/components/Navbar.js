@@ -3,14 +3,27 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
 import Drawer from '../components/Drawer';
 import React from 'react';
-import {Link} from 'react-router-dom'
+import PersonalAccountCard from "./PersonalAccountCard";
+import {Link} from "react-router-dom";
 
 function Navbar(){
 
     const[cartOpened, setCartOpened] = React.useState(false);
+    const[personalCard, setPersonalCard] = React.useState(false);
+
+    const changeStateOfCart = () => {
+        setCartOpened(!cartOpened);
+        setPersonalCard(false);
+    }
+
+    const changeStateOfPersonalCard = () => {
+        setPersonalCard(!personalCard)
+        setCartOpened(false);
+    }
 
     return(
         <div className="navbar navbar-inverse fixed-top header">
+            {personalCard ? <PersonalAccountCard /> : null}
             {cartOpened ? <Drawer /> : null}
             <div className="container-fluid ">
                 <Link className="navbar-brand nav-link-style " to="/"><b>Food<br/>Delivery</b></Link>
@@ -24,8 +37,8 @@ function Navbar(){
                     <Link className="navbar-brand nav-link-style col" to="/order">Order</Link>
                 </div>
                 <div className="row">
-                    <button className="navbar-brand navbar-right col  btn-on-navbar"><MdAccountCircle className='icons'/></button>
-                    <button className="navbar-brand col btn-on-navbar"  onClick={() => setCartOpened(!cartOpened)}><FaCartArrowDown className='icons'/></button>
+                    <button className="navbar-brand navbar-right col  btn-on-navbar" onClick={() => changeStateOfPersonalCard()}><MdAccountCircle className='icons'/></button>
+                    <button className="navbar-brand col btn-on-navbar"  onClick={() => changeStateOfCart()}><FaCartArrowDown className='icons'/></button>
                 </div>
             </div>
         </div>
