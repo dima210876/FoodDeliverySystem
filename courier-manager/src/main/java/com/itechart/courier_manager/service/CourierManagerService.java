@@ -16,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.sql.SQLException;
 
 @Service
 @AllArgsConstructor
@@ -40,17 +39,26 @@ public class CourierManagerService {
                 .role(ROLE_COURIER_SERVICE_MANAGER)
                 .build();
 
-//        ResponseEntity<IdentityRegistrationDTO> response = restTemplate.
-//                postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
-//
-//        if (!response.getStatusCode().is2xxSuccessful()) {
-//            throw new CourierRegistrationException("Identity service couldn't register the manager");
-//        }
-//
-//        Long userId = response.getBody().getId();
-        Long userId = 1L;
+        ResponseEntity<IdentityRegistrationDTO> response = restTemplate.
+                postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
 
-        Organization organization = organizationService.createDefaultOrganization(courierManagerDTO.getOrganizationName());
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new CourierRegistrationException("Identity service couldn't register the manager");
+        }
+
+        Long userId = response.getBody().getId();
+
+        Organization organization;
+        try {
+            organization = organizationService.createDefaultOrganization(courierManagerDTO.getOrganizationName());
+        } catch (CourierRegistrationException ex) {
+            rabbitTemplate.convertAndSend(
+                    DeletingUserConfig.EXCHANGE,
+                    DeletingUserConfig.ROUTING_KEY,
+                    userId
+            );
+            throw new CourierRegistrationException(ex.getMessage());
+        }
 
         CourierManager courierManager = CourierManager.builder()
                 .userId(userId)

@@ -1,5 +1,6 @@
 package com.itechart.courier_manager.service;
 
+import com.itechart.courier_manager.config.DeletingUserConfig;
 import com.itechart.courier_manager.dto.CourierDto;
 import com.itechart.courier_manager.dto.IdentityRegistrationDTO;
 import com.itechart.courier_manager.exception.CourierRegistrationException;
@@ -7,6 +8,7 @@ import com.itechart.courier_manager.model.Courier;
 import com.itechart.courier_manager.model.Organization;
 import com.itechart.courier_manager.repository.CourierRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 public class CourierService {
     private final CourierRepository courierRepository;
     private RestTemplate restTemplate;
+    private RabbitTemplate rabbitTemplate;
 
     @Transactional
     public Courier registerCourier(@Valid CourierDto courierDto) throws CourierRegistrationException {
@@ -54,6 +57,17 @@ public class CourierService {
                 .role(ROLE_COURIER)
                 .build();
 
-        return courierRepository.save(courier);
+        try {
+            courier = courierRepository.save(courier);
+        } catch (RuntimeException ex) {
+            rabbitTemplate.convertAndSend(
+                    DeletingUserConfig.EXCHANGE,
+                    DeletingUserConfig.ROUTING_KEY,
+                    courier.getUserId()
+            );
+            throw new CourierRegistrationException(ex.getMessage());
+        }
+
+        return courier;
     }
 }
