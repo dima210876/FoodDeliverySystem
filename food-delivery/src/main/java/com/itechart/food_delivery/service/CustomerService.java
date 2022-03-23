@@ -8,6 +8,7 @@ import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -20,11 +21,13 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
     private final RabbitTemplate rabbitTemplate;
 
+    @LoadBalanced
+    private final RestTemplate restTemplate;
+
     public Customer registerCustomer(@Valid CustomerDTO customerDTO) throws CustomerRegistrationException {
-        final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
+        final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
         final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
 
         IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
