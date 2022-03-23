@@ -1,8 +1,11 @@
 import {Link} from "react-router-dom";
 import './AdminPage.css';
+import Navbar from "../components/Navbar";
 
 const AdminPage = () => {
     return(
+        <>
+        <Navbar />
         <div className='box'>
             <div className='admin-image-div'>
                 <img className='admin-image' src='admin.png'/>
@@ -25,6 +28,7 @@ const AdminPage = () => {
             </div>
 
         </div>
+        </>
     );
 }
 
