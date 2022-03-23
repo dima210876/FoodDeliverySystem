@@ -13,9 +13,9 @@ function Navbar(){
         <div className="navbar navbar-inverse fixed-top header">
             {cartOpened ? <Drawer /> : null}
             <div className="container-fluid ">
-                <Link className="navbar-brand nav-link-style " to="/main"><b>Food<br/>Delivery</b></Link>
+                <Link className="navbar-brand nav-link-style " to="/"><b>Food<br/>Delivery</b></Link>
                 <div className="row">
-                    <Link className="navbar-brand nav-link-style col" to="/main">Main page</Link>
+                    <Link className="navbar-brand nav-link-style col" to="/">Main page</Link>
                 </div>
                 <div className="row">
                     <Link className='navbar-brand nav-link-style col' to="/restaurant">Restaurant</Link>

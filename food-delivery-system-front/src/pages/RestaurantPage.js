@@ -1,8 +1,14 @@
+import Navbar from "../components/Navbar";
+import React from "react";
+
 const RestaurantPage = () => {
     return(
-        <div>
-            Restaurant Page
-        </div>
+        <>
+            <Navbar/>
+            <div>
+                Restaurant Page
+            </div>
+        </>
     );
 }
 
