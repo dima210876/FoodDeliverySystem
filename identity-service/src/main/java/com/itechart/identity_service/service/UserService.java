@@ -1,6 +1,7 @@
 package com.itechart.identity_service.service;
 
 import com.itechart.identity_service.config.RegistrationMessagingConfig;
+import com.itechart.identity_service.exception.EmailDuplicationException;
 import com.itechart.identity_service.model.User;
 import com.itechart.identity_service.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -34,8 +35,12 @@ public class UserService implements UserDetailsService
         }
     }
 
-    public User saveUser(User user)
+    public User saveUser(User user) throws EmailDuplicationException
     {
+        if (!isEmailUnique(user.getEmail()))
+        {
+            throw new EmailDuplicationException("Email is already taken");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setExpirationDate(new Timestamp(System.currentTimeMillis() + 157680000000L));
         user.setAccountNonLocked(true);

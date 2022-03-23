@@ -18,10 +18,6 @@ public class UserController
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody @Valid User user) throws EmailDuplicationException
     {
-        if (!userService.isEmailUnique(user.getEmail()))
-        {
-            throw new EmailDuplicationException("Email is already taken");
-        }
         return ResponseEntity.ok().body(userService.saveUser(user));
     }
 }
