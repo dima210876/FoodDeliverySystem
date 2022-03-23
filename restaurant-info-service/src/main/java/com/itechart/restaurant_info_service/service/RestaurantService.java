@@ -28,6 +28,10 @@ public class RestaurantService {
                 .longitude(DEFAULT_LONGITUDE)
                 .build();
 
-        restaurantRepository.save(restaurant);
+        try{
+            restaurantRepository.save(restaurant);
+        } catch (RuntimeException ex){
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 }

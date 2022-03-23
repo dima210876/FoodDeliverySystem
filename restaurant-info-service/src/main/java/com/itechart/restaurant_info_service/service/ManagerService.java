@@ -1,11 +1,13 @@
 package com.itechart.restaurant_info_service.service;
 
+import com.itechart.restaurant_info_service.config.DeletingUserConfig;
 import com.itechart.restaurant_info_service.dto.IdentityRegistrationDTO;
 import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.repository.ManagerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,10 @@ import javax.validation.Valid;
 @Validated
 @AllArgsConstructor
 public class ManagerService {
-
+    private final RabbitTemplate rabbitTemplate;
     private final ManagerRepository managerRepository;
     private final RestaurantService restaurantService;
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Transactional
     public Manager registerManager(@Valid ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
@@ -55,9 +57,16 @@ public class ManagerService {
                 .role(ROLE_MANAGER)
                 .build();
 
-        manager = managerRepository.save(manager);
-
-        restaurantService.createDefaultRestaurant(manager, managerRegistrationInfoDTO.getRestaurantName());
+        try {
+            manager = managerRepository.save(manager);
+            restaurantService.createDefaultRestaurant(manager, managerRegistrationInfoDTO.getRestaurantName());
+        } catch (RuntimeException ex) {
+            rabbitTemplate.convertAndSend(
+                    DeletingUserConfig.EXCHANGE,
+                    DeletingUserConfig.ROUTING_KEY,
+                    userId);
+            throw new ManagerRegistrationException(ex.getMessage());
+        }
 
         return manager;
     }
