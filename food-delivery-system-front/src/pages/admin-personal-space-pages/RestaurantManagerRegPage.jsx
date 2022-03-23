@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Button, ButtonGroup, Col, Container, Form, Row} from 'react-bootstrap';
-import { Formik, Field } from 'formik';
+import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import PhoneInputField from "../../components/PhoneInputField";
@@ -11,14 +11,19 @@ import "./restaurantManagerRegPage.css"
 import * as authActions from "../../redux/actions/AuthActions";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {isValidPhoneNumber} from "react-phone-number-input";
 
 const RegistrationManager = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
-    const [phone, setPhone] = useState([]);
+    const [phone, setPhone] = useState("");
+    const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
+    }
+    const changeSubmit = () => {
+        setSubmitClicked(!submitClicked);
     }
 
     const schema = Yup.object().shape({
@@ -58,10 +63,11 @@ const RegistrationManager = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                authActions.registerRestaurant(values.restaurantName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                    // navigate('/admin-space-link-from-another-ticket');
-                });
-                console.log(values);
+                if (phone && isValidPhoneNumber(phone)) {
+                    authActions.registerRestaurant(values.restaurantName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
+                        // navigate('/admin-space-link-from-another-ticket');
+                    });
+                }
             }}
         >
             {({
@@ -107,7 +113,7 @@ const RegistrationManager = () => {
                                           {errors.email}
                                       </Form.Control.Feedback>
                                   </Form.Group>
-                                  <PhoneInputField changePhone={changePhone}/>
+                                  <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} />
                                   <Form.Group className="p-4 pt-0" controlId="sign-up-password">
                                       <Form.Label>Password</Form.Label>
                                       <Form.Control type="password" name="password"  placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>
@@ -116,7 +122,7 @@ const RegistrationManager = () => {
                                       </Form.Control.Feedback>
                                   </Form.Group>
                                   <div className="mt-3 text-center ">
-                                      <Button type="submit" variant="danger" size="lg">Create account</Button>
+                                      <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Create account</Button>
                                   </div>
                               </Form>
                           </Col>
