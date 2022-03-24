@@ -3,20 +3,20 @@ import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import PhoneInputField from "../../components/PhoneInputField";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/footer"
+import PhoneInputField from "../../../components/PhoneInputField";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/footer"
 
-import "./restaurantManagerRegPage.css"
-import * as authActions from "../../redux/actions/AuthActions";
+import * as authActions from "../../../redux/actions/AuthActions";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 
 const RegistrationManager = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
+    const organizationId = useSelector(state => state.orgInfo.orgInfo.organizationId);
     const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
@@ -27,10 +27,6 @@ const RegistrationManager = () => {
     }
 
     const schema = Yup.object().shape({
-        restaurantName: Yup.string()
-            .min(2, 'First name should contain minimum 2 characters.')
-            .max(30, 'First name should contain maximum 30 characters.')
-            .required('First name is required field'),
         firstName: Yup.string()
             .min(2, 'First name should contain minimum 2 characters.')
             .max(30, 'First name should contain maximum 30 characters.')
@@ -53,7 +49,6 @@ const RegistrationManager = () => {
     return (
         <Formik
             initialValues={{
-                restaurantName: '',
                 firstName: '',
                 lastName: '',
                 email: '',
@@ -63,8 +58,9 @@ const RegistrationManager = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
+                console.log(organizationId);
                 if (phone && isValidPhoneNumber(phone)) {
-                    authActions.registerRestaurant(values.restaurantName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
+                    authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/admin-space-link-from-another-ticket');
                     });
                 }
@@ -80,18 +76,8 @@ const RegistrationManager = () => {
                           <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                               <Form id="sign-in-form" className="m-5 p-5 rounded w-75"  noValidate onSubmit={handleSubmit}>
                                   <div className="text-center">
-                                      <h1 className="fs-0">Restaurant registration</h1>
+                                      <h1 className="fs-0 mb-4">Courier registration</h1>
                                   </div>
-
-                                  <h2 className="mt-5 pb-0 text-danger">Restaurant info</h2>
-                                  <Form.Group className="p-4 pt-2 " controlId="sign-up-restaurant-name">
-                                      <Form.Label>Restaurant name</Form.Label>
-                                      <Form.Control type="textarea" name="restaurantName"  placeholder="Enter restaurants name" onChange={handleChange} isInvalid={!!errors.restaurantName}/>
-                                      <Form.Control.Feedback type="invalid">
-                                          {errors.restaurantName}
-                                      </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <h2 className="mt-4 text-danger">Manager info</h2>
                                   <Form.Group className="p-4 pt-2" controlId="sign-up-first-name">
                                       <Form.Label>First name</Form.Label>
                                       <Form.Control type="textarea" name="firstName"  placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>

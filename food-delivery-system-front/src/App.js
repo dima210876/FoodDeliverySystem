@@ -2,12 +2,15 @@ import React from 'react';
 import LoginPage from "./pages/login-registration-pages/LoginPage";
 import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
 import { Route, Routes} from "react-router-dom";
-import { RestaurantPage } from './pages/RestaurantPage';
-import RestaurantManagerRegPage from "./pages/admin-personal-space-pages/RestaurantManagerRegPage";
-import { MainPage } from './pages/MainPage';
-import { OrderPage } from './pages/OrderPage';
-import { AdminPage} from "./pages/AdminPage";
+import { RestaurantPage } from './pages/main-menu-pages/RestaurantPage';
+import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/RestaurantManagerRegPage";
+import { MainPage } from './pages/main-menu-pages/MainPage';
+import { OrderPage } from './pages/main-menu-pages/OrderPage';
+import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
 import {useSelector} from "react-redux";
+import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
+import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
+import {getOrganizationInfo} from "./redux/actions/GetDataActions";
 
 function App() {
 
@@ -23,6 +26,8 @@ function App() {
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
+                <Route path='/courier-manager' element={<CourierManagerPage/>}/>
+                <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
             </Routes>
         </>
     );
@@ -30,15 +35,21 @@ function App() {
     function ChooseRole() {
         return (
             <>
-                {renderSwitch()}
+                {
+                    renderSwitch()
+                }
             </>
         );
     }
 
     function renderSwitch() {
         switch (user.role) {
-            case 'admin':
+            case 'ROLE_SUPER_ADMIN':
+                getOrganizationInfo(user.id);
                 return <AdminPage/>;
+            case 'ROLE_COURIER_SERVICE_MANAGER':
+                getOrganizationInfo(user.id);
+                return <CourierManagerPage/>;
             /*case 'customer':
                 return; */
             /*default:

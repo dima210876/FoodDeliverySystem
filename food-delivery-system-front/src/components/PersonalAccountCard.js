@@ -4,8 +4,7 @@ import "./PersonalAccountCard.css";
 import {Link} from "react-router-dom";
 
 function PersonalAccountCard(){
-
-    const role = useSelector(state => state.auth.auth.user.role);
+    const user =  useSelector(state => state.auth.auth.user);
 
     function loginAndRegistrationItems(){
         return (
@@ -32,7 +31,7 @@ function PersonalAccountCard(){
 
     return(
         <div className="personal-account-card fixed-top col-md-1 col-xs-1 col-sm-1 col-lg-1 offset-xs-10 offset-sm-10 offset-md-10 offset-lg-10">
-            {(role === undefined || role === '') ? loginAndRegistrationItems() : personalAccountItem()}
+            {(user.role === undefined || user.role === '') ? loginAndRegistrationItems() : personalAccountItem()}
         </div>
     );
 }
