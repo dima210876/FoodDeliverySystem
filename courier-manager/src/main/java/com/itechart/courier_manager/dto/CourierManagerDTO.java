@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class CourierDto {
+public class CourierManagerDTO {
     @NotNull(message = "Restaurant address is required")
     @NotBlank(message = "Restaurant address can't be empty")
     @Size(min = 2, max = 100, message = "Email string length limits exceeded")
@@ -31,6 +31,8 @@ public class CourierDto {
     @Size(min = 2, max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
-    @NotNull(message = "Organization id is required")
-    private Long organizationId;
+    @NotNull(message = "Organization name is required")
+    @NotBlank(message = "Organization name can't be empty")
+    @Size(min = 2, max = 100, message = "Organization name string length limits exceeded")
+    private String organizationName;
 }
