@@ -1,6 +1,7 @@
 package com.itechart.identity_service.controller;
 
 import com.itechart.identity_service.exception.EmailDuplicationException;
+import com.itechart.identity_service.exception.RegistrationConfirmationTokenException;
 import com.itechart.identity_service.model.User;
 import com.itechart.identity_service.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class UserController
 
     @GetMapping("/confirm/{confirmationToken}")
     public ResponseEntity<String> confirmUserRegistration(@PathVariable(value = "confirmationToken") String confirmationToken)
+            throws RegistrationConfirmationTokenException
     {
         return ResponseEntity.ok().body(userService.confirmUserRegistration(confirmationToken));
     }
