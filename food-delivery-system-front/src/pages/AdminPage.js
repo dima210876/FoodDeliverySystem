@@ -16,10 +16,10 @@ const AdminPage = () => {
                 </div>
                 <div className='actions'>
                     <div className='link-div'>
-                        <Link className='link' to=''><h4>Restaurant manager registration</h4></Link>
+                        <Link className='link' to='/admin/restaurant-registration'><h4>Restaurant manager registration</h4></Link>
                     </div>
                     <div className='link-div'>
-                        <Link className='link' to=''><h4>Courier organization manager registration</h4></Link>
+                        <Link className='link' to='/admin/delivery-registration'><h4>Courier organization manager registration</h4></Link>
                     </div>
                     <div className='link-div'>
                         <Link className='link' to=''><h4>List of recent orders</h4></Link>
