@@ -3,7 +3,7 @@ package com.itechart.food_delivery.dto;
 import lombok.Data;
 
 @Data
-public class OrderDTO {
+public class OrderDTO{
     private Long id;
     private Long foodOrderId;
     private String orderAddress;
