@@ -14,7 +14,7 @@ import {getOrganizationInfo} from "./redux/actions/GetDataActions";
 
 function App() {
 
-    const user = useSelector(state => state.auth.auth.user);
+    const user = useSelector(state => state.auth.authData.user);
 
     return (
         <>
