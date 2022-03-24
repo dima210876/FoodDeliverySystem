@@ -7,7 +7,7 @@ const initialState = {
             email: '',
             firstName: '',
             lastName: '',
-            role: 'ROLE_COURIER_SERVICE_MANAGER'
+            role: ''
         },
         token: '',
         // expiresIn: '',
