@@ -1,17 +1,17 @@
 package com.itechart.courier_manager.service;
 
-import com.itechart.courier_manager.config.DeletingUserConfig;
-import com.itechart.courier_manager.exception.CourierRegistrationException;
 import com.itechart.courier_manager.model.Organization;
 import com.itechart.courier_manager.repository.OrganizationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
 
+    @Transactional
     public Organization createDefaultOrganization(String organizationName) throws RuntimeException {
         final String DEFAULT_ACCOUNT_NUMBER = "0";
         final String DEFAULT_ADDRESS = "Unknown";

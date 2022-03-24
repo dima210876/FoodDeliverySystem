@@ -32,30 +32,32 @@ public class CourierManagerService {
 
     @Transactional
     public CourierManager registerCourierManager(@Valid CourierManagerDTO courierManagerDTO) throws CourierRegistrationException {
-        final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
-        final String ROLE_COURIER_SERVICE_MANAGER = "ROLE_COURIER_SERVICE_MANAGER";
-
-        IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
-                .email(courierManagerDTO.getEmail())
-                .password(courierManagerDTO.getPassword())
-                .firstName(courierManagerDTO.getFirstName())
-                .lastName(courierManagerDTO.getLastName())
-                .role(ROLE_COURIER_SERVICE_MANAGER)
-                .build();
-
-        ResponseEntity<IdentityRegistrationDTO> response = restTemplate.
-                postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
-
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new CourierRegistrationException("Identity service couldn't register the manager");
-        }
-
-        Long userId = response.getBody().getId();
-
-        Organization organization;
         CourierManager courierManager;
+        Long userId = 0L;
 
         try {
+            final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
+            final String ROLE_COURIER_SERVICE_MANAGER = "ROLE_COURIER_SERVICE_MANAGER";
+
+            IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
+                    .email(courierManagerDTO.getEmail())
+                    .password(courierManagerDTO.getPassword())
+                    .firstName(courierManagerDTO.getFirstName())
+                    .lastName(courierManagerDTO.getLastName())
+                    .role(ROLE_COURIER_SERVICE_MANAGER)
+                    .build();
+
+            ResponseEntity<IdentityRegistrationDTO> response = restTemplate.
+                    postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
+
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new CourierRegistrationException("couldn't register the manager");
+            }
+
+            userId = response.getBody().getId();
+
+            Organization organization;
+
             organization = organizationService.createDefaultOrganization(courierManagerDTO.getOrganizationName());
             courierManager = CourierManager.builder()
                     .userId(userId)
@@ -67,7 +69,7 @@ public class CourierManagerService {
                     .organization(organization)
                     .build();
             courierManager = courierManagerRepository.save(courierManager);
-        } catch (RuntimeException ex) {
+        } catch (Throwable ex) {
             rabbitTemplate.convertAndSend(
                     DeletingUserConfig.EXCHANGE,
                     DeletingUserConfig.ROUTING_KEY,
