@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +20,11 @@ public class UserController
     public ResponseEntity<User> registerUser(@RequestBody @Valid User user) throws EmailDuplicationException
     {
         return ResponseEntity.ok().body(userService.saveUser(user));
+    }
+
+    @GetMapping("/confirm/{confirmationToken}")
+    public ResponseEntity<String> confirmUserRegistration(@PathVariable(value = "confirmationToken") String confirmationToken)
+    {
+        return ResponseEntity.ok().body(userService.confirmUserRegistration(confirmationToken));
     }
 }

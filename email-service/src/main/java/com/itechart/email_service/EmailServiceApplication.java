@@ -1,5 +1,6 @@
 package com.itechart.email_service;
 
+import com.itechart.email_service.dto.ConfirmationInfoDto;
 import com.itechart.email_service.service.EmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -17,9 +18,15 @@ public class EmailServiceApplication
         SpringApplication.run(EmailServiceApplication.class, args);
     }
 
+    @RabbitListener(queues = "registration_confirmation_email_queue")
+    public void consumeRegistrationConfirmationMessage(ConfirmationInfoDto confirmationInfoDto)
+    {
+        emailService.sendRegistrationConfirmationMessage(confirmationInfoDto);
+    }
+
     @RabbitListener(queues = "registration_email_queue")
     public void consumeRegistrationMessage(String email)
     {
-        emailService.sendRegistrationMessage(email);
+        emailService.sendRegistrationSuccessfulMessage(email);
     }
 }

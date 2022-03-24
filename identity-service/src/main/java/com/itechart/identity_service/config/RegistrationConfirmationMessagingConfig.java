@@ -1,4 +1,4 @@
-package com.itechart.email_service.config;
+package com.itechart.identity_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.*;
@@ -10,22 +10,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RegistrationMessagingConfig
+public class RegistrationConfirmationMessagingConfig
 {
-    public static final String QUEUE = "registration_email_queue";
+    public static final String QUEUE = "registration_confirmation_email_queue";
     public static final String EXCHANGE = "exchange";
-    public static final String ROUTING_KEY = "registration_email_routing_key";
+    public static final String ROUTING_KEY = "registration_confirmation_email_routing_key";
 
     @Bean
-    public Queue queue1() { return new Queue(QUEUE); }
+    public Queue queue() { return new Queue(QUEUE); }
 
     @Bean
     public TopicExchange exchange() { return new TopicExchange(EXCHANGE); }
 
     @Bean
-    public Binding binding1(TopicExchange exchange)
+    public Binding binding(Queue queue, TopicExchange exchange)
     {
-        return BindingBuilder.bind(queue1()).to(exchange).with(ROUTING_KEY);
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 
     @Bean

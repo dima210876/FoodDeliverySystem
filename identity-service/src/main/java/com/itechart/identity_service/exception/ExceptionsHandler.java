@@ -20,6 +20,12 @@ public class ExceptionsHandler
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(RegistrationConfirmationTokenException.class)
+    public ResponseEntity<String> handleException(RegistrationConfirmationTokenException exception)
+    {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex)

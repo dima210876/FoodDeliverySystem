@@ -1,5 +1,6 @@
 package com.itechart.email_service.service;
 
+import com.itechart.email_service.dto.ConfirmationInfoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -32,10 +33,18 @@ public class EmailService
         }
     }
 
-    public void sendRegistrationMessage(String email)
+    public void sendRegistrationSuccessfulMessage(String email)
     {
         String subject = "Registration in Food Delivery System";
         String text = "You are successfully registered in the system. Wish you the best user experience :)";
         send(email, subject, text);
+    }
+
+    public void sendRegistrationConfirmationMessage(ConfirmationInfoDto confirmationInfoDto)
+    {
+        String subject = "Registration in Food Delivery System";
+        String text = "You account has been created. To activate it visit this page: http://localhost:8081/confirm/" +
+                confirmationInfoDto.getConfirmationToken();
+        send(confirmationInfoDto.getEmail(), subject, text);
     }
 }
