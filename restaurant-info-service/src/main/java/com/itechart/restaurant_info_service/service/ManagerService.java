@@ -8,7 +8,6 @@ import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.repository.ManagerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
