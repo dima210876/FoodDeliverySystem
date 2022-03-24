@@ -8,6 +8,7 @@ import { MainPage } from './pages/MainPage';
 import { OrderPage } from './pages/OrderPage';
 import { AdminPage} from "./pages/AdminPage";
 import {useSelector} from "react-redux";
+import CourierManagerRegPage from "./pages/admin-personal-space-pages/CourierManagerRegPage";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
+                <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
             </Routes>
         </>
     );

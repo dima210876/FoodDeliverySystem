@@ -22,6 +22,18 @@ class AuthService {
 
     registerRestaurant(restaurantName, firstName, lastName, email, phone, password) {
         return axios.post(API_URL + "admin/register/restaurant", {
+            restaurantName,
+            firstName,
+            lastName,
+            email,
+            phone,
+            password,
+        });
+    }
+
+    registerOrganization(organizationName, firstName, lastName, email, phone, password) {
+        return axios.post(API_URL + "admin/register/organization", {
+            organizationName,
             firstName,
             lastName,
             email,

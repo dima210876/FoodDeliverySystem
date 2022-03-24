@@ -27,6 +27,17 @@ export const registerRestaurant = (restaurantName, firstName, lastName, email, p
         })
 }
 
+export const registerOrganization = (organizationName, firstName, lastName, email, phone, password) => (dispatch) => {
+    return AuthService.registerOrganization(organizationName, firstName, lastName, email, phone, password).then(
+        (response) => {
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: response,
+            });
+            return Promise.resolve();
+        })
+}
+
 export const login = (email, password) => (dispatch) => {
     return AuthService.login(email, password).then(
         (response) => {
