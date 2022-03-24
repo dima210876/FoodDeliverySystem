@@ -31,7 +31,7 @@ function PersonalAccountCard(){
 
     return(
         <div className="personal-account-card fixed-top col-md-1 col-xs-1 col-sm-1 col-lg-1 offset-xs-10 offset-sm-10 offset-md-10 offset-lg-10">
-            {(user.role === undefined || user.role === '') ? loginAndRegistrationItems() : personalAccountItem()}
+            {(!user.role) ? loginAndRegistrationItems() : personalAccountItem()}
         </div>
     );
 }

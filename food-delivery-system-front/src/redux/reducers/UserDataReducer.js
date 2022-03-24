@@ -22,7 +22,7 @@ const initialState = {
     },
 };
 
-export function GetDataReducer(state = initialState, action) {
+export function UserDataReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
 

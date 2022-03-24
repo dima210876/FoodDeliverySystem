@@ -16,7 +16,7 @@ const RegistrationManager = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
-    const organizationId = useSelector(state => state.getData.managerData.manager.organization.organizationId);
+    const organizationId = useSelector(state => state.userData.managerData.manager.organization.organizationId);
     const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
