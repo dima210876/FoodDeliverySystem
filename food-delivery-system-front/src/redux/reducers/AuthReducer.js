@@ -1,17 +1,17 @@
-import {REGISTER_SUCCESS, LOGIN_SUCCESS} from '../actions/AuthActions';
+import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/AuthActions';
 
 const initialState = {
-    auth: {
+    authData: {
         user: {
+            id:'',
             email: '',
-            first_name: '',
-            last_name: '',
-            phone_number: '',
+            firstName: '',
+            lastName: '',
             role: ''
         },
         token: '',
         // expiresIn: '',
-    },
+    }
 };
 
 export function AuthReducer(state = initialState, action) {

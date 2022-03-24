@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import './AdminPage.css';
-import Navbar from "../components/Navbar";
+import Navbar from "../../../components/Navbar";
 
 const AdminPage = () => {
     return(

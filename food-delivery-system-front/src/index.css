@@ -60,3 +60,17 @@ code {
 .footer{
   box-shadow: 0px -3px 4px 1px rgba(39, 25, 25, 0.2);
 }
+
+form h1 {
+  font-size: 60px;
+  font-weight: 650;
+}
+
+form h6 {
+  font-size: 12px;
+}
+
+.personal-space-form-container {
+  background-color: aliceblue;
+  max-width: 100% !important;
+}
