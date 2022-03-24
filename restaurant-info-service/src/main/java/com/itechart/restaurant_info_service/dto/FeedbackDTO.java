@@ -15,7 +15,6 @@ public class FeedbackDTO {
     @Size(min = 0, max = 10, message = "Rating limits exceeded")
     private Integer rating;
 
-    @Column(name = "comment")
     @Size(min = 2, max = 200, message = "Comment string length limits exceeded")
     private String comment;
 
