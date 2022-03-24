@@ -17,15 +17,15 @@ public class RegistrationMessagingConfig
     public static final String ROUTING_KEY = "registration_email_routing_key";
 
     @Bean
-    public Queue queue() { return new Queue(QUEUE); }
+    public Queue queue1() { return new Queue(QUEUE); }
 
     @Bean
     public TopicExchange exchange() { return new TopicExchange(EXCHANGE); }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange)
+    public Binding binding1(TopicExchange exchange)
     {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+        return BindingBuilder.bind(queue1()).to(exchange).with(ROUTING_KEY);
     }
 
     @Bean

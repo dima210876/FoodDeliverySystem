@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class RegistrationConfirmationMessagingConfig
 {
     public static final String QUEUE = "registration_confirmation_email_queue";
+    public static final String EXCHANGE = "exchange";
     public static final String ROUTING_KEY = "registration_confirmation_email_routing_key";
 
     @Bean
