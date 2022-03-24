@@ -11,6 +11,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,39 +27,43 @@ public class CustomerService {
     @LoadBalanced
     private final RestTemplate restTemplate;
 
+    @Transactional
     public Customer registerCustomer(@Valid CustomerDTO customerDTO) throws CustomerRegistrationException {
-        final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
-        final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
-
-        IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
-                .email(customerDTO.getEmail())
-                .password(customerDTO.getPassword())
-                .lastName(customerDTO.getLastName())
-                .firstName(customerDTO.getFirstName())
-                .role(ROLE_CUSTOMER)
-                .build();
-
-        ResponseEntity<IdentityRegistrationDTO> response = restTemplate
-                .postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
-
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new CustomerRegistrationException("Identity service couldn't register the manager");
-        }
-
-        Long userId = response.getBody().getId();
-
-        Customer customer = Customer.builder()
-                .userId(userId)
-                .email(customerDTO.getEmail())
-                .firstName(customerDTO.getFirstName())
-                .lastName(customerDTO.getLastName())
-                .phoneNumber(customerDTO.getPhoneNumber())
-                .role(ROLE_CUSTOMER)
-                .build();
+        Customer customer;
+        Long userId = 0L;
 
         try {
+            final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
+            final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
+
+            IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
+                    .email(customerDTO.getEmail())
+                    .password(customerDTO.getPassword())
+                    .lastName(customerDTO.getLastName())
+                    .firstName(customerDTO.getFirstName())
+                    .role(ROLE_CUSTOMER)
+                    .build();
+
+            ResponseEntity<IdentityRegistrationDTO> response = restTemplate
+                    .postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
+
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new CustomerRegistrationException("Identity service couldn't register the manager");
+            }
+
+            userId = response.getBody().getId();
+
+            customer = Customer.builder()
+                    .userId(userId)
+                    .email(customerDTO.getEmail())
+                    .firstName(customerDTO.getFirstName())
+                    .lastName(customerDTO.getLastName())
+                    .phoneNumber(customerDTO.getPhoneNumber())
+                    .role(ROLE_CUSTOMER)
+                    .build();
+
             customer = customerRepository.save(customer);
-        } catch (RuntimeException ex) {
+        } catch (Throwable ex) {
             rabbitTemplate.convertAndSend(
                     DeletingUserConfig.EXCHANGE,
                     DeletingUserConfig.ROUTING_KEY,
