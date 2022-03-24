@@ -16,7 +16,7 @@ const RegistrationManager = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
-    const organizationId = useSelector(state => state.orgInfo.orgInfo.organizationId);
+    const organizationId = useSelector(state => state.getData.managerData.manager.organization.organizationId);
     const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
@@ -58,7 +58,6 @@ const RegistrationManager = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                console.log(organizationId);
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/admin-space-link-from-another-ticket');

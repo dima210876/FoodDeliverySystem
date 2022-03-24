@@ -1,13 +1,13 @@
 import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/AuthActions';
 
 const initialState = {
-    auth: {
+    authData: {
         user: {
             id:'',
             email: '',
             firstName: '',
             lastName: '',
-            role: ''
+            role: 'ROLE_COURIER_SERVICE_MANAGER'
         },
         token: '',
         // expiresIn: '',

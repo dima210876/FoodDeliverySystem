@@ -4,7 +4,7 @@ import "./PersonalAccountCard.css";
 import {Link} from "react-router-dom";
 
 function PersonalAccountCard(){
-    const user =  useSelector(state => state.auth.auth.user);
+    const user =  useSelector(state => state.auth.authData.user);
 
     function loginAndRegistrationItems(){
         return (
