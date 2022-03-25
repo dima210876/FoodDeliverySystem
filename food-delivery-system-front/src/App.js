@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
 import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
 import {getCourierManagerInfo} from "./redux/actions/UserDataActions";
+import ModifyOrganizationInfoPage from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
+                <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
             </Routes>
         </>
     );
