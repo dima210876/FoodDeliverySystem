@@ -43,7 +43,8 @@ public class EmailService
     public void sendRegistrationConfirmationMessage(ConfirmationInfoDto confirmationInfoDto)
     {
         String subject = "Registration in Food Delivery System";
-        String text = "You account has been created. To activate it visit this page: http://localhost:8081/confirm/" +
+        //TODO: replace localhost with gateway IP address
+        String text = "You account has been created. To activate it visit this page: http://localhost:8085/identity/confirm/" +
                 confirmationInfoDto.getConfirmationToken();
         send(confirmationInfoDto.getEmail(), subject, text);
     }
