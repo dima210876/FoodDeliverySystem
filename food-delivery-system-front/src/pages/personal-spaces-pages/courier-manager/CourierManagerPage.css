@@ -24,7 +24,6 @@
 .actions{
     margin-bottom: auto;
     margin-top: auto;
-    padding: 15%;
 }
 
 .managers-space{
@@ -37,7 +36,7 @@
 
 .info {
     padding-top: 30px;
-    /*width: 70%;*/
+    /*padding-bottom: 30px;*/
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -46,10 +45,11 @@
 .managers-block, .delivery-organization-block {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .user-info, .delivery-organization-info{
     margin-top: 7px;
-    margin-bottom: 15px;
+    margin-right: 10px;
     padding: 16px;
     border-radius: 20px;
     background-color: white;
@@ -65,8 +65,8 @@ h4 {
 
 }
 .link-div{
-    margin-bottom: 3%;
-    padding: 2%;
+    margin: 9%;
+    padding-top: 6%;
     border-radius: 20rem;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 }
