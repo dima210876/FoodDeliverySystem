@@ -1,7 +1,26 @@
-import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/AuthActions';
+import {GET_COURIER_MANAGER_INFO_SUCCESS} from "../actions/UserDataActions";
 
 const initialState = {
-    managerData: {
+    restaurantManagerData: {
+        manager: {
+            id: '',
+            email: '',
+            firstName: '',
+            lastName: '',
+            role: '',
+            phoneNumber: '',
+            restaurant: {
+                restaurantId: '',
+                name: '',
+                description: '',
+                phoneNumber: '',
+                address: '',
+                latitude: '',
+                longitude: ''
+            }
+        }
+    },
+    deliveryOrgManagerData: {
         manager: {
             id: '',
             email: '',
@@ -12,24 +31,24 @@ const initialState = {
             organization: {
                 organizationId: '',
                 name: '',
-                description: '',
+                accountNumber: '',
                 phoneNumber: '',
                 address: '',
                 latitude: '',
                 longitude: ''
-            },
-        },
-    },
+            }
+        }
+    }
 };
 
 export function UserDataReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
 
-        case GET_ORG_INFO_SUCCESS:
+        case GET_COURIER_MANAGER_INFO_SUCCESS:
             return {
                 ...state,
-                managerData: payload,
+                deliveryOrgManagerData: payload,
             }
 
         default:

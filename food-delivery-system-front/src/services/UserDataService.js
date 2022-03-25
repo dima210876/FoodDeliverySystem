@@ -1,14 +1,14 @@
 import axios from "axios";
 const API_URL = "http://localhost:8085/";
-class GetDataService {
-    getOrganizationInfo(userId) {
+class UserDataService {
+    getCourierManagerInfo(managerId) {
         return axios
             .post(API_URL + "identity/get-org-info", {
-                id: userId,
+                id: managerId,
             })
             .then((response) => {
                 return response.data;
             });
     }
 }
-export default new GetDataService();
+export default new UserDataService();
