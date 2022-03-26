@@ -10,7 +10,9 @@ import com.itechart.restaurant_info_service.service.OrderService;
 import com.itechart.restaurant_info_service.service.RestaurantService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -64,7 +66,12 @@ public class RestaurantController {
     }
 
     @GetMapping("/getItems")
-    public ResponseEntity<Page<Item>> getItems(@RequestParam String category, Pageable pageable){
+    public ResponseEntity<Page<Item>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort){
+        Pageable pageable;
+        if(vectorOfSort)
+            pageable = PageRequest.of(page, size, Sort.by(sortColumn).ascending());
+        else
+            pageable = PageRequest.of(page, size, Sort.by(sortColumn).descending());
         return ResponseEntity.ok().body(itemService.getItems(category, pageable));
     }
 }
