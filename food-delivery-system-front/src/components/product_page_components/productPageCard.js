@@ -42,7 +42,7 @@ function ProductPageCard(props){
 
     return(
         <div className="most-popular-card">
-            <img src = {props.imageUrl} alt="" width={100} height={100} />
+            <img src = "/img/food.png" alt="" width={100} height={100} />
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="popular-card-price">

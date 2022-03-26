@@ -38,7 +38,7 @@ public class RestaurantService {
                 .longitude(restaurantDTO.getLongitude())
                 .build();
 
-        restaurantRepository.save(restaurant);
+        /*restaurantRepository.save(restaurant);
 
         Set<WorkingTime> workingTimeSet = new HashSet<>();
 
@@ -96,5 +96,7 @@ public class RestaurantService {
                 ingredientInItemRepository.save(ingredientInItem);
             }
         }
+
+         */
     }
 }
