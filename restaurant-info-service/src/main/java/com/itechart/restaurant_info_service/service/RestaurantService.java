@@ -50,8 +50,6 @@ public class RestaurantService {
 
     @Transactional
     public Restaurant editRestaurantInfo(@Valid RestaurantDTO restaurantDTO) throws EditRestaurantException {
-        Restaurant restaurant;
-
         try {
             Optional<Restaurant> optionalRestaurant = restaurantRepository
                     .findById(restaurantDTO.getRestaurantId());
@@ -60,7 +58,7 @@ public class RestaurantService {
                 throw new EditRestaurantException(String.format("Restaurant with id %d doesn't exist", restaurantDTO.getRestaurantId()));
             }
 
-            restaurant = optionalRestaurant.get();
+            Restaurant restaurant = optionalRestaurant.get();
 
             restaurant.setName(restaurantDTO.getName());
             restaurant.setPhoneNumber(restaurantDTO.getPhoneNumber());
@@ -74,11 +72,9 @@ public class RestaurantService {
 
             restaurant = restaurantInfoService.editRestaurantTypes(restaurantDTO, restaurant);
 
-            restaurantRepository.save(restaurant);
+            return restaurantRepository.save(restaurant);
         } catch (Throwable ex) {
             throw new EditRestaurantException(ex.getMessage());
         }
-
-        return restaurant;
     }
 }

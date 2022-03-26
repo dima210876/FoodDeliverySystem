@@ -5,6 +5,7 @@ import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
 import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
 import com.itechart.restaurant_info_service.dto.RestaurantDTO;
 import com.itechart.restaurant_info_service.exception.EditRestaurantException;
+import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
@@ -38,6 +39,11 @@ public class RestaurantController {
     @PostMapping("/editRestaurantInfo")
     public ResponseEntity<Restaurant> editRestaurantInfo(@RequestBody RestaurantDTO restaurantDTO) throws EditRestaurantException {
         return ResponseEntity.ok().body(restaurantService.editRestaurantInfo(restaurantDTO));
+    }
+
+    @GetMapping("/getManagerInfo")
+    public ResponseEntity<Manager> getManagerInfo(@RequestParam("id") Long managerId) throws GettingInfoException {
+        return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
 
     @PostMapping("/newOrder")

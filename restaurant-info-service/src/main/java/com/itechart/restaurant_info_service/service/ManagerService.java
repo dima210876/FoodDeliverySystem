@@ -3,6 +3,7 @@ package com.itechart.restaurant_info_service.service;
 import com.itechart.restaurant_info_service.config.DeletingUserConfig;
 import com.itechart.restaurant_info_service.dto.IdentityRegistrationDTO;
 import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
+import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.repository.ManagerRepository;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Service
 @Validated
@@ -30,7 +32,6 @@ public class ManagerService {
 
     @Transactional
     public Manager registerManager(@Valid ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
-        Manager manager;
         Long userId = 0L;
 
         try {
@@ -53,7 +54,7 @@ public class ManagerService {
 
             userId = response.getBody().getId();
 
-            manager = Manager.builder()
+            Manager manager = Manager.builder()
                     .userId(userId)
                     .email(managerRegistrationInfoDTO.getEmail())
                     .firstName(managerRegistrationInfoDTO.getFirstName())
@@ -64,6 +65,8 @@ public class ManagerService {
 
             manager = managerRepository.save(manager);
             restaurantService.createDefaultRestaurant(manager, managerRegistrationInfoDTO.getRestaurantName());
+
+            return manager;
         } catch (Throwable ex) {
             rabbitTemplate.convertAndSend(
                     DeletingUserConfig.EXCHANGE,
@@ -71,8 +74,19 @@ public class ManagerService {
                     userId);
             throw new ManagerRegistrationException(ex.getMessage());
         }
-
-        return manager;
     }
 
+    public Manager getManagerInfo(Long managerId) throws GettingInfoException {
+        try {
+            Optional<Manager> optionalManager = managerRepository.findByUserId(managerId);
+
+            if (optionalManager.isEmpty()) {
+                throw new GettingInfoException(String.format("Manager with id %d doesn't exist", managerId));
+            }
+
+            return optionalManager.get();
+        } catch (Throwable ex) {
+            throw new GettingInfoException("Couldn't get manager with id " + managerId);
+        }
+    }
 }
