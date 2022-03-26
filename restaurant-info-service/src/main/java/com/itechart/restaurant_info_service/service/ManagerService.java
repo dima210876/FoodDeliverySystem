@@ -30,39 +30,41 @@ public class ManagerService {
 
     @Transactional
     public Manager registerManager(@Valid ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
-        final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
-        final String ROLE_MANAGER = "ROLE_MANAGER";
-
-        IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
-                .email(managerRegistrationInfoDTO.getEmail())
-                .password(managerRegistrationInfoDTO.getPassword())
-                .firstName(managerRegistrationInfoDTO.getFirstName())
-                .lastName(managerRegistrationInfoDTO.getLastName())
-                .role(ROLE_MANAGER)
-                .build();
-
-        ResponseEntity<IdentityRegistrationDTO> response = restTemplate.
-                postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
-
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new ManagerRegistrationException("Identity service couldn't register the manager");
-        }
-
-        Long userId = response.getBody().getId();
-
-        Manager manager = Manager.builder()
-                .userId(userId)
-                .email(managerRegistrationInfoDTO.getEmail())
-                .firstName(managerRegistrationInfoDTO.getFirstName())
-                .lastName(managerRegistrationInfoDTO.getLastName())
-                .phoneNumber(managerRegistrationInfoDTO.getPhoneNumber())
-                .role(ROLE_MANAGER)
-                .build();
+        Manager manager;
+        Long userId = 0L;
 
         try {
+            final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
+            final String ROLE_MANAGER = "ROLE_MANAGER";
+            IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
+                    .email(managerRegistrationInfoDTO.getEmail())
+                    .password(managerRegistrationInfoDTO.getPassword())
+                    .firstName(managerRegistrationInfoDTO.getFirstName())
+                    .lastName(managerRegistrationInfoDTO.getLastName())
+                    .role(ROLE_MANAGER)
+                    .build();
+
+            ResponseEntity<IdentityRegistrationDTO> response = restTemplate.
+                    postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
+
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new ManagerRegistrationException("Identity service couldn't register the manager");
+            }
+
+            userId = response.getBody().getId();
+
+            manager = Manager.builder()
+                    .userId(userId)
+                    .email(managerRegistrationInfoDTO.getEmail())
+                    .firstName(managerRegistrationInfoDTO.getFirstName())
+                    .lastName(managerRegistrationInfoDTO.getLastName())
+                    .phoneNumber(managerRegistrationInfoDTO.getPhoneNumber())
+                    .role(ROLE_MANAGER)
+                    .build();
+
             manager = managerRepository.save(manager);
             restaurantService.createDefaultRestaurant(manager, managerRegistrationInfoDTO.getRestaurantName());
-        } catch (RuntimeException ex) {
+        } catch (Throwable ex) {
             rabbitTemplate.convertAndSend(
                     DeletingUserConfig.EXCHANGE,
                     DeletingUserConfig.ROUTING_KEY,
