@@ -7,6 +7,7 @@ import { MainPage } from './pages/MainPage';
 import { OrderPage } from './pages/OrderPage';
 import { AdminPage} from "./pages/AdminPage";
 import {useSelector} from "react-redux";
+import {ProductPage} from "./pages/productPage";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Route path='/restaurant' element={<RestaurantPage/>}/>
             <Route path='/order' element={<OrderPage/>}/>
             <Route path='/account' element={<ChooseRole/>}/>
+            <Route path='/products' element={<ProductPage/>}/>
             <Route path='/login' element={<LoginPage />}/>
             <Route path='/registration' element={<RegistrationPage />}/>
         </Routes>
