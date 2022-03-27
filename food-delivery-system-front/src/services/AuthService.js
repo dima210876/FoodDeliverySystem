@@ -22,13 +22,13 @@ class AuthService {
         });
     }
 
-    registerRestaurant(restaurantName, firstName, lastName, email, phone, password) {
-        return axios.post(API_URL + "restaurant-info-service/registerManager", {
-            restaurantName: restaurantName,
+    registerOrganization(organizationName, firstName, lastName, email, phone, password) {
+        return axios.post(API_URL + "admin/register/organization", {
+            organizationName: organizationName,
             firstName: firstName,
             lastName: lastName,
             email: email,
-            phoneNumber: phone,
+            phone: phone,
             password: password,
         });
     }
