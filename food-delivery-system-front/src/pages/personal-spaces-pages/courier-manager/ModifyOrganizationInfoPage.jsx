@@ -11,6 +11,8 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 import AddressInputField from "../../../components/inputFields/addressInputField";
+import {changeDeliveryOrganizationInfo} from "../../../redux/actions/changeInfoActions";
+import * as changeInfoActions from "../../../redux/actions/changeInfoActions";
 
 const ModifyOrganizationInfoPage = () => {
     const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const ModifyOrganizationInfoPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 if (phone && isValidPhoneNumber(phone)) {
-
+                    changeInfoActions.changeDeliveryOrganizationInfo(organization.organizationId, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng);
                 }
             }}
         >

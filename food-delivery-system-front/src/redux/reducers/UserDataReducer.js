@@ -1,4 +1,5 @@
 import {GET_COURIER_MANAGER_INFO_SUCCESS} from "../actions/UserDataActions";
+import {CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS} from "../actions/changeInfoActions";
 
 const initialState = {
     restaurantManagerData: {
@@ -50,6 +51,11 @@ export function UserDataReducer(state = initialState, action) {
                 ...state,
                 deliveryOrgManagerData: payload,
             }
+
+        case CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS:
+            return {
+                ...state,
+            };
 
         default:
             return state;
