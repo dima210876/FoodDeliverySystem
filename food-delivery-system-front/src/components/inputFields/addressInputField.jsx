@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import {Form} from "react-bootstrap";
 
-const AddressInputField = ({ changeAddress, changeCoordinates, submitClicked  }) => {
+const AddressInputField = ({ address, changeAddress, changeCoordinates, submitClicked  }) => {
     const [inputAddress, setInputAddress] = useState("");
     const [error, setError] = useState("");
 
@@ -16,31 +16,32 @@ const AddressInputField = ({ changeAddress, changeCoordinates, submitClicked  })
     }, [submitClicked]);
 
      function validateAddress(input) {
-         setInputAddress(input);
-         if (input) {
-              geocodeByAddress(input)
-                  .then(async results =>
-                  {
-                      const latLng = await getLatLng(results[0]);
-                      changeCoordinates(latLng);
-                      changeAddress(input);
-                  })
-                  .then(setError(""))
-                  .catch(error => {
-                    setError(error);
-                    changeCoordinates({lat: null, lng: null});
-                    changeAddress("");
-                  })
-        } else {
-            setError("");
-            changeCoordinates({lat: null, lng: null});
-            changeAddress("");
+         if (input === address) {
+             setInputAddress(input);
+             if (input) {
+                 geocodeByAddress(input)
+                     .then(async results => {
+                         const latLng = await getLatLng(results[0]);
+                         changeCoordinates(latLng);
+                         changeAddress(input);
+                     })
+                     .then(setError(""))
+                     .catch(error => {
+                         setError(error);
+                         changeCoordinates({lat: null, lng: null});
+                         changeAddress("");
+                     })
+             } else {
+                 setError("");
+                 changeCoordinates({lat: null, lng: null});
+                 changeAddress("");
+             }
          }
     }
 
     return (
         <PlacesAutocomplete
-            value={inputAddress}
+            value={address ? address : inputAddress}
             onChange={validateAddress}
             onSelect={validateAddress}
         >

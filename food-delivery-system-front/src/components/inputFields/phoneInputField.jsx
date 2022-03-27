@@ -16,9 +16,11 @@ const PhoneInputField = ({ phone, changePhone, submitClicked }) => {
     }, [submitClicked]);
 
     function validatePhone(inputValue) {
-        setInputPhone(inputValue);
-        setShowError(true);
-        changePhone(inputValue);
+        if (inputValue === phone) {
+            setInputPhone(inputValue);
+            setShowError(true);
+            changePhone(inputValue);
+        }
     }
 
     return (

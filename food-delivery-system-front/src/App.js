@@ -31,7 +31,6 @@ function App() {
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
-                <Route path='/test' element={<AddressInputField/>}/>
             </Routes>
         </>
     );

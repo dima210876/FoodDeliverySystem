@@ -16,18 +16,16 @@ const ModifyOrganizationInfoPage = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
     const organization = useSelector(state => state.userData.deliveryOrgManagerData.manager.organization);
-    const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
+    const [phone, setPhone] = useState(organization.phoneNumber);
+    const [address, setAddress] = useState(organization.address);
+    const [coordinates, setCoordinates] = useState({
+        lat: organization.latitude,
+        lng: organization.longitude
+    });
     const [submitClicked, setSubmitClicked] = useState(false);
 
-    const changePhone = (dataFromPhoneInput) => {
-        setPhone(dataFromPhoneInput);
-    }
-    const changeAddress = (dataFromAddressInput) => {
-        setAddress(dataFromAddressInput);
-    }
     const changeSubmit = () => {
-        setSubmitClicked(!submitClicked);
+        setSubmitClicked(true);
     }
 
     const schema = Yup.object().shape({
@@ -40,9 +38,7 @@ const ModifyOrganizationInfoPage = () => {
             .matches(
                 /^[A-Z0-9]*$/,
                 "Account number should contain of capital latin letters or digits."
-            ),
-        officeAddress: Yup.string()
-            .required('Address is required field'),
+            )
     });
 
     return (
@@ -50,16 +46,15 @@ const ModifyOrganizationInfoPage = () => {
             initialValues={{
                 organizationName: organization.name,
                 accountNumber: organization.accountNumber,
-                officeAddress: organization.address
             }}
             enableReinitialize={true}
             validationSchema={schema}
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                // if (phone && isValidPhoneNumber(phone)) {
-                //
-                // }
+                if (phone && isValidPhoneNumber(phone)) {
+
+                }
             }}
         >
             {({
@@ -89,15 +84,8 @@ const ModifyOrganizationInfoPage = () => {
                                         {errors.accountNumber}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                {/*<Form.Group className="p-4 pt-0" controlId="modify-office-address">*/}
-                                {/*    <Form.Label>Office address</Form.Label>*/}
-                                {/*    <Form.Control type="textarea" name="officeAddress"  placeholder="Enter main office address" value={values.officeAddress} onChange={handleChange} isInvalid={!!errors.officeAddress}/>*/}
-                                {/*    <Form.Control.Feedback type="invalid">*/}
-                                {/*        {errors.officeAddress}*/}
-                                {/*    </Form.Control.Feedback>*/}
-                                {/*</Form.Group>*/}
-                                <AddressInputField changeAddress={changeAddress} submitClicked={submitClicked}/>
-                                <PhoneInputField phone={phone} changePhone={changePhone} submitClicked={submitClicked} />
+                                <AddressInputField address={address} changeAddress={setAddress} changeCoordinates={setCoordinates} submitClicked={submitClicked}/>
+                                <PhoneInputField phone={phone} changePhone={setPhone} submitClicked={submitClicked} />
                                 <div className="mt-3 text-center ">
                                     <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Modify info</Button>
                                 </div>

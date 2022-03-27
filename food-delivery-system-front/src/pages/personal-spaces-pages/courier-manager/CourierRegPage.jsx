@@ -23,7 +23,7 @@ const CourierRegPage = () => {
         setPhone(dataFromPhoneInput);
     }
     const changeSubmit = () => {
-        setSubmitClicked(!submitClicked);
+        setSubmitClicked(true);
     }
 
     const schema = Yup.object().shape({
@@ -58,6 +58,7 @@ const CourierRegPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
+                console.log("ON SUBMIT");
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/admin-space-link-from-another-ticket');
