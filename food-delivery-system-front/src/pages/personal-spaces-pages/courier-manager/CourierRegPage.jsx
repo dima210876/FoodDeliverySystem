@@ -58,7 +58,6 @@ const CourierRegPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                console.log("ON SUBMIT");
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/admin-space-link-from-another-ticket');
@@ -80,7 +79,7 @@ const CourierRegPage = () => {
                                   </div>
                                   <Form.Group className="p-4 pt-2" controlId="sign-up-first-name">
                                       <Form.Label>First name</Form.Label>
-                                      <Form.Control type="textarea" name="firstName"  placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
+                                      <Form.Control type="textarea" name="firstName" placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
                                       <Form.Control.Feedback type="invalid">
                                           {errors.firstName}
                                       </Form.Control.Feedback>
@@ -99,7 +98,7 @@ const CourierRegPage = () => {
                                           {errors.email}
                                       </Form.Control.Feedback>
                                   </Form.Group>
-                                  <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} />
+                                  <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} required={true}/>
                                   <Form.Group className="p-4 pt-0" controlId="sign-up-password">
                                       <Form.Label>Password</Form.Label>
                                       <Form.Control type="password" name="password"  placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>

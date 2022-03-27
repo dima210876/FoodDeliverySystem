@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import {Form} from "react-bootstrap";
 
-const AddressInputField = ({ address, changeAddress, changeCoordinates, submitClicked  }) => {
+const AddressInputField = ({ address, changeAddress, changeCoordinates, submitClicked }) => {
     const [inputAddress, setInputAddress] = useState("");
     const [error, setError] = useState("");
 
@@ -16,28 +16,26 @@ const AddressInputField = ({ address, changeAddress, changeCoordinates, submitCl
     }, [submitClicked]);
 
      function validateAddress(input) {
-         if (input === address) {
+         if (address === "" || (address !== "" && input !== "")) {
              setInputAddress(input);
              if (input) {
                  geocodeByAddress(input)
                      .then(async results => {
                          const latLng = await getLatLng(results[0]);
                          changeCoordinates(latLng);
-                         changeAddress(input);
                      })
                      .then(setError(""))
                      .catch(error => {
                          setError(error);
                          changeCoordinates({lat: null, lng: null});
-                         changeAddress("");
                      })
              } else {
                  setError("");
                  changeCoordinates({lat: null, lng: null});
-                 changeAddress("");
              }
+             changeAddress(input);
          }
-    }
+     }
 
     return (
         <PlacesAutocomplete
@@ -48,7 +46,7 @@ const AddressInputField = ({ address, changeAddress, changeCoordinates, submitCl
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                 <Form.Group className="p-4 pt-0" controlId="address-input">
                     <Form.Label>Office address</Form.Label>
-                    <input {...getInputProps({ placeholder: "Enter address", class: "form-control"} )} />
+                    <input {...getInputProps({ placeholder: "Enter address", className: "form-control"} )} />
 
                     <div className="form-control-feedback" style={{display: error !== '' ? 'block' : 'none' }}>
                         { error === 'ZERO_RESULTS' ? 'There is no such address. Please select it from the suggestions.' : 'Address error'}

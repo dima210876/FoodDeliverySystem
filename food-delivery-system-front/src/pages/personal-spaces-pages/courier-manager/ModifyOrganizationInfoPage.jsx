@@ -13,6 +13,7 @@ import {isValidPhoneNumber} from "react-phone-number-input";
 import AddressInputField from "../../../components/inputFields/addressInputField";
 import {changeDeliveryOrganizationInfo} from "../../../redux/actions/changeInfoActions";
 import * as changeInfoActions from "../../../redux/actions/changeInfoActions";
+import {geocodeByAddress} from "react-places-autocomplete";
 
 const ModifyOrganizationInfoPage = () => {
     const dispatch = useDispatch();
@@ -54,9 +55,10 @@ const ModifyOrganizationInfoPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                if (phone && isValidPhoneNumber(phone)) {
-                    changeInfoActions.changeDeliveryOrganizationInfo(organization.organizationId, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng);
-                }
+                geocodeByAddress(address).then(() => {
+                    if (phone && isValidPhoneNumber(phone)) {
+                        changeInfoActions.changeDeliveryOrganizationInfo(organization.organizationId, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng);
+                    }})
             }}
         >
             {({
@@ -87,7 +89,7 @@ const ModifyOrganizationInfoPage = () => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <AddressInputField address={address} changeAddress={setAddress} changeCoordinates={setCoordinates} submitClicked={submitClicked}/>
-                                <PhoneInputField phone={phone} changePhone={setPhone} submitClicked={submitClicked} />
+                                <PhoneInputField phone={phone} changePhone={setPhone} submitClicked={submitClicked} required={false}/>
                                 <div className="mt-3 text-center ">
                                     <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Modify info</Button>
                                 </div>
