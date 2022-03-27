@@ -7,11 +7,12 @@ import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/
 import { MainPage } from './pages/main-menu-pages/MainPage';
 import { OrderPage } from './pages/main-menu-pages/OrderPage';
 import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
-import {useSelector} from "react-redux";
-import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
-import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
-import {getCourierManagerInfo} from "./redux/actions/UserDataActions";
-import ModifyOrganizationInfoPage from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
+import { useSelector } from "react-redux";
+import { CourierManagerPage } from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
+import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
+import { getCourierManagerInfo } from "./redux/actions/UserDataActions";
+import { ModifyOrganizationInfoPage}  from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
+import AddressInputField  from "./components/inputFields/addressInputField"
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
+                <Route path='/test' element={<AddressInputField/>}/>
             </Routes>
         </>
     );

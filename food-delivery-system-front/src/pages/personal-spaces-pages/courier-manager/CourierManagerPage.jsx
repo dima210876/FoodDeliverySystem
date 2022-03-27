@@ -24,7 +24,7 @@ const CourierManagerPage = () => {
                             <h6>First name: {courierManager.firstName ? courierManager.firstName : " – "} </h6>
                             <h6>Last name: {courierManager.lastName ? courierManager.lastName : " – "}</h6>
                             <h6>Email: {courierManager.email ? courierManager.email : " – "}</h6>
-                            <h6>Phone number: {courierManager.phone ? courierManager.phone : " – "} </h6>
+                            <h6>Phone number: {courierManager.phoneNumber ? courierManager.phoneNumber : " – "} </h6>
                         </div>
                     </div>
                     <div className='delivery-organization-block'>
@@ -36,7 +36,7 @@ const CourierManagerPage = () => {
                             <h6>Phone number:  {courierManager.organization.phoneNumber ? courierManager.organization.phoneNumber : " – "}</h6>
                         </div>
                         <div className='link-div'>
-                            <Link className='link' to='/courier-manager/courier-registration'><h5>Modify</h5></Link>
+                            <Link className='link' to='/courier-manager/modify-organization-info'><h5>Modify</h5></Link>
                         </div>
                     </div>
                 </div>
@@ -51,4 +51,4 @@ const CourierManagerPage = () => {
     );
 }
 
-export {CourierManagerPage}
+export {CourierManagerPage};

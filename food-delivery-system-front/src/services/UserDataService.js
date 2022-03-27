@@ -3,8 +3,10 @@ const API_URL = "http://localhost:8085/";
 class UserDataService {
     getCourierManagerInfo(managerId) {
         return axios
-            .post(API_URL + "identity/get-org-info", {
-                id: managerId,
+            .get(API_URL + "identity/get-courier-manager-info", {
+                params: {
+                    id: managerId
+                }
             })
             .then((response) => {
                 return response.data;

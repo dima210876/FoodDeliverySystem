@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import PhoneInputField from "../../../components/PhoneInputField";
+import PhoneInputField from "../../../components/inputFields/phoneInputField";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/footer"
 
@@ -12,11 +12,11 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 
-const RegistrationManager = () => {
+const CourierRegPage = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
-    const [phone, setPhone] = useState("");
     const organizationId = useSelector(state => state.userData.deliveryOrgManagerData.manager.organization.organizationId);
+    const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
@@ -120,4 +120,4 @@ const RegistrationManager = () => {
     );
 };
 
-export default RegistrationManager;
+export {CourierRegPage};
