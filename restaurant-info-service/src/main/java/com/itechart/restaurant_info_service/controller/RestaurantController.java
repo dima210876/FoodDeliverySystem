@@ -2,6 +2,7 @@ package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.FeedbackDTO;
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
+import com.itechart.restaurant_info_service.dto.ItemDTO;
 import com.itechart.restaurant_info_service.dto.RestaurantDTO;
 import com.itechart.restaurant_info_service.model.Item;
 import com.itechart.restaurant_info_service.service.FeedbackService;
@@ -66,7 +67,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/getItems")
-    public ResponseEntity<Page<Item>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort){
+    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort){
         Pageable pageable;
         if(vectorOfSort)
             pageable = PageRequest.of(page, size, Sort.by(sortColumn).ascending());

@@ -12,9 +12,12 @@ import './sortBar.css'
                          {"title":"Rolls","price":11,"imageUrl":"/img/food.png"},
                          {"title":"Chocolate mues","price":9, "imageUrl":"/img/food.png"}];*/
 
-const COUNT_OF_CARD_ON_PAGE = 4;
+const COUNT_OF_CARD_ON_PAGE = 16;
 const ACTION_MINUS = 'minus';
 const ACTION_PLUS = 'plus';
+const EMPTY_ACTION = '';
+const SORT_TYPE_PRICE = 'price';
+const SORT_TYPE_NAME = 'name';
 const endpointName = 'http://localhost:8083/getItems';
 
 function ProductPageList(){
@@ -25,11 +28,11 @@ function ProductPageList(){
     const [priceSort, setPriceSort] = useState(true);
     const [titleSort, setTitleSort] = useState(false);
     const [vectorOfSort, setVectorOfSort] = useState(true);
-    const [typeOfSort, setTypeOfSort] = useState('price');
+    const [typeOfSort, setTypeOfSort] = useState(SORT_TYPE_PRICE);
     const items = useSelector(state => state.cart.items);
     const title = useSelector(state => state.category.title);
 
-    function makeRequest(action){
+    function makeRequest(action, vector, sortColumn){
         let page = currentPage;
         if(action === ACTION_PLUS)
             page = currentPage + 1;
@@ -39,8 +42,8 @@ function ProductPageList(){
                 category: title,
                 page: page,
                 size:COUNT_OF_CARD_ON_PAGE,
-                sortColumn: typeOfSort,
-                vectorOfSort: vectorOfSort
+                sortColumn: sortColumn,
+                vectorOfSort: vector
             }})
             .then(function (response) {
                 getProductPageList(response.data.content);
@@ -51,7 +54,7 @@ function ProductPageList(){
         if(currentPage > 0 ){
             setCurrentPage(currentPage - 1);
             console.log(currentPage);
-            makeRequest(ACTION_MINUS);
+            makeRequest(ACTION_MINUS, vectorOfSort, typeOfSort);
         }
     }
 
@@ -59,7 +62,7 @@ function ProductPageList(){
         if(currentPage + 1 < totalPages){
             setCurrentPage(currentPage + 1);
             console.log(currentPage);
-            makeRequest(ACTION_PLUS);
+            makeRequest(ACTION_PLUS, vectorOfSort, typeOfSort);
         }
     }
 
@@ -101,24 +104,16 @@ function ProductPageList(){
         const currentVectorOfSort = !priceSort;
         setPriceSort(currentVectorOfSort);
         setVectorOfSort(currentVectorOfSort);
-        setTypeOfSort('price');
-        console.log("price is " + priceSort);
-        console.log("title is " + titleSort);
-        console.log("type of sort is " + typeOfSort);
-        console.log("page is " + currentPage);
-        makeRequest("");
+        setTypeOfSort(SORT_TYPE_PRICE);
+        makeRequest(EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_PRICE);
     }
 
     const sortByTitle = () => {
         const currentVectorOfSort = !titleSort;
         setTitleSort(currentVectorOfSort);
         setVectorOfSort(currentVectorOfSort);
-        setTypeOfSort('name');
-        console.log("price is " + priceSort);
-        console.log("title is " + titleSort);
-        console.log("type of sort is " + typeOfSort);
-        console.log("page is " + currentPage);
-        makeRequest("");
+        setTypeOfSort(SORT_TYPE_NAME);
+        makeRequest(EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_NAME);
     }
 
     return(

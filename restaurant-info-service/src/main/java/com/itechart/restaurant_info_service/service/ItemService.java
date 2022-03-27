@@ -1,6 +1,6 @@
 package com.itechart.restaurant_info_service.service;
 
-import com.itechart.restaurant_info_service.model.Item;
+import com.itechart.restaurant_info_service.dto.ItemDTO;
 import com.itechart.restaurant_info_service.repository.ItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    public Page<Item> getItems(String itemType, Pageable pageable){
+    public Page<ItemDTO> getItems(String itemType, Pageable pageable){
         return itemRepository.findByItemType(itemType, pageable);
     }
 }
