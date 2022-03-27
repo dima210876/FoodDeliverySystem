@@ -16,6 +16,7 @@ const COUNT_OF_CARD_ON_PAGE = 16;
 const ACTION_MINUS = 'minus';
 const ACTION_PLUS = 'plus';
 const EMPTY_ACTION = '';
+const EMPTY_FILTER = '';
 const SORT_TYPE_PRICE = 'price';
 const SORT_TYPE_NAME = 'name';
 const endpointName = 'http://localhost:8083/getItems';
@@ -31,19 +32,25 @@ function ProductPageList(){
     const [typeOfSort, setTypeOfSort] = useState(SORT_TYPE_PRICE);
     const items = useSelector(state => state.cart.items);
     const title = useSelector(state => state.category.title);
+    const [nameFilter, setNameFilter] = useState(EMPTY_FILTER);
 
-    function makeRequest(action, vector, sortColumn){
+    function makeRequest(filter, action, vector, sortColumn){
         let page = currentPage;
-        if(action === ACTION_PLUS)
-            page = currentPage + 1;
-        if(action === ACTION_MINUS)
-            page = currentPage - 1;
+        if(filter !== EMPTY_FILTER){
+            page = 0;
+        } else {
+            if (action === ACTION_PLUS)
+                page = currentPage + 1;
+            if (action === ACTION_MINUS)
+                page = currentPage - 1;
+        }
         axios.get(endpointName, {params: {
                 category: title,
                 page: page,
                 size:COUNT_OF_CARD_ON_PAGE,
                 sortColumn: sortColumn,
-                vectorOfSort: vector
+                vectorOfSort: vector,
+                filter: filter
             }})
             .then(function (response) {
                 getProductPageList(response.data.content);
@@ -54,7 +61,7 @@ function ProductPageList(){
         if(currentPage > 0 ){
             setCurrentPage(currentPage - 1);
             console.log(currentPage);
-            makeRequest(ACTION_MINUS, vectorOfSort, typeOfSort);
+            makeRequest(nameFilter, ACTION_MINUS, vectorOfSort, typeOfSort);
         }
     }
 
@@ -62,7 +69,7 @@ function ProductPageList(){
         if(currentPage + 1 < totalPages){
             setCurrentPage(currentPage + 1);
             console.log(currentPage);
-            makeRequest(ACTION_PLUS, vectorOfSort, typeOfSort);
+            makeRequest(nameFilter, ACTION_PLUS, vectorOfSort, typeOfSort);
         }
     }
 
@@ -92,7 +99,8 @@ function ProductPageList(){
                 page: currentPage,
                 size:COUNT_OF_CARD_ON_PAGE,
                 sortColumn: typeOfSort,
-                vectorOfSort: vectorOfSort
+                vectorOfSort: vectorOfSort,
+                filter: nameFilter
             }})
             .then(function (response) {
                 getProductPageList(response.data.content);
@@ -105,7 +113,7 @@ function ProductPageList(){
         setPriceSort(currentVectorOfSort);
         setVectorOfSort(currentVectorOfSort);
         setTypeOfSort(SORT_TYPE_PRICE);
-        makeRequest(EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_PRICE);
+        makeRequest(nameFilter, EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_PRICE);
     }
 
     const sortByTitle = () => {
@@ -113,7 +121,12 @@ function ProductPageList(){
         setTitleSort(currentVectorOfSort);
         setVectorOfSort(currentVectorOfSort);
         setTypeOfSort(SORT_TYPE_NAME);
-        makeRequest(EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_NAME);
+        makeRequest(nameFilter, EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_NAME);
+    }
+
+    function changeText(event) {
+        setNameFilter(event.target.value);
+        makeRequest(event.target.value, EMPTY_ACTION, vectorOfSort, typeOfSort)
     }
 
     return(
@@ -123,6 +136,7 @@ function ProductPageList(){
                 <div><button className="button-sort" onClick={sortByPrice}>price</button></div>
                 <div><button className="button-sort" onClick={sortByTitle}>title</button></div>
             </div>
+            <input value={nameFilter} onChange={changeText} />
             <div className="product-page-list">
                 {productPageList.map((obj) => (
                     <ProductPageCard

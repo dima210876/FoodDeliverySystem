@@ -67,12 +67,12 @@ public class RestaurantController {
     }
 
     @GetMapping("/getItems")
-    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort){
+    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort, String filter){
         Pageable pageable;
         if(vectorOfSort)
             pageable = PageRequest.of(page, size, Sort.by(sortColumn).ascending());
         else
             pageable = PageRequest.of(page, size, Sort.by(sortColumn).descending());
-        return ResponseEntity.ok().body(itemService.getItems(category, pageable));
+        return ResponseEntity.ok().body(itemService.getItems(category, filter, pageable));
     }
 }
