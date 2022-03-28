@@ -12,22 +12,11 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @Validated
 public class ItemService {
-    private static final String EMPTY = "";
-    private static final String SIGN_OF_PERCENT = "%";
-    private static final String QUOTE = "'";
+
     private final ItemRepository itemRepository;
 
-    public Page<ItemDTO> getItems(String itemType, String filter, Pageable pageable){
-        if(filterEmpty(filter))
-            return itemRepository.findItemsByItemType(itemType, pageable);
-        return itemRepository.findItemsByFilter(itemType, convertFilter(filter), pageable);
+    public Page<ItemDTO> getItems(String itemType, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant, Pageable pageable){
+        return itemRepository.findItemsByItemType(itemType, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable);
     }
 
-    private boolean filterEmpty(String filter){
-        return filter.equals(EMPTY);
-    }
-
-    private String convertFilter(String filter){
-        return filter;
-    }
 }

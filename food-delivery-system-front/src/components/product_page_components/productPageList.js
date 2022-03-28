@@ -12,20 +12,23 @@ import './sortBar.css'
                          {"title":"Rolls","price":11,"imageUrl":"/img/food.png"},
                          {"title":"Chocolate mues","price":9, "imageUrl":"/img/food.png"}];*/
 
-const COUNT_OF_CARD_ON_PAGE = 16;
+const COUNT_OF_CARD_ON_PAGE = 8;
 const ACTION_MINUS = 'minus';
 const ACTION_PLUS = 'plus';
 const EMPTY_ACTION = '';
 const EMPTY_FILTER = '';
 const SORT_TYPE_PRICE = 'price';
 const SORT_TYPE_NAME = 'name';
+const START_MIN_PRICE = 0;
+const START_MAX_PRICE = 100000000;
 const endpointName = 'http://localhost:8083/getItems';
 
 function ProductPageList(){
 
     const [productPageList, setProductPageList] = React.useState([]);
+    const [listEmptyCard, setListEmptyCard] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
     const [priceSort, setPriceSort] = useState(true);
     const [titleSort, setTitleSort] = useState(false);
     const [vectorOfSort, setVectorOfSort] = useState(true);
@@ -33,11 +36,18 @@ function ProductPageList(){
     const items = useSelector(state => state.cart.items);
     const title = useSelector(state => state.category.title);
     const [nameFilter, setNameFilter] = useState(EMPTY_FILTER);
+    const [restaurantFilter, setRestaurantFilter, ] = useState(EMPTY_FILTER);
+    const [minPriceFilter, setMinPriceFilter] = useState(START_MIN_PRICE);
+    const [maxPriceFilter, setMaxPriceFilter] = useState(START_MAX_PRICE);
 
-    function makeRequest(filter, action, vector, sortColumn){
+    function makeRequest(filterRestaurant, filterMinPrice, filterMaxPrice, filterName, action, vector, sortColumn){
         let page = currentPage;
-        if(filter !== EMPTY_FILTER){
+        if((filterName !== EMPTY_FILTER && nameFilter === EMPTY_FILTER)
+        || (filterRestaurant !== EMPTY_FILTER && restaurantFilter === EMPTY_FILTER)
+        || (filterMinPrice !== START_MIN_PRICE && minPriceFilter === START_MIN_PRICE)
+        || (filterMaxPrice !== START_MAX_PRICE && maxPriceFilter === START_MAX_PRICE)){
             page = 0;
+            setCurrentPage(0);
         } else {
             if (action === ACTION_PLUS)
                 page = currentPage + 1;
@@ -50,9 +60,16 @@ function ProductPageList(){
                 size:COUNT_OF_CARD_ON_PAGE,
                 sortColumn: sortColumn,
                 vectorOfSort: vector,
-                filter: filter
+                filterName: filterName,
+                filterMinPrice: filterMinPrice,
+                filterMaxPrice: filterMaxPrice,
+                filterRestaurant: filterRestaurant
             }})
             .then(function (response) {
+                if(response.data.totalPages === 0)
+                    setTotalPages(1);
+                else
+                    setTotalPages(response.data.totalPages);
                 getProductPageList(response.data.content);
             })
     }
@@ -61,7 +78,7 @@ function ProductPageList(){
         if(currentPage > 0 ){
             setCurrentPage(currentPage - 1);
             console.log(currentPage);
-            makeRequest(nameFilter, ACTION_MINUS, vectorOfSort, typeOfSort);
+            makeRequest(restaurantFilter, minPriceFilter, maxPriceFilter, nameFilter, ACTION_MINUS, vectorOfSort, typeOfSort);
         }
     }
 
@@ -69,7 +86,7 @@ function ProductPageList(){
         if(currentPage + 1 < totalPages){
             setCurrentPage(currentPage + 1);
             console.log(currentPage);
-            makeRequest(nameFilter, ACTION_PLUS, vectorOfSort, typeOfSort);
+            makeRequest(restaurantFilter, minPriceFilter, maxPriceFilter, nameFilter, ACTION_PLUS, vectorOfSort, typeOfSort);
         }
     }
 
@@ -90,7 +107,10 @@ function ProductPageList(){
                                       restaurant: item.restaurant});
         });
         setProductPageList(listForProductsPage);
-        console.log(productPageList);
+        if(listForProductsPage.length === 0)
+            setListEmptyCard(true);
+        else
+            setListEmptyCard(false);
     }
 
     React.useEffect(() => {
@@ -100,11 +120,17 @@ function ProductPageList(){
                 size:COUNT_OF_CARD_ON_PAGE,
                 sortColumn: typeOfSort,
                 vectorOfSort: vectorOfSort,
-                filter: nameFilter
+                filterName: nameFilter,
+                filterMinPrice: minPriceFilter,
+                filterMaxPrice: maxPriceFilter,
+                filterRestaurant: restaurantFilter
             }})
             .then(function (response) {
                 getProductPageList(response.data.content);
-                setTotalPages(response.data.totalPages);
+                if(response.data.totalPages === 0)
+                    setTotalPages(1);
+                else
+                    setTotalPages(response.data.totalPages);
             })
     }, [])
 
@@ -113,7 +139,7 @@ function ProductPageList(){
         setPriceSort(currentVectorOfSort);
         setVectorOfSort(currentVectorOfSort);
         setTypeOfSort(SORT_TYPE_PRICE);
-        makeRequest(nameFilter, EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_PRICE);
+        makeRequest(restaurantFilter, minPriceFilter, maxPriceFilter, nameFilter, EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_PRICE);
     }
 
     const sortByTitle = () => {
@@ -121,13 +147,40 @@ function ProductPageList(){
         setTitleSort(currentVectorOfSort);
         setVectorOfSort(currentVectorOfSort);
         setTypeOfSort(SORT_TYPE_NAME);
-        makeRequest(nameFilter, EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_NAME);
+        makeRequest(restaurantFilter, minPriceFilter, maxPriceFilter, nameFilter, EMPTY_ACTION, currentVectorOfSort, SORT_TYPE_NAME);
     }
 
-    function changeText(event) {
+    function changeNameFilter(event) {
         setNameFilter(event.target.value);
-        makeRequest(event.target.value, EMPTY_ACTION, vectorOfSort, typeOfSort)
+        makeRequest(restaurantFilter, minPriceFilter, maxPriceFilter, event.target.value, EMPTY_ACTION, vectorOfSort, typeOfSort)
     }
+
+    function changeRestaurantFilter(event) {
+        setRestaurantFilter(event.target.value);
+        makeRequest(event.target.value, minPriceFilter, maxPriceFilter, nameFilter, EMPTY_ACTION, vectorOfSort, typeOfSort)
+    }
+
+    function changeMinPriceFilter(event) {
+        if(event.target.value.length === 0){
+            setMinPriceFilter(START_MIN_PRICE);
+            makeRequest(restaurantFilter, START_MIN_PRICE, maxPriceFilter, nameFilter, EMPTY_ACTION, vectorOfSort, typeOfSort)
+        } else {
+            setMinPriceFilter(event.target.value);
+            makeRequest(restaurantFilter, event.target.value, maxPriceFilter, nameFilter, EMPTY_ACTION, vectorOfSort, typeOfSort)
+        }
+
+    }
+
+    function changeMaxPriceFilter(event) {
+        if(event.target.value.length === 0){
+            setMaxPriceFilter(START_MAX_PRICE);
+            makeRequest(restaurantFilter, minPriceFilter, START_MAX_PRICE,  nameFilter, EMPTY_ACTION, vectorOfSort, typeOfSort)
+        } else {
+            setMaxPriceFilter(event.target.value);
+            makeRequest(restaurantFilter, minPriceFilter, event.target.value,  nameFilter, EMPTY_ACTION, vectorOfSort, typeOfSort)
+        }
+    }
+
 
     return(
         <>
@@ -136,7 +189,11 @@ function ProductPageList(){
                 <div><button className="button-sort" onClick={sortByPrice}>price</button></div>
                 <div><button className="button-sort" onClick={sortByTitle}>title</button></div>
             </div>
-            <input value={nameFilter} onChange={changeText} />
+            <input className='name-filter' value={nameFilter} onChange={changeNameFilter} placeholder='title'/>
+            <input className='restaurant-filter' value={restaurantFilter} onChange={changeRestaurantFilter} placeholder='restaurant'/>
+            <input className='min-price-filter' onChange={changeMinPriceFilter} min={0} placeholder='min price' type='number' />
+            <input className='max-price-filter' onChange={changeMaxPriceFilter} min={0} placeholder='max price' type='number' />
+            {listEmptyCard ? <h1 className='no-found'>No {title} found</h1> : null}
             <div className="product-page-list">
                 {productPageList.map((obj) => (
                     <ProductPageCard
