@@ -66,12 +66,13 @@ function ProductPageList(){
                 filterRestaurant: filterRestaurant
             }})
             .then(function (response) {
+                setListEmptyCard(false);
                 if(response.data.totalPages === 0)
                     setTotalPages(1);
                 else
                     setTotalPages(response.data.totalPages);
                 getProductPageList(response.data.content);
-            })
+            }).catch(() => setListEmptyCard(true))
     }
 
     const decreasePageNumber = () => {
@@ -126,12 +127,13 @@ function ProductPageList(){
                 filterRestaurant: restaurantFilter
             }})
             .then(function (response) {
+                setListEmptyCard(false);
                 getProductPageList(response.data.content);
                 if(response.data.totalPages === 0)
                     setTotalPages(1);
                 else
                     setTotalPages(response.data.totalPages);
-            })
+            }).catch(() => setListEmptyCard(true))
     }, [])
 
     const sortByPrice = () => {
@@ -168,7 +170,6 @@ function ProductPageList(){
             setMinPriceFilter(event.target.value);
             makeRequest(restaurantFilter, event.target.value, maxPriceFilter, nameFilter, EMPTY_ACTION, vectorOfSort, typeOfSort)
         }
-
     }
 
     function changeMaxPriceFilter(event) {
