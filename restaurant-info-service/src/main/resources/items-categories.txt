@@ -1,0 +1,16 @@
+Item types:
+ - Burgers
+ - Pizza
+ - Desserts and shakes
+ - Drinks
+ - Bakery
+ - Snacks
+ - Soups
+ - Salads
+ - Fish and seafoods
+ - Hot dishes
+
+Item features:
+ - With meat
+ - Vegan
+ - Kosher
