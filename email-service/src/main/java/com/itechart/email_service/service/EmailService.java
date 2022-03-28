@@ -1,6 +1,7 @@
 package com.itechart.email_service.service;
 
 import com.itechart.email_service.dto.ConfirmationInfoDto;
+import com.itechart.email_service.exception.SendEmailException;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -17,7 +18,7 @@ public class EmailService
 
     public void send(String to, String subject, String text)
     {
-        MimeMessage message = this.emailSender.createMimeMessage();
+        MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         try
         {
@@ -25,11 +26,12 @@ public class EmailService
             helper.setSubject(subject);
             helper.setText(text);
             helper.setFrom("FoodDeliverySystem");
-            this.emailSender.send(message);
+            emailSender.send(message);
         }
         catch (MessagingException messageException)
         {
-            throw new RuntimeException(messageException);
+            throw new SendEmailException("Exception while trying to send email message: "
+                    + messageException.getLocalizedMessage());
         }
     }
 
