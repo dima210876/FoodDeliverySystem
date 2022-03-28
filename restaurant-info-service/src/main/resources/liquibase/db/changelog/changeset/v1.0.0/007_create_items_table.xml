@@ -20,6 +20,9 @@
             <column name="price" type="decimal">
                 <constraints nullable="false"/>
             </column>
+            <column name="discount" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="available" type="boolean">
                 <constraints nullable="false"/>
             </column>

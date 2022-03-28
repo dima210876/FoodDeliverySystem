@@ -20,6 +20,12 @@
             <column name="office_address" type="varchar(200)">
                 <constraints nullable="true"/>
             </column>
+            <column name="latitude" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="decimal">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
