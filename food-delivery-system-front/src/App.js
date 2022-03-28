@@ -12,6 +12,7 @@ import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/
 import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
 import {getOrganizationInfo} from "./redux/actions/GetDataActions";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/CourierManagerRegPage";
+import {ProductPage} from "./pages/productPage";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path='/restaurant' element={<RestaurantPage/>}/>
                 <Route path='/order' element={<OrderPage/>}/>
                 <Route path='/account' element={<ChooseRole/>}/>
+                <Route path='/products' element={<ProductPage/>}/>
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>

@@ -5,8 +5,8 @@ spring:
   application:
     name: restaurant-info-service
   datasource:
-    username: username #edit
-    password: password #edit
+    username: postgres
+    password: anton
     url: jdbc:postgresql://localhost:5432/restaurant_info_service
   jpa:
     hibernate:
