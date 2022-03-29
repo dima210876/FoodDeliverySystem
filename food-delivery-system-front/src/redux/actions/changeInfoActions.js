@@ -14,8 +14,8 @@ export const changeDeliveryOrganizationInfo = (organizationId, name, accountNumb
         })
 }
 
-export const changeRestaurantInfo = (restaurantId, name, description, phone, address, latitude, longitude) => (dispatch) => {
-    return changeInfoService.changeRestaurant(restaurantId, name, description, phone, address, latitude, longitude).then(
+export const changeRestaurantInfo = (restaurantId, name, description, phone, address, latitude, longitude, workingTime, restaurantTypes) => (dispatch) => {
+    return changeInfoService.changeRestaurant(restaurantId, name, description, phone, address, latitude, longitude, workingTime, restaurantTypes).then(
         (response) => {
             dispatch({
                 type: CHANGE_RESTAURANT_INFO_SUCCESS,

@@ -61,7 +61,8 @@ const ModifyRestaurantInfoPage = () => {
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
                     if (phone && isValidPhoneNumber(phone)) {
-                        changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng);
+                        changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
+                            restaurant.workingTime, restaurant.restaurantTypes);
                     }
                 })
             }}

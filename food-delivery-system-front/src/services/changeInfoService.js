@@ -19,16 +19,18 @@ class changeInfoService {
             });
     };
 
-    changeRestaurant(restaurantId, name, description, phone, address, latitude, longitude) {
+    changeRestaurant(restaurantId, name, description, phone, address, latitude, longitude, workingTime, restaurantTypes) {
         return axios
-            .post(API_URL + "url-for-changing-restaurant-info", {
+            .post(API_URL + " http://localhost:8083/editRestaurantInfo", {
                 restaurantId: restaurantId,
                 name: name,
                 description: description,
                 phone: phone,
                 address: address,
                 latitude: latitude,
-                longitude: longitude
+                longitude: longitude,
+                workingTime: workingTime,
+                restaurantTypes: restaurantTypes
             })
             .then((response) => {
                 return response.data;
