@@ -45,7 +45,7 @@ const AddressInputField = ({ address, changeAddress, changeCoordinates, submitCl
         >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                 <Form.Group className="p-4 pt-0" controlId="address-input">
-                    <Form.Label>Office address</Form.Label>
+                    <Form.Label>Address</Form.Label>
                     <input {...getInputProps({ placeholder: "Enter address", className: "form-control"} )} />
 
                     <div className="form-control-feedback" style={{display: error !== '' ? 'block' : 'none' }}>

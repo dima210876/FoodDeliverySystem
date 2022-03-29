@@ -12,7 +12,8 @@ import { CourierManagerPage } from "./pages/personal-spaces-pages/courier-manage
 import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
 import { getCourierManagerInfo } from "./redux/actions/UserDataActions";
 import { ModifyOrganizationInfoPage}  from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
-import AddressInputField  from "./components/inputFields/addressInputField"
+import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/RestaurantManagerPage";
+import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/ModifyRestaurantInfoPage";
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
+                <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
+                <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
             </Routes>
         </>
     );
