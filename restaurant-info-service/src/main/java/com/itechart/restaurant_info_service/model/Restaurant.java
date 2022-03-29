@@ -1,10 +1,9 @@
 package com.itechart.restaurant_info_service.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +11,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,7 +29,7 @@ public class Restaurant {
     @Size(min = 2, max = 100, message = "Name string length limits exceeded")
     private String name;
 
-    @Size(min = 2, max = 50, message = "Phone number string length limits exceeded")
+    @Size(min = 0, max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
     @Size(min = 2, max = 200, message = "Description string length limits exceeded")
@@ -47,8 +47,7 @@ public class Restaurant {
     private Double longitude;
 
     @OneToOne
-    @JoinColumn(name = "manager_id", referencedColumnName = "user_id")
-    @NotNull(message = "Manager is required")
+    @JoinColumn(name = "manager_id")
     @JsonManagedReference
     private Manager manager;
 

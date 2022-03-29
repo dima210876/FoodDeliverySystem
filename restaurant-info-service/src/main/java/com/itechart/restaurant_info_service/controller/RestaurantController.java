@@ -4,8 +4,11 @@ import com.itechart.restaurant_info_service.dto.FeedbackDTO;
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
 import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
 import com.itechart.restaurant_info_service.dto.RestaurantDTO;
+import com.itechart.restaurant_info_service.exception.EditRestaurantException;
+import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
+import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.service.FeedbackService;
 import com.itechart.restaurant_info_service.service.ManagerService;
 import com.itechart.restaurant_info_service.service.OrderService;
@@ -31,6 +34,16 @@ public class RestaurantController {
     @PostMapping("/registerManager")
     public ResponseEntity<Manager> registerManager(@RequestBody ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
         return ResponseEntity.ok().body(managerService.registerManager(managerRegistrationInfoDTO));
+    }
+
+    @PostMapping("/editRestaurantInfo")
+    public ResponseEntity<Restaurant> editRestaurantInfo(@RequestBody RestaurantDTO restaurantDTO) throws EditRestaurantException {
+        return ResponseEntity.ok().body(restaurantService.editRestaurantInfo(restaurantDTO));
+    }
+
+    @GetMapping("/getManagerInfo")
+    public ResponseEntity<Manager> getManagerInfo(@RequestParam("id") Long managerId) throws GettingInfoException {
+        return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
 
     @PostMapping("/newOrder")
