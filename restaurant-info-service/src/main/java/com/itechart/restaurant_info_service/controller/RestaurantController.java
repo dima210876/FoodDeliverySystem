@@ -41,7 +41,7 @@ public class RestaurantController {
         return ResponseEntity.ok().body(restaurantService.editRestaurantInfo(restaurantDTO));
     }
 
-    @GetMapping("/getManagerInfo")
+    @GetMapping("/getRestaurantManagerInfo")
     public ResponseEntity<Manager> getManagerInfo(@RequestParam("id") Long managerId) throws GettingInfoException {
         return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
