@@ -1,23 +1,26 @@
 import React from 'react';
 import LoginPage from "./pages/login-registration-pages/LoginPage";
 import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes, useNavigate} from "react-router-dom";
 import { RestaurantPage } from './pages/main-menu-pages/RestaurantPage';
 import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/RestaurantManagerRegPage";
 import { MainPage } from './pages/main-menu-pages/MainPage';
 import { OrderPage } from './pages/main-menu-pages/OrderPage';
 import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CourierManagerPage } from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
 import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
-import { getCourierManagerInfo } from "./redux/actions/UserDataActions";
+import {getCourierManagerInfo, getRestaurantManagerInfo} from "./redux/actions/UserDataActions";
+import * as UserDataActions from "./redux/actions/UserDataActions";
 import { ModifyOrganizationInfoPage}  from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/RestaurantManagerPage";
 import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/ModifyRestaurantInfoPage";
 
 function App() {
 
+    const dispatch = useDispatch();
     const user = useSelector(state => state.auth.authData.user);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -55,6 +58,11 @@ function App() {
             case 'ROLE_COURIER_SERVICE_MANAGER':
                 getCourierManagerInfo(user.id);
                 return <CourierManagerPage/>;
+            case 'ROLE_MANAGER':
+                UserDataActions.getRestaurantManagerInfo(user.id)(dispatch).then(() => {
+                    navigate("/restaurant-manager");
+                })
+
             /*case 'customer':
                 return; */
             /*default:

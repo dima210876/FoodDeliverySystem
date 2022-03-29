@@ -25,7 +25,7 @@ class changeInfoService {
                 restaurantId: restaurantId,
                 name: name,
                 description: description,
-                phone: phone,
+                phoneNumber: phone,
                 address: address,
                 latitude: latitude,
                 longitude: longitude,
