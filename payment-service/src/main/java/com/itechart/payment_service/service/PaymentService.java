@@ -56,6 +56,10 @@ public class PaymentService
             paymentReceipt = optionalPaymentReceipt.get();
         }
 
+        if (paymentReceipt.getReceiptStatus().equals("paid")) {
+            throw new PaymentException("Order has already been paid for.");
+        }
+
         Optional<PaymentProvider> optionalPaymentProvider =
                 paymentProviderRepository.findByName(paymentInfoDto.getPaymentProviderName());
         if (optionalPaymentProvider.isEmpty()) {
