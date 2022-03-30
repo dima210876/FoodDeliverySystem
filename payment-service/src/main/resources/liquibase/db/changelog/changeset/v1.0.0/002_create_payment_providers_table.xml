@@ -9,6 +9,9 @@
                 <constraints primaryKey="true" primaryKeyName="pk_payment_providers_id" nullable="false"/>
             </column>
             <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="payment_method" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="varchar(20)">

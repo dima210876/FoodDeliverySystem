@@ -17,9 +17,6 @@
             <column name="transaction_number" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="payment_method" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
             <column name="payment_status" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
