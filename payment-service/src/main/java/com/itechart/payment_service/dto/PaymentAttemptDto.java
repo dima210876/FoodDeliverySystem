@@ -28,11 +28,6 @@ public class PaymentAttemptDto
     @Size(min = 10, max = 50, message = "Transaction number string length limits exceeded")
     private String transactionNumber;
 
-    @NotNull(message = "Payment method is required")
-    @NotBlank(message = "Payment method can't be empty")
-    @Size(min = 2, max = 50, message = "Payment method string length limits exceeded")
-    private String paymentMethod;
-
     @NotNull(message = "Payment status is required")
     @NotBlank(message = "Payment status can't be empty")
     @Size(min = 2, max = 20, message = "Payment status string length limits exceeded")
