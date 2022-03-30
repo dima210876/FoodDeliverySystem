@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,7 @@ public class PaymentService
         }
         PaymentProvider paymentProvider = optionalPaymentProvider.get();
         String paymentMethod = paymentProvider.getPaymentMethod();
+        PaymentAttempt paymentAttempt;
 
         Double orderTotalPrice =
                 orderDto.getOrderPrice() * (100 - orderDto.getDiscount()) / 100 + orderDto.getShippingPrice();
@@ -69,32 +71,54 @@ public class PaymentService
         switch(paymentMethod)
         {
             case "physical":
-
+                 paymentAttempt = PaymentAttempt.builder()
+                        .paymentReceipt(paymentReceipt)
+                        .paymentProvider(paymentProvider)
+                        .transactionNumber("-")
+                        .paymentStatus("confirmed")
+                        .paymentDatetime(LocalDateTime.now())
+                        .build();
+                paymentAttemptRepository.save(paymentAttempt);
+                paymentReceipt.setReceiptStatus("paid");
                 break;
-            case "electronic":
 
+            case "electronic":
                 if (!electronicPaymentSystem.executePayment(
                         paymentInfoDto.getCardNumber(),
                         paymentInfoDto.getValidityPeriod(),
                         paymentInfoDto.getCardCode(),
                         orderTotalPrice))
                 {
-                    PaymentAttempt paymentAttempt = PaymentAttempt.builder()
+                     paymentAttempt = PaymentAttempt.builder()
                             .paymentReceipt(paymentReceipt)
-                            .paymentProvider(optionalPaymentProvider.get())
+                            .paymentProvider(paymentProvider)
+                            .paymentStatus("rejected")
+                            .paymentDatetime(LocalDateTime.now())
                             .build();
+                    paymentAttemptRepository.save(paymentAttempt);
                     throw new PaymentException("Error while trying to pay for the order.");
                 }
-
+                paymentAttempt = PaymentAttempt.builder()
+                        .paymentReceipt(paymentReceipt)
+                        .paymentProvider(paymentProvider)
+                        .transactionNumber(electronicPaymentSystem.getTransactionNumber())
+                        .paymentStatus("confirmed")
+                        .paymentDatetime(LocalDateTime.now())
+                        .build();
+                paymentAttemptRepository.save(paymentAttempt);
+                paymentReceipt.setReceiptStatus("paid");
                 break;
             default:
                 throw new PaymentException("Payment method not found.");
         }
-
-
-
-
-
+        //TODO: call order changing status endpoint (not paid -> paid) at food delivery service
+        return PaymentReceiptDto.builder()
+                .id(paymentReceipt.getId())
+                .orderId(paymentReceipt.getOrderId())
+                .receiptStatus(paymentReceipt.getReceiptStatus())
+                //TODO: add convert to dto method for payment attempt
+                //.paymentAttempts(paymentReceipt.getPaymentAttempts())
+                .build();
     }
 
 

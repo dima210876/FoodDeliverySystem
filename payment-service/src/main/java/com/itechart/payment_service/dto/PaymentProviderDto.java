@@ -22,6 +22,11 @@ public class PaymentProviderDto
     @Size(max = 100, message = "Name string length exceeded")
     private String name;
 
+    @NotNull(message = "Payment method is required")
+    @NotBlank(message = "Payment method can't be empty")
+    @Size(min = 2, max = 50, message = "Payment method string length limits exceeded")
+    private String paymentMethod;
+
     @NotNull(message = "Status is required")
     @NotBlank(message = "Status can't be empty")
     @Size(max = 20, message = "Status string length exceeded")
