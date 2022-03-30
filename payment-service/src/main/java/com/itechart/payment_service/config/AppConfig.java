@@ -1,5 +1,6 @@
 package com.itechart.payment_service.config;
 
+import com.itechart.payment_service.util.ElectronicPaymentSystem;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -13,5 +14,6 @@ public class AppConfig
         return new RestTemplate();
     }
 
-    //TODO: add abstract payment method
+    @Bean
+    public ElectronicPaymentSystem electronicPaymentSystem() { return new ElectronicPaymentSystem(); }
 }
