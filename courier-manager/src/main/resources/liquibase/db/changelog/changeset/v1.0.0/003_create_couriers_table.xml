@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="3" author="dima210876">
+        <createTable tableName="couriers">
+            <column name="user_id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="pk_couriers_id" nullable="false"/>
+            </column>
+            <column name="delivery_organization_id" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="first_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="delivery_organization_id"
+                baseTableName="couriers"
+                constraintName="fk_couriers_delivery_organization_id"
+                referencedColumnNames="id"
+                referencedTableName="delivery_organizations"/>
+    </changeSet>
+</databaseChangeLog>
