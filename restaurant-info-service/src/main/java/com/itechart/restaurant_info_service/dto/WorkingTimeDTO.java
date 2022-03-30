@@ -11,12 +11,12 @@ import java.sql.Time;
 public class WorkingTimeDTO {
 
     @NotNull(message = "Opening time is required")
-    @Range(min = 0, max = 1440, message = "Day of week limits exceeded")
-    private Integer openingTimeInMinutes;
+    @Size(max = 6, message = "Time limits exceeded")
+    private String openingTime;
 
     @NotNull(message = "Closing time is required")
-    @Range(min = 0, max = 1440, message = "Day of week limits exceeded")
-    private Integer closingTimeInMinutes;
+    @Size(max = 6, message = "Time limits exceeded")
+    private String closingTime;
 
     @NotNull(message = "Day of week is required")
     @Range(min = 0, max = 7, message = "Day of week limits exceeded")

@@ -32,8 +32,8 @@ public class RestaurantInfoService {
 
             for (WorkingTimeDTO workingTimeDTO : restaurantDTO.getWorkingTime()) {
                 WorkingTime workingTime = WorkingTime.builder()
-                        .openingTimeInMinutes(workingTimeDTO.getOpeningTimeInMinutes())
-                        .closingTimeInMinutes(workingTimeDTO.getClosingTimeInMinutes())
+                        .openingTime(workingTimeDTO.getOpeningTime())
+                        .closingTime(workingTimeDTO.getClosingTime())
                         .dayOfWeek(workingTimeDTO.getDayOfWeek())
                         .restaurant(restaurant)
                         .build();

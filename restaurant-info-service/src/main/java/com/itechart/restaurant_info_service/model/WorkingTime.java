@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -21,12 +22,12 @@ public class WorkingTime {
     private Long id;
 
     @NotNull(message = "Opening time is required")
-    @Range(min = 0, max = 1440, message = "Time limits exceeded")
-    private Integer openingTimeInMinutes;
+    @Size(min = 0, max = 6, message = "Time limits exceeded")
+    private String openingTime;
 
     @NotNull(message = "Closing time is required")
-    @Range(min = 0, max = 1440, message = "Time limits exceeded")
-    private Integer closingTimeInMinutes;
+    @Size(min = 0, max = 6, message = "Time limits exceeded")
+    private String closingTime;
 
     @NotNull(message = "Day of week is required")
     @Range(min = 0, max = 7, message = "Day of week limits exceeded")
@@ -49,8 +50,8 @@ public class WorkingTime {
 
         WorkingTime workingTime = (WorkingTime) obj;
 
-        return openingTimeInMinutes.equals(workingTime.openingTimeInMinutes) &&
-                closingTimeInMinutes.equals(workingTime.closingTimeInMinutes) &&
+        return openingTime.equals(workingTime.openingTime) &&
+                closingTime.equals(workingTime.closingTime) &&
                 dayOfWeek.equals(workingTime.dayOfWeek) &&
                 restaurant.getId().equals(workingTime.restaurant.getId());
     }

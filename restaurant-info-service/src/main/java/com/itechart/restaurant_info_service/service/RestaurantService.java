@@ -68,7 +68,7 @@ public class RestaurantService {
 
             restaurant = restaurantRepository.save(restaurant);
 
-            restaurantInfoService.editWorkingTime(restaurantDTO, restaurant);
+            restaurant = restaurantInfoService.editWorkingTime(restaurantDTO, restaurant);
 
             restaurant = restaurantInfoService.editRestaurantTypes(restaurantDTO, restaurant);
 
