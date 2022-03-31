@@ -31,5 +31,5 @@ public class OrganizationDTO {
     private Double latitude;
 
     @NotNull(message = "Longitude is required")
-    private Double longtitude;
+    private Double longitude;
 }
