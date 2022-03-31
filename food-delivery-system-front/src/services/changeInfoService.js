@@ -9,7 +9,7 @@ class changeInfoService {
                 organizationId: organizationId,
                 name: name,
                 accountNumber: accountNumber,
-                phone: phone,
+                phoneNumber: phone,
                 address: address,
                 latitude: latitude,
                 longtitude: longtitude

@@ -1,9 +1,10 @@
 import axios from "axios";
-const API_URL = "http://localhost:8085/";
+const API_URL = "http://localhost:8084/";
 class UserDataService {
     getCourierManagerInfo(managerId) {
+        console.log("BEFORE REQUEST");
         return axios
-            .get(API_URL + "identity/get-courier-manager-info", {
+            .get(API_URL + "getManagerInfo", {
                 params: {
                     id: managerId
                 }
