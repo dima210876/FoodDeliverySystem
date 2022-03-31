@@ -28,15 +28,15 @@ public class CourierService {
     @LoadBalanced
     private final RestTemplate restTemplate;
 
+    static final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
+    static final String ROLE_COURIER = "ROLE_COURIER";
+
     @Transactional
     public Courier registerCourier(@Valid CourierDto courierDto) throws CourierRegistrationException {
         Courier courier;
         Long userId = 0L;
 
         try {
-            final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
-            final String ROLE_COURIER = "ROLE_COURIER";
-
             IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
                     .email(courierDto.getEmail())
                     .password(courierDto.getPassword())

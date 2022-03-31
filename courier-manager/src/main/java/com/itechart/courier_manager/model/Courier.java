@@ -51,13 +51,16 @@ public class Courier {
     @ManyToOne
     @JoinColumn(
             name = "delivery_organization_id",
+            foreignKey = @ForeignKey(
+                    name = "FK_organizations_id"
+            ),
             nullable = false
     )
     @NotNull(message = "Organization is required")
     @JsonBackReference
     private Organization organization;
 
-    @OneToMany(mappedBy = "courier")
+    @OneToMany( mappedBy = "courier")
     @JsonManagedReference
     private Set<CourierOrder> orders;
 }
