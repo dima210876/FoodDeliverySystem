@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -26,34 +27,21 @@ public class RestaurantInfoService {
     @Transactional
     public Restaurant editWorkingTime(RestaurantDTO restaurantDTO, Restaurant restaurant) throws EditRestaurantException {
         try {
-            Set<WorkingTime> existingWorkingTime = restaurant.getWorkingTime();
+            workingTimeRepository.deleteAll(restaurant.getWorkingTime());
 
-            boolean key = true;
+            Set<WorkingTime> workingTimeSet = new HashSet<>();
 
             for (WorkingTimeDTO workingTimeDTO : restaurantDTO.getWorkingTime()) {
-                WorkingTime workingTime = WorkingTime.builder()
-                        .openingTimeInMinutes(workingTimeDTO.getOpeningTimeInMinutes())
-                        .closingTimeInMinutes(workingTimeDTO.getClosingTimeInMinutes())
+                workingTimeSet.add(WorkingTime.builder()
+                        .openingTime(workingTimeDTO.getOpeningTime())
+                        .closingTime(workingTimeDTO.getClosingTime())
                         .dayOfWeek(workingTimeDTO.getDayOfWeek())
                         .restaurant(restaurant)
-                        .build();
-
-                for (WorkingTime existing : existingWorkingTime) {
-                    if (existing.equals(workingTime)) {
-                        key = false;
-                        break;
-                    } else if (existing.getDayOfWeek().equals(workingTime.getDayOfWeek())) {
-                        break;
-                    }
-                }
-                if (key) {
-                    workingTimeRepository.save(workingTime);
-
-                    restaurant.getWorkingTime().add(workingTime);
-                } else {
-                    key = true;
-                }
+                        .build());
             }
+
+            workingTimeRepository.saveAll(workingTimeSet);
+            restaurant.setWorkingTime(workingTimeSet);
         } catch (Throwable ex) {
             throw new EditRestaurantException("Couldn't edit working hours");
         }

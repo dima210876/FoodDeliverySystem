@@ -1,6 +1,6 @@
 package com.itechart.restaurant_info_service.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +48,6 @@ public class Manager {
     private String role;
 
     @OneToOne(mappedBy = "manager")
-    @JsonBackReference
+    @JsonManagedReference
     private Restaurant restaurant;
 }

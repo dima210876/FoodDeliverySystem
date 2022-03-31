@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${APP_JDBC_URL}/g1_dev_identity_service_db
