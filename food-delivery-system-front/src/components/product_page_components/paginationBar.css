@@ -1,0 +1,29 @@
+.pagination-bar{
+    display: flex;
+    margin-top: 4%;
+    margin-left: 10%;
+}
+
+.button-move-on-page{
+    width: 70px;
+    color: black;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+}
+
+.button-move-on-page:active{
+    background-color: red;
+    color: white;
+}
+
+.div-current-page{
+    width: 120px;
+    text-align: center;
+}
+
+.current-page{
+    margin-left: auto;
+    margin-right: auto;
+}

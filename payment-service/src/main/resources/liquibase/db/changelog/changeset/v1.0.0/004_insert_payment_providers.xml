@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="4" author="dima210876">
+        <insert tableName="payment_providers">
+            <column name="name" value="Physical payment system"/>
+            <column name="payment_method" value="physical"/>
+            <column name="status" value="active"/>
+            <column name="description" value="Allows to accept cash payments"/>
+        </insert>
+        <insert tableName="payment_providers">
+            <column name="name" value="Electronic payment system"/>
+            <column name="payment_method" value="electronic"/>
+            <column name="status" value="active"/>
+            <column name="description" value="Allows to accept cashless payments"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

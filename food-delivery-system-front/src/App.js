@@ -15,6 +15,12 @@ import * as UserDataActions from "./redux/actions/UserDataActions";
 import { ModifyOrganizationInfoPage}  from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/RestaurantManagerPage";
 import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/ModifyRestaurantInfoPage";
+import {useSelector} from "react-redux";
+import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
+import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
+import {getOrganizationInfo} from "./redux/actions/GetDataActions";
+import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/CourierManagerRegPage";
+import {ProductPage} from "./pages/productPage";
 
 function App() {
 
@@ -29,9 +35,11 @@ function App() {
                 <Route path='/restaurant' element={<RestaurantPage/>}/>
                 <Route path='/order' element={<OrderPage/>}/>
                 <Route path='/account' element={<ChooseRole/>}/>
+                <Route path='/products' element={<ProductPage/>}/>
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
+                <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
@@ -54,6 +62,7 @@ function App() {
     function renderSwitch() {
         switch (user.role) {
             case 'ROLE_SUPER_ADMIN':
+                getOrganizationInfo(user.id);
                 return <AdminPage/>;
             case 'ROLE_COURIER_SERVICE_MANAGER':
                 getCourierManagerInfo(user.id);

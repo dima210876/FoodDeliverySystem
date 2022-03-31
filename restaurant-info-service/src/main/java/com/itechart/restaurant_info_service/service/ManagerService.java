@@ -86,7 +86,7 @@ public class ManagerService {
 
             return optionalManager.get();
         } catch (Throwable ex) {
-            throw new GettingInfoException("Couldn't get manager with id " + managerId);
+            throw new GettingInfoException(String.format("Couldn't get manager with id %d", managerId));
         }
     }
 }

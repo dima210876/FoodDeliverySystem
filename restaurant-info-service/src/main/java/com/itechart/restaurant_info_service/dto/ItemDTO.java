@@ -1,14 +1,21 @@
 package com.itechart.restaurant_info_service.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemDTO {
+
+    @Id
+    private Long id;
 
     @NotNull(message = "Name is required")
     @NotBlank(message = "Name can't be empty")
@@ -32,6 +39,6 @@ public class ItemDTO {
     @Size(min = 2, max = 100, message = "Feature string length limits exceeded")
     private String feature;
 
-    @NotNull(message = "Ingredients are required")
-    private Set<IngredientDTO> ingredients;
+    @NotNull(message = "Restaurant are required")
+    private String restaurant;
 }

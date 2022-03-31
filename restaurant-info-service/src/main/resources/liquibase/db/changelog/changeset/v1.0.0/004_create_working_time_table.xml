@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="4" author="dima210876">
+        <createTable tableName="working_time">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_working_time_id" nullable="false"/>
+            </column>
+            <column name="restaurant_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opening_time" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="closing_time" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_of_week" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="restaurant_id"
+                baseTableName="working_time"
+                constraintName="fk_working_time_restaurant_id"
+                referencedColumnNames="id"
+                referencedTableName="restaurants"/>
+
+        <addUniqueConstraint
+                columnNames="restaurant_id, day_of_week"
+                constraintName="unique_restaurant_day"
+                tableName="working_time"/>
+    </changeSet>
+</databaseChangeLog>

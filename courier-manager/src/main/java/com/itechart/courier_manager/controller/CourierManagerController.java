@@ -8,14 +8,8 @@ import com.itechart.courier_manager.model.CourierManager;
 import com.itechart.courier_manager.service.CourierManagerService;
 import com.itechart.courier_manager.service.CourierService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -33,4 +27,9 @@ public class CourierManagerController {
         return ResponseEntity.ok().body(courierManagerService.registerCourierManager(courierManagerDTO));
 
     }
+
+//    @GetMapping("/getManagerInfo")
+//    public ResponseEntity<CourierManager> getManagerInfo(@RequestParam("id") Long managerId) throws CourierRegistrationException {
+//        return ResponseEntity.ok().body(courierManagerService.getManagerInfo(managerId));
+//    }
 }
