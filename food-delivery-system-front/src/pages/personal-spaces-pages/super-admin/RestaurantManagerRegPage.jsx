@@ -9,7 +9,6 @@ import Footer from "../../../components/footer"
 
 import "./formsInPersonalSpace.css"
 import * as authActions from "../../../redux/actions/AuthActions";
-import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 
@@ -18,6 +17,7 @@ const RegistrationManager = () => {
     // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
@@ -66,6 +66,11 @@ const RegistrationManager = () => {
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerRestaurant(values.restaurantName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/admin-space-link-from-another-ticket');
+                    }).catch(() => {
+                        setStateOfAlert(true);
+                        setTimeout(() => {
+                            setStateOfAlert(false);
+                        }, 3000)
                     });
                 }
             }}
@@ -77,6 +82,7 @@ const RegistrationManager = () => {
                       <>
                       <Navbar />
                       <Container className="personal-space-form-container">
+                          {stateOfAlert ? <div className="alert alert-danger" role='alert'>Error on the server</div> : null}
                           <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                               <Form id="sign-in-form" className="m-5 p-5 rounded w-75"  noValidate onSubmit={handleSubmit}>
                                   <div className="text-center">

@@ -19,6 +19,14 @@
     display: flex;
 }
 
+.alert{
+    top: 120px;
+    width: 38%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
 .actions{
     margin-bottom: auto;
     margin-top: auto;

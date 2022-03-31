@@ -16,6 +16,7 @@ const RegistrationPage = () => {
     // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
@@ -59,6 +60,11 @@ const RegistrationPage = () => {
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerUser(values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/main-page-link-from-another-ticket');
+                    }).catch(() => {
+                        setStateOfAlert(true);
+                        setTimeout(() => {
+                            setStateOfAlert(false);
+                        }, 3000)
                     });
                 }
             }}
@@ -69,6 +75,7 @@ const RegistrationPage = () => {
                   errors,
               }) => (
             <Container id="main-container">
+                {stateOfAlert ? <div className="alert alert-danger" role='alert'>Error on the server</div> : null}
                 <Col lg={6} md={6} sm={12} className="m-auto shadow-sm full-width d-flex justify-content-center">
                     <Form id="sign-up-form" className="m-5 p-4 rounded w-75" noValidate onSubmit={handleSubmit}>
                         <div className="text-center">
