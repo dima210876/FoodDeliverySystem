@@ -10,17 +10,17 @@ import java.util.Set;
 @Data
 public class RestaurantDTO {
     @NotNull(message = "Manager id is required")
-    private Long managerId;
+    private Long restaurantId;
 
     @NotNull(message = "Name is required")
     @NotBlank(message = "Name can't be empty")
     @Size(min = 2, max = 100, message = "Name string length limits exceeded")
     private String name;
 
-    @Size(min = 2, max = 50, message = "Phone number string length limits exceeded")
+    @Size(max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
-    @Size(min = 2, max = 200, message = "Description string length limits exceeded")
+    @Size(max = 200, message = "Description string length limits exceeded")
     private String description;
 
     @NotNull(message = "Restaurant address is required")
@@ -39,7 +39,4 @@ public class RestaurantDTO {
 
     @NotNull(message = "Restaurant types are required")
     private Set<String> restaurantTypes;
-
-    @NotNull(message = "Items are required")
-    private Set<ItemDTO> items;
 }
