@@ -20,6 +20,8 @@ public class OrganizationService {
                 .name(organizationName)
                 .accountNumber(DEFAULT_ACCOUNT_NUMBER)
                 .officeAddress(DEFAULT_ADDRESS)
+                .latitude(0D)
+                .longitude(0D)
                 .build();
 
         try {

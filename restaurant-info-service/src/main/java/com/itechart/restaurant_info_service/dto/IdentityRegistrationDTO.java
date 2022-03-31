@@ -1,10 +1,11 @@
 package com.itechart.restaurant_info_service.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IdentityRegistrationDTO {
     private Long id;
     private String email;

@@ -5,7 +5,7 @@ import "./phoneInputField.css"
 import PhoneInput, {isValidPhoneNumber} from "react-phone-number-input";
 import {Form} from "react-bootstrap";
 
-const PhoneInputField = ({ changePhone, submitClicked }) => {
+const PhoneInputField = ({ phone, changePhone, submitClicked, required }) => {
     const [inputValue, setInputValue] = useState("");
     const [showError, setShowError] = useState(false);
 
@@ -16,9 +16,11 @@ const PhoneInputField = ({ changePhone, submitClicked }) => {
     }, [submitClicked]);
 
     function validatePhone(inputValue) {
-        setInputValue(inputValue);
-        setShowError(true);
-        changePhone(inputValue);
+        if (phone === "" || (phone !== "" && inputValue !== "")) {
+            setInputValue(inputValue);
+            setShowError(true);
+            changePhone(inputValue);
+        }
     }
 
     return (
@@ -27,13 +29,13 @@ const PhoneInputField = ({ changePhone, submitClicked }) => {
             <PhoneInput
                 name="phone"
                 placeholder="Enter phone number"
-                value={inputValue}
+                value={phone ? phone : inputValue}
                 onChange={inputValue => {
                     validatePhone(inputValue);
                 }}
             />
             <div className="form-control-feedback" style={{display: showError ? 'block' : 'none' }}>
-                {inputValue ? (isValidPhoneNumber(inputValue) ? " " : 'Invalid phone number') : 'Phone number is required field'}
+                {inputValue ? (isValidPhoneNumber(inputValue) ? " " : 'Invalid phone number') : ( required ? 'Phone number is required field' : "")}
             </div>
         </Form.Group>
     );

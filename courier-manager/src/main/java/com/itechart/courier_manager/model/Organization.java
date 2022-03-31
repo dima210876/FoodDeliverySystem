@@ -43,6 +43,12 @@ public class Organization {
     @Size(max = 50, message = "Office address string length limits exceeded")
     private String officeAddress;
 
+    @NotNull(message = "Latitude is required")
+    private Double latitude;
+
+    @NotNull(message = "Latitude is required")
+    private Double longitude;
+
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             mappedBy = "organization"

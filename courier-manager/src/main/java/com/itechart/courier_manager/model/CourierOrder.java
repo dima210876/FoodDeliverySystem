@@ -26,9 +26,9 @@ public class CourierOrder {
 
     @ManyToOne
     @JoinColumn(
-            name = "FK_couriers_id",
+            name = "courier_id",
             foreignKey = @ForeignKey(
-                    name = "courier_id"
+                    name = "FK_couriers_id"
             )
     )
     @NotNull(message = "Courier is required")

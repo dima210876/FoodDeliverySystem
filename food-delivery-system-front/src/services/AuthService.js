@@ -1,9 +1,9 @@
 import axios from "axios";
-const API_URL = "http://localhost:8085/";
+const API_URL = "http://localhost:";
 class AuthService {
     login(email, password) {
         return axios
-            .post(API_URL + "identity/login", {
+            .post(API_URL + "8081/login", {
                 email: email,
                 password: password
             })
@@ -13,7 +13,7 @@ class AuthService {
     }
 
     registerUser(firstName, lastName, email, phone, password) {
-        return axios.post(API_URL + "identity/register", {
+        return axios.post(API_URL + "8080/registerCustomer", {
             firstName: firstName,
             lastName: lastName,
             email: email,
