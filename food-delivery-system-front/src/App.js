@@ -12,10 +12,14 @@ import { CourierManagerPage } from "./pages/personal-spaces-pages/courier-manage
 import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
 import { ModifyOrganizationInfoPage}  from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
 import * as UserDataActions from "./redux/actions/UserDataActions";
-import * as AuthActions from "./redux/actions/AuthActions";
-// import {getCourierManagerInfo} from "./redux/actions/UserDataActions";
+import {getCourierManagerInfo, getRestaurantManagerInfo} from "./redux/actions/UserDataActions";
+import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/RestaurantManagerPage";
+import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/ModifyRestaurantInfoPage";
+import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/CourierManagerRegPage";
+import {ProductPage} from "./pages/productPage";
 
 function App() {
+
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.authData.user);
     const navigate = useNavigate();
@@ -27,12 +31,16 @@ function App() {
                 <Route path='/restaurant' element={<RestaurantPage/>}/>
                 <Route path='/order' element={<OrderPage/>}/>
                 <Route path='/account' element={<ChooseRole/>}/>
+                <Route path='/products' element={<ProductPage/>}/>
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/registration' element={<RegistrationPage/>}/>
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
+                <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
+                <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
+                <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
             </Routes>
         </>
     );
@@ -55,7 +63,10 @@ function App() {
                 UserDataActions.getCourierManagerInfo(user.id)(dispatch).then(() => {
                     navigate("/courier-manager");
                 });
-
+            case 'ROLE_MANAGER':
+                UserDataActions.getRestaurantManagerInfo(user.id)(dispatch).then(() => {
+                    navigate("/restaurant-manager");
+                })
             /*case 'customer':
                 return; */
             /*default:

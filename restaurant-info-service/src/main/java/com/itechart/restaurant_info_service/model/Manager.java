@@ -1,6 +1,6 @@
 package com.itechart.restaurant_info_service.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +21,7 @@ import javax.validation.constraints.Size;
 public class Manager {
 
     @Id
+    @Column(name = "user_id")
     private Long userId;
 
     @NotNull(message = "Email is required")
@@ -38,7 +39,7 @@ public class Manager {
     @Size(min = 2, max = 100, message = "Last name string length limits exceeded")
     private String lastName;
 
-    @Size(min = 2, max = 50, message = "Phone number string length limits exceeded")
+    @Size(min = 0, max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
     @NotNull(message = "Role is required")
@@ -47,6 +48,6 @@ public class Manager {
     private String role;
 
     @OneToOne(mappedBy = "manager")
-    @JsonBackReference
+    @JsonManagedReference
     private Restaurant restaurant;
 }

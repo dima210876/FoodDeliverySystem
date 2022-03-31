@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 
 import java.util.Set;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,6 +40,13 @@ public class Organization {
     @NotBlank(message = "Office address can't be empty")
     @Size(max = 50, message = "Office address string length limits exceeded")
     private String officeAddress;
+
+    @NotNull(message = "Latitude is required")
+    private Double latitude;
+
+    @NotNull(message = "Longitude is required")
+    private Double longitude;
+
 
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},

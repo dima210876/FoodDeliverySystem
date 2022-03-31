@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="4" author="dima210876">
+        <createTable tableName="courier_orders">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_courier_orders_id" nullable="false"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="courier_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_method" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="courier_id"
+                baseTableName="courier_orders"
+                constraintName="fk_courier_orders_courier_id"
+                referencedColumnNames="user_id"
+                referencedTableName="couriers"/>
+    </changeSet>
+</databaseChangeLog>

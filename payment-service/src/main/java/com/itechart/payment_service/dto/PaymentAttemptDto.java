@@ -1,6 +1,9 @@
 package com.itechart.payment_service.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +12,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PaymentAttemptDto
 {
     private Long id;
@@ -21,11 +27,6 @@ public class PaymentAttemptDto
 
     @Size(min = 10, max = 50, message = "Transaction number string length limits exceeded")
     private String transactionNumber;
-
-    @NotNull(message = "Payment method is required")
-    @NotBlank(message = "Payment method can't be empty")
-    @Size(min = 2, max = 50, message = "Payment method string length limits exceeded")
-    private String paymentMethod;
 
     @NotNull(message = "Payment status is required")
     @NotBlank(message = "Payment status can't be empty")

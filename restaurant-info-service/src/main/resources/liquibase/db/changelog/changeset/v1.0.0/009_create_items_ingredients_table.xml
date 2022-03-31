@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="9" author="dima210876">
+        <createTable tableName="items_ingredients">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_items_ingredients_id" nullable="false"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ingredient_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="item_id"
+                baseTableName="items_ingredients"
+                constraintName="fk_items_ingredients_item_id"
+                referencedColumnNames="id"
+                referencedTableName="items"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="ingredient_id"
+                baseTableName="items_ingredients"
+                constraintName="fk_items_ingredients_ingredient_id"
+                referencedColumnNames="id"
+                referencedTableName="ingredients"/>
+    </changeSet>
+</databaseChangeLog>
+

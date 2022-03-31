@@ -13,5 +13,17 @@ class UserDataService {
                 return response.data;
             });
     }
+
+    getRestaurantManagerInfo(managerId) {
+        return axios
+            .get(API_URL + "getRestaurantManagerInfo", {
+                params: {
+                    id: managerId
+                }
+            })
+            .then((response) => {
+                return response.data;
+            });
+    }
 }
 export default new UserDataService();

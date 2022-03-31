@@ -1,5 +1,4 @@
 import AuthService from "../../services/AuthService";
-import {getInitialState} from "react-bootstrap-typeahead/types/core/Typeahead";
 
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
@@ -13,7 +12,7 @@ export const registerUser = (firstName, lastName, email, phone, password) => (di
                 type: REGISTER_SUCCESS,
                 payload: response,
             });
-            return Promise.resolve();
+             return Promise.resolve();
         })
 }
 
@@ -28,8 +27,21 @@ export const registerRestaurant = (restaurantName, firstName, lastName, email, p
         })
 }
 
+
 export const registerCourier = (organizationId, firstName, lastName, email, phone, password) => (dispatch) => {
     return AuthService.registerCourier(organizationId, firstName, lastName, email, phone, password).then(
+        (response) => {
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: response,
+            });
+            return Promise.resolve();
+        })
+}
+
+
+export const registerOrganization = (organizationName, firstName, lastName, email, phone, password) => (dispatch) => {
+    return AuthService.registerOrganization(organizationName, firstName, lastName, email, phone, password).then(
         (response) => {
             dispatch({
                 type: REGISTER_SUCCESS,

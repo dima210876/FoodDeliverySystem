@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="3" author="dima210876">
+        <createTable tableName="order_food_orders">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_order_food_orders_id" nullable="false"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="food_order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="food_order_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="completion_time" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="order_id"
+                baseTableName="order_food_orders"
+                constraintName="fk_order_food_orders_order_id"
+                referencedColumnNames="id"
+                referencedTableName="orders"/>
+    </changeSet>
+</databaseChangeLog>

@@ -50,9 +50,9 @@ public class Courier {
 
     @ManyToOne
     @JoinColumn(
-            name = "FK_organizations_id",
+            name = "delivery_organization_id",
             foreignKey = @ForeignKey(
-                    name = "delivery_organization_id"
+                    name = "FK_organizations_id"
             ),
             nullable = false
     )
