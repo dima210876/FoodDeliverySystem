@@ -3,7 +3,7 @@ import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/
 const initialState = {
     authData: {
         user: {
-            id:'',
+            user_id:'',
             email: '',
             firstName: '',
             lastName: '',

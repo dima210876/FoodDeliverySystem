@@ -3,27 +3,27 @@ import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import PhoneInputField from "../../../components/phoneInputField";
-import Navbar from "../../../components/navbar";
+import PhoneInputField from "../../../components/inputFields/phoneInputField";
+import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/footer"
 
-import * as authActions from "../../../redux/actions/authActions";
+import * as authActions from "../../../redux/actions/AuthActions";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 
-const RegistrationManager = () => {
+const CourierRegPage = () => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
+    const organizationId = useSelector(state => state.userData.deliveryOrgManagerData.manager.organization.organizationId);
     const [phone, setPhone] = useState("");
-    const organizationId = useSelector(state => state.userData.managerData.manager.organization.organizationId);
     const [submitClicked, setSubmitClicked] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
     }
     const changeSubmit = () => {
-        setSubmitClicked(!submitClicked);
+        setSubmitClicked(true);
     }
 
     const schema = Yup.object().shape({
@@ -60,7 +60,7 @@ const RegistrationManager = () => {
             onSubmit={(values) => {
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        // navigate('/admin-space-link-from-another-ticket');
+                        navigate('/admin');
                     });
                 }
             }}
@@ -79,7 +79,7 @@ const RegistrationManager = () => {
                                   </div>
                                   <Form.Group className="p-4 pt-2" controlId="sign-up-first-name">
                                       <Form.Label>First name</Form.Label>
-                                      <Form.Control type="textarea" name="firstName"  placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
+                                      <Form.Control type="textarea" name="firstName" placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
                                       <Form.Control.Feedback type="invalid">
                                           {errors.firstName}
                                       </Form.Control.Feedback>
@@ -120,4 +120,4 @@ const RegistrationManager = () => {
     );
 };
 
-export default RegistrationManager;
+export {CourierRegPage};

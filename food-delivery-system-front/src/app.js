@@ -1,23 +1,21 @@
 import React from 'react';
-import LoginPage from "./pages/login-registration-pages/loginPage";
-import RegistrationPage from "./pages/login-registration-pages/registrationPage";
+import LoginPage from "./pages/login-registration-pages/LoginPage";
+import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import { RestaurantPage } from './pages/main-menu-pages/restaurantPage';
-import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/restaurantManagerRegPage";
-import { MainPage } from './pages/main-menu-pages/mainPage';
-import { OrderPage } from './pages/main-menu-pages/orderPage';
-import { AdminPage} from "./pages/personal-spaces-pages/super-admin/adminPage";
+import { RestaurantPage } from './pages/main-menu-pages/RestaurantPage';
+import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/RestaurantManagerRegPage";
+import { MainPage } from './pages/main-menu-pages/MainPage';
+import { OrderPage } from './pages/main-menu-pages/OrderPage';
+import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
 import {useDispatch, useSelector} from "react-redux";
-import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/courierManagerPage";
-import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/courierRegPage";
-import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/courierManagerRegPage";
-import {ProductPage} from "./pages/productPage";
-import * as GetDataActions from "./redux/actions/userDataActions"
-function App() {
+import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
+import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
+import {getCourierManagerInfo, UserDataActions} from "./redux/actions/userDataActions";
 
-    const dispatch = useDispatch();
-    const authData = useSelector(state => state.auth.authData);
+function App() {
     const navigate = useNavigate();
+    const authData = useSelector(state => state.auth.authData);
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -33,6 +31,9 @@ function App() {
                 <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
+                <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
+                <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
+                <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
             </Routes>
         </>
     );
@@ -52,9 +53,15 @@ function App() {
             case 'ROLE_SUPER_ADMIN':
                 return <AdminPage/>;
             case 'ROLE_COURIER_SERVICE_MANAGER':
-                GetDataActions.getOrganizationInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                UserDataActions.getCourierManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/courier-manager");
                 });
+            case 'ROLE_MANAGER':
+                UserDataActions.getRestaurantManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                    navigate("/restaurant-manager");
+                })
+            /*case 'customer':
+                return; */
             /*default:
                 return ;*/
         }

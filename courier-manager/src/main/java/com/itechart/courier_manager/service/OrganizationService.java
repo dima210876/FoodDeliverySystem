@@ -18,8 +18,6 @@ public class OrganizationService {
 
     @Transactional
     public Organization createDefaultOrganization(String organizationName) throws RuntimeException {
-//        Organization organization;
-
         try {
             final String DEFAULT_ACCOUNT_NUMBER = "0";
             final String DEFAULT_ADDRESS = "Unknown";
@@ -29,7 +27,7 @@ public class OrganizationService {
                     .accountNumber(DEFAULT_ACCOUNT_NUMBER)
                     .officeAddress(DEFAULT_ADDRESS)
                     .latitude(0D)
-                    .longtitude(0D)
+                    .longitude(0D)
                     .build();
 
             organization = organizationRepository.save(organization);
@@ -37,7 +35,6 @@ public class OrganizationService {
         } catch (Throwable exception) {
             throw new RuntimeException(exception.getMessage());
         }
-//        return organization;
     }
 
     @Transactional
@@ -61,7 +58,7 @@ public class OrganizationService {
             organization.setPhoneNumber(organizationDTO.getPhoneNumber());
             organization.setOfficeAddress(organizationDTO.getOfficeAddress());
             organization.setLatitude(organizationDTO.getLatitude());
-            organization.setLongtitude(organizationDTO.getLongtitude());
+            organization.setLongitude(organizationDTO.getLongitude());
 
             organization = organizationRepository.save(organization);
 

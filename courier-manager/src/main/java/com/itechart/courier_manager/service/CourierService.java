@@ -54,8 +54,6 @@ public class CourierService {
                 throw new CourierRegistrationException("Identity service couldn't register the manager");
             }
 
-            System.out.println("-------------------");
-            System.out.println(response.getBody().getId());
             userId = response.getBody().getId();
 
             courier = Courier.builder()

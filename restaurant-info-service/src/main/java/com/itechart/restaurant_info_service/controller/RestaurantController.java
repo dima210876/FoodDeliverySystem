@@ -1,6 +1,8 @@
 package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.*;
+import com.itechart.restaurant_info_service.exception.EditRestaurantException;
+import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
@@ -52,13 +54,4 @@ public class RestaurantController {
         feedbackService.addFeedback(feedbackDTO);
     }
 
-    @GetMapping("/getItems")
-    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant){
-        Pageable pageable;
-        if(vectorOfSort)
-            pageable = PageRequest.of(page, size, Sort.by(sortColumn).ascending());
-        else
-            pageable = PageRequest.of(page, size, Sort.by(sortColumn).descending());
-        return ResponseEntity.ok().body(itemService.getItems(category, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable));
-    }
 }

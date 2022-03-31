@@ -1,10 +1,26 @@
 import axios from "axios";
-const API_URL = "http://localhost:8081/";
+const API_URL = "http://localhost/";
 class UserDataService {
-    getOrganizationInfo(userId, token) {
+    getCourierManagerInfo(managerId, token) {
         return axios
-            .get(API_URL + "confirm/" + token, {
-                params: { id: userId }
+            .get(API_URL + "8084/getManagerInfo", {
+                headers: { "Authorization" : `Bearer ${token}`},
+                params: {
+                    id: managerId
+                }
+            })
+            .then((response) => {
+                return response.data;
+            });
+    }
+
+    getRestaurantManagerInfo(managerId, token) {
+        return axios
+            .get(API_URL + "8083/getManagerInfo", {
+                headers: { "Authorization" : `Bearer ${token}`},
+                params: {
+                    id: managerId
+                }
             })
             .then((response) => {
                 return response.data;
