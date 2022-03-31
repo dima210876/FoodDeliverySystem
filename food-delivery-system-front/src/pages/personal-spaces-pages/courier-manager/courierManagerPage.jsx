@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
-import './CourierManagerPage.css';
-import Navbar from "../../../components/Navbar";
+import './courierManagerPage.css';
+import Navbar from "../../../components/navbar";
 
 const CourierManagerPage = () => {
     return(

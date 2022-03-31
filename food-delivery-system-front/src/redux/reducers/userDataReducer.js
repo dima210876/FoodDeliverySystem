@@ -1,4 +1,4 @@
-import {GET_ORG_INFO_SUCCESS} from "../actions/GetDataActions"
+import {GET_ORG_INFO_SUCCESS} from "../actions/userDataActions"
 
 const initialState = {
     managerData: {

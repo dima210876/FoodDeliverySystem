@@ -1,4 +1,4 @@
-import "./OurSalesHeader.css"
+import "./ourSalesHeader.css"
 
 function OurSalesHeader(){
     return(

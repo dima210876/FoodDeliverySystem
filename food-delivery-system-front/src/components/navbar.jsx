@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import { FaCartArrowDown } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
-import Drawer from '../components/Drawer';
+import Drawer from './drawer';
 import React from 'react';
-import PersonalAccountCard from "./PersonalAccountCard";
+import PersonalAccountCard from "./personalAccountCard";
 import {Link} from "react-router-dom";
 
 function Navbar(){

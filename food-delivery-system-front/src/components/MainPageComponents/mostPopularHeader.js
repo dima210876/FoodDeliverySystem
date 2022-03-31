@@ -1,4 +1,4 @@
-import "./MostPopularHeader.css"
+import "./mostPopularHeader.css"
 
 function MostPopularHeader(){
     return(

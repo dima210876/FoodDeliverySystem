@@ -1,4 +1,4 @@
-import './CategoryHeader.css'
+import './categoryHeader.css'
 
 function CategoryHeader(){
     return(

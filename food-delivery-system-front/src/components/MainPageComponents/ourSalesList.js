@@ -1,9 +1,9 @@
 import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
-import OurSalesCard from "./OurSalesCard";
-import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
-import "./OurSalesList.css"
+import OurSalesCard from "./ourSalesCard";
+import setStartCountOfProduct from "../../local_storage_helper/localStorageHelper";
+import "./ourSalesList.css"
 
 /*var listWithDiscounts = [{"title":"Salat","price":4,"discount":3,"imageUrl":"/img/food.png"},
                          {"title":"Burger","price":5,"discount":3,"imageUrl":"/img/food.png"},

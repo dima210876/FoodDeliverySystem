@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/AuthActions';
+import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/authActions';
 
 const initialState = {
     authData: {
@@ -9,8 +9,7 @@ const initialState = {
             lastName: '',
             role: ''
         },
-        token: '',
-        // expiresIn: '',
+        token: ''
     }
 };
 

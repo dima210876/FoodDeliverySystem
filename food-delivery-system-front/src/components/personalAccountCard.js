@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import React from "react";
-import "./PersonalAccountCard.css";
+import "./personalAccountCard.css";
 import {Link} from "react-router-dom";
 
 function PersonalAccountCard(){

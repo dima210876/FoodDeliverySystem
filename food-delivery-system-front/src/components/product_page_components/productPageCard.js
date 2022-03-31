@@ -2,7 +2,7 @@ import { FiMinusCircle } from "react-icons/fi";
 import { FiPlusCircle } from "react-icons/fi";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
+import setStartCountOfProduct from "../../local_storage_helper/localStorageHelper";
 import "./productPageCard.css";
 
 const INCREASE_COUNT_OF_PRODUCT = 'INCREASE_COUNT_OF_PRODUCT';

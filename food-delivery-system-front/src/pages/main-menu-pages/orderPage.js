@@ -1,15 +1,15 @@
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/navbar";
 import React from "react";
 
-const RestaurantPage = () => {
+const OrderPage = () => {
     return(
         <>
             <Navbar/>
             <div>
-                Restaurant Page
+                Order Page
             </div>
         </>
     );
 }
 
-export {RestaurantPage}
+export {OrderPage}

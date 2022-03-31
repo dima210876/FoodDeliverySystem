@@ -3,12 +3,12 @@ import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import PhoneInputField from "../../../components/PhoneInputField";
-import Navbar from "../../../components/Navbar";
+import PhoneInputField from "../../../components/phoneInputField";
+import Navbar from "../../../components/navbar";
 import Footer from "../../../components/footer"
 
 import "./formsInPersonalSpace.css"
-import * as authActions from "../../../redux/actions/AuthActions";
+import * as authActions from "../../../redux/actions/authActions";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";

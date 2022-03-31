@@ -1,4 +1,4 @@
-import './CategoryCard.css'
+import './categoryCard.css'
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 

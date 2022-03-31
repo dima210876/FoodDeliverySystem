@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
-import DrawerItem from "./DrawerItem";
+import DrawerItem from "./drawerItem";
 import React from "react";
-import "./Drawer.css"
+import "./drawer.css"
 
 const TOTAL_PRICE = 'TOTAL_PRICE';
 const TOTAL_COUNT = 'TOTAL_COUNT';
