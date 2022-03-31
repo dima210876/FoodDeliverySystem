@@ -8,17 +8,13 @@ import { MainPage } from './pages/main-menu-pages/MainPage';
 import { OrderPage } from './pages/main-menu-pages/OrderPage';
 import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
 import { useDispatch, useSelector } from "react-redux";
-import { CourierManagerPage } from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
 import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
 import {getCourierManagerInfo, getRestaurantManagerInfo} from "./redux/actions/UserDataActions";
 import * as UserDataActions from "./redux/actions/UserDataActions";
 import { ModifyOrganizationInfoPage}  from "./pages/personal-spaces-pages/courier-manager/ModifyOrganizationInfoPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/RestaurantManagerPage";
 import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/ModifyRestaurantInfoPage";
-import {useSelector} from "react-redux";
 import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
-import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
-import {getOrganizationInfo} from "./redux/actions/GetDataActions";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/CourierManagerRegPage";
 import {ProductPage} from "./pages/productPage";
 
@@ -62,7 +58,6 @@ function App() {
     function renderSwitch() {
         switch (user.role) {
             case 'ROLE_SUPER_ADMIN':
-                getOrganizationInfo(user.id);
                 return <AdminPage/>;
             case 'ROLE_COURIER_SERVICE_MANAGER':
                 getCourierManagerInfo(user.id);
