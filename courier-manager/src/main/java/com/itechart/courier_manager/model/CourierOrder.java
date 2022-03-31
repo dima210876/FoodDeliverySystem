@@ -48,4 +48,3 @@ public class CourierOrder {
     @Size(max = 30, message = "Delivery method string length limits exceeded")
     private String deliveryMethod;
 }
-

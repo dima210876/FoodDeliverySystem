@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 
 import java.util.Set;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,8 +44,9 @@ public class Organization {
     @NotNull(message = "Latitude is required")
     private Double latitude;
 
-    @NotNull(message = "Latitude is required")
+    @NotNull(message = "Longitude is required")
     private Double longitude;
+
 
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
