@@ -32,8 +32,7 @@ const LoginPage = () => {
             onSubmit={(values) => {
                 authActions.login(values.email, values.password)(dispatch).then(() => {
                     // navigate('/main-page-link-from-another-ticket');
-                    }
-                );
+                });
             }}
         >
             {({
@@ -50,7 +49,6 @@ const LoginPage = () => {
                                 <h6 className="mt-0 text-danger">Register</h6>
                             </Link>
                            </div>
-
                         <Form.Group className="p-4 mt-2" controlId="sign-in-email-address">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" name="email" placeholder="Enter email" onChange={handleChange} isInvalid={!!errors.email}/>

@@ -10,17 +10,3 @@ form {
     box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
 }
 
-h1 {
-    font-size: 60px;
-    font-weight: 650;
-}
-
-h6 {
-    font-size: 12px;
-}
-
-.form-control-feedback {
-    padding-top: 2px;
-    font-size: 14px;
-    color: rgba(225, 2, 2, 0.88);
-}

@@ -12,11 +12,11 @@ public class RegistrationConfirmationMessagingConfig
     public static final String ROUTING_KEY = "registration_confirmation_email_routing_key";
 
     @Bean
-    public Queue queue2() { return new Queue(QUEUE); }
+    public Queue registrationConfirmationMessagingQueue() { return new Queue(QUEUE); }
 
     @Bean
-    public Binding binding2(TopicExchange exchange)
+    public Binding registrationConfirmationMessagingBinding(TopicExchange exchange)
     {
-        return BindingBuilder.bind(queue2()).to(exchange).with(ROUTING_KEY);
+        return BindingBuilder.bind(registrationConfirmationMessagingQueue()).to(exchange).with(ROUTING_KEY);
     }
 }

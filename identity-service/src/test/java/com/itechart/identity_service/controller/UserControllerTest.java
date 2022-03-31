@@ -32,83 +32,83 @@ class UserControllerTest {
     @Test
     void contextLoads() { }
 
-    @SneakyThrows
-    @Test
-    void registerValidUser()
-    {
-        User user = User.builder()
-                .email("testCustomer@test.com")
-                .password("1234567890")
-                .firstName("testCustomerName")
-                .lastName("testCustomerSurname")
-                .role(Role.ROLE_CUSTOMER)
-                .expirationDate(new Timestamp(System.currentTimeMillis() + 157680000000L))
-                .build();
-
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/register")
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(user))
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").exists());
-    }
-
-    @SneakyThrows
-    @Test
-    void registerNotValidUserImpossible()
-    {
-        User user = User.builder()
-                .email(null)
-                .password("1234567890")
-                .firstName("testCustomerName")
-                .lastName("testCustomerSurname")
-                .role(Role.ROLE_CUSTOMER)
-                .build();
-
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/register")
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(user))
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").exists());
-    }
-
-    @SneakyThrows
-    @Test
-    public void loginExistingUser() {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/login")
-                .accept(MediaType.APPLICATION_JSON)
-                .content("{\"email\":\"user2@mail.ru\",\"password\":\"1234\"}")
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.access_token").exists());
-    }
-
-    @SneakyThrows
-    @Test
-    public void loginNonExistingUserImpossible () {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("http://localhost:8081/login")
-                .accept(MediaType.APPLICATION_JSON)
-                .content("{\"email\":\"nonExisting\",\"password\":\"1234\"}")
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mvc.perform(requestBuilder)
-                .andDo(print())
-                .andExpect(status().isUnauthorized())
-                .andExpect(status().reason("Authentication Failed"))
-                .andExpect(unauthenticated());
-    }
+//    @SneakyThrows
+//    @Test
+//    void registerValidUser()
+//    {
+//        User user = User.builder()
+//                .email("testCustomer@test.com")
+//                .password("1234567890")
+//                .firstName("testCustomerName")
+//                .lastName("testCustomerSurname")
+//                .role(Role.ROLE_CUSTOMER)
+//                .expirationDate(new Timestamp(System.currentTimeMillis() + 157680000000L))
+//                .build();
+//
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders
+//                .post("http://localhost:8081/register")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(user))
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        mvc.perform(requestBuilder)
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").exists());
+//    }
+//
+//    @SneakyThrows
+//    @Test
+//    void registerNotValidUserImpossible()
+//    {
+//        User user = User.builder()
+//                .email(null)
+//                .password("1234567890")
+//                .firstName("testCustomerName")
+//                .lastName("testCustomerSurname")
+//                .role(Role.ROLE_CUSTOMER)
+//                .build();
+//
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders
+//                .post("http://localhost:8081/register")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(user))
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        mvc.perform(requestBuilder)
+//                .andDo(print())
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.message").exists());
+//    }
+//
+//    @SneakyThrows
+//    @Test
+//    public void loginExistingUser() {
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders
+//                .post("http://localhost:8081/login")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content("{\"email\":\"user2@mail.ru\",\"password\":\"1234\"}")
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        mvc.perform(requestBuilder)
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.access_token").exists());
+//    }
+//
+//    @SneakyThrows
+//    @Test
+//    public void loginNonExistingUserImpossible () {
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders
+//                .post("http://localhost:8081/login")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content("{\"email\":\"nonExisting\",\"password\":\"1234\"}")
+//                .contentType(MediaType.APPLICATION_JSON);
+//
+//        mvc.perform(requestBuilder)
+//                .andDo(print())
+//                .andExpect(status().isUnauthorized())
+//                .andExpect(status().reason("Authentication Failed"))
+//                .andExpect(unauthenticated());
+//    }
 }

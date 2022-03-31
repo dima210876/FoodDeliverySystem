@@ -24,7 +24,6 @@ public class RestaurantType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "restaurant_type")
     @NotNull(message = "Restaurant type is required")
     @NotBlank(message = "Restaurant type can't be empty")
     @Size(min = 2, max = 200, message = "Restaurant type string length limits exceeded")

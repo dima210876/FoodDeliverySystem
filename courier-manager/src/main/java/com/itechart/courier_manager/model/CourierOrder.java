@@ -17,20 +17,11 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "CourierOrder")
+@Entity
 @Table(name = "courier_orders")
 public class CourierOrder {
     @Id
-    @SequenceGenerator(
-            name = "courier_orders_id_seq",
-            sequenceName = "courier_orders_id_seq",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "courier_orders_id_seq"
-    )
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -44,17 +35,14 @@ public class CourierOrder {
     @JsonBackReference
     private Courier courier;
 
-    @Column(name = "order_id")
     @NotNull(message = "Order id is required")
     private Long orderId;
 
-    @Column(name = "delivery_status")
     @NotNull(message = "Delivery status is required")
     @NotBlank(message = "Delivery status can't be empty")
     @Size(max = 30, message = "Delivery status string length limits exceeded")
     private String deliveryStatus;
 
-    @Column(name = "delivery_method")
     @NotNull(message = "Delivery method is required")
     @NotBlank(message = "Delivery method can't be empty")
     @Size(max = 30, message = "Delivery method string length limits exceeded")
