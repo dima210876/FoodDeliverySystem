@@ -1,17 +1,23 @@
 package com.itechart.identity_service.filter;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.itechart.identity_service.dto.UserInfoDto;
 import com.itechart.identity_service.model.JwtProperties;
 import com.itechart.identity_service.model.LoginData;
 import com.itechart.identity_service.model.User;
+import com.itechart.identity_service.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -25,8 +31,6 @@ import java.io.IOException;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -34,9 +38,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtProperties jwtProperties;
+    private final UserService userService;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         ObjectMapper mapper = new ObjectMapper();
         LoginData loginData = new LoginData();
 
@@ -46,15 +52,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             //TODO add logger: invalid login data
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginData.getEmail(), loginData.getPassword());
+        UserDetails user = userService.loadUserByUsername(loginData.getEmail());
+        if (user == null) {
+            throw new BadCredentialsException("1000");
+        }
+        if (!encoder.matches(loginData.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("1000");
+        }
 
-        return authenticationManager.authenticate(authenticationToken);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginData.getEmail(), loginData.getPassword(), user.getAuthorities());
+        return authenticationToken;
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
-        User user = (User) authentication.getPrincipal();
+        User user = userService.loadUserByUsername(String.valueOf(authentication.getPrincipal()));
         UserInfoDto userInfo = UserInfoDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
@@ -77,14 +90,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(signatureAlgorithm, signingKey)
                 .compact();
 
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("token", accessToken);
-
         response.setContentType(APPLICATION_JSON_VALUE);
-        ObjectMapper objectMapper = new ObjectMapper();
         ServletOutputStream outputStream = response.getOutputStream();
-        objectMapper.writeValue(outputStream, userInfo);
-        objectMapper.writeValue(outputStream, tokens);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode rootNode = mapper.createObjectNode();
+        JsonNode firstChildNode = mapper.valueToTree(userInfo);
+        rootNode.set("user", firstChildNode);
+        ObjectNode secondChildNode = rootNode.put("token", accessToken);
+        mapper.writeValue(outputStream, secondChildNode);
     }
 
     @Override

@@ -44,7 +44,6 @@ public class CourierService {
                     .lastName(courierDto.getLastName())
                     .role(ROLE_COURIER)
                     .build();
-
             ResponseEntity<IdentityRegistrationDTO> response = restTemplate
                     .postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
 

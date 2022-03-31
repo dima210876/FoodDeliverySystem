@@ -33,9 +33,10 @@ public class UserService implements UserDetailsService
     private final RabbitTemplate rabbitTemplate;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
+    public User loadUserByUsername(String email) throws UsernameNotFoundException
     {
         Optional<User> user = userRepository.findByEmail(email);
+
         if (user.isPresent()) { return user.get(); }
         else {
             throw new UsernameNotFoundException(String.format("User %s not found", email));

@@ -2,10 +2,12 @@ package com.itechart.identity_service.controller;
 
 import com.itechart.identity_service.exception.EmailDuplicationException;
 import com.itechart.identity_service.exception.RegistrationConfirmationTokenException;
+import com.itechart.identity_service.model.LoginData;
 import com.itechart.identity_service.model.User;
 import com.itechart.identity_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

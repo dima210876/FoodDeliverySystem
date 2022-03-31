@@ -1,7 +1,7 @@
 import Footer from '../components/footer';
 import "./productPage.css"
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 import ProductPageHeader from "../components/product_page_components/productPageHeader";
 import ProductPageList from "../components/product_page_components/productPageList";
 

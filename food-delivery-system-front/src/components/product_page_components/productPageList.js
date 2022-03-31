@@ -2,7 +2,7 @@ import ProductPageCard from "./productPageCard";
 import React, {useState} from "react";
 import axios from "axios";
 import {useSelector} from "react-redux";
-import setStartCountOfProduct from "../../local_storage_helper/LocalStorageHelper";
+import setStartCountOfProduct from "../../local_storage_helper/localStorageHelper";
 import "./productPageList.css"
 import './paginationBar.css'
 import './sortBar.css'
