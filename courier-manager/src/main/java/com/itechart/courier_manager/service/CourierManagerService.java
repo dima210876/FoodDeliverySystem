@@ -33,14 +33,14 @@ public class CourierManagerService {
     private final RestTemplate restTemplate;
     private final RabbitTemplate rabbitTemplate;
 
+    static final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
+    static final String ROLE_COURIER_SERVICE_MANAGER = "ROLE_COURIER_SERVICE_MANAGER";
+
     @Transactional
     public CourierManager registerCourierManager(@Valid CourierManagerDTO courierManagerDTO) throws CourierRegistrationException {
         Long userId = 0L;
 
         try {
-            final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
-            final String ROLE_COURIER_SERVICE_MANAGER = "ROLE_COURIER_SERVICE_MANAGER";
-
             IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()
                     .email(courierManagerDTO.getEmail())
                     .password(courierManagerDTO.getPassword())
