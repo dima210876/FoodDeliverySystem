@@ -21,6 +21,7 @@ import javax.validation.constraints.Size;
 public class Manager {
 
     @Id
+    @Column(name = "user_id")
     private Long userId;
 
     @NotNull(message = "Email is required")

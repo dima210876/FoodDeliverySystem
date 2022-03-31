@@ -7,6 +7,7 @@ import PhoneInputField from "../../../components/PhoneInputField";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/footer"
 
+import "./formsInPersonalSpace.css"
 import * as authActions from "../../../redux/actions/AuthActions";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -27,9 +28,9 @@ const RegistrationManager = () => {
 
     const schema = Yup.object().shape({
         restaurantName: Yup.string()
-            .min(2, 'First name should contain minimum 2 characters.')
-            .max(30, 'First name should contain maximum 30 characters.')
-            .required('First name is required field'),
+            .min(2, 'Restaurant name should contain minimum 2 characters.')
+            .max(30, 'Restaurant name should contain maximum 30 characters.')
+            .required('Restaurant name is required field'),
         firstName: Yup.string()
             .min(2, 'First name should contain minimum 2 characters.')
             .max(30, 'First name should contain maximum 30 characters.')

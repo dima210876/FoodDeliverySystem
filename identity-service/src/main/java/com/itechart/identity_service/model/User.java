@@ -26,39 +26,48 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "email", unique = true)
     @NotNull(message = "Email is required")
     @NotBlank(message = "Email can't be empty")
     @Size(min = 2, max = 100, message = "Name string length limits exceeded")
     private String email;
 
+    @Column(name = "password")
     @NotNull(message = "Password is required")
     @NotBlank(message = "Password can't be empty")
     @Size(min = 6, max = 200, message = "Password string length limits exceeded")
     private String password;
 
+    @Column(name = "first_name")
     @NotNull(message = "First name is required")
     @NotBlank(message = "First name can't be empty")
     @Size(min = 2, max = 100, message = "First name string length limits exceeded")
     private String firstName;
 
+    @Column(name = "last_name")
     @NotNull(message = "Last name is required")
     @NotBlank(message = "Last name can't be empty")
     @Size(min = 2, max = 100, message = "Last name string length limits exceeded")
     private String lastName;
 
+    @Column(name = "role")
     @NotNull(message = "Role is required")
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "expiration_date")
     private Timestamp expirationDate;
 
+    @Column(name = "account_non_locked")
     private Boolean accountNonLocked;
 
+    @Column(name = "credentials_non_expired")
     private Boolean credentialsNonExpired;
 
+    @Column(name = "enabled")
     private Boolean enabled;
 
     @Override

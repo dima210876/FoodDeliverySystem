@@ -1,5 +1,6 @@
-import {GET_ORG_INFO_SUCCESS} from "./AuthActions";
 import GetDataService from "../../services/GetDataService";
+
+export const GET_ORG_INFO_SUCCESS = "GET_ORG_INFO_SUCCESS";
 
 export const getOrganizationInfo = (userId) => (dispatch) => {
     return GetDataService.getOrganizationInfo(userId).then(

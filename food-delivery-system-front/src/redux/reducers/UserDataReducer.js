@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS, LOGIN_SUCCESS, GET_ORG_INFO_SUCCESS} from '../actions/AuthActions';
+import {GET_ORG_INFO_SUCCESS} from "../actions/GetDataActions"
 
 const initialState = {
     managerData: {
