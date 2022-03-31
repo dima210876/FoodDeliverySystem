@@ -29,11 +29,8 @@ public class CourierManagerService {
     private final CourierManagerRepository courierManagerRepository;
     private final OrganizationService organizationService;
 
-    private final CourierRepository courierRepository;
-
     @LoadBalanced
     private final RestTemplate restTemplate;
-
     private final RabbitTemplate rabbitTemplate;
 
     @Transactional
@@ -61,8 +58,6 @@ public class CourierManagerService {
 
             userId = response.getBody().getId();
 
-//            Organization organization;
-
             Organization organization = organizationService.createDefaultOrganization(courierManagerDTO.getOrganizationName());
             CourierManager courierManager = CourierManager.builder()
                     .userId(userId)
@@ -76,11 +71,11 @@ public class CourierManagerService {
             courierManager = courierManagerRepository.save(courierManager);
             return courierManager;
         } catch (Throwable ex) {
-//            rabbitTemplate.convertAndSend(
-//                    DeletingUserConfig.EXCHANGE,
-//                    DeletingUserConfig.ROUTING_KEY,
-//                    userId
-//            );
+            rabbitTemplate.convertAndSend(
+                    DeletingUserConfig.EXCHANGE,
+                    DeletingUserConfig.ROUTING_KEY,
+                    userId
+            );
             throw new CourierRegistrationException(ex.getMessage());
         }
     }
