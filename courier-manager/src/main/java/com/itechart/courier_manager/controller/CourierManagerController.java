@@ -28,8 +28,8 @@ public class CourierManagerController {
 
     }
 
-    @GetMapping("/getManagerInfo")
-    public ResponseEntity<CourierManager> getManagerInfo(@RequestParam("id") Long managerId) throws CourierRegistrationException {
-        return ResponseEntity.ok().body(courierManagerService.getManagerInfo(managerId));
-    }
+//    @GetMapping("/getManagerInfo")
+//    public ResponseEntity<CourierManager> getManagerInfo(@RequestParam("id") Long managerId) throws CourierRegistrationException {
+//        return ResponseEntity.ok().body(courierManagerService.getManagerInfo(managerId));
+//    }
 }
