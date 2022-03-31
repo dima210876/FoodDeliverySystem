@@ -5,9 +5,9 @@ spring:
   application:
     name: restaurant-info-service
   datasource:
-    username: postgres
-    password: anton
-    url: jdbc:postgresql://localhost:5432/restaurant_info_service
+    username: postgres #edit
+    password: myroot #edit
+    url: jdbc:postgresql://localhost:5432/restaurant_info_service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
     hibernate:
       ddl-auto: none
@@ -16,6 +16,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/db/changelog/db-changelog-master.xml
+    url: jdbc:postgresql://localhost:5432/restaurant_info_service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    user: postgres #edit
+    password: myroot #edit
 
 eureka:
   client:
