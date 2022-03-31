@@ -29,7 +29,7 @@ export const registerRestaurant = (restaurantName, firstName, lastName, email, p
 
 
 export const registerCourier = (organizationId, firstName, lastName, email, phone, password) => (dispatch) => {
-    return AuthService.registerCourier(organizationId   , firstName, lastName, email, phone, password).then(
+    return AuthService.registerCourier(organizationId, firstName, lastName, email, phone, password).then(
         (response) => {
             dispatch({
                 type: REGISTER_SUCCESS,

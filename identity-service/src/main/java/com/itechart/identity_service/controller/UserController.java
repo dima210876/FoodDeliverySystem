@@ -30,10 +30,4 @@ public class UserController
     {
         return ResponseEntity.ok().body(userService.confirmUserRegistration(confirmationToken));
     }
-
-    @PostMapping("/sign-in")
-    public ResponseEntity<User> loginUser(@RequestBody @Valid LoginData loginData)
-    {
-//        return ResponseEntity.ok().body(userService.loadUserByUsername(loginData.getEmail()));
-    }
 }

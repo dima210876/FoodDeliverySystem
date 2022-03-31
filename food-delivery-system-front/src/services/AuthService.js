@@ -22,19 +22,31 @@ class AuthService {
         });
     }
 
+    registerRestaurant(restaurantName, firstName, lastName, email, phone, password) {
+        return axios.post(API_URL + "8083/registerManager", {
+            restaurantName: restaurantName,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phone,
+            password: password,
+        });
+    }
+
     registerOrganization(organizationName, firstName, lastName, email, phone, password) {
-        return axios.post(API_URL + "admin/register/organization", {
+        return axios.post(API_URL + "8084/registerCourierManager", {
             organizationName: organizationName,
             firstName: firstName,
             lastName: lastName,
             email: email,
-            phone: phone,
+            phoneNumber: phone,
             password: password,
         });
     }
 
     registerCourier(organizationId, firstName, lastName, email, phone, password) {
-        return axios.post(API_URL + "courier-manager/registerCourier", {
+        console.log(organizationId);
+        return axios.post(API_URL + "8084/registerCourier", {
             organizationId: organizationId,
             firstName: firstName,
             lastName: lastName,

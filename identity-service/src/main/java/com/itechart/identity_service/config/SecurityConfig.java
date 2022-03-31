@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtProperties));
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtProperties, userService));
     }
 
     @Override

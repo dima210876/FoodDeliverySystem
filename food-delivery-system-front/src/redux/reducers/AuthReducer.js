@@ -25,7 +25,7 @@ export function AuthReducer(state = initialState, action) {
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                auth: payload,
+                authData: payload,
             };
 
         default:

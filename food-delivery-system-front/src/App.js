@@ -1,22 +1,24 @@
 import React from 'react';
 import LoginPage from "./pages/login-registration-pages/LoginPage";
 import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
-import { Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import { RestaurantPage } from './pages/main-menu-pages/RestaurantPage';
 import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/RestaurantManagerRegPage";
 import { MainPage } from './pages/main-menu-pages/MainPage';
 import { OrderPage } from './pages/main-menu-pages/OrderPage';
 import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
 import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
-import {getOrganizationInfo} from "./redux/actions/GetDataActions";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/CourierManagerRegPage";
+import { getOrganizationInfo } from "./redux/actions/GetDataActions";
 import {ProductPage} from "./pages/productPage";
 
 function App() {
 
+    const dispatch = useDispatch();
     const user = useSelector(state => state.auth.authData.user);
+    const navigate = useNavigate();
 
     return (
         <>
@@ -49,10 +51,8 @@ function App() {
     function renderSwitch() {
         switch (user.role) {
             case 'ROLE_SUPER_ADMIN':
-                getOrganizationInfo(user.id);
                 return <AdminPage/>;
             case 'ROLE_COURIER_SERVICE_MANAGER':
-                getOrganizationInfo(user.id);
                 return <CourierManagerPage/>;
             /*default:
                 return ;*/

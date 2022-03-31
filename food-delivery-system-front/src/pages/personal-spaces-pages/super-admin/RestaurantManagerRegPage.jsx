@@ -113,7 +113,7 @@ const RegistrationManager = () => {
                                           {errors.email}
                                       </Form.Control.Feedback>
                                   </Form.Group>
-                                  <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} />
+                                  <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} required={true}/>
                                   <Form.Group className="p-4 pt-0" controlId="sign-up-password">
                                       <Form.Label>Password</Form.Label>
                                       <Form.Control type="password" name="password"  placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>
