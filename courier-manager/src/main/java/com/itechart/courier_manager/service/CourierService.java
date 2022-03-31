@@ -44,12 +44,9 @@ public class CourierService {
                     .lastName(courierDto.getLastName())
                     .role(ROLE_COURIER)
                     .build();
-            System.out.println("respose entity is ready");
             ResponseEntity<IdentityRegistrationDTO> response = restTemplate
                     .postForEntity(IDENTITY_REGISTER_URL, identityRegistrationDTO, IdentityRegistrationDTO.class);
 
-            System.out.println("here");
-            System.out.println(response.getStatusCode());
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new CourierRegistrationException("Identity service couldn't register the manager");
             }

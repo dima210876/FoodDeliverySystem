@@ -1,16 +1,21 @@
 import React from 'react';
-import LoginPage from "./pages/login-registration-pages/LoginPage";
-import RegistrationPage from "./pages/login-registration-pages/RegistrationPage";
+import LoginPage from "./pages/login-registration-pages/loginPage";
+import RegistrationPage from "./pages/login-registration-pages/registrationPage";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import { RestaurantPage } from './pages/main-menu-pages/RestaurantPage';
-import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/RestaurantManagerRegPage";
-import { MainPage } from './pages/main-menu-pages/MainPage';
-import { OrderPage } from './pages/main-menu-pages/OrderPage';
-import { AdminPage} from "./pages/personal-spaces-pages/super-admin/AdminPage";
+import { RestaurantPage } from './pages/main-menu-pages/restaurantPage';
+import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/restaurantManagerRegPage";
+import { MainPage } from './pages/main-menu-pages/mainPage';
+import { OrderPage } from './pages/main-menu-pages/orderPage';
+import { AdminPage} from "./pages/personal-spaces-pages/super-admin/adminPage";
 import {useDispatch, useSelector} from "react-redux";
-import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/CourierManagerPage";
-import CourierRegPage from "./pages/personal-spaces-pages/courier-manager/CourierRegPage";
-import {getCourierManagerInfo, UserDataActions} from "./redux/actions/userDataActions";
+import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/courierManagerPage";
+import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/courierRegPage";
+import { getRestaurantManagerInfo, getCourierManagerInfo } from "./redux/actions/userDataActions";
+import {ProductPage} from "./pages/productPage";
+import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/courierManagerRegPage";
+import {ModifyOrganizationInfoPage} from "./pages/personal-spaces-pages/courier-manager/modifyOrganizationInfoPage";
+import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantManagerPage";
+import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/modifyRestaurantInfoPage";
 
 function App() {
     const navigate = useNavigate();
@@ -53,11 +58,11 @@ function App() {
             case 'ROLE_SUPER_ADMIN':
                 return <AdminPage/>;
             case 'ROLE_COURIER_SERVICE_MANAGER':
-                UserDataActions.getCourierManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                getCourierManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/courier-manager");
                 });
             case 'ROLE_MANAGER':
-                UserDataActions.getRestaurantManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                getRestaurantManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/restaurant-manager");
                 })
             /*case 'customer':

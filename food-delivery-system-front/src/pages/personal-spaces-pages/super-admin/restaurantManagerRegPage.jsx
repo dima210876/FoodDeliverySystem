@@ -3,7 +3,7 @@ import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import PhoneInputField from "../../../components/phoneInputField";
+import PhoneInputField from "../../../components/inputFields/phoneInputField";
 import Navbar from "../../../components/navbar";
 import Footer from "../../../components/footer"
 

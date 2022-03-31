@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import PhoneInputField from "../../../components/inputFields/phoneInputField";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/navbar";
 import Footer from "../../../components/footer"
 
 import {useNavigate} from "react-router-dom";

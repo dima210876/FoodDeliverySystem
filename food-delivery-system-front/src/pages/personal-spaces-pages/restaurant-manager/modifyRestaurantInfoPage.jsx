@@ -4,7 +4,7 @@ import {Formik} from 'formik';
 import * as Yup from "yup";
 import './restaurantManagerPage.css';
 
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/navbar";
 import {TimePickerComponent} from "@syncfusion/ej2-react-calendars";
 
 import {useSelector} from "react-redux";

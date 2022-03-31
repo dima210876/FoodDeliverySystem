@@ -15,13 +15,12 @@ import java.util.Optional;
 @AllArgsConstructor
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
+    static final String DEFAULT_ACCOUNT_NUMBER = "0";
+    static final String DEFAULT_ADDRESS = "Unknown";
 
     @Transactional
     public Organization createDefaultOrganization(String organizationName) throws RuntimeException {
         try {
-            final String DEFAULT_ACCOUNT_NUMBER = "0";
-            final String DEFAULT_ADDRESS = "Unknown";
-
             Organization organization = Organization.builder()
                     .name(organizationName)
                     .accountNumber(DEFAULT_ACCOUNT_NUMBER)
@@ -40,8 +39,6 @@ public class OrganizationService {
     @Transactional
     public Organization editOrganizationInfo(@Valid OrganizationDTO organizationDTO) throws EditOrganizationException {
         Organization organization;
-
-        System.out.println(organizationDTO.getOrganizationId());
 
         try {
             Optional<Organization> optionalOrganization = organizationRepository

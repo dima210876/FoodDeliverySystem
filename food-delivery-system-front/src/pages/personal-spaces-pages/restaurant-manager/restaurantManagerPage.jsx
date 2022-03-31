@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import React from 'react';
 import {useSelector} from "react-redux";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/navbar";
 import './restaurantManagerPage.css';
 
 const RestaurantManagerPage = () => {
