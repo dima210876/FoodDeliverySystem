@@ -1,6 +1,7 @@
 package com.itechart.courier_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,6 +48,6 @@ public class CourierManager {
     @ManyToOne
     @JoinColumn(name = "delivery_organization_id", nullable = false)
     @NotNull(message = "Organization is required")
-    @JsonBackReference
+    @JsonManagedReference
     private Organization organization;
 }
