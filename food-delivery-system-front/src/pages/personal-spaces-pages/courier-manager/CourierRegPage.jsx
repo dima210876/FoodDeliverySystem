@@ -18,6 +18,7 @@ const CourierRegPage = () => {
     const organizationId = useSelector(state => state.userData.deliveryOrgManagerData.manager.organization.organizationId);
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
@@ -61,6 +62,11 @@ const CourierRegPage = () => {
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         // navigate('/admin-space-link-from-another-ticket');
+                    }).catch(() => {
+                        setStateOfAlert(true);
+                        setTimeout(() => {
+                            setStateOfAlert(false);
+                        }, 3000)
                     });
                 }
             }}
@@ -72,6 +78,7 @@ const CourierRegPage = () => {
                       <>
                       <Navbar />
                       <Container className="personal-space-form-container">
+                          {stateOfAlert ? <div className="alert alert-danger" role='alert'>Error on the server</div> : null}
                           <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                               <Form id="sign-in-form" className="m-5 p-5 rounded w-75"  noValidate onSubmit={handleSubmit}>
                                   <div className="text-center">
