@@ -1,5 +1,7 @@
 package com.itechart.payment_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +22,7 @@ public class PaymentAttemptDto
     private Long id;
 
     @NotNull(message = "Payment receipt id is required")
+    @JsonBackReference
     private PaymentReceiptDto paymentReceipt;
 
     @NotNull(message = "Payment provider id is required")
