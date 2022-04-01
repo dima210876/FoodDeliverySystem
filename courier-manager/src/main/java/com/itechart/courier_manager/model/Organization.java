@@ -28,8 +28,6 @@ public class Organization {
     @Size(max = 30, message = "Name string length limits exceeded")
     private String name;
 
-    @NotNull(message = "Account number is required")
-    @NotBlank(message = "Account number can't be empty")
     @Size(max = 200, message = "Account number string length limits exceeded")
     private String accountNumber;
 

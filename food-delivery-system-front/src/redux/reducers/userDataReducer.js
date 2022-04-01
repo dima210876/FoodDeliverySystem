@@ -1,9 +1,9 @@
-import {GET_COURIER_MANAGER_INFO_SUCCESS} from "../actions/userDataActions";
+import {GET_COURIER_MANAGER_INFO_SUCCESS, GET_RESTAURANT_MANAGER_INFO_SUCCESS} from "../actions/userDataActions";
 import {CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS, CHANGE_RESTAURANT_INFO_SUCCESS} from "../actions/changeInfoActions";
 
 const initialState = {
     restaurantManagerData: {
-        manager: {
+        // manager: {
             id: '',
             email: '',
             firstName: '',
@@ -29,10 +29,10 @@ const initialState = {
                 ],
                 restaurantTypes: [],
             }
-        }
+        // }
     },
     deliveryOrgManagerData: {
-        manager: {
+        // manager: {
             id: '',
             email: '',
             firstName: '',
@@ -48,7 +48,7 @@ const initialState = {
                 latitude: '',
                 longitude: ''
             }
-        }
+        // }
     }
 };
 
@@ -60,6 +60,12 @@ export function UserDataReducer(state = initialState, action) {
             return {
                 ...state,
                 deliveryOrgManagerData: payload,
+            }
+
+        case GET_RESTAURANT_MANAGER_INFO_SUCCESS:
+            return {
+                ...state,
+                restaurantManagerData: payload,
             }
 
         case CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS:

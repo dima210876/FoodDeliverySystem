@@ -1,5 +1,6 @@
 package com.itechart.restaurant_info_service.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -48,7 +49,7 @@ public class Restaurant {
 
     @OneToOne
     @JoinColumn(name = "manager_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Manager manager;
 
     @OneToMany(mappedBy = "restaurant")

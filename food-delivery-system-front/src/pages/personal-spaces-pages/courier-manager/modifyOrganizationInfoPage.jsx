@@ -12,13 +12,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 import AddressInputField from "../../../components/inputFields/addressInputField";
 import {changeDeliveryOrganizationInfo} from "../../../redux/actions/changeInfoActions";
-import * as changeInfoActions from "../../../redux/actions/changeInfoActions";
 import {geocodeByAddress} from "react-places-autocomplete";
 
 const ModifyOrganizationInfoPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const organization = useSelector(state => state.userData.deliveryOrgManagerData.manager.organization);
+    const organization = useSelector(state => state.userData.deliveryOrgManagerData.organization);
     const [phone, setPhone] = useState(organization.phoneNumber);
     const [address, setAddress] = useState(organization.address);
     const [coordinates, setCoordinates] = useState({
@@ -57,7 +56,7 @@ const ModifyOrganizationInfoPage = () => {
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
                     if (phone === "" || isValidPhoneNumber(phone)) {
-                        changeInfoActions.changeDeliveryOrganizationInfo(organization.organizationId, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng).then(() => {
+                        changeDeliveryOrganizationInfo(organization.organizationId, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
                             navigate('/courier-manager');
                         });
                     }}
