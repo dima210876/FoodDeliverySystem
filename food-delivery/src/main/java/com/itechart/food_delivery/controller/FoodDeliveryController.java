@@ -16,7 +16,7 @@ public class FoodDeliveryController {
     private final CustomerService customerService;
 
     @PostMapping("/registerCustomer")
-    public ResponseEntity<Customer> registerCourier(@RequestBody CustomerDTO customerDTO) throws CustomerRegistrationException {
+    public ResponseEntity<Customer> registerCustomer(@RequestBody CustomerDTO customerDTO) throws CustomerRegistrationException {
         return ResponseEntity.ok().body(customerService.registerCustomer(customerDTO));
     }
 }

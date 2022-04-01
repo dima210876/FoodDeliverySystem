@@ -3,12 +3,12 @@ import { FiPlusCircle } from "react-icons/fi";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import setStartCountOfProduct from "../../local_storage_helper/localStorageHelper";
-import "./productPageCard.css";
+import "./mostPopularCard.css";
 
 const INCREASE_COUNT_OF_PRODUCT = 'INCREASE_COUNT_OF_PRODUCT';
 const DECREASE_COUNT_OF_PRODUCT = 'DECREASE_COUNT_OF_PRODUCT';
 
-function ProductPageCard(props){
+function MostPopularCard(props){
 
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
@@ -29,7 +29,7 @@ function ProductPageCard(props){
         dispatch({type: DECREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 count: count
-            }});
+        }});
     }
 
     function checkCountOfItems(id){
@@ -42,7 +42,7 @@ function ProductPageCard(props){
 
     return(
         <div className="most-popular-card">
-            <img src = "/img/food.png" alt="" width={100} height={100} />
+            <img src = {props.imageUrl} alt="" width={100} height={100} />  
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="popular-card-price">
@@ -58,4 +58,4 @@ function ProductPageCard(props){
     );
 }
 
-export default ProductPageCard
+export default MostPopularCard

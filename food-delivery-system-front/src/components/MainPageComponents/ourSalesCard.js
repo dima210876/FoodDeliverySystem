@@ -3,36 +3,38 @@ import { FiPlusCircle } from "react-icons/fi";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import setStartCountOfProduct from "../../local_storage_helper/localStorageHelper";
-import "./productPageCard.css";
+import "./ourSalesCard.css"
 
 const INCREASE_COUNT_OF_PRODUCT = 'INCREASE_COUNT_OF_PRODUCT';
 const DECREASE_COUNT_OF_PRODUCT = 'DECREASE_COUNT_OF_PRODUCT';
 
-function ProductPageCard(props){
+
+function OurSalesCard(props){
 
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
 
-    const increaseCountOfProducts = (id, title, price, imageUrl, count, restaurant) => {
+    const increaseCountOfProducts = (id, title, discount, imageUrl, count, restaurant) => {
         dispatch({type: INCREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 title: title,
-                price: price,
+                price: discount,
                 imageUrl: imageUrl,
                 restaurant: restaurant,
                 count: count
             }
         });
+        console.log(items);
     }
 
     const decreaseCountOfProduct = (id, count) => {
         dispatch({type: DECREASE_COUNT_OF_PRODUCT, payload: {
                 id: id,
                 count: count
-            }});
+        }});
     }
 
-    function checkCountOfItems(id){
+    function checkItems(id){
         if(items.filter(item => item.id === id).length === 0){
             return setStartCountOfProduct(id);
         } else {
@@ -42,20 +44,21 @@ function ProductPageCard(props){
 
     return(
         <div className="most-popular-card">
-            <img src = "/img/food.png" alt="" width={100} height={100} />
+            <img src = {props.imageUrl} alt="" width={100} height={100} />  
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
-                <div className="popular-card-price">
-                    <span><b>{props.price.toFixed(2)}</b>$ for 1 portion</span>
+                <div className="our-sales">
+                    <div className="discount-block"><span className="discount"><b>{props.discount.toFixed(2)}$</b></span><span className="price"><b>{props.price.toFixed(2)}$</b></span></div>
+                    <div className="price-block"><span className="price-text">for 1 portions</span></div>
                 </div>
-                <div className="btn-plus-minus">
+                <div className="btn-plus-minus-on-sales-car">
                     <div><button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>
-                    <div className="count-of-product"><span>{checkCountOfItems(props.id)}</span></div>
-                    <div><button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.price, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button></div>
+                    <div className="count-of-product"><span >{checkItems(props.id)}</span></div>
+                    <div><button className="button" onClick={() => increaseCountOfProducts(props.id, props.title, props.discount, props.imageUrl,  props.count, props.restaurant)}><FiPlusCircle /></button></div>
                 </div>
             </div>
         </div>
     );
 }
 
-export default ProductPageCard
+export default OurSalesCard
