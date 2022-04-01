@@ -3,6 +3,14 @@
     max-width: 100% !important;
 }
 
+.alert{
+    top: 120px;
+    width: 38%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
 h1 {
     font-size: 60px!important;
     font-weight: 650!important;

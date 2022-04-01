@@ -4,20 +4,20 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import PhoneInputField from "../../../components/inputFields/phoneInputField";
-import Navbar from "../../../components/navbar";
+import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/footer"
 
 import "./formsInPersonalSpace.css"
-import * as authActions from "../../../redux/actions/authActions";
-import {useNavigate} from "react-router-dom";
+import * as authActions from "../../../redux/actions/AuthActions";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 
 const RegistrationManager = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
 
     const changePhone = (dataFromPhoneInput) => {
         setPhone(dataFromPhoneInput);
@@ -65,7 +65,12 @@ const RegistrationManager = () => {
             onSubmit={(values) => {
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerRestaurant(values.restaurantName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        navigate('/admin');
+                        // navigate('/admin-space-link-from-another-ticket');
+                    }).catch(() => {
+                        setStateOfAlert(true);
+                        setTimeout(() => {
+                            setStateOfAlert(false);
+                        }, 3000)
                     });
                 }
             }}
@@ -74,60 +79,61 @@ const RegistrationManager = () => {
                   handleSubmit,
                   handleChange,
                   errors, }) => (
-                      <>
-                      <Navbar />
-                      <Container className="personal-space-form-container">
-                          <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
-                              <Form id="sign-in-form" className="m-5 p-5 rounded w-75"  noValidate onSubmit={handleSubmit}>
-                                  <div className="text-center">
-                                      <h1 className="fs-0">Restaurant registration</h1>
-                                  </div>
+                <>
+                    <Navbar />
+                    <Container className="personal-space-form-container">
+                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Error on the server</div> : null}
+                        <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
+                            <Form id="sign-in-form" className="m-5 p-5 rounded w-75"  noValidate onSubmit={handleSubmit}>
+                                <div className="text-center">
+                                    <h1 className="fs-0">Restaurant registration</h1>
+                                </div>
 
-                                  <h2 className="mt-5 pb-0 text-danger">Restaurant info</h2>
-                                  <Form.Group className="p-4 pt-2 " controlId="sign-up-restaurant-name">
-                                      <Form.Label>Restaurant name</Form.Label>
-                                      <Form.Control type="textarea" name="restaurantName"  placeholder="Enter restaurants name" onChange={handleChange} isInvalid={!!errors.restaurantName}/>
-                                      <Form.Control.Feedback type="invalid">
-                                          {errors.restaurantName}
-                                      </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <h2 className="mt-4 text-danger">Manager info</h2>
-                                  <Form.Group className="p-4 pt-2" controlId="sign-up-first-name">
-                                      <Form.Label>First name</Form.Label>
-                                      <Form.Control type="textarea" name="firstName"  placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
-                                      <Form.Control.Feedback type="invalid">
-                                          {errors.firstName}
-                                      </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <Form.Group className="p-4 pt-0" controlId="sign-up-last-name">
-                                      <Form.Label>Last name</Form.Label>
-                                      <Form.Control type="textarea" name="lastName"  placeholder="Enter last name" onChange={handleChange} isInvalid={!!errors.lastName}/>
-                                      <Form.Control.Feedback type="invalid">
-                                          {errors.lastName}
-                                      </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <Form.Group className="p-4 pt-0" controlId="sign-up-email-address">
-                                      <Form.Label>Email</Form.Label>
-                                      <Form.Control type="email" name="email"  placeholder="Enter email" onChange={handleChange} isInvalid={!!errors.email}/>
-                                      <Form.Control.Feedback type="invalid">
-                                          {errors.email}
-                                      </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} required={true}/>
-                                  <Form.Group className="p-4 pt-0" controlId="sign-up-password">
-                                      <Form.Label>Password</Form.Label>
-                                      <Form.Control type="password" name="password"  placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>
-                                      <Form.Control.Feedback type="invalid">
-                                          {errors.password}
-                                      </Form.Control.Feedback>
-                                  </Form.Group>
-                                  <div className="mt-3 text-center ">
-                                      <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Create account</Button>
-                                  </div>
-                              </Form>
-                          </Col>
-                      </Container>
-                      <Footer />
+                                <h2 className="mt-5 pb-0 text-danger">Restaurant info</h2>
+                                <Form.Group className="p-4 pt-2 " controlId="sign-up-restaurant-name">
+                                    <Form.Label>Restaurant name</Form.Label>
+                                    <Form.Control type="textarea" name="restaurantName"  placeholder="Enter restaurants name" onChange={handleChange} isInvalid={!!errors.restaurantName}/>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.restaurantName}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <h2 className="mt-4 text-danger">Manager info</h2>
+                                <Form.Group className="p-4 pt-2" controlId="sign-up-first-name">
+                                    <Form.Label>First name</Form.Label>
+                                    <Form.Control type="textarea" name="firstName"  placeholder="Enter first name" onChange={handleChange} isInvalid={!!errors.firstName}/>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.firstName}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className="p-4 pt-0" controlId="sign-up-last-name">
+                                    <Form.Label>Last name</Form.Label>
+                                    <Form.Control type="textarea" name="lastName"  placeholder="Enter last name" onChange={handleChange} isInvalid={!!errors.lastName}/>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.lastName}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className="p-4 pt-0" controlId="sign-up-email-address">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" name="email"  placeholder="Enter email" onChange={handleChange} isInvalid={!!errors.email}/>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.email}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <PhoneInputField changePhone={changePhone} submitClicked={submitClicked} />
+                                <Form.Group className="p-4 pt-0" controlId="sign-up-password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" name="password"  placeholder="Password" onChange={handleChange} isInvalid={!!errors.password}/>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.password}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <div className="mt-3 text-center ">
+                                    <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Create account</Button>
+                                </div>
+                            </Form>
+                        </Col>
+                    </Container>
+                    <Footer />
                 </>
 
             )}
