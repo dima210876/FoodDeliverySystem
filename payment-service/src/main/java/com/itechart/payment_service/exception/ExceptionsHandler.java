@@ -20,6 +20,12 @@ public class ExceptionsHandler
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(PaymentReceiptNotFoundException.class)
+    public ResponseEntity<String> handlePaymentReceiptNotFoundException(PaymentReceiptNotFoundException exception)
+    {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex)

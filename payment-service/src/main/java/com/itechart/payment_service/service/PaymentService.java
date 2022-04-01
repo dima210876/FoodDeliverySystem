@@ -1,9 +1,8 @@
 package com.itechart.payment_service.service;
 
-import com.itechart.payment_service.dto.OrderDto;
-import com.itechart.payment_service.dto.PaymentInfoDto;
-import com.itechart.payment_service.dto.PaymentReceiptDto;
+import com.itechart.payment_service.dto.*;
 import com.itechart.payment_service.exception.PaymentException;
+import com.itechart.payment_service.exception.PaymentReceiptNotFoundException;
 import com.itechart.payment_service.model.PaymentAttempt;
 import com.itechart.payment_service.model.PaymentProvider;
 import com.itechart.payment_service.model.PaymentReceipt;
@@ -17,8 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -30,10 +32,21 @@ public class PaymentService
     private final ElectronicPaymentSystem electronicPaymentSystem;
     private final RestTemplate restTemplate;
 
-    public PaymentReceiptDto payForOrder(PaymentInfoDto paymentInfoDto) throws PaymentException
+    public PaymentReceiptDto getPaymentReceipt(Long orderId)
+    {
+        Optional<PaymentReceipt> optionalPaymentReceipt = paymentReceiptRepository.findByOrderId(orderId);
+        if (optionalPaymentReceipt.isEmpty()) {
+            throw new PaymentReceiptNotFoundException("Payment receipt for order with given order ID not found.");
+        }
+        return convertToDto(optionalPaymentReceipt.get());
+    }
+
+    @Transactional
+    public PaymentReceiptDto payForOrder(@Valid PaymentInfoDto paymentInfoDto) throws PaymentException
     {
         Long orderId = paymentInfoDto.getOrderId();
-        final String GET_ORDER_URL = "http://FOOD-DELIVERY/order/" + orderId.toString();
+        final String GET_ORDER_URL = "http://FOOD-DELIVERY/order/" + orderId;
+        final String POST_CHANGE_ORDER_STATUS_URL = "http://FOOD-DELIVERY/changeOrderStatus/" + orderId;
 
         ResponseEntity<OrderDto> responseEntity = restTemplate.getForEntity(GET_ORDER_URL, OrderDto.class);
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
@@ -115,16 +128,48 @@ public class PaymentService
             default:
                 throw new PaymentException("Payment method not found.");
         }
-        //TODO: call order changing status endpoint (not paid -> paid) at food delivery service
+
+        ResponseEntity<OrderDto> response = restTemplate
+                .postForEntity(POST_CHANGE_ORDER_STATUS_URL, "paid", OrderDto.class);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new PaymentException("Can't update order status after payment.");
+        }
+
+        return convertToDto(paymentReceipt);
+    }
+
+    private PaymentProviderDto convertToDto(PaymentProvider paymentProvider)
+    {
+        return PaymentProviderDto.builder()
+                .id(paymentProvider.getId())
+                .name(paymentProvider.getName())
+                .paymentMethod(paymentProvider.getPaymentMethod())
+                .status(paymentProvider.getStatus())
+                .description(paymentProvider.getDescription())
+                .build();
+    }
+
+    private PaymentAttemptDto convertToDto(PaymentAttempt paymentAttempt)
+    {
+        return PaymentAttemptDto.builder()
+                .id(paymentAttempt.getId())
+                .paymentProvider(convertToDto(paymentAttempt.getPaymentProvider()))
+                .transactionNumber(paymentAttempt.getTransactionNumber())
+                .paymentStatus(paymentAttempt.getPaymentStatus())
+                .paymentDatetime(paymentAttempt.getPaymentDatetime())
+                .build();
+    }
+
+    private PaymentReceiptDto convertToDto(PaymentReceipt paymentReceipt)
+    {
         return PaymentReceiptDto.builder()
                 .id(paymentReceipt.getId())
                 .orderId(paymentReceipt.getOrderId())
                 .receiptStatus(paymentReceipt.getReceiptStatus())
-                //TODO: add convert to dto method for payment attempt
-                //.paymentAttempts(paymentReceipt.getPaymentAttempts())
+                .paymentAttempts(paymentReceipt.getPaymentAttempts().stream()
+                        .map(this::convertToDto)
+                        .collect(Collectors.toList()))
                 .build();
     }
-
-
-
 }
