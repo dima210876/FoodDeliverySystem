@@ -2,9 +2,11 @@ package com.itechart.restaurant_info_service.service;
 
 import com.itechart.restaurant_info_service.config.DeletingUserConfig;
 import com.itechart.restaurant_info_service.dto.IdentityRegistrationDTO;
+import com.itechart.restaurant_info_service.dto.ManagerDTO;
 import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
+import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.repository.ManagerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -72,5 +74,9 @@ public class ManagerService {
 
         return manager;
     }
+
+    /*public Restaurant findRestaurantByManagerEmail(ManagerDTO managerDTO){
+       return  managerRepository.findRestaurantByManagerEmail(managerDTO.getEmail());
+    }*/
 
 }
