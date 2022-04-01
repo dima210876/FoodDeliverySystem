@@ -10,7 +10,7 @@ class changeInfoService {
                 name: name,
                 accountNumber: accountNumber,
                 phoneNumber: phone,
-                address: address,
+                officeAddress: address,
                 latitude: latitude,
                 longitude: longitude
             })

@@ -15,7 +15,7 @@ import {isValidPhoneNumber} from "react-phone-number-input";
 const CourierRegPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const organizationId = useSelector(state => state.userData.deliveryOrgManagerData.manager.organization.organizationId);
+    const organizationId = useSelector(state => state.userData.deliveryOrgManagerData.organization.id);
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
 
@@ -60,7 +60,7 @@ const CourierRegPage = () => {
             onSubmit={(values) => {
                 if (phone && isValidPhoneNumber(phone)) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        navigate('/admin');
+                        navigate('/courier-manager');
                     });
                 }
             }}

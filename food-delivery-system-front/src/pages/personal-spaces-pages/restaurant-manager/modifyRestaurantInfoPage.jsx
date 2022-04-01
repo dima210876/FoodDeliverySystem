@@ -17,7 +17,7 @@ import Footer from "../../../components/footer";
 import {useNavigate} from "react-router-dom";
 
 const ModifyRestaurantInfoPage = () => {
-    const restaurant = useSelector(state => state.userData.restaurantManagerData.manager.restaurant);
+    const restaurant = useSelector(state => state.userData.restaurantManagerData.restaurant);
     const navigate = useNavigate();
     const [phone, setPhone] = useState(restaurant.phoneNumber);
     const [address, setAddress] = useState(restaurant.address);

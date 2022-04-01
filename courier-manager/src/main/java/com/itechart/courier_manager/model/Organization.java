@@ -1,4 +1,5 @@
 package com.itechart.courier_manager.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +37,7 @@ public class Organization {
 
     @NotNull(message = "Office address is required")
     @NotBlank(message = "Office address can't be empty")
-    @Size(max = 50, message = "Office address string length limits exceeded")
+    @Size(max = 200, message = "Office address string length limits exceeded")
     private String officeAddress;
 
     @NotNull(message = "Latitude is required")
@@ -50,6 +51,6 @@ public class Organization {
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             mappedBy = "organization"
     )
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Courier> couriers;
 }

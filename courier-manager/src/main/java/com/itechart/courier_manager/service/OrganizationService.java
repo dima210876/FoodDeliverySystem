@@ -48,7 +48,6 @@ public class OrganizationService {
             }
 
             organization = optionalOrganization.get();
-
             organization.setName(organizationDTO.getName());
             organization.setAccountNumber(organizationDTO.getAccountNumber());
             organization.setPhoneNumber(organizationDTO.getPhoneNumber());

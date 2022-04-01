@@ -40,13 +40,14 @@ const initialState = {
             role: '',
             phoneNumber: '',
             organization: {
-                organizationId: '',
+                id: '',
                 name: '',
                 accountNumber: '',
                 phoneNumber: '',
-                address: '',
+                officeAddress: '',
                 latitude: '',
-                longitude: ''
+                longitude: '',
+                couriers: []
             }
         // }
     }
