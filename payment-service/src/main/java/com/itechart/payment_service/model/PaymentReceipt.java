@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -37,5 +38,5 @@ public class PaymentReceipt
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "paymentReceipt")
     @JsonManagedReference
-    private List<PaymentAttempt> paymentAttempts;
+    private Collection<PaymentAttempt> paymentAttempts;
 }

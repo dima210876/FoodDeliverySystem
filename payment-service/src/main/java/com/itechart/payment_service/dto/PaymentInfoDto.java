@@ -24,18 +24,12 @@ public class PaymentInfoDto
     @Size(max = 100, message = "Payment provider name string length exceeded")
     private String paymentProviderName;
 
-//    @NotNull(message = "Card number is required")
-//    @NotBlank(message = "Card number can't be empty")
     @Size(max = 50, message = "Card number string length exceeded")
     private String cardNumber;
 
-//    @NotNull(message = "Validity period is required")
-//    @NotBlank(message = "Validity period can't be empty")
     @Size(max = 20, message = "Validity period string length exceeded")
     private String validityPeriod;
 
-//    @NotNull(message = "Card code is required")
-//    @NotBlank(message = "Card code can't be empty")
     @Size(max = 50, message = "Card code string length exceeded")
     private String cardCode;
 }

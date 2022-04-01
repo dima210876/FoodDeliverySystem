@@ -3,9 +3,7 @@ package com.itechart.payment_service.service;
 import com.itechart.payment_service.dto.*;
 import com.itechart.payment_service.exception.PaymentException;
 import com.itechart.payment_service.exception.PaymentReceiptNotFoundException;
-import com.itechart.payment_service.model.PaymentAttempt;
-import com.itechart.payment_service.model.PaymentProvider;
-import com.itechart.payment_service.model.PaymentReceipt;
+import com.itechart.payment_service.model.*;
 import com.itechart.payment_service.repository.PaymentAttemptRepository;
 import com.itechart.payment_service.repository.PaymentProviderRepository;
 import com.itechart.payment_service.repository.PaymentReceiptRepository;
@@ -61,7 +59,7 @@ public class PaymentService
         if (optionalPaymentReceipt.isEmpty()) {
             paymentReceipt = PaymentReceipt.builder()
                     .orderId(orderDto.getId())
-                    .receiptStatus("not paid")
+                    .receiptStatus(PaymentReceiptStatus.NOT_PAID.getStatus())
                     .build();
             paymentReceipt = paymentReceiptRepository.saveAndFlush(paymentReceipt);
         }
@@ -69,7 +67,7 @@ public class PaymentService
             paymentReceipt = optionalPaymentReceipt.get();
         }
 
-        if (paymentReceipt.getReceiptStatus().equals("paid")) {
+        if (paymentReceipt.getReceiptStatus().equals(PaymentReceiptStatus.PAID.getStatus())) {
             throw new PaymentException("Order has already been paid for.");
         }
 
@@ -82,24 +80,27 @@ public class PaymentService
         String paymentMethod = paymentProvider.getPaymentMethod();
         PaymentAttempt paymentAttempt;
 
+        // the discount field contains a discount percentage on the order
+        // ((100 - OrderDto.GetDiscount()) / 100 represents the percentage of the order cost after subtraction the discount percentage
         Double orderTotalPrice =
                 orderDto.getOrderPrice() * (100 - orderDto.getDiscount()) / 100 + orderDto.getShippingPrice();
+        PaymentMethod method = PaymentMethod.valueOf(paymentMethod.toUpperCase());
 
-        switch(paymentMethod)
+        switch(method)
         {
-            case "physical":
+            case PHYSICAL:
                  paymentAttempt = PaymentAttempt.builder()
                         .paymentReceipt(paymentReceipt)
                         .paymentProvider(paymentProvider)
                         .transactionNumber("-")
-                        .paymentStatus("confirmed")
+                        .paymentStatus(PaymentAttemptStatus.CONFIRMED.getStatus())
                         .paymentDatetime(LocalDateTime.now())
                         .build();
                 paymentAttemptRepository.save(paymentAttempt);
-                paymentReceipt.setReceiptStatus("paid");
+                paymentReceipt.setReceiptStatus(PaymentReceiptStatus.PAID.getStatus());
                 break;
 
-            case "electronic":
+            case ELECTRONIC:
                 if (!electronicPaymentSystem.executePayment(
                         paymentInfoDto.getCardNumber(),
                         paymentInfoDto.getValidityPeriod(),
@@ -109,7 +110,7 @@ public class PaymentService
                      paymentAttempt = PaymentAttempt.builder()
                             .paymentReceipt(paymentReceipt)
                             .paymentProvider(paymentProvider)
-                            .paymentStatus("rejected")
+                            .paymentStatus(PaymentAttemptStatus.REJECTED.getStatus())
                             .paymentDatetime(LocalDateTime.now())
                             .build();
                     paymentAttemptRepository.save(paymentAttempt);
@@ -119,18 +120,18 @@ public class PaymentService
                         .paymentReceipt(paymentReceipt)
                         .paymentProvider(paymentProvider)
                         .transactionNumber(electronicPaymentSystem.getTransactionNumber())
-                        .paymentStatus("confirmed")
+                        .paymentStatus(PaymentAttemptStatus.CONFIRMED.getStatus())
                         .paymentDatetime(LocalDateTime.now())
                         .build();
                 paymentAttemptRepository.save(paymentAttempt);
-                paymentReceipt.setReceiptStatus("paid");
+                paymentReceipt.setReceiptStatus(PaymentReceiptStatus.PAID.getStatus());
                 break;
             default:
                 throw new PaymentException("Payment method not found.");
         }
 
         ResponseEntity<OrderDto> response = restTemplate
-                .postForEntity(POST_CHANGE_ORDER_STATUS_URL, "paid", OrderDto.class);
+                .postForEntity(POST_CHANGE_ORDER_STATUS_URL, OrderStatus.PAID.getStatus(), OrderDto.class);
 
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new PaymentException("Can't update order status after payment.");

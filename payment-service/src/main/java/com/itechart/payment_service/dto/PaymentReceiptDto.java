@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
-import java.util.List;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -27,5 +27,5 @@ public class PaymentReceiptDto
     @Size(max = 20, message = "Status string length exceeded")
     private String receiptStatus;
 
-    private List<PaymentAttemptDto> paymentAttempts;
+    private Collection<PaymentAttemptDto> paymentAttempts;
 }
