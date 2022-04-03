@@ -3,6 +3,7 @@ package com.itechart.restaurant_info_service.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
@@ -40,4 +41,6 @@ public class NewItemDTO {
     private ManagerDTO managerDTO;
 
     private Set<IngredientDTO> ingredients;
+
+    private MultipartFile image;
 }

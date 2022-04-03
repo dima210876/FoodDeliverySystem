@@ -64,7 +64,7 @@ public class RestaurantController {
         System.out.println(newItemDTO.getName());
         System.out.println(newItemDTO.getDescription());
         System.out.println(newItemDTO.getIngredients().size());
-        itemService.addItem(newItemDTO, /*ingredients,*/ newItemDTO.getManagerDTO(), newItemDTO.getIngredients()/*, image*/);
+        itemService.addItem(newItemDTO, /*ingredients,*/ newItemDTO.getManagerDTO(), newItemDTO.getIngredients(), newItemDTO.getImage());
     }
 
    /* @PostMapping("/upload")
