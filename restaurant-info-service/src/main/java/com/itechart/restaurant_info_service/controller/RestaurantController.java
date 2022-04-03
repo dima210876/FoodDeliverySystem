@@ -59,8 +59,11 @@ public class RestaurantController {
     }
 
     @PostMapping("/newItem")
-    public void addItem(@RequestBody /*NewItemDTO newItemDTO, Set<IngredientDTO> ingredients, ManagerDTO managerDTO,*/ MultipartFile image){
-        //itemService.addItem(newItemDTO, ingredients, managerDTO, image);
+    public void addItem(@RequestBody NewItemDTO newItemDTO, /*Set<IngredientDTO> ingredients,*/@RequestParam(value = "manager") ManagerDTO managerDTO/*, MultipartFile image*/){
+        System.out.println(managerDTO.getEmail());
+        System.out.println(newItemDTO.getName());
+        System.out.println(newItemDTO.getDescription());
+        itemService.addItem(newItemDTO, /*ingredients,*/ managerDTO/*, image*/);
     }
 
     @PostMapping("/upload")

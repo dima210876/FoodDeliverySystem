@@ -4,9 +4,11 @@ import com.itechart.restaurant_info_service.dto.IngredientDTO;
 import com.itechart.restaurant_info_service.dto.ItemDTO;
 import com.itechart.restaurant_info_service.dto.ManagerDTO;
 import com.itechart.restaurant_info_service.dto.NewItemDTO;
+import com.itechart.restaurant_info_service.model.Item;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.repository.ItemRepository;
+import com.itechart.restaurant_info_service.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,7 @@ import java.util.Set;
 public class ItemService {
 
     private final ManagerService managerService;
+    private final RestaurantService restaurantService;
 
     private final ItemRepository itemRepository;
 
@@ -29,9 +32,25 @@ public class ItemService {
         return itemRepository.findItemsByItemType(itemType, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable);
     }
 
-    /*public void addItem(NewItemDTO newItemDTO, Set<IngredientDTO> ingredients, ManagerDTO managerDTO, MultipartFile image){
-        Restaurant restaurant = managerService.findRestaurantByManagerEmail(managerDTO);
-    }*/
+    public void addItem(NewItemDTO newItemDTO, /*Set<IngredientDTO> ingredients,*/ ManagerDTO managerDTO/*, MultipartFile image*/){
+        Long restaurantId = managerService.findRestaurantByManagerEmail(managerDTO);
+        Restaurant restaurant = restaurantService.findRestaurantById(restaurantId);
+        Item item = convertNewItemDTOIntoItem(newItemDTO, restaurant);
+        item = itemRepository.save(item);
+        System.out.println(item.getId());
+    }
+
+    private Item convertNewItemDTOIntoItem(NewItemDTO newItemDTO, Restaurant restaurant){
+        return Item.builder()
+                .restaurant(restaurant)
+                .name(newItemDTO.getName())
+                .description(newItemDTO.getDescription())
+                .itemType(newItemDTO.getItemType())
+                .available(newItemDTO.getAvailable())
+                .feature(newItemDTO.getFeature())
+                .price(newItemDTO.getPrice())
+                .build();
+    }
 
 
 

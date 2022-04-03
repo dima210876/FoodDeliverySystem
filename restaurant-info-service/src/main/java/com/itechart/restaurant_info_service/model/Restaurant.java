@@ -75,4 +75,8 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
     private Set<FoodOrder> foodOrders;
+
+    public Restaurant(Restaurant restaurant){
+
+    }
 }

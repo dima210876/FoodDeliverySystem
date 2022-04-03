@@ -13,8 +13,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewItemDTO {
-    @Id
-    private Long id;
 
     @NotNull(message = "Name is required")
     @NotBlank(message = "Name can't be empty")

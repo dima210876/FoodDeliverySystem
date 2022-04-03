@@ -6,8 +6,10 @@ import com.itechart.restaurant_info_service.model.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
+
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
-    /*@Query("select new com.itechart.restaurant_info_service.model.Restaurant(m.restaurant)\n" +
-            "from  Manager m where m.email = ?1")
-    Restaurant findRestaurantByManagerEmail(String email);*/
+    @Query(value = "select r.id\n" +
+            "from managers m join restaurants r on r.manager_id = m.user_id where m.email = ?1", nativeQuery = true)
+    Long findRestaurantIdByManagerEmail(String email);
 }

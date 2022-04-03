@@ -75,8 +75,8 @@ public class ManagerService {
         return manager;
     }
 
-    /*public Restaurant findRestaurantByManagerEmail(ManagerDTO managerDTO){
-       return  managerRepository.findRestaurantByManagerEmail(managerDTO.getEmail());
-    }*/
+    public Long findRestaurantByManagerEmail(ManagerDTO managerDTO){
+       return managerRepository.findRestaurantIdByManagerEmail(managerDTO.getEmail());
+    }
 
 }
