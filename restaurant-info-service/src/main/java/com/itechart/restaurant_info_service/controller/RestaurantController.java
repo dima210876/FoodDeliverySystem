@@ -67,10 +67,10 @@ public class RestaurantController {
         itemService.addItem(newItemDTO, /*ingredients,*/ newItemDTO.getManagerDTO(), newItemDTO.getIngredients(), newItemDTO.getImage());
     }
 
-   /* @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        return new ResponseEntity<>(awsService.uploadFile(file), HttpStatus.OK);
-    }*/
+   @PostMapping("/upload")
+    public void uploadFile(@RequestParam(value = "file") MultipartFile file) {
+        awsService.uploadFile(file, 1L);
+    }
 
     @GetMapping("/download/{fileName}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {

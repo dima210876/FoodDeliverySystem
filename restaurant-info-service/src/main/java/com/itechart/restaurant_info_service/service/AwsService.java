@@ -24,11 +24,22 @@ public class AwsService {
     @Autowired
     private AmazonS3 s3Client;
 
-    public String uploadFile(MultipartFile file, Long fileName) {
+    public String uploadFile(MultipartFile file, Long id) {
         File fileObj = convertMultiPartFileToFile(file);
-        s3Client.putObject(new PutObjectRequest(bucketName, fileName.toString(), fileObj));
+        s3Client.putObject(new PutObjectRequest(bucketName, getFileName(id, file), fileObj));
         fileObj.delete();
-        return "File uploaded : " + fileName;
+        return "File uploaded : " + getFileName(id, file);
+    }
+
+    private String getFileName(Long id, MultipartFile image){
+        String suffix = "";
+        String originalName = image.getOriginalFilename();
+        int i = originalName.length() - 1;
+        while (originalName.charAt(i) != '.') {
+            suffix = originalName.charAt(i) + suffix;
+            i--;
+        }
+        return id.toString() + '.' + suffix;
     }
 
 
