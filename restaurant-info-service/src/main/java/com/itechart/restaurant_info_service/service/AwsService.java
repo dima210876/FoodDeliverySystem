@@ -26,20 +26,9 @@ public class AwsService {
 
     public String uploadFile(MultipartFile file, Long id) {
         File fileObj = convertMultiPartFileToFile(file);
-        s3Client.putObject(new PutObjectRequest(bucketName, getFileName(id, file), fileObj));
+        s3Client.putObject(new PutObjectRequest(bucketName, id.toString(), fileObj));
         fileObj.delete();
-        return "File uploaded : " + getFileName(id, file);
-    }
-
-    private String getFileName(Long id, MultipartFile image){
-        String suffix = "";
-        String originalName = image.getOriginalFilename();
-        int i = originalName.length() - 1;
-        while (originalName.charAt(i) != '.') {
-            suffix = originalName.charAt(i) + suffix;
-            i--;
-        }
-        return id.toString() + '.' + suffix;
+        return "File uploaded : " + id.toString();
     }
 
 

@@ -59,18 +59,14 @@ public class RestaurantController {
     }
 
     @PostMapping("/newItem")
-    public void addItem(/*@RequestParam(name = "file") MultipartFile image,*/ @RequestBody NewItemDTO newItemDTO/*Set<IngredientDTO> ingredients,*/ ){
-        System.out.println(newItemDTO.getManagerDTO().getEmail());
-        System.out.println(newItemDTO.getName());
-        System.out.println(newItemDTO.getDescription());
-        System.out.println(newItemDTO.getIngredients().size());
-        itemService.addItem(newItemDTO, /*ingredients,*/ newItemDTO.getManagerDTO(), newItemDTO.getIngredients(), newItemDTO.getImage());
+    public void addItem( @RequestBody NewItemDTO newItemDTO){
+        itemService.addItem(newItemDTO);
     }
 
-   @PostMapping("/upload")
+   /*@PostMapping("/upload")
     public void uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        awsService.uploadFile(file, 1L);
-    }
+        awsService.uploadFile(file, 2L);
+    }*/
 
     @GetMapping("/download/{fileName}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
