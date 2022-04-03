@@ -25,6 +25,8 @@ public class ItemService {
 
     private final ManagerService managerService;
     private final RestaurantService restaurantService;
+    private final AwsService awsService;
+    private final IngredientService ingredientService;
 
     private final ItemRepository itemRepository;
 
@@ -32,11 +34,13 @@ public class ItemService {
         return itemRepository.findItemsByItemType(itemType, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable);
     }
 
-    public void addItem(NewItemDTO newItemDTO, /*Set<IngredientDTO> ingredients,*/ ManagerDTO managerDTO/*, MultipartFile image*/){
+    public void addItem(NewItemDTO newItemDTO, /*Set<IngredientDTO> ingredients,*/ ManagerDTO managerDTO, Set<IngredientDTO> ingredients/*, MultipartFile image*/){
         Long restaurantId = managerService.findRestaurantByManagerEmail(managerDTO);
         Restaurant restaurant = restaurantService.findRestaurantById(restaurantId);
         Item item = convertNewItemDTOIntoItem(newItemDTO, restaurant);
         item = itemRepository.save(item);
+        ingredientService.saveIngredients(ingredients, item.getId());
+        //awsService.uploadFile(image, item.getId());
         System.out.println(item.getId());
     }
 
