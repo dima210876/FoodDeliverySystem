@@ -1,6 +1,9 @@
 package com.itechart.restaurant_info_service.controller;
 
-import com.itechart.restaurant_info_service.dto.*;
+import com.itechart.restaurant_info_service.dto.FeedbackDTO;
+import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
+import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
+import com.itechart.restaurant_info_service.dto.RestaurantDTO;
 import com.itechart.restaurant_info_service.exception.EditRestaurantException;
 import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
@@ -11,15 +14,8 @@ import com.itechart.restaurant_info_service.service.ManagerService;
 import com.itechart.restaurant_info_service.service.OrderService;
 import com.itechart.restaurant_info_service.service.RestaurantService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController

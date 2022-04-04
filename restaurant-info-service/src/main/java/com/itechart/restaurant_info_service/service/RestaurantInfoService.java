@@ -81,4 +81,24 @@ public class RestaurantInfoService {
 
         return restaurant;
     }
+
+    @Transactional
+    public Restaurant createDefaultWorkingTime(Restaurant restaurant) {
+        final int daysOfWeek = 7;
+        Set<WorkingTime> workingTimeSet = new HashSet<>();
+
+        for (int current = 1; current <= daysOfWeek; current++) {
+            workingTimeSet.add(WorkingTime.builder()
+                    .restaurant(restaurant)
+                    .dayOfWeek(current)
+                    .openingTime("")
+                    .closingTime("")
+                    .build());
+        }
+
+        workingTimeRepository.saveAll(workingTimeSet);
+        restaurant.setWorkingTime(workingTimeSet);
+
+        return restaurant;
+    }
 }

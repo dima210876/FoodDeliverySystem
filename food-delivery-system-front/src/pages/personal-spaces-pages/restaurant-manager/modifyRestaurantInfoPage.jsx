@@ -7,7 +7,7 @@ import './restaurantManagerPage.css';
 import Navbar from "../../../components/navbar";
 import {TimePickerComponent} from "@syncfusion/ej2-react-calendars";
 
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {geocodeByAddress} from "react-places-autocomplete";
 import {isValidPhoneNumber} from "react-phone-number-input";
 import * as changeInfoActions from "../../../redux/actions/changeInfoActions";
@@ -19,6 +19,7 @@ import {useNavigate} from "react-router-dom";
 const ModifyRestaurantInfoPage = () => {
     const restaurant = useSelector(state => state.userData.restaurantManagerData.restaurant);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [phone, setPhone] = useState(restaurant.phoneNumber);
     const [address, setAddress] = useState(restaurant.address);
     const [coordinates, setCoordinates] = useState({
@@ -48,12 +49,33 @@ const ModifyRestaurantInfoPage = () => {
         setRestaurantTypes([...restaurantTypes, '']);
     };
 
+    function renderDay (day){
+        switch (day){
+            case '1':
+                return 'Monday';
+            case '2':
+                return 'Tuesday';
+            case '3':
+                return 'Wednesday';
+            case '4':
+                return 'Thursday';
+            case '5':
+                return 'Friday';
+            case '6':
+                return 'Saturday';
+            case '7':
+                return 'Sunday';
+        }
+    }
+
     return (
         <Formik
             initialValues={{
                 restaurantName: restaurant.name,
                 description: restaurant.description,
                 workingTime: restaurant.workingTime,
+                restaurantTypes: restaurantTypes,
+                setRestaurantTypes: setRestaurantTypes,
             }}
             enableReinitialize={true}
             validationSchema={schema}
@@ -63,7 +85,7 @@ const ModifyRestaurantInfoPage = () => {
                 geocodeByAddress(address).then(() => {
                     if (phone === "" || isValidPhoneNumber(phone)) {
                         changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
-                            restaurant.workingTime, restaurant.restaurantTypes).then(() => {
+                            restaurant.workingTime, restaurant.restaurantTypes)(dispatch).then(() => {
                             navigate('/restaurant-manager');
                         });
                     }
@@ -113,7 +135,7 @@ const ModifyRestaurantInfoPage = () => {
                                             <div key={item.id}>
                                                 <Row>
                                                     <Col className="small col-4"
-                                                         key={item.dayOfWeek}>{item.dayName}</Col>
+                                                         key={item.dayOfWeek}>{renderDay(item.dayOfWeek)}</Col>
                                                 </Row>
                                                 <TimePickerComponent placeholder="opening time"
                                                                      name="openingTime"
@@ -133,10 +155,11 @@ const ModifyRestaurantInfoPage = () => {
                                 </Form.Group>
                                 <Form.Group className="p-4 pt-0" controlId="modify-restaurant-types">
                                     <Form.Label>Restaurant Types</Form.Label>
-                                    {restaurantTypes.map((type, id) => (
+                                    {values.restaurantTypes.map((type, id) => (
                                         <div className="restaurantType" key={type.id}>
                                             <Form.Control type="textarea" name="restaurantType"
-                                                          placeholder="Enter type" value={type}
+                                                          placeholder="Enter type"
+                                                          defaultValue=""
                                                           onChange={handleChange} isInvalid={!!errors.restaurantTypes}/>
                                             <Form.Control.Feedback type="invalid">
                                                 {errors.restaurantTypes}
