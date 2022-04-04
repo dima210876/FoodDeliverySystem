@@ -38,9 +38,14 @@ public class NewItemDTO {
     @Size(min = 2, max = 100, message = "Feature string length limits exceeded")
     private String feature;
 
-    private ManagerDTO managerDTO;
+    @NotNull(message = "Manager email is required")
+    @NotBlank(message = "Manager email can't be empty")
+    @Size(min = 2, max = 100, message = "Email string length limits exceeded")
+    private String managerEmail;
 
+    @NotNull(message = "Ingredients is required")
     private Set<IngredientDTO> ingredients;
 
+    @NotNull(message = "Image is required")
     private MultipartFile image;
 }

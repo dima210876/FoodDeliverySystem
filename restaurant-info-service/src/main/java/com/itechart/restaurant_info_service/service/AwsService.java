@@ -31,7 +31,6 @@ public class AwsService {
         return "File uploaded : " + id.toString();
     }
 
-
     public byte[] downloadFile(String fileName) {
         S3Object s3Object = s3Client.getObject(bucketName, fileName);
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
@@ -39,17 +38,10 @@ public class AwsService {
             byte[] content = IOUtils.toByteArray(inputStream);
             return content;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Error converting inputStream to byte array", e);
         }
         return null;
     }
-
-
-    public String deleteFile(String fileName) {
-        s3Client.deleteObject(bucketName, fileName);
-        return fileName + " removed ...";
-    }
-
 
     private File convertMultiPartFileToFile(MultipartFile file) {
         File convertedFile = new File(file.getOriginalFilename());

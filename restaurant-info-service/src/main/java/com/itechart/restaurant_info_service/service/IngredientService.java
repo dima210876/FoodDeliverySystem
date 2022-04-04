@@ -30,7 +30,6 @@ public class IngredientService {
                 ingredientInItemRepository.saveIngredients(itemId, ingredientId,
                         ingredient.getAmount(), ingredient.getUnit());
             }
-
         }
     }
 

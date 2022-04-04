@@ -59,29 +59,7 @@ public class RestaurantController {
     }
 
     @PostMapping("/newItem")
-    public void addItem( @RequestBody NewItemDTO newItemDTO){
+    public void addItem(@RequestBody NewItemDTO newItemDTO){
         itemService.addItem(newItemDTO);
-    }
-
-   /*@PostMapping("/upload")
-    public void uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        awsService.uploadFile(file, 2L);
-    }*/
-
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        byte[] data = awsService.downloadFile(fileName);
-        ByteArrayResource resource = new ByteArrayResource(data);
-        return ResponseEntity
-                .ok()
-                .contentLength(data.length)
-                .header("Content-type", "application/octet-stream")
-                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
-                .body(resource);
-    }
-
-    @DeleteMapping("/delete/{fileName}")
-    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
-        return new ResponseEntity<>(awsService.deleteFile(fileName), HttpStatus.OK);
     }
 }
