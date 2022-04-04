@@ -105,7 +105,8 @@ function ProductPageList(){
             listForProductsPage.push({id: item.id,
                                       title: item.name,
                                       price: item.price,
-                                      restaurant: item.restaurant});
+                                      restaurant: item.restaurant,
+                                      image: item.image  });
         });
         setProductPageList(listForProductsPage);
         if(listForProductsPage.length === 0)
@@ -201,7 +202,7 @@ function ProductPageList(){
                         id={obj.id}
                         title={obj.title}
                         price={obj.price}
-                        imageUrl={obj.imageUrl}
+                        image={obj.image}
                         count={checkItems(obj.id)}
                         restaurant={obj.restaurant}
                     />

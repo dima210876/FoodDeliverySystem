@@ -1,7 +1,9 @@
 package com.itechart.restaurant_info_service.repository;
 
 import com.itechart.restaurant_info_service.dto.ItemDTO;
+import com.itechart.restaurant_info_service.dto.NewItemDTO;
 import com.itechart.restaurant_info_service.model.Item;
+import com.itechart.restaurant_info_service.model.Restaurant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

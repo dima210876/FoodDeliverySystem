@@ -78,4 +78,9 @@ public class RestaurantService {
             throw new EditRestaurantException(ex.getMessage());
         }
     }
+
+    public Restaurant findRestaurantById(Long restaurantId){
+        return restaurantRepository.findById(restaurantId).get();
+    }
+
 }

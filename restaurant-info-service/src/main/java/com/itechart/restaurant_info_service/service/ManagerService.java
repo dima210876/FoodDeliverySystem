@@ -89,4 +89,9 @@ public class ManagerService {
             throw new GettingInfoException(String.format("Couldn't get manager with id %d", managerId));
         }
     }
+
+    public Long findRestaurantByManagerEmail(String managerEmail){
+       return managerRepository.findRestaurantIdByManagerEmail(managerEmail);
+    }
+
 }
