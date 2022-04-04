@@ -9,7 +9,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_orders_id" nullable="false"/>
             </column>
             <column name="courier_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="customer_id" type="bigint">
                 <constraints nullable="false"/>

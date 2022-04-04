@@ -17,11 +17,29 @@ public class ExceptionsHandler
     @ExceptionHandler(PaymentException.class)
     public ResponseEntity<String> handlePaymentException(PaymentException exception)
     {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(PaymentReceiptNotFoundException.class)
     public ResponseEntity<String> handlePaymentReceiptNotFoundException(PaymentReceiptNotFoundException exception)
+    {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<String> handleOrderNotFoundException(OrderNotFoundException exception)
+    {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PaymentProviderNotFoundException.class)
+    public ResponseEntity<String> handlePaymentProviderNotFoundException(PaymentProviderNotFoundException exception)
+    {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException exception)
     {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
