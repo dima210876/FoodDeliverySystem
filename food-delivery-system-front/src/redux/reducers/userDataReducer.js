@@ -4,51 +4,51 @@ import {CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS, CHANGE_RESTAURANT_INFO_SUCCES
 const initialState = {
     restaurantManagerData: {
         // manager: {
-            id: '',
-            email: '',
-            firstName: '',
-            lastName: '',
-            role: '',
+        id: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        role: '',
+        phoneNumber: '',
+        restaurant: {
+            restaurantId: '',
+            name: '',
+            description: '',
             phoneNumber: '',
-            restaurant: {
-                restaurantId: '',
-                name: '',
-                description: '',
-                phoneNumber: '',
-                address: '',
-                latitude: '',
-                longitude: '',
-                workingTime: [
-                    {dayOfWeek: 1, dayName: 'Monday', openingTime: '', closingTime: ''},
-                    {dayOfWeek: 2, dayName: 'Tuesday', openingTime: '', closingTime: ''},
-                    {dayOfWeek: 3, dayName: 'Wednesday', openingTime: '', closingTime: ''},
-                    {dayOfWeek: 4, dayName: 'Thursday', openingTime: '', closingTime: ''},
-                    {dayOfWeek: 5, dayName: 'Friday', openingTime: '', closingTime: ''},
-                    {dayOfWeek: 6, dayName: 'Saturday', openingTime: '', closingTime: ''},
-                    {dayOfWeek: 7, dayName: 'Sunday', openingTime: '', closingTime: ''},
-                ],
-                restaurantTypes: [],
-            }
+            address: '',
+            latitude: '',
+            longitude: '',
+            workingTime: [
+                {dayOfWeek: '1', openingTime: '', closingTime: ''},
+                {dayOfWeek: '2', openingTime: '', closingTime: ''},
+                {dayOfWeek: '3', openingTime: '', closingTime: ''},
+                {dayOfWeek: '4', openingTime: '', closingTime: ''},
+                {dayOfWeek: '5', openingTime: '', closingTime: ''},
+                {dayOfWeek: '6', openingTime: '', closingTime: ''},
+                {dayOfWeek: '7', openingTime: '', closingTime: ''},
+            ],
+            restaurantTypes: [],
+        }
         // }
     },
     deliveryOrgManagerData: {
         // manager: {
+        id: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        role: '',
+        phoneNumber: '',
+        organization: {
             id: '',
-            email: '',
-            firstName: '',
-            lastName: '',
-            role: '',
+            name: '',
+            accountNumber: '',
             phoneNumber: '',
-            organization: {
-                id: '',
-                name: '',
-                accountNumber: '',
-                phoneNumber: '',
-                officeAddress: '',
-                latitude: '',
-                longitude: '',
-                couriers: []
-            }
+            officeAddress: '',
+            latitude: '',
+            longitude: '',
+            couriers: []
+        }
         // }
     }
 };
