@@ -33,7 +33,7 @@ public class ItemService {
     public Page<ItemDTO> getItems(String itemType, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant, Pageable pageable){
         Page<ItemDTO> page = itemRepository.findItemsByItemType(itemType, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable);
         for (var element : page) {
-            byte[] data = awsService.downloadFile("1");
+            byte[] data = awsService.downloadFile(element.getId().toString());
             element.setImage(data);
         }
         return page;
