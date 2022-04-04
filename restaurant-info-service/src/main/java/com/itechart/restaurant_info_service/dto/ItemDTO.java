@@ -41,4 +41,17 @@ public class ItemDTO {
 
     @NotNull(message = "Restaurant are required")
     private String restaurant;
+
+    private byte[] image;
+
+    public ItemDTO(Long id, String name, String description, Double price, Boolean available, String itemType, String feature, String restaurant) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.available = available;
+        this.itemType = itemType;
+        this.feature = feature;
+        this.restaurant = restaurant;
+    }
 }

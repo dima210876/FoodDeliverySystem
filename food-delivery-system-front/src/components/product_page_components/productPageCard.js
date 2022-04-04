@@ -40,9 +40,13 @@ function ProductPageCard(props){
         }
     }
 
+    function getImage(){
+        return "data:image/png;base64,"+props.image;
+    }
+
     return(
         <div className="most-popular-card">
-            <img src = "/img/food.png" alt="" width={100} height={100} />
+            <img src = {getImage()} alt="Image of the dish" width={100} height={100} />
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="popular-card-price">
