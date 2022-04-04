@@ -33,7 +33,7 @@ public class CustomerService {
         Long userId = 0L;
 
         try {
-            final String IDENTITY_REGISTER_URL = "http://localhost:8081/register";
+            final String IDENTITY_REGISTER_URL = "http://IDENTITY-SERVICE/register";
             final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
 
             IdentityRegistrationDTO identityRegistrationDTO = IdentityRegistrationDTO.builder()

@@ -41,7 +41,7 @@ function ProductPageCard(props){
     }
 
     function getImage(){
-        return "data:image/png;base64,"+props.image;
+        return 'data:image/png;base64,${props.image}';
     }
 
     return(

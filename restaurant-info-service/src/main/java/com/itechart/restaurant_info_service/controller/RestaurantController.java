@@ -1,9 +1,6 @@
 package com.itechart.restaurant_info_service.controller;
 
-import com.itechart.restaurant_info_service.dto.FeedbackDTO;
-import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
-import com.itechart.restaurant_info_service.dto.ManagerRegistrationInfoDTO;
-import com.itechart.restaurant_info_service.dto.RestaurantDTO;
+import com.itechart.restaurant_info_service.dto.*;
 import com.itechart.restaurant_info_service.exception.EditRestaurantException;
 import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;

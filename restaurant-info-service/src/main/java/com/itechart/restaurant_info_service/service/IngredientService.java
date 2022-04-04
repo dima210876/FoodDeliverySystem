@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
     private final IngredientInItemRepository ingredientInItemRepository;
 
+    @Transactional
     public void saveIngredients(Set<IngredientDTO> ingredients, Long itemId){
         for (var ingredient : ingredients) {
             Optional<Ingredient> ingredientFromDB = ingredientRepository.findByName(ingredient.getName());

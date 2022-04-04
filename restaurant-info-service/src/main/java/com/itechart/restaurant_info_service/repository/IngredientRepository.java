@@ -12,12 +12,10 @@ import java.util.Optional;
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
     Optional<Ingredient> findByName(String name);
 
-    @Transactional
     @Modifying
     @Query(value = "insert into ingredients (name) values (?1)", nativeQuery = true)
     void saveIngredient(String name);
 
-    @Transactional
     @Query(value = "SELECT max(id) FROM Ingredient")
     Long findMaxId();
 }
