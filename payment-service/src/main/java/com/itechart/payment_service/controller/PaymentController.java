@@ -2,7 +2,9 @@ package com.itechart.payment_service.controller;
 
 import com.itechart.payment_service.dto.PaymentInfoDto;
 import com.itechart.payment_service.dto.PaymentReceiptDto;
+import com.itechart.payment_service.exception.OrderNotFoundException;
 import com.itechart.payment_service.exception.PaymentException;
+import com.itechart.payment_service.exception.PaymentProviderNotFoundException;
 import com.itechart.payment_service.exception.PaymentReceiptNotFoundException;
 import com.itechart.payment_service.service.PaymentService;
 import lombok.AllArgsConstructor;
@@ -25,7 +27,8 @@ public class PaymentController
 
     @PostMapping("/orderPayment")
     public ResponseEntity<PaymentReceiptDto> payForOrder(@RequestBody @Valid PaymentInfoDto paymentInfoDto)
-            throws PaymentException
+            throws PaymentException, OrderNotFoundException,
+            PaymentReceiptNotFoundException, PaymentProviderNotFoundException, IllegalArgumentException
     {
         return ResponseEntity.ok().body(paymentService.payForOrder(paymentInfoDto));
     }
