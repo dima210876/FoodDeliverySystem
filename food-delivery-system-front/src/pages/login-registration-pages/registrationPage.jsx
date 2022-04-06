@@ -7,7 +7,7 @@ import {Button, ButtonGroup, Col, Form, Container, Row} from 'react-bootstrap';
 import './loginRegistration.css';
 import {Link, useNavigate } from "react-router-dom";
 import PhoneInputField from "../../components/inputFields/phoneInputField";
-import * as authActions from "../../redux/actions/AuthActions";
+import * as authActions from "../../redux/actions/authActions";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 

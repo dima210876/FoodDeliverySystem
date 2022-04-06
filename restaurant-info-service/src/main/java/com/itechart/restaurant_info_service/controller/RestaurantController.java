@@ -6,20 +6,16 @@ import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
-import com.itechart.restaurant_info_service.service.FeedbackService;
-import com.itechart.restaurant_info_service.service.ManagerService;
-import com.itechart.restaurant_info_service.service.OrderService;
-import com.itechart.restaurant_info_service.service.RestaurantService;
+import com.itechart.restaurant_info_service.service.*;
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -29,6 +25,8 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final OrderService orderService;
     private final ManagerService managerService;
+    private final ItemService itemService;
+    private final AwsService awsService;
 
     @PostMapping("/registerManager")
     public ResponseEntity<Manager> registerManager(@RequestBody ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
@@ -55,4 +53,18 @@ public class RestaurantController {
         feedbackService.addFeedback(feedbackDTO);
     }
 
+    @GetMapping("/getItems")
+    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant){
+        Pageable pageable;
+        if(vectorOfSort)
+            pageable = PageRequest.of(page, size, Sort.by(sortColumn).ascending());
+        else
+            pageable = PageRequest.of(page, size, Sort.by(sortColumn).descending());
+        return ResponseEntity.ok().body(itemService.getItems(category, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable));
+    }
+
+    @PostMapping("/newItem")
+    public void addItem(@RequestBody NewItemDTO newItemDTO){
+        itemService.addItem(newItemDTO);
+    }
 }

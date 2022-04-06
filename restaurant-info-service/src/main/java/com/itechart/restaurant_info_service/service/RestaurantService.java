@@ -25,8 +25,6 @@ import java.util.Set;
 @Validated
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
-    private final WorkingTimeRepository workingTimeRepository;
-    private final RestaurantTypeRepository restaurantTypeRepository;
     private final RestaurantInfoService restaurantInfoService;
 
     @Transactional
@@ -41,6 +39,9 @@ public class RestaurantService {
                     .latitude(0D)
                     .longitude(0D)
                     .build();
+            restaurantRepository.save(restaurant);
+
+            restaurant = restaurantInfoService.createDefaultWorkingTime(restaurant);
 
             restaurantRepository.save(restaurant);
         } catch (Throwable ex) {
@@ -77,4 +78,9 @@ public class RestaurantService {
             throw new EditRestaurantException(ex.getMessage());
         }
     }
+
+    public Restaurant findRestaurantById(Long restaurantId){
+        return restaurantRepository.findById(restaurantId).get();
+    }
+
 }

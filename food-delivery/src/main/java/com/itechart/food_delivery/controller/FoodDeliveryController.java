@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-public class FoodDeliveryController
-{
+@CrossOrigin(origins = "http://localhost:3000")
+public class FoodDeliveryController {
+  
     private final CustomerService customerService;
     private final FoodDeliveryService foodDeliveryService;
 
