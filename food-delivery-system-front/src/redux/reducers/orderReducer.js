@@ -2,7 +2,6 @@ import {CREATE_NEW_ORDER_SUCCESS} from "../actions/orderConfirmationActions";
 
 const initialState = {
     orderData: {
-        userId: '',
         orderId: '',
         totalPrice: ''
     }

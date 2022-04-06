@@ -15,6 +15,20 @@ class orderConfirmationService{
             .then((response ) => {
                 return response.data;
             });
+    };
+
+    confirmPayment(orderId, paymentProviderName, cardNumber, validityPeriod, cardCode){
+        return axios
+            .post(API_URL + "/orderPayment", {
+                orderId: orderId,
+                paymentProviderName: paymentProviderName,
+                cardNumber: cardNumber,
+                validityPeriod: validityPeriod,
+                cardCode: cardCode
+            })
+            .then((response ) => {
+                return response.data;
+            });
     }
 
 }

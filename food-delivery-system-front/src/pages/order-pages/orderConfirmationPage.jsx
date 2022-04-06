@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Col, Container, Form, Row} from 'react-bootstrap';
+import {Button, Col, Container, Form} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from "yup";
 import Footer from "../../components/footer";
@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 const OrderConfirmationPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userId = useSelector(state => state.authData.user.user_id);
     const items = useSelector(state => state.cart.items);
     const [address, setAddress] = useState('');
     const [coordinates, setCoordinates] = useState({
@@ -29,7 +30,6 @@ const OrderConfirmationPage = () => {
         setSubmitClicked(true);
     };
 
-
     return (
         <Formik
             initialValues={{}}
@@ -40,7 +40,7 @@ const OrderConfirmationPage = () => {
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
                     if (address !== "") {
-                        confirmOrderDetails()(dispatch).then(() => {
+                        confirmOrderDetails(userId, items, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
                             navigate('/payment');
                         });
                     }
@@ -48,10 +48,7 @@ const OrderConfirmationPage = () => {
             }}
         >
             {({
-                  handleSubmit,
-                  handleChange,
-                  errors,
-                  values
+                  handleSubmit
               }) => (
                 <>
                     <Navbar/>
@@ -70,8 +67,7 @@ const OrderConfirmationPage = () => {
                                                        changeCoordinates={setCoordinates} submitClicked={submitClicked}/>
                                 </div>
                                 <div className="mt-3 text-center ">
-                                    <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Confirm
-                                    </Button>
+                                    <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Confirm</Button>
                                 </div>
                             </Form>
                         </Col>
