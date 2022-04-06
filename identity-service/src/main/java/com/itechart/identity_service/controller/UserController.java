@@ -5,6 +5,7 @@ import com.itechart.identity_service.exception.RegistrationConfirmationTokenExce
 import com.itechart.identity_service.model.LoginData;
 import com.itechart.identity_service.model.User;
 import com.itechart.identity_service.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,8 @@ import javax.validation.Valid;
 
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
+//@RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:3000"})
 public class UserController
 {

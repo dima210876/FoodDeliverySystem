@@ -2,6 +2,7 @@ package com.itechart.api_gateway.filter;
 
 import com.itechart.api_gateway.exception.JwtTokenMalformedException;
 import com.itechart.api_gateway.exception.JwtTokenMissingException;
+import com.itechart.api_gateway.model.Role;
 import com.itechart.api_gateway.util.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -22,7 +23,7 @@ import io.jsonwebtoken.Claims;
 public class JwtAuthenticationFilter implements GatewayFilter
 {
     private final JwtUtil jwtUtil;
-    private final List<String> generalEndpoints = List.of("/identity/register", "/identity/login", "/foodDelivery/menu");
+    private final List<String> generalEndpoints = List.of("/identity/register", "/identity/login", "/identity/confirm", "/foodDelivery/menu");
     private final List<String> customerEndpoints = List.of("/foodDelivery", "/payment");
     private final List<String> restaurantManagerEndpoints = List.of("/restaurantInfo");
     private final List<String> courierEndpoints = List.of("/courierManager/courier", "/foodDelivery", "/payment");
@@ -33,7 +34,6 @@ public class JwtAuthenticationFilter implements GatewayFilter
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain)
     {
-        //System.out.println("Filter started");
         ServerHttpRequest request = exchange.getRequest();
 
         Predicate<ServerHttpRequest> isApiSecured = r -> generalEndpoints.stream()
@@ -41,10 +41,8 @@ public class JwtAuthenticationFilter implements GatewayFilter
 
         if (isApiSecured.test(request))
         {
-            //System.out.println("Requested resource secured");
             if (!request.getHeaders().containsKey("Authorization"))
             {
-                //System.out.println("No authorization header");
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return response.setComplete();
@@ -53,8 +51,6 @@ public class JwtAuthenticationFilter implements GatewayFilter
             try { jwtUtil.validateToken(token); }
             catch (JwtTokenMalformedException | JwtTokenMissingException e)
             {
-                //TODO: log
-                //System.out.println("Token not valid");
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.BAD_REQUEST);
                 return response.setComplete();
@@ -63,22 +59,23 @@ public class JwtAuthenticationFilter implements GatewayFilter
             String userRole = String.valueOf(jwtUtil.getClaims(token).get("role"));
             String path = request.getURI().getPath();
             boolean haveAccess = false;
-            switch (userRole)
+            Role role = Role.valueOf(userRole);
+            switch (role)
             {
-                case "ROLE_CUSTOMER":
-                    if (checkAccess(customerEndpoints, path)) { haveAccess = true; }
+                case ROLE_CUSTOMER:
+                    haveAccess = checkAccess(customerEndpoints, path);
                     break;
-                case "ROLE_RESTAURANT_MANAGER":
-                    if (checkAccess(restaurantManagerEndpoints, path)) { haveAccess = true; }
+                case ROLE_MANAGER:
+                    haveAccess = checkAccess(restaurantManagerEndpoints, path);
                     break;
-                case "ROLE_COURIER":
-                    if (checkAccess(courierEndpoints, path)) { haveAccess = true; }
+                case ROLE_COURIER:
+                    haveAccess = checkAccess(courierEndpoints, path);
                     break;
-                case "ROLE_COURIER_SERVICE_MANAGER":
-                    if (checkAccess(courierManagerEndpoints, path)) { haveAccess = true; }
+                case ROLE_COURIER_SERVICE_MANAGER:
+                    haveAccess = checkAccess(courierManagerEndpoints, path);
                     break;
-                case "ROLE_SUPER_ADMIN":
-                    if (checkAccess(superAdminEndpoints, path)) { haveAccess = true; }
+                case ROLE_SUPER_ADMIN:
+                    haveAccess = checkAccess(superAdminEndpoints, path);
                     break;
                 default:
                     ServerHttpResponse response = exchange.getResponse();
@@ -87,12 +84,10 @@ public class JwtAuthenticationFilter implements GatewayFilter
             }
             if (!haveAccess)
             {
-                //System.out.println("User with that role doesn't have access to resource");
                 ServerHttpResponse response = exchange.getResponse();
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return response.setComplete();
             }
-            //System.out.println("Access to secured resource confirmed");
             populateRequestWithHeaders(exchange, token);
         }
         return chain.filter(exchange);

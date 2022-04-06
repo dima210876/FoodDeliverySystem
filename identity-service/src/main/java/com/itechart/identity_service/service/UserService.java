@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService
         user.setCredentialsNonExpired(true);
         user.setEnabled(false);
         User savedUser = userRepository.saveAndFlush(user);
-        RegistrationConfirmationToken savedToken = registrationConfirmationTokenRepository.saveAndFlush(
+        RegistrationConfirmationToken savedToken = registrationConfirmationTokenRepository.save(
                 RegistrationConfirmationToken.builder()
                         .user(savedUser)
                         .confirmationToken(UUID.randomUUID().toString().replace("-", ""))

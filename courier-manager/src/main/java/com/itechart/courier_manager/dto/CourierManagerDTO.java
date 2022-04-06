@@ -28,11 +28,11 @@ public class CourierManagerDTO {
     @Size(min = 2, max = 100, message = "Last name string length limits exceeded")
     private String lastName;
 
-    @Size(min = 2, max = 50, message = "Phone number string length limits exceeded")
+    @Size(min = 0, max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
     @NotNull(message = "Organization name is required")
     @NotBlank(message = "Organization name can't be empty")
-    @Size(min = 2, max = 100, message = "Organization name string length limits exceeded")
+    @Size(min = 0, max = 100, message = "Organization name string length limits exceeded")
     private String organizationName;
 }
