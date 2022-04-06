@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: restaurant-info-service
+    bucket:
+      name: food-delivery-dishes
   datasource:
     username: postgres #edit
     password: myroot #edit
@@ -29,3 +31,13 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA4B22QZQFIT6FKUNZ
+      secret-key: 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
+    region:
+      static: us-east-1
+    stack:
+      auto: false

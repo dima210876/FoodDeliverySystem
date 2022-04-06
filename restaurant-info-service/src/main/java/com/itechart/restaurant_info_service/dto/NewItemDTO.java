@@ -3,19 +3,18 @@ package com.itechart.restaurant_info_service.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDTO {
-
-    @Id
-    private Long id;
+public class NewItemDTO {
 
     @NotNull(message = "Name is required")
     @NotBlank(message = "Name can't be empty")
@@ -39,19 +38,14 @@ public class ItemDTO {
     @Size(min = 2, max = 100, message = "Feature string length limits exceeded")
     private String feature;
 
-    @NotNull(message = "Restaurant are required")
-    private String restaurant;
+    @NotNull(message = "Manager email is required")
+    @NotBlank(message = "Manager email can't be empty")
+    @Size(min = 2, max = 100, message = "Email string length limits exceeded")
+    private String managerEmail;
 
-    private byte[] image;
+    @NotNull(message = "Ingredients is required")
+    private Set<IngredientDTO> ingredients;
 
-    public ItemDTO(Long id, String name, String description, Double price, Boolean available, String itemType, String feature, String restaurant) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.available = available;
-        this.itemType = itemType;
-        this.feature = feature;
-        this.restaurant = restaurant;
-    }
+    @NotNull(message = "Image is required")
+    private MultipartFile image;
 }
