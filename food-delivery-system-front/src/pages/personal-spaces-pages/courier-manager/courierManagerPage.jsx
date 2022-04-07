@@ -25,6 +25,9 @@ const CourierManagerPage = () => {
                             <h6>Email: {deliveryOrgManager.email ? deliveryOrgManager.email : " – "}</h6>
                             <h6>Phone number: {deliveryOrgManager.phoneNumber ? deliveryOrgManager.phoneNumber : " – "} </h6>
                         </div>
+                        <div className='link-div'>
+                            <Link className='link' to='/courier-manager/modify-courier-manager-info'><h5>Modify</h5></Link>
+                        </div>
                     </div>
                     <div className='delivery-organization-block'>
                         <h4>Organization's info</h4>
