@@ -16,25 +16,17 @@ const PaymentPage = () => {
     const navigate = useNavigate();
     const order = useSelector(state => state.order.orderData)
     const [submitClicked, setSubmitClicked] = useState(false);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
     const [electronic, setElectronic] = useState(false);
 
     const schema = Yup.object().shape({
         paymentProviderName: Yup.string()
-            .max(100, 'Payment provider name should contain maximum 100 characters.')
-            .required('Payment provider name is required field'),
+            .max(100, 'Payment provider name should contain maximum 100 characters.'),
         cardNumber: Yup.string()
-            .max(50, 'Card number should contain maximum 30 characters.')
-            .required('Card number is required field'),
+            .max(50, 'Card number should contain maximum 30 characters.'),
         cardCode: Yup.string()
             .max(50, 'Card code should contain maximum 30 characters.')
-            .required('Card code is required field'),
-        validityPeriod: Yup.string()
-            .required('Validity period is required field'),
     });
-
-    const changeSubmit = () => {
-        setSubmitClicked(true);
-    };
 
     return (
         <Formik
@@ -51,8 +43,17 @@ const PaymentPage = () => {
             onSubmit={(values) => {
                 if (electronic) {
                     confirmPayment(order.orderId, values.paymentProviderName, values.cardNumber, values.validityPeriod, values.cardCode)(dispatch).then(() => {
-                        navigate('/');
-                    })
+                        alert("Your order is confirmed");
+                        navigate('/')
+                    }).catch((error) => {
+                        setStateOfAlert(true);
+                        setTimeout(() => {
+                            setStateOfAlert(false);
+                        }, 3000)
+                    });
+                } else {
+                    alert("Your order is confirmed");
+                    navigate('/')
                 }
             }}
         >
@@ -64,6 +65,7 @@ const PaymentPage = () => {
                 <>
                     <Navbar/>
                     <Container className="personal-space-form-container">
+                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Payment is not approved</div> : null}
                         <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                             <Form id="sign-in-form" className="m-5 p-5 rounded w-75" noValidate onSubmit={handleSubmit}>
                                 <div className="text-center">
@@ -71,10 +73,10 @@ const PaymentPage = () => {
                                     <div className="row">
                                         <RadioGroup>
                                             <div className="col-xs-12 col-sm-6">
-                                                <RadioButton value="PHYSICAL" defaultChecked
+                                                <RadioButton value="PHYSICAL" name="PHYSICAL" defaultChecked
                                                              onChange={() => setElectronic(false)}>
                                                     Physical payment to courier</RadioButton>
-                                                <RadioButton value="ELECTRONIC"
+                                                <RadioButton value="ELECTRONIC" name="ELECTRONIC"
                                                              onChange={() => setElectronic(true)}>
                                                     Online payment</RadioButton>
                                             </div>
@@ -94,7 +96,7 @@ const PaymentPage = () => {
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                             <Form.Group className="p-4 pt-2" controlId="card-number">
-                                                <Form.Label>Email</Form.Label>
+                                                <Form.Label>Card number</Form.Label>
                                                 <Form.Control type="textarea" name="cardNumber"
                                                               placeholder="Enter card number"
                                                               onChange={handleChange} isInvalid={!!errors.cardNumber}/>
@@ -125,8 +127,7 @@ const PaymentPage = () => {
                                         </>
                                     )}
                                     <div className="mt-3 text-center ">
-                                        <Button type="submit" variant="danger" size="lg"
-                                                onClick={changeSubmit}>Confirm</Button>
+                                        <Button type="submit" variant="danger" size="lg">Confirm</Button>
                                     </div>
                                 </div>
                             </Form>

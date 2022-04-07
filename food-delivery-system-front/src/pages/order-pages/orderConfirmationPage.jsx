@@ -15,8 +15,9 @@ import {useNavigate} from "react-router-dom";
 const OrderConfirmationPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userId = useSelector(state => state.authData.user.user_id);
+    const user =  useSelector(state => state.auth.authData.user);
     const items = useSelector(state => state.cart.items);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
     const [address, setAddress] = useState('');
     const [coordinates, setCoordinates] = useState({
         lat: 0,
@@ -40,8 +41,13 @@ const OrderConfirmationPage = () => {
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
                     if (address !== "") {
-                        confirmOrderDetails(userId, items, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
+                        confirmOrderDetails(user.userId, items, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
                             navigate('/payment');
+                        }).catch((error) => {
+                            setStateOfAlert(true);
+                            setTimeout(() => {
+                                setStateOfAlert(false);
+                            }, 3000)
                         });
                     }
                 })
@@ -53,6 +59,7 @@ const OrderConfirmationPage = () => {
                 <>
                     <Navbar/>
                     <Container className="personal-space-form-container">
+                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Couldn't confirm your order</div> : null}
                         <Col md={8} className="m-auto mt-5 full-width d-flex justify-content-center">
                             <Form id="sign-in-form" className="m-5 p-5 rounded w-75" noValidate onSubmit={handleSubmit}>
                                 <div className="text-center">

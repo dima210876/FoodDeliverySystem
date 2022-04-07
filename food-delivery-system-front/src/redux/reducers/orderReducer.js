@@ -1,4 +1,4 @@
-import {CREATE_NEW_ORDER_SUCCESS} from "../actions/orderConfirmationActions";
+import {CONFIRM_PAYMENT_SUCCESS, CREATE_NEW_ORDER_SUCCESS} from "../actions/orderConfirmationActions";
 
 const initialState = {
     orderData: {
@@ -14,6 +14,10 @@ export function OrderReducer(state = initialState, action) {
             return {
                 ...state,
                 authData: payload,
+            };
+        case CONFIRM_PAYMENT_SUCCESS:
+            return {
+                ...state,
             };
 
         default:

@@ -4,6 +4,7 @@ const API_URL = "http://localhost:";
 
 class orderConfirmationService{
     confirmOrderDetails(userId, items, address, latitude, longitude){
+        console.log(userId);
         return axios
             .post(API_URL + "/here-must-be-url-for-creating-order", {
                 userId: userId,
