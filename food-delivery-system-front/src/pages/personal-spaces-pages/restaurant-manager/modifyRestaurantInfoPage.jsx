@@ -22,6 +22,7 @@ const ModifyRestaurantInfoPage = () => {
     const dispatch = useDispatch();
     const [phone, setPhone] = useState(restaurant.phoneNumber);
     const [address, setAddress] = useState(restaurant.address);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
     const [coordinates, setCoordinates] = useState({
         lat: restaurant.latitude,
         lng: restaurant.longitude
@@ -84,12 +85,16 @@ const ModifyRestaurantInfoPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                console.log(values.workingTime)
                 geocodeByAddress(address).then(() => {
                     if (phone === "" || isValidPhoneNumber(phone)) {
                         changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
-                            restaurant.workingTime, values.restaurantTypes)(dispatch).then(() => {
+                            values.workingTime, values.restaurantTypes)(dispatch).then(() => {
                             navigate('/restaurant-manager');
+                        }).catch((error) => {
+                            setStateOfAlert(true);
+                            setTimeout(() => {
+                                setStateOfAlert(false);
+                            }, 3000)
                         });
                     }
                 })
@@ -104,6 +109,7 @@ const ModifyRestaurantInfoPage = () => {
                 <>
                     <Navbar/>
                     <Container className="personal-space-form-container">
+                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Couldn't edit restaurant info</div> : null}
                         <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                             <Form id="sign-in-form" className="m-5 p-5 rounded w-75" noValidate onSubmit={handleSubmit}>
                                 <div className="text-center">
