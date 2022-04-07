@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from "yup";
@@ -28,6 +28,7 @@ const ModifyRestaurantInfoPage = () => {
     });
     const [submitClicked, setSubmitClicked] = useState(false);
     const [restaurantTypes, setRestaurantTypes] = useState(restaurant.restaurantTypes);
+    const [workingTime, setWorkingTime] = useState(restaurant.workingTime);
 
     const changeSubmit = () => {
         setSubmitClicked(true);
@@ -42,15 +43,15 @@ const ModifyRestaurantInfoPage = () => {
     });
 
     const handleRemove = (id) => () => {
-        setRestaurantTypes(restaurantTypes.filter((current, idCurrent) => idCurrent !== id));
+        setRestaurantTypes([...restaurantTypes.slice(0, id), ...restaurantTypes.slice(id + 1)]);
     };
 
     const handleAdd = () => {
         setRestaurantTypes([...restaurantTypes, '']);
     };
 
-    function renderDay (day){
-        switch (day){
+    function renderDay(day) {
+        switch (day) {
             case '1':
                 return 'Monday';
             case '2':
@@ -73,7 +74,8 @@ const ModifyRestaurantInfoPage = () => {
             initialValues={{
                 restaurantName: restaurant.name,
                 description: restaurant.description,
-                workingTime: restaurant.workingTime,
+                workingTime: workingTime,
+                setWorkingTime: setWorkingTime,
                 restaurantTypes: restaurantTypes,
                 setRestaurantTypes: setRestaurantTypes,
             }}
@@ -82,10 +84,11 @@ const ModifyRestaurantInfoPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
+                console.log(values.workingTime)
                 geocodeByAddress(address).then(() => {
                     if (phone === "" || isValidPhoneNumber(phone)) {
                         changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
-                            restaurant.workingTime, restaurant.restaurantTypes)(dispatch).then(() => {
+                            restaurant.workingTime, values.restaurantTypes)(dispatch).then(() => {
                             navigate('/restaurant-manager');
                         });
                     }
@@ -131,7 +134,7 @@ const ModifyRestaurantInfoPage = () => {
                                 <Form.Group className="p-4 pt-0" controlId="modify-working-time">
                                     <Form.Label>Working time</Form.Label>
                                     <>
-                                        {values.workingTime.map(item => (
+                                        {values.workingTime.map((item, id) => (
                                             <div key={item.id}>
                                                 <Row>
                                                     <Col className="small col-4"
@@ -141,30 +144,43 @@ const ModifyRestaurantInfoPage = () => {
                                                                      name="openingTime"
                                                                      format="HH:mm"
                                                                      step={15}
-                                                                     value={item.openingTime}
-                                                                     onChange={handleChange}/>
+                                                                     defaultValue={item.openingTime}
+                                                                     onChange={event => setWorkingTime([...workingTime.slice(0, id),
+                                                                         {
+                                                                             dayOfWeek: item.dayOfWeek,
+                                                                             openingTime: event.target.value,
+                                                                             closingTime: item.closingTime
+                                                                         },
+                                                                         ...workingTime.slice(id + 1)])}/>
                                                 <TimePickerComponent placeholder="closing time"
                                                                      name="closingTime"
                                                                      format="HH:mm"
                                                                      step={15}
-                                                                     value={item.closingTime}
-                                                                     onChange={handleChange}/>
+                                                                     defaultValue={item.closingTime}
+                                                                     onChange={event => setWorkingTime([...workingTime.slice(0, id),
+                                                                         {
+                                                                             dayOfWeek: item.dayOfWeek,
+                                                                             openingTime: item.openingTime,
+                                                                             closingTime: event.target.value
+                                                                         },
+                                                                         ...workingTime.slice(id + 1)])}/>
                                             </div>
                                         ))}
                                     </>
                                 </Form.Group>
-                                <Form.Group className="p-4 pt-0" controlId="modify-restaurant-types">
+                                <Form.Group className="p-4 pt-0" controlId="modify-restaurant-types"
+                                            id="restaurant-types">
                                     <Form.Label>Restaurant Types</Form.Label>
                                     {values.restaurantTypes.map((type, id) => (
                                         <div className="restaurantType" key={type.id}>
                                             <Form.Control type="textarea" name="restaurantType"
                                                           placeholder="Enter type"
-                                                          defaultValue=""
-                                                          onChange={handleChange} isInvalid={!!errors.restaurantTypes}/>
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.restaurantTypes}
-                                            </Form.Control.Feedback>
-                                            <Button type="button" variant="light" onClick={handleRemove(id)}
+                                                          defaultValue={type}
+                                                          onChange={event => setRestaurantTypes([...restaurantTypes.slice(0, id),
+                                                              event.target.value, ...restaurantTypes.slice(id + 1)])}>
+                                            </Form.Control>
+                                            <Button type="button" variant="light"
+                                                    onClick={handleRemove(id)}
                                                     className="small">
                                                 -
                                             </Button>
