@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import './loginRegistration.css';
 import {Link,  useNavigate } from "react-router-dom";
-import * as authActions from "../../redux/actions/AuthActions";
+import * as authActions from "../../redux/actions/authActions";
 import {useDispatch} from "react-redux";
 
 const LoginPage = () => {
@@ -32,7 +32,7 @@ const LoginPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 authActions.login(values.email, values.password)(dispatch).then(() => {
-                    // navigate('/main-page-link-from-another-ticket');
+                    navigate('/');
                 }).catch((error) => {
                     setStateOfAlert(true);
                     setTimeout(() => {

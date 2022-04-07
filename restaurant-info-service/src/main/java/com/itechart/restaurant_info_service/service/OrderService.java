@@ -1,7 +1,9 @@
 package com.itechart.restaurant_info_service.service;
 
+import com.itechart.restaurant_info_service.dto.ChangeStatusDTO;
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
 import com.itechart.restaurant_info_service.dto.ItemInOrderDTO;
+import com.itechart.restaurant_info_service.exception.ChangeOrderStatusException;
 import com.itechart.restaurant_info_service.model.*;
 import com.itechart.restaurant_info_service.repository.FoodOrderRepository;
 import com.itechart.restaurant_info_service.repository.ItemInOrderRepository;
@@ -10,8 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -43,5 +44,24 @@ public class OrderService {
         }
 
         itemInOrderRepository.saveAll(itemsInOrder);
+    }
+
+    public void changeOrderStatus(ChangeStatusDTO changeStatusDTO) throws ChangeOrderStatusException {
+        Optional<FoodOrder> optionalFoodOrder = foodOrderRepository.findById(changeStatusDTO.getId());
+        if (optionalFoodOrder.isEmpty()) {
+            throw new ChangeOrderStatusException(String.format("Order with id %d doesn't exist", changeStatusDTO.getId()));
+        }
+
+        FoodOrder foodOrder = optionalFoodOrder.get();
+        foodOrder.setRestaurantStatus(changeStatusDTO.getRestaurantStatus());
+        foodOrderRepository.save(foodOrder);
+
+        // TODO: Invoke method of changing restaurant status from delivery service
+        // (as soon as another ticket will be ready)
+    }
+
+    public List<FoodOrder> getAllOrders() {
+        List<FoodOrder> foodOrders = foodOrderRepository.findAll();
+        return foodOrders;
     }
 }

@@ -1,11 +1,14 @@
 package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.*;
+import com.itechart.restaurant_info_service.exception.ChangeOrderStatusException;
 import com.itechart.restaurant_info_service.exception.EditRestaurantException;
 import com.itechart.restaurant_info_service.exception.GettingInfoException;
 import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
+import com.itechart.restaurant_info_service.model.FoodOrder;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
+import com.itechart.restaurant_info_service.model.RestaurantStatus;
 import com.itechart.restaurant_info_service.service.FeedbackService;
 import com.itechart.restaurant_info_service.service.ManagerService;
 import com.itechart.restaurant_info_service.service.OrderService;
@@ -19,7 +22,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -48,6 +53,16 @@ public class RestaurantController {
     @PostMapping("/newOrder")
     public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) {
         orderService.addOrder(foodOrderDTO);
+    }
+
+    @PostMapping("/changeOrderStatus")
+    public void changeOrderStatus(@RequestBody ChangeStatusDTO changeStatusDTO) throws ChangeOrderStatusException {
+        orderService.changeOrderStatus(changeStatusDTO);
+    }
+
+    @GetMapping("/getAllOrders")
+    public ResponseEntity<List<FoodOrder>> getAllOrders() {
+        return ResponseEntity.ok().body(orderService.getAllOrders());
     }
 
     @PostMapping("/newFeedback")

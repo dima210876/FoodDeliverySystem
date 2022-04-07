@@ -4,11 +4,11 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import PhoneInputField from "../../../components/inputFields/phoneInputField";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/navbar";
 import Footer from "../../../components/footer"
 
 import "./formsInPersonalSpace.css"
-import * as authActions from "../../../redux/actions/AuthActions";
+import * as authActions from "../../../redux/actions/authActions";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
 

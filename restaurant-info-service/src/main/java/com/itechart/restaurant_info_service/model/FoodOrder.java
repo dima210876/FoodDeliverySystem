@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,10 +27,10 @@ public class FoodOrder {
     private Long id;
 
     @Column(name = "restaurant_status")
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "Restaurant status is required")
-    @NotBlank(message = "Restaurant status can't be empty")
-    @Size(min = 2, max = 20, message = "Restaurant status string length limits exceeded")
     private RestaurantStatus restaurantStatus;
+//    private String restaurantStatus;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -39,5 +40,5 @@ public class FoodOrder {
 
     @OneToMany(mappedBy = "order")
     @JsonManagedReference
-    private Set<ItemInOrder> itemsInOrders;
+    private List<ItemInOrder> itemsInOrders;
 }

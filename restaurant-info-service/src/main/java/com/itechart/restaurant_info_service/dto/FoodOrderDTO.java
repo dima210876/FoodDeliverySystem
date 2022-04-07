@@ -1,5 +1,6 @@
 package com.itechart.restaurant_info_service.dto;
 
+import com.itechart.restaurant_info_service.model.RestaurantStatus;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
