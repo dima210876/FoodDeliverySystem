@@ -3,6 +3,7 @@ package com.itechart.identity_service.service;
 import com.itechart.identity_service.config.RegistrationConfirmationMessagingConfig;
 import com.itechart.identity_service.config.RegistrationMessagingConfig;
 import com.itechart.identity_service.dto.ConfirmationInfoDto;
+import com.itechart.identity_service.dto.UserRegistrationInfoDto;
 import com.itechart.identity_service.exception.EmailDuplicationException;
 import com.itechart.identity_service.exception.RegistrationConfirmationTokenException;
 import com.itechart.identity_service.model.RegistrationConfirmationToken;
@@ -43,7 +44,7 @@ public class UserService implements UserDetailsService
         }
     }
 
-    public User saveUser(User user) throws EmailDuplicationException
+    public UserRegistrationInfoDto saveUser(User user) throws EmailDuplicationException
     {
         if (!isEmailUnique(user.getEmail()))
         {
@@ -55,7 +56,7 @@ public class UserService implements UserDetailsService
         user.setCredentialsNonExpired(true);
         user.setEnabled(false);
         User savedUser = userRepository.saveAndFlush(user);
-        RegistrationConfirmationToken savedToken = registrationConfirmationTokenRepository.saveAndFlush(
+        RegistrationConfirmationToken savedToken = registrationConfirmationTokenRepository.save(
                 RegistrationConfirmationToken.builder()
                         .user(savedUser)
                         .confirmationToken(UUID.randomUUID().toString().replace("-", ""))
@@ -72,7 +73,14 @@ public class UserService implements UserDetailsService
                 RegistrationConfirmationMessagingConfig.ROUTING_KEY,
                 confirmationInfoDto
         );
-        return savedUser;
+        return UserRegistrationInfoDto.builder()
+                .id(savedUser.getId())
+                .email(savedUser.getEmail())
+                .password(savedUser.getPassword())
+                .firstName(savedUser.getFirstName())
+                .lastName(savedUser.getLastName())
+                .role(savedUser.getRole().getAuthority())
+                .build();
     }
 
     public String confirmUserRegistration(String confirmationToken) throws RegistrationConfirmationTokenException

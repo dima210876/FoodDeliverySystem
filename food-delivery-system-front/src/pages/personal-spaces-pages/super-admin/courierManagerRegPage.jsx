@@ -16,7 +16,7 @@ import {registerOrganization} from "../../../redux/actions/authActions";
 
 const CourierManagerRegPage = () => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
     const [stateOfAlert, setStateOfAlert] = useState(false);
@@ -66,9 +66,9 @@ const CourierManagerRegPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                if (phone && isValidPhoneNumber(phone)) {
+                if (!phone || (phone && isValidPhoneNumber(phone))) {
                     registerOrganization(values.organizationName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        // navigate('/admin-space-link-from-another-ticket');
+                        navigate('/admin');
                     }).catch(() => {
                         setStateOfAlert(true);
                         setTimeout(() => {

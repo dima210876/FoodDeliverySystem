@@ -86,7 +86,7 @@ const ModifyRestaurantInfoPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
-                    if (phone === "" || isValidPhoneNumber(phone)) {
+                    if (!phone || (phone && isValidPhoneNumber(phone))) {
                         changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
                             values.workingTime, values.restaurantTypes)(dispatch).then(() => {
                             navigate('/restaurant-manager');

@@ -58,7 +58,7 @@ const CourierRegPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                if (phone && isValidPhoneNumber(phone)) {
+                if (!phone || (phone && isValidPhoneNumber(phone))) {
                     authActions.registerCourier(organizationId, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
                         navigate('/courier-manager');
                     });

@@ -13,7 +13,7 @@ import {isValidPhoneNumber} from "react-phone-number-input";
 
 const RegistrationPage = () => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
     const [stateOfAlert, setStateOfAlert] = useState(false);
@@ -57,9 +57,9 @@ const RegistrationPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                if (phone && isValidPhoneNumber(phone)) {
+                if (!phone || (phone && isValidPhoneNumber(phone))) {
                     authActions.registerUser(values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        // navigate('/main-page-link-from-another-ticket');
+                        navigate('/');
                     }).catch(() => {
                         setStateOfAlert(true);
                         setTimeout(() => {

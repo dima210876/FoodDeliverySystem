@@ -27,6 +27,9 @@ const RestaurantManagerPage = () => {
                             <h6>Email: {restaurantManagerData.email ? restaurantManagerData.email : " – "}</h6>
                             <h6>Phone number: {restaurantManagerData.phoneNumber ? restaurantManagerData.phoneNumber : " – "} </h6>
                         </div>
+                        <div className='link-div'>
+                            <Link className='link' to='/restaurant-manager/modify-restaurant-manager-info'><h5>Modify</h5></Link>
+                        </div>
                     </div>
                     <div className='restaurant-block'>
                         <h4>Restaurant's info</h4>
