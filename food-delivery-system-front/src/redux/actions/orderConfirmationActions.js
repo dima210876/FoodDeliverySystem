@@ -3,8 +3,9 @@ import orderConfirmationService from "../../services/orderConfirmationService";
 export const CREATE_NEW_ORDER_SUCCESS = "CREATE_NEW_ORDER_SUCCESS";
 export const CONFIRM_PAYMENT_SUCCESS = "CONFIRM_PAYMENT_SUCCESS";
 
-export const confirmOrderDetails = (userId, items, address, latitude, longitude) => (dispatch) => {
-    return orderConfirmationService.confirmOrderDetails(userId, items, address, latitude, longitude).then(
+export const confirmOrderDetails = (userId, items, address, latitude, longitude, totalPrice, shippingPrice) => (dispatch) => {
+    return orderConfirmationService.confirmOrderDetails(userId, items, address, latitude, longitude, totalPrice, shippingPrice)
+        .then(
         (response) => {
             dispatch({
                 type: CREATE_NEW_ORDER_SUCCESS,

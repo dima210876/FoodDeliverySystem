@@ -15,13 +15,12 @@ const PaymentPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const order = useSelector(state => state.order.orderData)
-    const [submitClicked, setSubmitClicked] = useState(false);
     const [stateOfAlert, setStateOfAlert] = useState(false);
     const [electronic, setElectronic] = useState(false);
+    const ELECTRONIC_PAYMENT = 'Electronic payment system';
+    const PHYSICAL_PAYMENT = 'Physical payment system';
 
     const schema = Yup.object().shape({
-        paymentProviderName: Yup.string()
-            .max(100, 'Payment provider name should contain maximum 100 characters.'),
         cardNumber: Yup.string()
             .max(50, 'Card number should contain maximum 30 characters.'),
         cardCode: Yup.string()
@@ -31,7 +30,6 @@ const PaymentPage = () => {
     return (
         <Formik
             initialValues={{
-                paymentProviderName: '',
                 cardNumber: '',
                 cardCode: '',
                 validityPeriod: '',
@@ -41,20 +39,22 @@ const PaymentPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
+                let paymentProvider = '';
                 if (electronic) {
-                    confirmPayment(order.orderId, values.paymentProviderName, values.cardNumber, values.validityPeriod, values.cardCode)(dispatch).then(() => {
-                        alert("Your order is confirmed");
-                        navigate('/')
-                    }).catch((error) => {
-                        setStateOfAlert(true);
-                        setTimeout(() => {
-                            setStateOfAlert(false);
-                        }, 3000)
-                    });
+                    paymentProvider = ELECTRONIC_PAYMENT;
                 } else {
+                    paymentProvider = PHYSICAL_PAYMENT;
+                }
+
+                confirmPayment(order.orderId, paymentProvider, values.cardNumber, values.validityPeriod, values.cardCode)(dispatch).then(() => {
                     alert("Your order is confirmed");
                     navigate('/')
-                }
+                }).catch((error) => {
+                    setStateOfAlert(true);
+                    setTimeout(() => {
+                        setStateOfAlert(false);
+                    }, 3000)
+                });
             }}
         >
             {({
@@ -65,7 +65,8 @@ const PaymentPage = () => {
                 <>
                     <Navbar/>
                     <Container className="personal-space-form-container">
-                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Payment is not approved</div> : null}
+                        {stateOfAlert ?
+                            <div className="alert alert-danger" role='alert'>Payment is not approved</div> : null}
                         <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                             <Form id="sign-in-form" className="m-5 p-5 rounded w-75" noValidate onSubmit={handleSubmit}>
                                 <div className="text-center">
@@ -85,16 +86,6 @@ const PaymentPage = () => {
                                     <h5>Total price is {order.totalPrice}</h5>
                                     {electronic && (
                                         <>
-                                            <Form.Group className="p-4 pt-2" controlId="payment-provider-name">
-                                                <Form.Label>Payment provider name</Form.Label>
-                                                <Form.Control type="textarea" name="paymentProviderName"
-                                                              placeholder="Enter payment provider name"
-                                                              onChange={handleChange}
-                                                              isInvalid={!!errors.paymentProviderName}/>
-                                                <Form.Control.Feedback type="invalid">
-                                                    {errors.paymentProviderName}
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
                                             <Form.Group className="p-4 pt-2" controlId="card-number">
                                                 <Form.Label>Card number</Form.Label>
                                                 <Form.Control type="textarea" name="cardNumber"
@@ -108,7 +99,6 @@ const PaymentPage = () => {
                                                 <Form.Label>Validity period</Form.Label>
                                                 <DatePickerComponent placeholder="Enter validity period"
                                                                      name="validityPeriod"
-                                                                     required={true}
                                                                      isInvalid={!!errors.validityPeriod}
                                                                      onChange={handleChange}/>
                                                 <Form.Control.Feedback type="invalid">

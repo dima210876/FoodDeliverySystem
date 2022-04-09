@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from "yup";
@@ -15,7 +15,8 @@ import {useNavigate} from "react-router-dom";
 const OrderConfirmationPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user =  useSelector(state => state.auth.authData.user);
+    const userId = useSelector(state => state.auth.authData.user.user_id);
+    let totalPrice = useSelector(state => state.cart.totalPrice);
     const items = useSelector(state => state.cart.items);
     const [stateOfAlert, setStateOfAlert] = useState(false);
     const [address, setAddress] = useState('');
@@ -23,9 +24,22 @@ const OrderConfirmationPage = () => {
         lat: 0,
         lng: 0
     });
-    const [submitClicked, setSubmitClicked] = useState(false);
-
+    const [submitClicked, setSubmitClicked] = useState( false);
     const schema = Yup.object().shape({});
+
+    const countShippingPrice = () => {
+        if (totalPrice > 50) {
+            return 0;
+        } else {
+            return 5;
+        }
+    };
+    const [shippingPrice, setShippingPrice] = useState(countShippingPrice());
+
+    useEffect(() => {
+        setShippingPrice(countShippingPrice);
+    }, [totalPrice]);
+
 
     const changeSubmit = () => {
         setSubmitClicked(true);
@@ -40,8 +54,11 @@ const OrderConfirmationPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
+                    const totalPrice = JSON.parse(localStorage.getItem('TOTAL_PRICE'));
                     if (address !== "") {
-                        confirmOrderDetails(user.userId, items, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
+                        confirmOrderDetails(userId, items, address, coordinates.lat, coordinates.lng, totalPrice.price.toFixed(2),
+                            shippingPrice)
+                        (dispatch).then(() => {
                             navigate('/payment');
                         }).catch((error) => {
                             setStateOfAlert(true);
@@ -59,7 +76,8 @@ const OrderConfirmationPage = () => {
                 <>
                     <Navbar/>
                     <Container className="personal-space-form-container">
-                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Couldn't confirm your order</div> : null}
+                        {stateOfAlert ?
+                            <div className="alert alert-danger" role='alert'>Couldn't confirm your order</div> : null}
                         <Col md={8} className="m-auto mt-5 full-width d-flex justify-content-center">
                             <Form id="sign-in-form" className="m-5 p-5 rounded w-75" noValidate onSubmit={handleSubmit}>
                                 <div className="text-center">
@@ -69,12 +87,15 @@ const OrderConfirmationPage = () => {
                                     <SelectedItems/>
                                     <TotalCount/>
                                 </div>
+                                <h6>Shipping price is {shippingPrice}$</h6>
                                 <div className="mt-3 text-center ">
                                     <AddressInputField address={address} changeAddress={setAddress}
-                                                       changeCoordinates={setCoordinates} submitClicked={submitClicked}/>
+                                                       changeCoordinates={setCoordinates}
+                                                       submitClicked={submitClicked}/>
                                 </div>
                                 <div className="mt-3 text-center ">
-                                    <Button type="submit" variant="danger" size="lg" onClick={changeSubmit}>Confirm</Button>
+                                    <Button type="submit" variant="danger" size="lg"
+                                            onClick={changeSubmit}>Confirm</Button>
                                 </div>
                             </Form>
                         </Col>
