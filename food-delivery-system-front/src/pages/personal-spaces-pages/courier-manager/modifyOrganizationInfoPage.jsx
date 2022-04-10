@@ -57,7 +57,7 @@ const ModifyOrganizationInfoPage = () => {
                 geocodeByAddress(address).then(() => {
                     if (!phone || (phone && isValidPhoneNumber(phone))) {
                         changeDeliveryOrganizationInfo(organization.id, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
-                            navigate('/courier-manager');
+                            navigate('/account');
                         });
                     }}
                 )
