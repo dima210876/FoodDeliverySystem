@@ -27,6 +27,9 @@ public class NewItemDTO {
     @NotNull(message = "Price is required")
     private Double price;
 
+    @NotNull(message = "Discount is required")
+    private Integer discount;
+
     @NotNull(message = "Available field is required")
     private Boolean available;
 

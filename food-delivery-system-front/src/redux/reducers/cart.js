@@ -56,7 +56,8 @@ function increaseCountOfProducts (item){
                     price: item.price,
                     imageUrl: item.imageUrl,
                     restaurant: item.restaurant,
-                    count: 1}
+                    count: 1,
+                    restaurantId: item.restaurantId}
             ]
         }
         localStorage.setItem(PRODUCTS, JSON.stringify(object));
@@ -78,7 +79,8 @@ function increaseCountOfProducts (item){
                 price: item.price,
                 imageUrl: item.imageUrl,
                 restaurant: item.restaurant,
-                count: 1
+                count: 1,
+                restaurantId: item.restaurantId
             }
             totalPriceOfAllProducts.price += newItem.price;
             products.items.push(newItem);
@@ -130,7 +132,8 @@ const cart = (state = initialState, action) => {
                     price: action.payload.price,
                     imageUrl: action.payload.imageUrl,
                     restaurant: action.payload.restaurant,
-                    count: action.payload.count+1
+                    count: action.payload.count+1,
+                    restaurantId: action.payload.restaurantId
                 }
                 return {...state, items: [...state.items, obj]};
             }

@@ -19,7 +19,6 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
     private final IngredientInItemRepository ingredientInItemRepository;
 
-    @Transactional
     public void saveIngredients(Set<IngredientDTO> ingredients, Long itemId){
         for (var ingredient : ingredients) {
             Optional<Ingredient> ingredientFromDB = ingredientRepository.findByName(ingredient.getName());

@@ -39,6 +39,10 @@ public class Item {
     @NotNull(message = "Price is required")
     private Double price;
 
+    @Column(name = "discount")
+    @NotNull(message = "Discount is required")
+    private Integer discount;
+
     @Column(name = "available")
     @NotNull(message = "Available field is required")
     private Boolean available;

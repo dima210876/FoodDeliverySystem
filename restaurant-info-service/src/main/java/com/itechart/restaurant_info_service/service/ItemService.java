@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 @Validated
@@ -32,6 +34,7 @@ public class ItemService {
         return page;
     }
 
+    @Transactional
     public void addItem(NewItemDTO newItemDTO){
         Long restaurantId = managerService.findRestaurantByManagerEmail(newItemDTO.getManagerEmail());
         Restaurant restaurant = restaurantService.findRestaurantById(restaurantId);
@@ -50,6 +53,7 @@ public class ItemService {
                 .available(newItemDTO.getAvailable())
                 .feature(newItemDTO.getFeature())
                 .price(newItemDTO.getPrice())
+                .discount(newItemDTO.getDiscount())
                 .build();
     }
 
