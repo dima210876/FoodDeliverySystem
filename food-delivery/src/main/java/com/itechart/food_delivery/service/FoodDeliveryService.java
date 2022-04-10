@@ -4,7 +4,9 @@ import com.itechart.food_delivery.dto.OrderDto;
 import com.itechart.food_delivery.exception.OrderNotFoundException;
 import com.itechart.food_delivery.exception.OrderStatusChangeException;
 import com.itechart.food_delivery.model.Order;
+import com.itechart.food_delivery.model.OrderAndFoodOrder;
 import com.itechart.food_delivery.model.OrderStatus;
+import com.itechart.food_delivery.repository.OrderAndFoodOrderRepository;
 import com.itechart.food_delivery.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FoodDeliveryService {
     private final OrderRepository orderRepository;
+    private final OrderAndFoodOrderRepository orderAndFoodOrderRepository;
 
     public OrderDto getOrder(Long orderId) throws OrderNotFoundException {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> {
@@ -44,15 +47,15 @@ public class FoodDeliveryService {
                 }
                 break;
             case PAID:
-                if (potentialStatus != OrderStatus.VERIFICATION) {
-                    throw new OrderStatusChangeException("Wrong order status.");
-                }
-                break;
-            case VERIFICATION:
                 if (potentialStatus != OrderStatus.COOKING) {
                     throw new OrderStatusChangeException("Wrong order status.");
                 }
                 break;
+//            case VERIFICATION:
+//                if (potentialStatus != OrderStatus.COOKING) {
+//                    throw new OrderStatusChangeException("Wrong order status.");
+//                }
+//                break;
             case COOKING:
                 if (potentialStatus != OrderStatus.READY) {
                     throw new OrderStatusChangeException("Wrong order status.");
@@ -75,6 +78,12 @@ public class FoodDeliveryService {
         try {
             order.setOrderStatus(potentialStatus.getStatus());
             orderRepository.save(order);
+
+            OrderAndFoodOrder orderAndFoodOrder = orderAndFoodOrderRepository.findByOrderId(order.getId()).get();
+            orderAndFoodOrder.setFoodOrderStatus(potentialStatus.getStatus());
+            orderAndFoodOrderRepository.save(orderAndFoodOrder);
+
+            //here send request to change status in restaurant service
         } catch (Throwable ex) {
             throw new OrderStatusChangeException("Couldn't change status");
         }
@@ -90,7 +99,7 @@ public class FoodDeliveryService {
                 .orderAddress(order.getOrderAddress())
                 .orderPrice(order.getOrderPrice())
                 .shippingPrice(order.getShippingPrice())
-                // .discount(order.getDiscount())
+                .discount(order.getDiscount())
                 .creationTime(order.getCreationTime())
                 .deliveryTime(order.getDeliveryTime())
                 .latitude(order.getLatitude())
