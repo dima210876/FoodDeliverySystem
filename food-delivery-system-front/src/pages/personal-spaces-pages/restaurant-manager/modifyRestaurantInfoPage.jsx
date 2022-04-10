@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import {Formik} from 'formik';
 import * as Yup from "yup";
@@ -22,12 +22,14 @@ const ModifyRestaurantInfoPage = () => {
     const dispatch = useDispatch();
     const [phone, setPhone] = useState(restaurant.phoneNumber);
     const [address, setAddress] = useState(restaurant.address);
+    const [stateOfAlert, setStateOfAlert] = useState(false);
     const [coordinates, setCoordinates] = useState({
         lat: restaurant.latitude,
         lng: restaurant.longitude
     });
     const [submitClicked, setSubmitClicked] = useState(false);
     const [restaurantTypes, setRestaurantTypes] = useState(restaurant.restaurantTypes);
+    const [workingTime, setWorkingTime] = useState(restaurant.workingTime);
 
     const changeSubmit = () => {
         setSubmitClicked(true);
@@ -42,15 +44,15 @@ const ModifyRestaurantInfoPage = () => {
     });
 
     const handleRemove = (id) => () => {
-        setRestaurantTypes(restaurantTypes.filter((current, idCurrent) => idCurrent !== id));
+        setRestaurantTypes([...restaurantTypes.slice(0, id), ...restaurantTypes.slice(id + 1)]);
     };
 
     const handleAdd = () => {
         setRestaurantTypes([...restaurantTypes, '']);
     };
 
-    function renderDay (day){
-        switch (day){
+    function renderDay(day) {
+        switch (day) {
             case '1':
                 return 'Monday';
             case '2':
@@ -73,7 +75,8 @@ const ModifyRestaurantInfoPage = () => {
             initialValues={{
                 restaurantName: restaurant.name,
                 description: restaurant.description,
-                workingTime: restaurant.workingTime,
+                workingTime: workingTime,
+                setWorkingTime: setWorkingTime,
                 restaurantTypes: restaurantTypes,
                 setRestaurantTypes: setRestaurantTypes,
             }}
@@ -85,8 +88,13 @@ const ModifyRestaurantInfoPage = () => {
                 geocodeByAddress(address).then(() => {
                     if (!phone || (phone && isValidPhoneNumber(phone))) {
                         changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
-                            restaurant.workingTime, restaurant.restaurantTypes)(dispatch).then(() => {
+                            values.workingTime, values.restaurantTypes)(dispatch).then(() => {
                             navigate('/account');
+                        }).catch((error) => {
+                            setStateOfAlert(true);
+                            setTimeout(() => {
+                                setStateOfAlert(false);
+                            }, 3000)
                         });
                     }
                 })
@@ -101,6 +109,7 @@ const ModifyRestaurantInfoPage = () => {
                 <>
                     <Navbar/>
                     <Container className="personal-space-form-container">
+                        {stateOfAlert ? <div className="alert alert-danger" role='alert'>Couldn't edit restaurant info</div> : null}
                         <Col md={6} className="m-auto mt-5 full-width d-flex justify-content-center">
                             <Form id="sign-in-form" className="m-5 p-5 rounded w-75" noValidate onSubmit={handleSubmit}>
                                 <div className="text-center">
@@ -131,7 +140,7 @@ const ModifyRestaurantInfoPage = () => {
                                 <Form.Group className="p-4 pt-0" controlId="modify-working-time">
                                     <Form.Label>Working time</Form.Label>
                                     <>
-                                        {values.workingTime.map(item => (
+                                        {values.workingTime.map((item, id) => (
                                             <div key={item.id}>
                                                 <Row>
                                                     <Col className="small col-4"
@@ -141,30 +150,43 @@ const ModifyRestaurantInfoPage = () => {
                                                                      name="openingTime"
                                                                      format="HH:mm"
                                                                      step={15}
-                                                                     value={item.openingTime}
-                                                                     onChange={handleChange}/>
+                                                                     defaultValue={item.openingTime}
+                                                                     onChange={event => setWorkingTime([...workingTime.slice(0, id),
+                                                                         {
+                                                                             dayOfWeek: item.dayOfWeek,
+                                                                             openingTime: event.target.value,
+                                                                             closingTime: item.closingTime
+                                                                         },
+                                                                         ...workingTime.slice(id + 1)])}/>
                                                 <TimePickerComponent placeholder="closing time"
                                                                      name="closingTime"
                                                                      format="HH:mm"
                                                                      step={15}
-                                                                     value={item.closingTime}
-                                                                     onChange={handleChange}/>
+                                                                     defaultValue={item.closingTime}
+                                                                     onChange={event => setWorkingTime([...workingTime.slice(0, id),
+                                                                         {
+                                                                             dayOfWeek: item.dayOfWeek,
+                                                                             openingTime: item.openingTime,
+                                                                             closingTime: event.target.value
+                                                                         },
+                                                                         ...workingTime.slice(id + 1)])}/>
                                             </div>
                                         ))}
                                     </>
                                 </Form.Group>
-                                <Form.Group className="p-4 pt-0" controlId="modify-restaurant-types">
+                                <Form.Group className="p-4 pt-0" controlId="modify-restaurant-types"
+                                            id="restaurant-types">
                                     <Form.Label>Restaurant Types</Form.Label>
                                     {values.restaurantTypes.map((type, id) => (
                                         <div className="restaurantType" key={type.id}>
                                             <Form.Control type="textarea" name="restaurantType"
                                                           placeholder="Enter type"
-                                                          defaultValue=""
-                                                          onChange={handleChange} isInvalid={!!errors.restaurantTypes}/>
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.restaurantTypes}
-                                            </Form.Control.Feedback>
-                                            <Button type="button" variant="light" onClick={handleRemove(id)}
+                                                          defaultValue={type}
+                                                          onChange={event => setRestaurantTypes([...restaurantTypes.slice(0, id),
+                                                              event.target.value, ...restaurantTypes.slice(id + 1)])}>
+                                            </Form.Control>
+                                            <Button type="button" variant="light"
+                                                    onClick={handleRemove(id)}
                                                     className="small">
                                                 -
                                             </Button>

@@ -1,4 +1,4 @@
-package com.itechart.restaurant_info_service.dto;
+package com.itechart.food_delivery.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FoodOrderDTO {
+public class RestaurantOrderDTO {
     private Long id;
 
     @NotNull(message = "Item ID is required")

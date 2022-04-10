@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDto
-{
+public class OrderDto {
     @NotNull(message = "Order ID is required")
     @Min(value = 1L, message = "Order ID min limit exceeded")
     @Max(value = Long.MAX_VALUE, message = "Order ID max limit exceeded")
@@ -57,4 +57,7 @@ public class OrderDto
 
     @NotNull(message = "Longitude is required")
     private Double longitude;
+
+    @NotNull(message = "Items are required")
+    private Set<ItemDTO> items;
 }
