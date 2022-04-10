@@ -86,7 +86,7 @@ const ModifyRestaurantInfoPage = () => {
                     if (!phone || (phone && isValidPhoneNumber(phone))) {
                         changeInfoActions.changeRestaurantInfo(restaurant.restaurantId, values.restaurantName, values.description, phone, address, coordinates.lat, coordinates.lng,
                             restaurant.workingTime, restaurant.restaurantTypes)(dispatch).then(() => {
-                            navigate('/restaurant-manager');
+                            navigate('/account');
                         });
                     }
                 })

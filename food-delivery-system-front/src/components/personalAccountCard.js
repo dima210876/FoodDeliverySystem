@@ -6,6 +6,24 @@ import {Link} from "react-router-dom";
 function PersonalAccountCard(){
     const user =  useSelector(state => state.auth.authData.user);
 
+    const initialState = {
+    authData: {
+        user: {
+            user_id:'',
+            email: '',
+            firstName: '',
+            lastName: '',
+            role: ''
+        },
+        token: ''
+    }
+};
+
+    function logout() {
+        this.setState({ ...initialState });
+        //localStorage.clear();
+    }
+
     function loginAndRegistrationItems(){
         return (
             <>
@@ -24,6 +42,9 @@ function PersonalAccountCard(){
             <>
                 <Link className='personal-account-link' to='/account'>
                     <div className='personal-account-item'>Personal account</div>
+                </Link>
+                <Link className='personal-account-link' to='/' onClick={logout}>
+                    <div className='personal-account-item'>Logout</div>
                 </Link>
             </>
         )
