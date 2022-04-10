@@ -18,6 +18,7 @@ public class ItemDTO {
     @NotNull(message = "Restaurant id is required")
     private Long restaurantId;
 
-    private int count;
-    private double price;
+    private Integer count;
+
+    private Double price;
 }

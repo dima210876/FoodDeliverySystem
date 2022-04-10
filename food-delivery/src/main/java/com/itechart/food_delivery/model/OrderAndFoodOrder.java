@@ -36,6 +36,6 @@ public class OrderAndFoodOrder {
     @NotNull(message = "Creation time is required")
     private LocalDateTime creationTime;
 
-    @NotNull(message = "Completion time is required")
+    //@NotNull(message = "Completion time is required")
     private LocalDateTime completionTime;
 }

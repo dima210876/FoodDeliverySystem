@@ -5,8 +5,7 @@ const API_URL = "http://localhost:";
 class orderConfirmationService {
     confirmOrderDetails(userId, items, address, latitude, longitude, totalPrice, shippingPrice) {
         return axios
-            .post(API_URL + "/here-must-be-url-for-creating-order", {
-           // .post("http://localhost:8080/createOrder", {
+            .post(API_URL + "8080/createOrder", {
                 customerId: userId,
                 orderAddress: address,
                 orderStatus: "not_paid",
@@ -25,7 +24,7 @@ class orderConfirmationService {
 
     confirmPayment(orderId, paymentProviderName, cardNumber, validityPeriod, cardCode) {
         return axios
-            .post(API_URL + "/orderPayment", {
+            .post(API_URL + "8082/orderPayment", {
                 orderId: orderId,
                 paymentProviderName: paymentProviderName,
                 cardNumber: cardNumber,

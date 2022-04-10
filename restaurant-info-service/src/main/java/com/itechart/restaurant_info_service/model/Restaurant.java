@@ -72,7 +72,8 @@ public class Restaurant {
     @JsonManagedReference
     private Set<Item> items;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany
+    @JoinColumn(name = "restaurantId")
     @JsonManagedReference
     private Set<FoodOrder> foodOrders;
 
