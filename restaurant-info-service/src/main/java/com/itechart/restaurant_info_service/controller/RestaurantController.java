@@ -60,6 +60,11 @@ public class RestaurantController {
         orderService.changeOrderStatus(changeStatusDTO);
     }
 
+    @GetMapping("/getAllRestaurantOrders")
+    public ResponseEntity<List<FoodOrder>> getAllRestaurantOrders(@RequestParam("id") Long restaurantId) {
+        return ResponseEntity.ok().body(orderService.getAllRestaurantOrders(restaurantId));
+    }
+
     @GetMapping("/getAllOrders")
     public ResponseEntity<List<FoodOrder>> getAllOrders() {
         return ResponseEntity.ok().body(orderService.getAllOrders());

@@ -60,6 +60,11 @@ public class OrderService {
         // (as soon as another ticket will be ready)
     }
 
+    public List<FoodOrder> getAllRestaurantOrders(Long restaurantId) {
+        List<FoodOrder> foodOrders = foodOrderRepository.findByRestaurantId(restaurantId);
+        return foodOrders;
+    }
+
     public List<FoodOrder> getAllOrders() {
         List<FoodOrder> foodOrders = foodOrderRepository.findAll();
         return foodOrders;
