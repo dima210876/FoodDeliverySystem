@@ -15,7 +15,7 @@ import {useNavigate} from "react-router-dom";
 const OrderConfirmationPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userId = useSelector(state => state.auth.authData.user.user_id);
+    const userId = useSelector(state => state.auth.authData.user.id);
     let totalPrice = useSelector(state => state.cart.totalPrice);
     const items = useSelector(state => state.cart.items);
     const [stateOfAlert, setStateOfAlert] = useState(false);
@@ -53,6 +53,7 @@ const OrderConfirmationPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
+                console.log(userId);
                 geocodeByAddress(address).then(() => {
                     const totalPrice = JSON.parse(localStorage.getItem('TOTAL_PRICE'));
                     if (address !== "") {

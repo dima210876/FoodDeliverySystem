@@ -1,4 +1,5 @@
 import axios from "axios";
+import {useState} from "react";
 
 const API_URL = "http://localhost:";
 
@@ -26,7 +27,7 @@ class changeInfoService {
                 name: name,
                 description: description,
                 phoneNumber: phone,
-                address: address,
+                restaurantAddress: address,
                 latitude: latitude,
                 longitude: longitude,
                 workingTime: workingTime,
