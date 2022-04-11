@@ -7,6 +7,7 @@ import addDishService from "../../../services/addDishService"
 import Navbar from "../../../components/navbar";
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import Footer from "../../../components/footer";
+import './restaurantManagerPage.css';
 
 const NewDishRegPage = () => {
     const managerEmail = useSelector(state => state.auth.authData.user.email);
@@ -135,7 +136,7 @@ const NewDishRegPage = () => {
                                                   onChange={(event) => {
                                                       setImage(event.target.files[0]);
                                                   }} isInvalid={!!errors.image}/>
-                                    {image === null ? null : <img alt="not fount" width={"50px"} src={URL.createObjectURL(image)} />}
+                                    {image === null ? null : <img className="load-image" alt="not fount" src={URL.createObjectURL(image)} />}
                                     <Form.Control.Feedback type="invalid">
                                         {errors.image}
                                     </Form.Control.Feedback>
