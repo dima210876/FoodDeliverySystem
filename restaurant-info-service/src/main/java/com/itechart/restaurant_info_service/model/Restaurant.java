@@ -73,7 +73,7 @@ public class Restaurant {
     private Set<Item> items;
 
     @OneToMany
-    @JoinColumn(name = "restaurantId")
+    @JoinColumn(name = "restaurant_id")
     @JsonManagedReference
     private Set<FoodOrder> foodOrders;
 
