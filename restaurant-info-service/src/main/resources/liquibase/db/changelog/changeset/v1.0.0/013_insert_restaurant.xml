@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="13" author="dima210876">
+        <insert tableName="restaurants">
+            <column name="manager_id" value="2"/>
+            <column name="name" value="Delicious food factory"/>
+            <column name="phone_number" value="+375294442266"/>
+            <column name="description" value="Homemade food at affordable prices"/>
+            <column name="restaurant_address" value="Minsk, Беларусь"/>
+            <column name="latitude" value="53.9006011"/>
+            <column name="longitude" value="27.558972"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

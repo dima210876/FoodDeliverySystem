@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="15" author="dima210876">
+        <insert tableName="restaurant_types">
+            <column name="restaurant_type" value="Cafe"/>
+        </insert>
+        <insert tableName="restaurant_types">
+            <column name="restaurant_type" value="Fast food"/>
+        </insert>
+        <insert tableName="restaurant_types">
+            <column name="restaurant_type" value="Pizzeria"/>
+        </insert>
+        <insert tableName="restaurant_types">
+            <column name="restaurant_type" value="Casual dining"/>
+        </insert>
+        <insert tableName="restaurant_types">
+            <column name="restaurant_type" value="Ethnic"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

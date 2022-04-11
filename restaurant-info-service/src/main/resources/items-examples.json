@@ -144,7 +144,7 @@
                 },
                 {
                     "id": 10,
-                    "name": "shredded Lettuce",
+                    "name": "shredded lettuce",
                     "amount": 50,
                     "unit": "grams"
                 }
@@ -1172,6 +1172,7 @@
                 }           
             ]
         },
+
         {
             "id": 28,
             "restaurant": {},

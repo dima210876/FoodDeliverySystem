@@ -3,14 +3,14 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="3" author="dima210876">
+    <changeSet id="6" author="dima210876">
         <insert tableName="users">
-            <column name="email" value="foodDeliverySuperAdmin@gmail.com"/>
-            <!-- password before encode: superAdminPassword -->
-            <column name="password" value="$2a$12$kQFKDXxATqlrQOyzYn4KBuAUvGxvYxtPlDYxa4H4EgecdguIMS1h2"/>
-            <column name="first_name" value="Thomas"/>
-            <column name="last_name" value="Wilson"/>
-            <column name="role" value="ROLE_SUPER_ADMIN"/>
+            <column name="email" value="foodDeliveryCourier@gmail.com"/>
+            <!-- password before encode: qwerty12345QWERTY -->
+            <column name="password" value="$2a$10$5GQdgojSqst72pDXt2/6Ueqo.m62.sJ.R9Yzbrf8V2Tj5ICfzK83q"/>
+            <column name="first_name" value="Jacob"/>
+            <column name="last_name" value="Adamson"/>
+            <column name="role" value="ROLE_COURIER"/>
             <column name="expiration_date" value="2050-01-01 00:00:00"/>
             <column name="account_non_locked" value="true"/>
             <column name="credentials_non_expired" value="true"/>

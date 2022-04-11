@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="12" author="dima210876">
+        <!-- Cheeseburger -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="1"/>
+            <column name="ingredient_id" value="1"/>
+            <column name="amount" value="2"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="1"/>
+            <column name="ingredient_id" value="2"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="1"/>
+            <column name="ingredient_id" value="3"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="1"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="1"/>
+            <column name="ingredient_id" value="5"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="1"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Hamburger -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="2"/>
+            <column name="ingredient_id" value="1"/>
+            <column name="amount" value="2"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="2"/>
+            <column name="ingredient_id" value="2"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="2"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="2"/>
+            <column name="ingredient_id" value="5"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="2"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="2"/>
+            <column name="ingredient_id" value="7"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Chickenburger -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="3"/>
+            <column name="ingredient_id" value="1"/>
+            <column name="amount" value="2"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="3"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="3"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="3"/>
+            <column name="ingredient_id" value="8"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="3"/>
+            <column name="ingredient_id" value="9"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="3"/>
+            <column name="ingredient_id" value="10"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Hawaiian pizza -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="4"/>
+            <column name="ingredient_id" value="3"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="4"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="4"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="4"/>
+            <column name="ingredient_id" value="8"/>
+            <column name="amount" value="120"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="4"/>
+            <column name="ingredient_id" value="11"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="4"/>
+            <column name="ingredient_id" value="12"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Pepperoni pizza -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="5"/>
+            <column name="ingredient_id" value="3"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="5"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="5"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="5"/>
+            <column name="ingredient_id" value="11"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="5"/>
+            <column name="ingredient_id" value="13"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Vegetariana pizza -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="3"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="11"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="14"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="15"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="6"/>
+            <column name="ingredient_id" value="16"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Vanilla shake -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="7"/>
+            <column name="ingredient_id" value="17"/>
+            <column name="amount" value="400"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="7"/>
+            <column name="ingredient_id" value="18"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="7"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="7"/>
+            <column name="ingredient_id" value="20"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Chocolate shake -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="8"/>
+            <column name="ingredient_id" value="17"/>
+            <column name="amount" value="400"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="8"/>
+            <column name="ingredient_id" value="18"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="7"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="8"/>
+            <column name="ingredient_id" value="20"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="8"/>
+            <column name="ingredient_id" value="21"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Apple pie -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="9"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="9"/>
+            <column name="ingredient_id" value="22"/>
+            <column name="amount" value="500"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="9"/>
+            <column name="ingredient_id" value="23"/>
+            <column name="amount" value="200"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Coffee -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="10"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="10"/>
+            <column name="ingredient_id" value="24"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="10"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+
+        <!-- Tea -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="11"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="11"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="11"/>
+            <column name="ingredient_id" value="26"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Hot chocolate -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="12"/>
+            <column name="ingredient_id" value="17"/>
+            <column name="amount" value="400"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="12"/>
+            <column name="ingredient_id" value="18"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="12"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="12"/>
+            <column name="ingredient_id" value="21"/>
+            <column name="amount" value="200"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Bread -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="13"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="13"/>
+            <column name="ingredient_id" value="27"/>
+            <column name="amount" value="500"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="13"/>
+            <column name="ingredient_id" value="28"/>
+            <column name="amount" value="3"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="13"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Cookie -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="14"/>
+            <column name="ingredient_id" value="19"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="14"/>
+            <column name="ingredient_id" value="21"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="14"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="14"/>
+            <column name="ingredient_id" value="27"/>
+            <column name="amount" value="500"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="14"/>
+            <column name="ingredient_id" value="28"/>
+            <column name="amount" value="3"/>
+            <column name="unit" value="count"/>
+        </insert>
+
+        <!-- Ham bun -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="15"/>
+            <column name="ingredient_id" value="12"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="15"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="15"/>
+            <column name="ingredient_id" value="27"/>
+            <column name="amount" value="350"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="15"/>
+            <column name="ingredient_id" value="28"/>
+            <column name="amount" value="3"/>
+            <column name="unit" value="count"/>
+        </insert>
+
+        <!-- Fries -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="16"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="16"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="16"/>
+            <column name="ingredient_id" value="31"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+
+        <!-- Crisps -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="17"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="17"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="17"/>
+            <column name="ingredient_id" value="31"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="17"/>
+            <column name="ingredient_id" value="32"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Crackers -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="18"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="18"/>
+            <column name="ingredient_id" value="27"/>
+            <column name="amount" value="500"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="18"/>
+            <column name="ingredient_id" value="28"/>
+            <column name="amount" value="3"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="18"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Carrot soup -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="19"/>
+            <column name="ingredient_id" value="17"/>
+            <column name="amount" value="200"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="19"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="250"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="19"/>
+            <column name="ingredient_id" value="33"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Vegetable soup -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="20"/>
+            <column name="ingredient_id" value="14"/>
+            <column name="amount" value="80"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="20"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="250"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="20"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="20"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="200"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="20"/>
+            <column name="ingredient_id" value="33"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Borsch -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="2"/>
+            <column name="amount" value="200"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="14"/>
+            <column name="amount" value="120"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="20"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="25"/>
+            <column name="amount" value="450"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="250"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="21"/>
+            <column name="ingredient_id" value="33"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Vegetable salad -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="22"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="22"/>
+            <column name="ingredient_id" value="14"/>
+            <column name="amount" value="120"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="22"/>
+            <column name="ingredient_id" value="20"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="22"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="22"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="250"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="22"/>
+            <column name="ingredient_id" value="33"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Potato salad -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="50"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="7"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="9"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="34"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="35"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="23"/>
+            <column name="ingredient_id" value="36"/>
+            <column name="amount" value="120"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Greek salad -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="24"/>
+            <column name="ingredient_id" value="3"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="24"/>
+            <column name="ingredient_id" value="28"/>
+            <column name="amount" value="3"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="24"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="24"/>
+            <column name="ingredient_id" value="34"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="24"/>
+            <column name="ingredient_id" value="37"/>
+            <column name="amount" value="120"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Fish fillets -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="25"/>
+            <column name="ingredient_id" value="7"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="25"/>
+            <column name="ingredient_id" value="28"/>
+            <column name="amount" value="2"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="25"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="25"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="25"/>
+            <column name="ingredient_id" value="31"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="25"/>
+            <column name="ingredient_id" value="38"/>
+            <column name="amount" value="800"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Fish steak -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="26"/>
+            <column name="ingredient_id" value="1"/>
+            <column name="amount" value="2"/>
+            <column name="unit" value="count"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="26"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="26"/>
+            <column name="ingredient_id" value="31"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="26"/>
+            <column name="ingredient_id" value="38"/>
+            <column name="amount" value="800"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Fishcake -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="27"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="27"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="27"/>
+            <column name="ingredient_id" value="31"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="milliliters"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="27"/>
+            <column name="ingredient_id" value="38"/>
+            <column name="amount" value="800"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Draniki -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="28"/>
+            <column name="ingredient_id" value="2"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="28"/>
+            <column name="ingredient_id" value="4"/>
+            <column name="amount" value="30"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="28"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="28"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Mashed potatoes -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="29"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="29"/>
+            <column name="ingredient_id" value="30"/>
+            <column name="amount" value="300"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="29"/>
+            <column name="ingredient_id" value="39"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+
+        <!-- Spaghetti with tomato sauce -->
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="30"/>
+            <column name="ingredient_id" value="6"/>
+            <column name="amount" value="150"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="30"/>
+            <column name="ingredient_id" value="29"/>
+            <column name="amount" value="20"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="30"/>
+            <column name="ingredient_id" value="39"/>
+            <column name="amount" value="100"/>
+            <column name="unit" value="grams"/>
+        </insert>
+        <insert tableName="items_ingredients">
+            <column name="item_id" value="30"/>
+            <column name="ingredient_id" value="40"/>
+            <column name="amount" value="400"/>
+            <column name="unit" value="grams"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

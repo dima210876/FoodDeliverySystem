@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="5" author="dima210876">
+        <insert tableName="delivery_organizations">
+            <column name="name" value="Food delivery courier service"/>
+            <column name="account_number" value="888111222999000"/>
+            <column name="office_address" value="Minsk, Беларусь"/>
+            <column name="latitude" value="53.9006011"/>
+            <column name="longitude" value="27.558972"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

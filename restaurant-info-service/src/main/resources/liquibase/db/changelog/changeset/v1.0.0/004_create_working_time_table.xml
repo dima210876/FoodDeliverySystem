@@ -11,10 +11,10 @@
             <column name="restaurant_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="opening_time" type="varchar(6)">
+            <column name="opening_time" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="closing_time" type="varchar(6)">
+            <column name="closing_time" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="day_of_week" type="int">
