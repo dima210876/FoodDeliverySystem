@@ -1,5 +1,6 @@
 package com.itechart.restaurant_info_service.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,6 @@ public class RestaurantType {
     private String restaurantType;
 
     @ManyToMany(mappedBy = "restaurantTypes")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Restaurant> restaurants;
 }
