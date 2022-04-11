@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="12" author="dima210876">
+        <insert tableName="ingredients">
+            <column name="name" value="bun"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="beef"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="cheese"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="onion"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="pickle"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="ketchup"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="mustard"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="chicken"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="mayonnaise"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="shredded lettuce"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="dough"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="ham"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="pepperoni"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="cabbage"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="broccoli"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="beans"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="milk"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="vanilla"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="sugar"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="sour cream"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="chocolate"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="biscuit"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="apple jam"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="coffee"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="water"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="tea brew"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="flour"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="egg"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="salt"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="potato"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="vegetable oil"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="seasoning"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="carrot"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="celery"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="parsley"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="cucumber"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="olives"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="fish"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="butter"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="spaghetti"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

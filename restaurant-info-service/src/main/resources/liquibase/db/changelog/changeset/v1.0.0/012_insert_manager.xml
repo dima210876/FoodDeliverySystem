@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="12" author="dima210876">
+        <insert tableName="managers">
+            <column name="user_id" value="2"/>
+            <column name="email" value="foodDeliveryRestaurantManager@gmail.com"/>
+            <column name="first_name" value="Charlie"/>
+            <column name="last_name" value="Johnson"/>
+            <column name="phone_number" value="+375332228833"/>
+            <column name="role" value="ROLE_MANAGER"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

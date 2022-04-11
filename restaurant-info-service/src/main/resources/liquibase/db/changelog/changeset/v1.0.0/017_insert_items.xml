@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="17" author="dima210876">
+        <!-- Burgers -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Cheeseburger"/>
+            <column name="description" value="300 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Burgers"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Hamburger"/>
+            <column name="description" value="280 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Burgers"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Chickenburger"/>
+            <column name="description" value="250 calories"/>
+            <column name="price" value="2.3"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Burgers"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+
+        <!-- Pizza -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Hawaiian pizza"/>
+            <column name="description" value="2000 calories"/>
+            <column name="price" value="25.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Pizza"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Pepperoni pizza"/>
+            <column name="description" value="2000 calories"/>
+            <column name="price" value="24.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Pizza"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Vegetariana pizza"/>
+            <column name="description" value="1600 calories"/>
+            <column name="price" value="21.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Pizza"/>
+            <column name="feature" value="Vegan"/>
+        </insert>
+
+        <!-- Desserts and shakes -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Vanilla shake"/>
+            <column name="description" value="400 calories"/>
+            <column name="price" value="4.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Desserts and shakes"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Chocolate shake"/>
+            <column name="description" value="400 calories"/>
+            <column name="price" value="4.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Desserts and shakes"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Apple pie"/>
+            <column name="description" value="800 calories"/>
+            <column name="price" value="14.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Desserts and shakes"/>
+            <column name="feature" value=""/>
+        </insert>
+
+        <!-- Drinks -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Coffee"/>
+            <column name="description" value="400 calories"/>
+            <column name="price" value="3.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Drinks"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Tea"/>
+            <column name="description" value="380 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Drinks"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Hot chocolate"/>
+            <column name="description" value="480 calories"/>
+            <column name="price" value="5.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Drinks"/>
+            <column name="feature" value=""/>
+        </insert>
+
+        <!-- Bakery -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Bread"/>
+            <column name="description" value="580 calories"/>
+            <column name="price" value="3.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Bakery"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Cookie"/>
+            <column name="description" value="280 calories"/>
+            <column name="price" value="3.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Bakery"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Ham bun"/>
+            <column name="description" value="400 calories"/>
+            <column name="price" value="3.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Bakery"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+
+        <!-- Snacks -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Fries"/>
+            <column name="description" value="800 calories"/>
+            <column name="price" value="4.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Snacks"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Crisps"/>
+            <column name="description" value="650 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Snacks"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Crackers"/>
+            <column name="description" value="500 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Snacks"/>
+            <column name="feature" value=""/>
+        </insert>
+
+        <!-- Soups -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Carrot soup"/>
+            <column name="description" value="280 calories"/>
+            <column name="price" value="2.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Soups"/>
+            <column name="feature" value="Vegan"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Vegetable soup"/>
+            <column name="description" value="300 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Soups"/>
+            <column name="feature" value="Vegan"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Borsch"/>
+            <column name="description" value="500 calories"/>
+            <column name="price" value="3.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Soups"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+
+        <!-- Salads -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Vegetable salad"/>
+            <column name="description" value="200 calories"/>
+            <column name="price" value="1.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Salads"/>
+            <column name="feature" value="Vegan"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Potato salad"/>
+            <column name="description" value="220 calories"/>
+            <column name="price" value="2.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Salads"/>
+            <column name="feature" value="Vegan"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Greek salad"/>
+            <column name="description" value="220 calories"/>
+            <column name="price" value="2.5"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Salads"/>
+            <column name="feature" value="Kosher"/>
+        </insert>
+
+        <!-- Fish and seafoods -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Fish fillets"/>
+            <column name="description" value="800 calories"/>
+            <column name="price" value="12.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Fish and seafoods"/>
+            <column name="feature" value="Kosher"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Fish steak"/>
+            <column name="description" value="700 calories"/>
+            <column name="price" value="11.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Fish and seafoods"/>
+            <column name="feature" value=""/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Fishcake"/>
+            <column name="description" value="650 calories"/>
+            <column name="price" value="12.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Fish and seafoods"/>
+            <column name="feature" value="Kosher"/>
+        </insert>
+
+        <!-- Hot dishes -->
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Draniki"/>
+            <column name="description" value="650 calories"/>
+            <column name="price" value="5.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Hot dishes"/>
+            <column name="feature" value="With meat"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Mashed potatoes"/>
+            <column name="description" value="450 calories"/>
+            <column name="price" value="3.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Hot dishes"/>
+            <column name="feature" value="Vegan"/>
+        </insert>
+        <insert tableName="items">
+            <column name="restaurant_id" value="1"/>
+            <column name="name" value="Spaghetti with tomato sauce"/>
+            <column name="description" value="750 calories"/>
+            <column name="price" value="8.0"/>
+            <column name="discount" value="0"/>
+            <column name="available" value="true"/>
+            <column name="item_type" value="Hot dishes"/>
+            <column name="feature" value=""/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
