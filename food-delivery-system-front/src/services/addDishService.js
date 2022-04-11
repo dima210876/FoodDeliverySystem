@@ -4,24 +4,38 @@ const API_URL = "http://localhost:";
 
 class addDishService {
 
-    addNewDish(dishName, description, price, discount, type, feature, image, ingredients, managerEmail) {
-        console.log(image);
+   async addNewDish(dishName, description, price, discount, type, feature, image, ingredients, managerEmail) {
+        console.log("image" + image);
+
         return axios
             .post(API_URL + "8083/newItem", {
-                name: dishName,
-                description: description,
-                price: price,
-                discount: discount,
-                available: true,
-                itemType: type,
-                feature: feature,
-                managerEmail: managerEmail,
-                ingredients: ingredients,
-                image: image
-
-            })
+                    name: dishName,
+                    description: description,
+                    price: price,
+                    discount: discount,
+                    available: true,
+                    itemType: type,
+                    feature: feature,
+                    managerEmail: managerEmail,
+                    ingredients: ingredients,
+                },)
             .then((response) => {
-                return response.data;
+                let id = response.data;
+                var data = new FormData();
+                data.append("image", image);
+                data.append("id", id);
+                return axios
+                    .post(API_URL + "8083/addImage", data,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                'Access-Control-Allow-Origin' : '*'
+                            }
+
+                        })
+                    .then((response) => {
+                        return response.data;
+                    });
             });
     };
 }

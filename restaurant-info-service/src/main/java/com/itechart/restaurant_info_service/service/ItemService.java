@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
@@ -35,13 +36,18 @@ public class ItemService {
     }
 
     @Transactional
-    public void addItem(NewItemDTO newItemDTO){
+    public Long addItem(NewItemDTO newItemDTO){
         Long restaurantId = managerService.findRestaurantByManagerEmail(newItemDTO.getManagerEmail());
         Restaurant restaurant = restaurantService.findRestaurantById(restaurantId);
         Item item = convertNewItemDTOIntoItem(newItemDTO, restaurant);
         item = itemRepository.save(item);
         ingredientService.saveIngredients(newItemDTO.getIngredients(), item.getId());
-        awsService.uploadFile(newItemDTO.getImage(), item.getId());
+        return item.getId();
+    }
+
+    @Transactional
+    public void addImage(MultipartFile image, Long id){
+        awsService.uploadFile(image, id);
     }
 
     private Item convertNewItemDTOIntoItem(NewItemDTO newItemDTO, Restaurant restaurant){

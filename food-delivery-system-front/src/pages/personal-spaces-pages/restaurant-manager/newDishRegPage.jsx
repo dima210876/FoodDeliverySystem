@@ -19,6 +19,7 @@ const NewDishRegPage = () => {
     const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 
     const changeSubmit = () => {
+        console.log(URL.createObjectURL(image));
         console.log(image);
         setSubmitClicked(true);
     };
@@ -132,8 +133,9 @@ const NewDishRegPage = () => {
                                     <Form.Control type="file" multiple name="image"
                                                   placeholder="Enter image" value={values.image}
                                                   onChange={(event) => {
-                                                      setImage(event.currentTarget.files[0]);
+                                                      setImage(event.target.files[0]);
                                                   }} isInvalid={!!errors.image}/>
+                                    {image === null ? null : <img alt="not fount" width={"50px"} src={URL.createObjectURL(image)} />}
                                     <Form.Control.Feedback type="invalid">
                                         {errors.image}
                                     </Form.Control.Feedback>

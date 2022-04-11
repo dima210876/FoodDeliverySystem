@@ -48,7 +48,4 @@ public class NewItemDTO {
 
     @NotNull(message = "Ingredients is required")
     private Set<IngredientDTO> ingredients;
-
-    @NotNull(message = "Image is required")
-    private MultipartFile image;
 }
