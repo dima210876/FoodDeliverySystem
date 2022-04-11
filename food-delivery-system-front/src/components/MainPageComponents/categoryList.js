@@ -3,24 +3,27 @@ import React from "react";
 import axios from "axios";
 import "./categoryList.css"
 
-/*var categoryList = [{"title":"Pizzas","imageUrl":"/img/food.png"},
-                        {"title":"Burgers","imageUrl":"/img/food.png"},
-                        {"title":"Rolls","imageUrl":"/img/food.png"},
-                        {"title":"Salat","imageUrl":"/img/food.png"},
-                        {"title":"Sups","imageUrl":"/img/food.png"},
-                        {"title":"Beer","imageUrl":"/img/food.png"},
-                        {"title":"Cakes","imageUrl":"/img/food.png"}];*/
-
 function CategoryList(){
 
-    const [categoryList, setCategoryList] = React.useState([]);
+    const [categoryList, setCategoryList] = React.useState([
+        {"title": "Burgers", "imageUrl": "/img/sandwich.png"},
+        {"title": "Pizza", "imageUrl": "/img/pizza-slice.png"},
+        {"title": "Desserts and shakes", "imageUrl": "/img/opera.png"},
+        {"title": "Drinks", "imageUrl": "/img/drinks.png"},
+        {"title": "Bakery", "imageUrl": "/img/bread.png"},
+        {"title": "Snacks", "imageUrl": "/img/nachos.png"},
+        {"title": "Soups", "imageUrl": "/img/soup.png"},
+        {"title": "Salads", "imageUrl": "/img/salad.png"},
+        {"title": "Fish and seafoods", "imageUrl": "/img/crab.png"},
+        {"title": "Hot dishes", "imageUrl": "/img/rice.png"}
+    ]);
 
-    React.useEffect(() =>{
-        axios.get('https://62265d432dfa524018038bde.mockapi.io/categoryList')
-    .then(function (response) {
-    setCategoryList(response.data);
-    console.log(categoryList);
-    })}, [])
+    // React.useEffect(() =>{
+    //     axios.get('endpoint-for-pictures-and-their-buckets-s3')
+    // .then(function (response) {
+    // setCategoryList(response.data);
+    // console.log(categoryList);
+    // })}, [])
 
     return(
         <div className="category-list">

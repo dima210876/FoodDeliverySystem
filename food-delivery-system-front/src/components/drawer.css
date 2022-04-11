@@ -13,9 +13,14 @@
     color: white;
     border: none;
     border-radius: 10px;
-    width: 80%;
+    width: 10px;
+    padding:5px;
+    padding-top:2px;
+    text-decoration: none;
 }
-
+.place-an-order-btn:hover {
+    color: #812c2c;
+}
 .place-an-order-btn:active{
     width: 82%;
 }
@@ -60,6 +65,7 @@
 .drawer-name{
     font-size: 1.5vmax ;
     margin-bottom: 0px;
+    margin-left: 9px;
 }
 
 .total-price{
