@@ -2,13 +2,17 @@ server:
   port: 8083
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   application:
     name: restaurant-info-service
     bucket:
       name: food-delivery-dishes
   datasource:
     username: postgres #edit
-    password: anton #edit
+    password: 1234 #edit
     url: jdbc:postgresql://localhost:5432/restaurant_info_service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
     hibernate:
@@ -23,7 +27,7 @@ spring:
     change-log: classpath:liquibase/db/changelog/db-changelog-master.xml
     url: jdbc:postgresql://localhost:5432/restaurant_info_service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     user: postgres #edit
-    password: anton #edit
+    password: 1234 #edit
 
 eureka:
   client:

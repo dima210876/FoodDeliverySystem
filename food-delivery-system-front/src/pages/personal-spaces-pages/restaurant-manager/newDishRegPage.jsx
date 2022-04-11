@@ -34,7 +34,8 @@ const NewDishRegPage = () => {
             .min(2, 'Description should contain minimum 2 characters.')
             .max(200, 'Description should contain maximum 200 characters'),
         price: Yup.number()
-            .required("Price is required"),
+            .required("Price is required")
+            .min(0, 'Price should be minimum 0.'),
         type: Yup.string()
             .min(2, 'Dish type should contain minimum 2 characters.')
             .max(100, 'Dish type should contain maximum 100 characters.')
