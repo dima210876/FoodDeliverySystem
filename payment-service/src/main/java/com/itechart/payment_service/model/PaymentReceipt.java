@@ -25,7 +25,6 @@ public class PaymentReceipt
 
     @Column(name = "order_id")
     @NotNull(message = "Order ID is required")
-    @NotBlank(message = "Order ID can't be empty")
     @Min(value = 1L, message = "Order ID min limit exceeded")
     @Max(value = Long.MAX_VALUE, message = "Order ID max limit exceeded")
     private Long orderId;

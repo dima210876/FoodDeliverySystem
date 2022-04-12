@@ -2,6 +2,7 @@ package com.itechart.restaurant_info_service.service;
 
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
 import com.itechart.restaurant_info_service.dto.ItemInOrderDTO;
+import com.itechart.restaurant_info_service.exception.ChangingStatusException;
 import com.itechart.restaurant_info_service.exception.ItemNotFoundException;
 import com.itechart.restaurant_info_service.model.*;
 import com.itechart.restaurant_info_service.repository.FoodOrderRepository;
@@ -52,5 +53,43 @@ public class OrderService {
                 .orderStatus(foodOrderDTO.getOrderStatus())
                 .amount(foodOrderDTO.getAmount())
                 .build();
+    }
+
+    public void changeOrderStatus(Long orderId, String newStatus) throws ChangingStatusException {
+        Optional<FoodOrder> foodOrderOptional = foodOrderRepository.findById(orderId);
+
+        if (foodOrderOptional.isEmpty()) {
+            throw new ChangingStatusException("Couldn't change order status.");
+        }
+
+        FoodOrder foodOrder = foodOrderOptional.get();
+
+        OrderStatus currentStatus = OrderStatus.valueOf(foodOrder.getRestaurantStatus().toUpperCase());
+        OrderStatus potentialStatus = OrderStatus.valueOf(newStatus.toUpperCase());
+
+        switch (currentStatus) {
+            case NOT_PAID:
+                if (potentialStatus != OrderStatus.PAID) {
+                    throw new ChangingStatusException("Wrong order status.");
+                }
+                break;
+            case PAID:
+                if (potentialStatus != OrderStatus.COOKING) {
+                    throw new ChangingStatusException("Wrong order status.");
+                }
+                break;
+            case COOKING:
+                if (potentialStatus != OrderStatus.READY) {
+                    throw new ChangingStatusException("Wrong order status.");
+                }
+                break;
+        }
+
+        try{
+            foodOrder.setRestaurantStatus(potentialStatus.getStatus());
+            foodOrderRepository.save(foodOrder);
+        } catch (Throwable ex){
+            throw new ChangingStatusException("Couldn't change order status.");
+        }
     }
 }

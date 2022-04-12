@@ -39,7 +39,7 @@ public class PaymentAttempt
     private PaymentProvider paymentProvider;
 
     @Column(name = "transaction_number")
-    @Size(min = 10, max = 50, message = "Transaction number string length limits exceeded")
+    @Size(max = 50, message = "Transaction number string length limits exceeded")
     private String transactionNumber;
 
     @Column(name = "payment_status")
@@ -50,7 +50,6 @@ public class PaymentAttempt
 
     @Column(name = "payment_datetime")
     @NotNull(message = "Payment datetime is required")
-    @NotBlank(message = "Payment datetime can't be empty")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime paymentDatetime;
 }

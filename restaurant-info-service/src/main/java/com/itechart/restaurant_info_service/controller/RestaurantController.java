@@ -1,10 +1,7 @@
 package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.*;
-import com.itechart.restaurant_info_service.exception.EditRestaurantException;
-import com.itechart.restaurant_info_service.exception.GettingInfoException;
-import com.itechart.restaurant_info_service.exception.ItemNotFoundException;
-import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
+import com.itechart.restaurant_info_service.exception.*;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.service.*;
@@ -47,6 +44,12 @@ public class RestaurantController {
     @PostMapping("/createOrder")
     public ResponseEntity<FoodOrderDTO> addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
         return ResponseEntity.ok().body(orderService.addOrder(foodOrderDTO));
+    }
+
+    @PostMapping("/changeOrderStatus/{orderId}")
+    public ResponseEntity<String> changeOrderStatus(@PathVariable Long orderId, @RequestBody String newStatus) throws ChangingStatusException {
+        orderService.changeOrderStatus(orderId, newStatus);
+        return new ResponseEntity<>("Status has changed", HttpStatus.OK);
     }
 
     @PostMapping("/newFeedback")

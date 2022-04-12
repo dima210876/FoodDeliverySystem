@@ -9,8 +9,11 @@ import com.itechart.food_delivery.model.OrderStatus;
 import com.itechart.food_delivery.repository.OrderAndFoodOrderRepository;
 import com.itechart.food_delivery.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class FoodDeliveryService {
     private final OrderRepository orderRepository;
     private final OrderAndFoodOrderRepository orderAndFoodOrderRepository;
+    private final RestTemplate restTemplate;
 
     public OrderDto getOrder(Long orderId) throws OrderNotFoundException {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> {
@@ -79,13 +83,24 @@ public class FoodDeliveryService {
             order.setOrderStatus(potentialStatus.getStatus());
             orderRepository.save(order);
 
-            OrderAndFoodOrder orderAndFoodOrder = orderAndFoodOrderRepository.findByOrderId(order.getId()).get();
-            orderAndFoodOrder.setFoodOrderStatus(potentialStatus.getStatus());
-            orderAndFoodOrderRepository.save(orderAndFoodOrder);
+            List<OrderAndFoodOrder> orderAndFoodOrderList = orderAndFoodOrderRepository.findAllByOrderId(order.getId());
+            for (OrderAndFoodOrder orderAndFoodOrder : orderAndFoodOrderList) {
+                final String POST_CHANGE_ORDER_STATUS_URL = "http://RESTAURANT-INFO-SERVICE/changeOrderStatus/" +
+                        orderAndFoodOrder.getFoodOrderId();
 
-            //here send request to change status in restaurant service
+                orderAndFoodOrder.setFoodOrderStatus(potentialStatus.getStatus());
+                orderAndFoodOrderRepository.save(orderAndFoodOrder);
+
+                ResponseEntity<String> response = restTemplate
+                        .postForEntity(POST_CHANGE_ORDER_STATUS_URL, OrderStatus.PAID.getStatus(), String.class);
+
+                if (!response.getStatusCode().is2xxSuccessful()) {
+                    throw new OrderStatusChangeException("Couldn't change status");
+                }
+            }
         } catch (Throwable ex) {
-            throw new OrderStatusChangeException("Couldn't change status");
+            throw new OrderStatusChangeException(ex.getMessage());
+            // throw new OrderStatusChangeException("Couldn't change status");
         }
 
     }

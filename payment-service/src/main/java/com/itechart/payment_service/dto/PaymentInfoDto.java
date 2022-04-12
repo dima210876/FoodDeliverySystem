@@ -14,7 +14,6 @@ import javax.validation.constraints.*;
 public class PaymentInfoDto
 {
     @NotNull(message = "Order ID is required")
-    @NotBlank(message = "Order ID can't be empty")
     @Min(value = 1L, message = "Order ID min limit exceeded")
     @Max(value = Long.MAX_VALUE, message = "Order ID max limit exceeded")
     private Long orderId;
@@ -27,7 +26,7 @@ public class PaymentInfoDto
     @Size(max = 50, message = "Card number string length exceeded")
     private String cardNumber;
 
-    @Size(max = 20, message = "Validity period string length exceeded")
+    @Size(max = 100, message = "Validity period string length exceeded")
     private String validityPeriod;
 
     @Size(max = 50, message = "Card code string length exceeded")

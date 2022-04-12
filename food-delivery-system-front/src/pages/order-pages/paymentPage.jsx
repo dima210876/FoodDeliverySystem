@@ -14,7 +14,7 @@ import {confirmPayment} from "../../redux/actions/orderConfirmationActions";
 const PaymentPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const order = useSelector(state => state.order.orderData)
+    const order = useSelector(state => state.order.orderData);
     const [stateOfAlert, setStateOfAlert] = useState(false);
     const [electronic, setElectronic] = useState(false);
     const ELECTRONIC_PAYMENT = 'Electronic payment system';
