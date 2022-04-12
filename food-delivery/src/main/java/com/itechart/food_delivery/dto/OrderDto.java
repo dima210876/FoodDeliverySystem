@@ -15,8 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDto {
-    @Min(value = 1L, message = "Order ID min limit exceeded")
-    @Max(value = Long.MAX_VALUE, message = "Order ID max limit exceeded")
+//    @Min(value = 1L, message = "Order ID min limit exceeded")
+//    @Max(value = Long.MAX_VALUE, message = "Order ID max limit exceeded")
     private Long id;
 
     private Long courierId;

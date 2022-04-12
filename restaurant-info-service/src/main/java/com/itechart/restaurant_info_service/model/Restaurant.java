@@ -67,7 +67,6 @@ public class Restaurant {
     private Set<RestaurantType> restaurantTypes;
 
     @OneToMany(mappedBy = "restaurant")
-    @JoinColumn(name = "restaurantId")
     @JsonManagedReference
     private Set<Item> items;
 
