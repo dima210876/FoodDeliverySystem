@@ -63,8 +63,10 @@ public class OrderService {
         Long i = 1L;
         for (ItemDTO itemDTO : orderDto.getItems()) {
 
+            //delete this when in dto will be correct id
             itemDTO.setId(i);
             i++;
+
             RestaurantOrderDTO restaurantOrderDTO = RestaurantOrderDTO.builder()
                     .itemId(itemDTO.getId())
                     .amount(itemDTO.getCount())
