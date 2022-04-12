@@ -6,8 +6,11 @@ import com.itechart.restaurant_info_service.model.Item;
 import com.itechart.restaurant_info_service.model.Restaurant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
 
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
@@ -16,4 +19,7 @@ public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
             "where i.itemType = ?1  and i.name like %?2% and i.price between ?3 and ?4 and r.name like %?5%")
     Page<ItemDTO> findItemsByItemType(String itemType, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant, Pageable pageable);
 
+    List<Item> findTop5OrderByDiscountDesc();
+
+    List<Item> findTop10OrderByDiscountDesc();
 }
