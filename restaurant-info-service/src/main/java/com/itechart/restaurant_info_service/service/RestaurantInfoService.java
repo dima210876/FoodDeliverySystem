@@ -25,7 +25,6 @@ import java.util.Set;
 public class RestaurantInfoService {
     private final WorkingTimeRepository workingTimeRepository;
     private final RestaurantTypeRepository restaurantTypeRepository;
-    private final RestaurantRepository restaurantRepository;
 
     @Transactional
     public Restaurant editWorkingTime(RestaurantDTO restaurantDTO, Restaurant restaurant) throws EditRestaurantException {
@@ -60,9 +59,7 @@ public class RestaurantInfoService {
     public Restaurant editRestaurantTypes(RestaurantDTO restaurantDTO, Restaurant restaurant) throws EditRestaurantException {
         try {
             Set<RestaurantType> current = restaurant.getRestaurantTypes();
-            List<RestaurantType> listq = restaurantTypeRepository.findAll();
             restaurantTypeRepository.deleteAll(current);
-            List<RestaurantType> list = restaurantTypeRepository.findAll();
 
             Set<RestaurantType> restaurantTypes = new HashSet<>();
 
