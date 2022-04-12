@@ -34,7 +34,7 @@ const CourierManagerPage = () => {
                         <div className='delivery-organization-info'>
                             <h6>Organization name:  {deliveryOrgManager.organization.name ? deliveryOrgManager.organization.name : " – "}</h6>
                             <h6>Account number:  {deliveryOrgManager.organization.accountNumber ? deliveryOrgManager.organization.accountNumber : " – "}</h6>
-                            <h6>Office address:  {deliveryOrgManager.organization.officeAddress ? deliveryOrgManager.organization.address : " – "}</h6>
+                            <h6>Office address:  {deliveryOrgManager.organization.officeAddress && deliveryOrgManager.organization.officeAddress !== "Unknown" ? deliveryOrgManager.organization.officeAddress : " – "}</h6>
                             <h6>Phone number:  {deliveryOrgManager.organization.phoneNumber ? deliveryOrgManager.organization.phoneNumber : " – "}</h6>
                         </div>
                         <div className='link-div'>

@@ -9,11 +9,11 @@ function Footer(){
         <div className="container-fluid pt-5 pb-4 footer">
             <div className="row">
                 <div className="col offset-md-1">
-                    <span>Contact numbers:<br/>+3443 34 3432<br/>+344 555 33322</span>
+                    <span>Contact numbers:<br/>+375-29-343-34-32<br/>+375-29-555-33-22</span>
                 </div>
                 <div className="col offset-md-1">
-                    <a className="icons-contacts" href=""><FaInstagramSquare /></a>
-                    <a className="icons-contacts" href=""><FaFacebook /></a>
+                    <a className="icons-contacts" href="https://www.instagram.com/wwwmenuby/?hl=ru"><FaInstagramSquare /></a>
+                    <a className="icons-contacts" href="https://www.facebook.com/menuby/"><FaFacebook /></a>
                 </div>
                 <div className="col">
                     <span><br/>@copyright G1_Team_itechart</span>

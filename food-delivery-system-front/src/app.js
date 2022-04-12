@@ -9,8 +9,10 @@ import {AdminPage} from "./pages/personal-spaces-pages/super-admin/adminPage";
 import {useDispatch, useSelector} from "react-redux";
 import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/courierManagerPage";
 import {CourierRegPage} from "./pages/personal-spaces-pages/courier-manager/courierRegPage";
-import {getRestaurantManagerInfo, getCourierManagerInfo} from "./redux/actions/userDataActions";
+import {getCustomerInfo, getCourierInfo, getRestaurantManagerInfo, getCourierManagerInfo} from "./redux/actions/userDataActions";
 import {ProductPage} from "./pages/productPage";
+import {CourierPage} from "./pages/personal-spaces-pages/courier/courierPage"
+import {CustomerPage} from "./pages/personal-spaces-pages/customer/customerPage";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/courierManagerRegPage";
 import {ModifyOrganizationInfoPage} from "./pages/personal-spaces-pages/courier-manager/modifyOrganizationInfoPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantManagerPage";
@@ -37,11 +39,13 @@ function App() {
                 <Route path='/admin' element={<AdminPage/>}/>
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
                 <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
+                <Route path='/courier' element={<CourierPage/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
                 <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
                 <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
+                <Route path='/customer' element={<CustomerPage/>}/>
             </Routes>
         </>
     );
@@ -64,12 +68,18 @@ function App() {
                 getCourierManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/courier-manager");
                 });
+            case 'ROLE_COURIER':
+                getCourierInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                    navigate("/courier");
+                });
             case 'ROLE_MANAGER':
                 getRestaurantManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/restaurant-manager");
-                })
-            /*case 'customer':
-                return; */
+                });
+            case 'ROLE_CUSTOMER':
+                getCustomerInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                    navigate("/customer");
+                });
             /*default:
                 return ;*/
         }

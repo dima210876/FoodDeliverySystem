@@ -45,4 +45,9 @@ public class CourierManagerController {
     public ResponseEntity<CourierManager> getManagerInfo(@RequestParam("id") Long managerId) throws GettingInfoException {
         return ResponseEntity.ok().body(courierManagerService.getManagerInfo(managerId));
     }
+
+    @GetMapping("/getCourierInfo")
+    public ResponseEntity<Courier> getCourierInfo(@RequestParam("id") Long courierId) throws GettingInfoException {
+        return ResponseEntity.ok().body(courierService.getCourierInfo(courierId));
+    }
 }

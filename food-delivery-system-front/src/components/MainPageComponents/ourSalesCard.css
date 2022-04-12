@@ -2,7 +2,7 @@
     background-color: white;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
     padding: 15px;
-    width:  250px;
+    width: 50px;
     border-radius: 10px;
     text-align: center;
 }
@@ -25,16 +25,16 @@
     margin-top: 10px;
 }
 
-.discount{
+.new-price{
     font-size: 15px;
     color: red;
     margin-right: 5px;
 }
 
 .btn-plus-minus-on-sales-car{
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
-    padding-top: 5px;
+    padding-top: 17px;
 }
 
 .count-of-product{
@@ -46,7 +46,7 @@
     background-color: white;
     color: red;
     font-size: 20px;
-    width: 40px;
+    width: 32px;
     height: 40px;
     display: inline-flex;
     justify-content: center;
@@ -60,7 +60,7 @@
     box-shadow: -10px 4px 24px rgba(0, 0, 0, .2);
 }
 
-.price{
+.old-price{
     font-size: 15px;
     color: gray;
     text-decoration: line-through;
@@ -68,5 +68,5 @@
 }
 
 .price-text{
-    margin-right: 20px;
+    margin-right: 10px;
 }

@@ -26,7 +26,16 @@ function Navbar(){
             {personalCard ? <PersonalAccountCard /> : null}
             {cartOpened ? <Drawer /> : null}
             <div className="container-fluid ">
-                <Link className="navbar-brand nav-link-style " to="/"><b>Food<br/>Delivery</b></Link>
+                <Link className="navbar-brand nav-link-style" to="/">
+                    <div className="logo-container">
+                        <div className="logo">
+                            <img src="/img/main-icon.png" width="50" height="50" alt="" />
+                        </div>
+                        <div className="text-logo">
+                            <b>Food <br/> Delivery</b>
+                        </div>
+                    </div>
+                </Link>
                 <div className="row">
                     <Link className="navbar-brand nav-link-style col" to="/">Main page</Link>
                 </div>
