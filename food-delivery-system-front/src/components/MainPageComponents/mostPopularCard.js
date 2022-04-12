@@ -46,7 +46,8 @@ function MostPopularCard(props){
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="popular-card-price">
-                    <span><b>{props.price.toFixed(2)}</b>$ for 1 portion</span>
+                    <div className="priceNum"><b>{props.price.toFixed(2)}</b>$</div>
+                    <span>for 1 portion</span>
                 </div>
                 <div className="btn-plus-minus">
                     <div><button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>

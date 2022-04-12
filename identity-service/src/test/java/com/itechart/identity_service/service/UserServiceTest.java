@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.itechart.identity_service.dto.UserRegistrationInfoDto;
 import com.itechart.identity_service.model.RegistrationConfirmationToken;
 import com.itechart.identity_service.model.User;
 import com.itechart.identity_service.repository.RegistrationConfirmationTokenRepository;
@@ -89,7 +90,7 @@ class UserServiceTest {
                 .saveAndFlush(any(RegistrationConfirmationToken.class)))
                 .thenReturn(registrationConfirmationToken);
 
-        User savedUser = userService.saveUser(user);
+        UserRegistrationInfoDto savedUser = userService.saveUser(user);
         assertThat(savedUser.getEmail()).isEqualTo(user.getEmail());
         verify(userRepository).findByEmail(user.getEmail());
     }

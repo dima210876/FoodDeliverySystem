@@ -33,12 +33,10 @@ public class Restaurant {
     @Size(min = 0, max = 50, message = "Phone number string length limits exceeded")
     private String phoneNumber;
 
-    @Size(min = 2, max = 200, message = "Description string length limits exceeded")
+    @Size(max = 200, message = "Description string length limits exceeded")
     private String description;
 
-    @NotNull(message = "Restaurant address is required")
-    @NotBlank(message = "Restaurant address can't be empty")
-    @Size(min = 2, max = 200, message = "Restaurant address string length limits exceeded")
+    @Size(max = 200, message = "Restaurant address string length limits exceeded")
     private String restaurantAddress;
 
     @NotNull(message = "Latitude is required")
@@ -60,7 +58,7 @@ public class Restaurant {
     @JsonManagedReference
     private Set<WorkingTime> workingTime;
 
-    @ManyToMany
+    @ManyToMany (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "restaurants_restaurant_types",
             joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_type_id")
@@ -72,7 +70,8 @@ public class Restaurant {
     @JsonManagedReference
     private Set<Item> items;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany
+    @JoinColumn(name = "restaurant_id")
     @JsonManagedReference
     private Set<FoodOrder> foodOrders;
 

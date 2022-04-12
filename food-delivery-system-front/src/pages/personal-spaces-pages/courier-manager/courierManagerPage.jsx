@@ -25,13 +25,16 @@ const CourierManagerPage = () => {
                             <h6>Email: {deliveryOrgManager.email ? deliveryOrgManager.email : " – "}</h6>
                             <h6>Phone number: {deliveryOrgManager.phoneNumber ? deliveryOrgManager.phoneNumber : " – "} </h6>
                         </div>
+                        <div className='link-div'>
+                            <Link className='link' to='/courier-manager/modify-courier-manager-info'><h5>Modify</h5></Link>
+                        </div>
                     </div>
                     <div className='delivery-organization-block'>
                         <h4>Organization's info</h4>
                         <div className='delivery-organization-info'>
                             <h6>Organization name:  {deliveryOrgManager.organization.name ? deliveryOrgManager.organization.name : " – "}</h6>
                             <h6>Account number:  {deliveryOrgManager.organization.accountNumber ? deliveryOrgManager.organization.accountNumber : " – "}</h6>
-                            <h6>Office address:  {deliveryOrgManager.organization.officeAddress ? deliveryOrgManager.organization.address : " – "}</h6>
+                            <h6>Office address:  {deliveryOrgManager.organization.officeAddress && deliveryOrgManager.organization.officeAddress !== "Unknown" ? deliveryOrgManager.organization.officeAddress : " – "}</h6>
                             <h6>Phone number:  {deliveryOrgManager.organization.phoneNumber ? deliveryOrgManager.organization.phoneNumber : " – "}</h6>
                         </div>
                         <div className='link-div'>

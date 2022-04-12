@@ -20,24 +20,16 @@ import java.util.Set;
 @Entity
 @Table(name = "food_orders")
 public class FoodOrder {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "restaurant_status")
+    @Column(name="restaurant_id")
+    @NotNull(message = "Restaurant ID is required")
+    private Long restaurantId;
+
     @NotNull(message = "Restaurant status is required")
     @NotBlank(message = "Restaurant status can't be empty")
-    @Size(min = 2, max = 20, message = "Restaurant status string length limits exceeded")
-    private RestaurantStatus restaurantStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    @NotNull(message = "Restaurant is required")
-    @JsonBackReference
-    private Restaurant restaurant;
-
-    @OneToMany(mappedBy = "order")
-    @JsonManagedReference
-    private Set<ItemInOrder> itemsInOrders;
+    @Size(min = 1, max = 20, message = "Restaurant status string length limits exceeded")
+    private String restaurantStatus;
 }

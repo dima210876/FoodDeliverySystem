@@ -55,9 +55,9 @@ const ModifyOrganizationInfoPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 geocodeByAddress(address).then(() => {
-                    if (phone === "" || isValidPhoneNumber(phone)) {
+                    if (!phone || (phone && isValidPhoneNumber(phone))) {
                         changeDeliveryOrganizationInfo(organization.id, values.organizationName, values.accountNumber, phone, address, coordinates.lat, coordinates.lng)(dispatch).then(() => {
-                            navigate('/courier-manager');
+                            navigate('/account');
                         });
                     }}
                 )

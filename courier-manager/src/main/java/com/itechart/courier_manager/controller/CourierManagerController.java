@@ -13,15 +13,11 @@ import com.itechart.courier_manager.service.CourierManagerService;
 import com.itechart.courier_manager.service.CourierService;
 import com.itechart.courier_manager.service.OrganizationService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @AllArgsConstructor
 public class CourierManagerController {
@@ -48,5 +44,10 @@ public class CourierManagerController {
     @GetMapping("/getManagerInfo")
     public ResponseEntity<CourierManager> getManagerInfo(@RequestParam("id") Long managerId) throws GettingInfoException {
         return ResponseEntity.ok().body(courierManagerService.getManagerInfo(managerId));
+    }
+
+    @GetMapping("/getCourierInfo")
+    public ResponseEntity<Courier> getCourierInfo(@RequestParam("id") Long courierId) throws GettingInfoException {
+        return ResponseEntity.ok().body(courierService.getCourierInfo(courierId));
     }
 }

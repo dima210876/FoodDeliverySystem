@@ -8,8 +8,8 @@
             <column name="email" value="foodDeliverySuperAdmin@gmail.com"/>
             <!-- password before encode: superAdminPassword -->
             <column name="password" value="$2a$12$kQFKDXxATqlrQOyzYn4KBuAUvGxvYxtPlDYxa4H4EgecdguIMS1h2"/>
-            <column name="first_name" value="Super"/>
-            <column name="last_name" value="Admin"/>
+            <column name="first_name" value="Thomas"/>
+            <column name="last_name" value="Wilson"/>
             <column name="role" value="ROLE_SUPER_ADMIN"/>
             <column name="expiration_date" value="2050-01-01 00:00:00"/>
             <column name="account_non_locked" value="true"/>

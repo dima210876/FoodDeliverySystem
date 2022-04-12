@@ -1,9 +1,7 @@
 package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.*;
-import com.itechart.restaurant_info_service.exception.EditRestaurantException;
-import com.itechart.restaurant_info_service.exception.GettingInfoException;
-import com.itechart.restaurant_info_service.exception.ManagerRegistrationException;
+import com.itechart.restaurant_info_service.exception.*;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.service.*;
@@ -44,9 +42,15 @@ public class RestaurantController {
         return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
 
-    @PostMapping("/newOrder")
-    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) {
-        orderService.addOrder(foodOrderDTO);
+    @PostMapping("/createOrder")
+    public ResponseEntity<FoodOrderDTO> addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
+        return ResponseEntity.ok().body(orderService.addOrder(foodOrderDTO));
+    }
+
+    @PostMapping("/changeOrderStatus/{orderId}")
+    public ResponseEntity<String> changeOrderStatus(@PathVariable Long orderId, @RequestBody String newStatus) throws ChangingStatusException {
+        orderService.changeOrderStatus(orderId, newStatus);
+        return new ResponseEntity<>("Status has changed", HttpStatus.OK);
     }
 
     @PostMapping("/newFeedback")
@@ -55,9 +59,9 @@ public class RestaurantController {
     }
 
     @GetMapping("/getItems")
-    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant){
+    public ResponseEntity<Page<ItemDTO>> getItems(@RequestParam String category, int page, int size, String sortColumn, boolean vectorOfSort, String filterName, double filterMinPrice, double filterMaxPrice, String filterRestaurant) {
         Pageable pageable;
-        if(vectorOfSort)
+        if (vectorOfSort)
             pageable = PageRequest.of(page, size, Sort.by(sortColumn).ascending());
         else
             pageable = PageRequest.of(page, size, Sort.by(sortColumn).descending());
@@ -72,10 +76,6 @@ public class RestaurantController {
 
     @PostMapping(value = "/addImage",  headers = "content-type=multipart/*")
     public void addImage(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "id") Long id){
-        itemService.addImage(image, id);
+        itemService.addImage(image, id);   
     }
-
-
-
-
 }

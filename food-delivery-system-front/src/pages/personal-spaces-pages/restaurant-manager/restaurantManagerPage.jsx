@@ -28,7 +28,7 @@ const RestaurantManagerPage = () => {
                             <h6>Phone number: {restaurantManagerData.phoneNumber ? restaurantManagerData.phoneNumber : " – "} </h6>
                         </div>
                         <div className='link-div'>
-                            <Link className='link' to='/restaurant-manager/new-dish'><h5>Add dish</h5></Link>
+                            <Link className='link' to='/restaurant-manager/modify-restaurant-manager-info'><h5>Modify</h5></Link>
                         </div>
                     </div>
                     <div className='restaurant-block'>
@@ -36,12 +36,17 @@ const RestaurantManagerPage = () => {
                         <div className='restaurant-info'>
                             <h6>Restaurant name:  {restaurantManagerData.restaurant.name ? restaurantManagerData.restaurant.name : " – "}</h6>
                             <h6>Description:  {restaurantManagerData.restaurant.description ? restaurantManagerData.restaurant.description : " – "}</h6>
-                            <h6>Address:  {restaurantManagerData.restaurant.address ? restaurantManagerData.restaurant.address : " – "}</h6>
+                            <h6>Address:  {restaurantManagerData.restaurant.restaurantAddress ? restaurantManagerData.restaurant.restaurantAddress : " – "}</h6>
                             <h6>Phone number:  {restaurantManagerData.restaurant.phoneNumber ? restaurantManagerData.restaurant.phoneNumber : " – "}</h6>
                         </div>
                         <div className='link-div'>
                             <Link className='link' to='/restaurant-manager/modify-restaurant-info'><h5>Modify</h5></Link>
                         </div>
+                    </div>
+                </div>
+                <div className='actions'>
+                    <div className='link-div'>
+                      <Link className='link' to='/restaurant-manager/new-dish'><h5>ADD NEW DISH</h5></Link>                      
                     </div>
                 </div>
             </div>

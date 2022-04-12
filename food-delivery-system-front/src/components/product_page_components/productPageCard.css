@@ -2,7 +2,7 @@
     background-color: white;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
     padding: 15px;
-    width:  240px;
+    width:  200px;
     border-radius: 10px;
     text-align: center;
 }
@@ -16,16 +16,18 @@
 }
 
 .popular-card-price{
-    display: flex;
-    font-size: 10px;
+    display: block;
+    font-size: 11px;
     margin-top: 17px;
 }
-
+.priceNum{
+    font-size: 15px;
+}
 .button{
     background-color: white;
     color: red;
     font-size: 20px;
-    width: 40px;
+    width: 33px;
     height: 40px;
     display: inline-flex;
     justify-content: center;
@@ -38,6 +40,6 @@
 .btn-plus-minus{
     font-size: 20px;
     display: flex;
-    padding-top: 5px;
+    padding-top: 15px;
     margin-left: 5px;
 }

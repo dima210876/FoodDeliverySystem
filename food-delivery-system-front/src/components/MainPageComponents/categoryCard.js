@@ -18,8 +18,8 @@ function CategoryCard(props){
 
     return(
         <div className="category-card" onClick={openProductPage}>
-            <img src={props.imageUrl} alt="" width={100} height={100} />
-            <span >{props.title}</span>
+            <img src={props.imageUrl} alt="" width={80} height={80} />
+            <div >{props.title}</div>
         </div>
 
     );

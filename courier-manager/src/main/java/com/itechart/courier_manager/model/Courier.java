@@ -57,7 +57,8 @@ public class Courier {
             nullable = false
     )
     @NotNull(message = "Organization is required")
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonManagedReference
     private Organization organization;
 
     @OneToMany( mappedBy = "courier")

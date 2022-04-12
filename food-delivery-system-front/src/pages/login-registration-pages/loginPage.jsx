@@ -32,7 +32,7 @@ const LoginPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 authActions.login(values.email, values.password)(dispatch).then(() => {
-                    // navigate('/main-page-link-from-another-ticket');
+                    navigate('/');
                 }).catch((error) => {
                     setStateOfAlert(true);
                     setTimeout(() => {
@@ -46,7 +46,7 @@ const LoginPage = () => {
                   handleChange,
                   errors, }) => (
                 <Container id="main-container">
-                    {stateOfAlert ? <div className="alert alert-danger" role='alert'>Error on the server</div> : null}
+                    {stateOfAlert ? <div className="alert alert-danger" role='alert'>Invalid login or email</div> : null}
                     <Col lg={6} md={6} sm={12} className="m-auto shadow-sm full-width d-flex justify-content-center">
                         <Form id="sign-in-form" className="m-5 p-4 rounded w-75" noValidate onSubmit={handleSubmit}>
                             <div className="text-center">

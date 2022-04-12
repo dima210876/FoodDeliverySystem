@@ -29,11 +29,12 @@ public class RestaurantService {
 
     public void createDefaultRestaurant(Manager manager, String restaurantName) {
         try {
-            final String DEFAULT_ADDRESS = "Unknown";
+            final String DEFAULT_ADDRESS = "";
 
             Restaurant restaurant = Restaurant.builder()
                     .manager(manager)
                     .name(restaurantName)
+                    .description("-")
                     .restaurantAddress(DEFAULT_ADDRESS)
                     .latitude(0D)
                     .longitude(0D)
@@ -71,7 +72,7 @@ public class RestaurantService {
 
             restaurant = restaurantInfoService.editRestaurantTypes(restaurantDTO, restaurant);
 
-            return restaurantRepository.save(restaurant);
+            return restaurant;
         } catch (Throwable ex) {
             throw new EditRestaurantException(ex.getMessage());
         }

@@ -1,6 +1,7 @@
 package com.itechart.restaurant_info_service.service;
 
 import com.itechart.restaurant_info_service.dto.RestaurantDTO;
+import com.itechart.restaurant_info_service.dto.RestaurantTypeDTO;
 import com.itechart.restaurant_info_service.dto.WorkingTimeDTO;
 import com.itechart.restaurant_info_service.exception.EditRestaurantException;
 import com.itechart.restaurant_info_service.model.Restaurant;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -27,7 +29,9 @@ public class RestaurantInfoService {
     @Transactional
     public Restaurant editWorkingTime(RestaurantDTO restaurantDTO, Restaurant restaurant) throws EditRestaurantException {
         try {
-            workingTimeRepository.deleteAll(restaurant.getWorkingTime());
+            Set<WorkingTime> current = restaurant.getWorkingTime();
+            workingTimeRepository.deleteAll(current);
+            workingTimeRepository.findAll();
 
             Set<WorkingTime> workingTimeSet = new HashSet<>();
 
@@ -42,8 +46,10 @@ public class RestaurantInfoService {
 
             workingTimeRepository.saveAll(workingTimeSet);
             restaurant.setWorkingTime(workingTimeSet);
+
         } catch (Throwable ex) {
-            throw new EditRestaurantException("Couldn't edit working hours");
+            //  throw new EditRestaurantException("Couldn't edit working hours");
+            throw new EditRestaurantException(ex.getMessage());
         }
 
         return restaurant;
@@ -52,31 +58,22 @@ public class RestaurantInfoService {
     @Transactional
     public Restaurant editRestaurantTypes(RestaurantDTO restaurantDTO, Restaurant restaurant) throws EditRestaurantException {
         try {
-            Set<RestaurantType> existing = restaurant.getRestaurantTypes();
+            Set<RestaurantType> current = restaurant.getRestaurantTypes();
+            restaurantTypeRepository.deleteAll(current);
 
-            boolean key = true;
+            Set<RestaurantType> restaurantTypes = new HashSet<>();
 
-            for (String restaurantTypeDTO : restaurantDTO.getRestaurantTypes()) {
-                for (RestaurantType existingType : existing) {
-                    if (restaurantTypeDTO.equals(existingType.getRestaurantType())) {
-                        key = false;
-                        break;
-                    }
-                }
-
-                if (key) {
-                    RestaurantType restaurantType = RestaurantType.builder()
-                            .restaurantType(restaurantTypeDTO)
-                            .build();
-
-                    restaurantTypeRepository.save(restaurantType);
-                    restaurant.getRestaurantTypes().add(restaurantType);
-                } else {
-                    key = true;
-                }
+            for (RestaurantTypeDTO restaurantTypeDTO : restaurantDTO.getRestaurantTypes()) {
+                restaurantTypes.add(RestaurantType.builder()
+                        .restaurantType(restaurantTypeDTO.getRestaurantType())
+                        .build());
             }
+
+            restaurantTypeRepository.saveAll(restaurantTypes);
+            restaurant.setRestaurantTypes(restaurantTypes);
         } catch (Throwable ex) {
-            throw new EditRestaurantException("Couldn't edit restaurant types");
+            throw new EditRestaurantException(ex.getMessage());
+            // throw new EditRestaurantException("Couldn't edit restaurant types");
         }
 
         return restaurant;

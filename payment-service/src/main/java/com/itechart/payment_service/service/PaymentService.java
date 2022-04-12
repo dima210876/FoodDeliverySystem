@@ -1,7 +1,9 @@
 package com.itechart.payment_service.service;
 
 import com.itechart.payment_service.dto.*;
+import com.itechart.payment_service.exception.OrderNotFoundException;
 import com.itechart.payment_service.exception.PaymentException;
+import com.itechart.payment_service.exception.PaymentProviderNotFoundException;
 import com.itechart.payment_service.exception.PaymentReceiptNotFoundException;
 import com.itechart.payment_service.model.*;
 import com.itechart.payment_service.repository.PaymentAttemptRepository;
@@ -30,7 +32,7 @@ public class PaymentService
     private final ElectronicPaymentSystem electronicPaymentSystem;
     private final RestTemplate restTemplate;
 
-    public PaymentReceiptDto getPaymentReceipt(Long orderId)
+    public PaymentReceiptDto getPaymentReceipt(Long orderId) throws PaymentReceiptNotFoundException
     {
         Optional<PaymentReceipt> optionalPaymentReceipt = paymentReceiptRepository.findByOrderId(orderId);
         if (optionalPaymentReceipt.isEmpty()) {
@@ -40,7 +42,8 @@ public class PaymentService
     }
 
     @Transactional
-    public PaymentReceiptDto payForOrder(@Valid PaymentInfoDto paymentInfoDto) throws PaymentException
+    public void payForOrder(@Valid PaymentInfoDto paymentInfoDto) throws PaymentException, OrderNotFoundException,
+            PaymentReceiptNotFoundException, PaymentProviderNotFoundException, IllegalArgumentException
     {
         Long orderId = paymentInfoDto.getOrderId();
         final String GET_ORDER_URL = "http://FOOD-DELIVERY/order/" + orderId;
@@ -48,11 +51,11 @@ public class PaymentService
 
         ResponseEntity<OrderDto> responseEntity = restTemplate.getForEntity(GET_ORDER_URL, OrderDto.class);
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            throw new PaymentException("Order not found.");
+            throw new OrderNotFoundException("Order not found.");
         }
         OrderDto orderDto = responseEntity.getBody();
         if (orderDto == null) {
-            throw new PaymentException("Order not found.");
+            throw new OrderNotFoundException("Order not found.");
         }
         Optional<PaymentReceipt> optionalPaymentReceipt = paymentReceiptRepository.findByOrderId(orderId);
         PaymentReceipt paymentReceipt;
@@ -136,8 +139,6 @@ public class PaymentService
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new PaymentException("Can't update order status after payment.");
         }
-
-        return convertToDto(paymentReceipt);
     }
 
     private PaymentProviderDto convertToDto(PaymentProvider paymentProvider)

@@ -4,14 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class RestaurantServiceExceptionHandler {
 
     @ExceptionHandler(ManagerRegistrationException.class)
@@ -26,6 +26,16 @@ public class RestaurantServiceExceptionHandler {
 
     @ExceptionHandler(GettingInfoException.class)
     public ResponseEntity<String> getInfoException(GettingInfoException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<String> handleItemNotFoundException(ItemNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ChangingStatusException.class)
+    public ResponseEntity<String> handleChangingStatusException(ChangingStatusException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

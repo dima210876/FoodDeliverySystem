@@ -48,8 +48,13 @@ function OurSalesCard(props){
             <p className="product-name">{props.title}</p>
             <div className="bottom-row">
                 <div className="our-sales">
-                    <div className="discount-block"><span className="discount"><b>{props.discount.toFixed(2)}$</b></span><span className="price"><b>{props.price.toFixed(2)}$</b></span></div>
-                    <div className="price-block"><span className="price-text">for 1 portions</span></div>
+                    <div className="discount-block">
+                        <div className="old-price"><b>{(Number(props.price.toFixed(2)) + Number(props.price.toFixed(2) * props.discount.toFixed(2) * 0.01)).toFixed(2)}$</b></div>
+                        <div className="new-price"><b>{props.price.toFixed(2)}$</b></div>
+                    </div>
+                    <div className="price-block">
+                        <span className="price-text">for 1 portion</span>
+                    </div>
                 </div>
                 <div className="btn-plus-minus-on-sales-car">
                     <div><button className="button" onClick={() => decreaseCountOfProduct(props.id,  props.count)}><FiMinusCircle /></button></div>

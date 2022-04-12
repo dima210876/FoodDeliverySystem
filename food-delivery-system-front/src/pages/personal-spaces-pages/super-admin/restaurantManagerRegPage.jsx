@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from "react-router-dom";
 
 import PhoneInputField from "../../../components/inputFields/phoneInputField";
 import Navbar from "../../../components/navbar";
@@ -14,7 +15,7 @@ import {isValidPhoneNumber} from "react-phone-number-input";
 
 const RegistrationManager = () => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
     const [stateOfAlert, setStateOfAlert] = useState(false);
@@ -63,9 +64,9 @@ const RegistrationManager = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                if (phone && isValidPhoneNumber(phone)) {
+                if (!phone || (phone && isValidPhoneNumber(phone))) {
                     authActions.registerRestaurant(values.restaurantName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        // navigate('/admin-space-link-from-another-ticket');
+                        navigate('/admin');
                     }).catch(() => {
                         setStateOfAlert(true);
                         setTimeout(() => {
