@@ -13,7 +13,7 @@ export function OrderReducer(state = initialState, action) {
         case CREATE_NEW_ORDER_SUCCESS:
             return {
                 ...state,
-                authData: payload,
+                orderData: payload,
             };
         case CONFIRM_PAYMENT_SUCCESS:
             return {

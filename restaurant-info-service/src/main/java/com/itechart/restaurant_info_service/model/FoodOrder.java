@@ -25,6 +25,7 @@ public class FoodOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="restaurant_id")
     @NotNull(message = "Restaurant ID is required")
     private Long restaurantId;
 

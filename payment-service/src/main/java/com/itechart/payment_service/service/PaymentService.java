@@ -42,7 +42,7 @@ public class PaymentService
     }
 
     @Transactional
-    public PaymentReceiptDto payForOrder(@Valid PaymentInfoDto paymentInfoDto) throws PaymentException, OrderNotFoundException,
+    public void payForOrder(@Valid PaymentInfoDto paymentInfoDto) throws PaymentException, OrderNotFoundException,
             PaymentReceiptNotFoundException, PaymentProviderNotFoundException, IllegalArgumentException
     {
         Long orderId = paymentInfoDto.getOrderId();
@@ -139,8 +139,6 @@ public class PaymentService
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new PaymentException("Can't update order status after payment.");
         }
-
-        return convertToDto(paymentReceipt);
     }
 
     private PaymentProviderDto convertToDto(PaymentProvider paymentProvider)
