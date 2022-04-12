@@ -36,7 +36,7 @@ const RestaurantManagerPage = () => {
                         <div className='restaurant-info'>
                             <h6>Restaurant name:  {restaurantManagerData.restaurant.name ? restaurantManagerData.restaurant.name : " – "}</h6>
                             <h6>Description:  {restaurantManagerData.restaurant.description ? restaurantManagerData.restaurant.description : " – "}</h6>
-                            <h6>Address:  {restaurantManagerData.restaurant.address ? restaurantManagerData.restaurant.address : " – "}</h6>
+                            <h6>Address:  {restaurantManagerData.restaurant.restaurantAddress ? restaurantManagerData.restaurant.restaurantAddress : " – "}</h6>
                             <h6>Phone number:  {restaurantManagerData.restaurant.phoneNumber ? restaurantManagerData.restaurant.phoneNumber : " – "}</h6>
                         </div>
                         <div className='link-div'>

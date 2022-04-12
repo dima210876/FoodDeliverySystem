@@ -23,20 +23,16 @@ public class RestaurantDTO {
     @Size(max = 200, message = "Description string length limits exceeded")
     private String description;
 
-    @NotNull(message = "Restaurant address is required")
-    @NotBlank(message = "Restaurant address can't be empty")
-    @Size(min = 2, max = 200, message = "Restaurant address string length limits exceeded")
+    @Size(max = 200, message = "Restaurant address string length limits exceeded")
     private String restaurantAddress;
 
-    @NotNull(message = "Latitude is required")
     private Double latitude;
 
-    @NotNull(message = "Longitude is required")
     private Double longitude;
 
     @NotNull(message = "Working time is required")
     private Set<WorkingTimeDTO> workingTime;
 
     @NotNull(message = "Restaurant types are required")
-    private Set<String> restaurantTypes;
+    private Set<RestaurantTypeDTO> restaurantTypes;
 }

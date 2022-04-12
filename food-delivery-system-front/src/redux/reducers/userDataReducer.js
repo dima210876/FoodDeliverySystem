@@ -15,7 +15,7 @@ const initialState = {
             name: '',
             description: '',
             phoneNumber: '',
-            address: '',
+            restaurantAddress: '',
             latitude: '',
             longitude: '',
             workingTime: [
@@ -27,7 +27,7 @@ const initialState = {
                 {dayOfWeek: '6', openingTime: '', closingTime: ''},
                 {dayOfWeek: '7', openingTime: '', closingTime: ''},
             ],
-            restaurantTypes: [],
+            restaurantTypes: [{restaurantType: ''}],
         }
         // }
     },

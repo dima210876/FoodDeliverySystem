@@ -22,11 +22,11 @@ public class WorkingTime {
     private Long id;
 
     @NotNull(message = "Opening time is required")
-    @Size(min = 0, max = 6, message = "Time limits exceeded")
+    @Size(max = 100, message = "Time limits exceeded")
     private String openingTime;
 
     @NotNull(message = "Closing time is required")
-    @Size(min = 0, max = 6, message = "Time limits exceeded")
+    @Size(max = 100, message = "Time limits exceeded")
     private String closingTime;
 
     @NotNull(message = "Day of week is required")

@@ -42,7 +42,6 @@ public class OrderDto {
     private Double shippingPrice;
 
     @NotNull(message = "Discount is required")
-    @Min(value = 1L, message = "Discount min limit exceeded")
     @Max(value = 100L, message = "Discount max limit exceeded")
     private Integer discount;
 
