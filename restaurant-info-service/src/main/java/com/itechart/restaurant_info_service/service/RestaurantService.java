@@ -27,7 +27,6 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantInfoService restaurantInfoService;
 
-    @Transactional
     public void createDefaultRestaurant(Manager manager, String restaurantName) {
         try {
             final String DEFAULT_ADDRESS = "";
@@ -50,7 +49,6 @@ public class RestaurantService {
         }
     }
 
-    @Transactional
     public Restaurant editRestaurantInfo(@Valid RestaurantDTO restaurantDTO) throws EditRestaurantException {
         try {
             Optional<Restaurant> optionalRestaurant = restaurantRepository

@@ -17,6 +17,7 @@ import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/cou
 import {ModifyOrganizationInfoPage} from "./pages/personal-spaces-pages/courier-manager/modifyOrganizationInfoPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantManagerPage";
 import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/modifyRestaurantInfoPage";
+import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
 import OrderConfirmationPage from "./pages/order-pages/orderConfirmationPage";
 import PaymentPage from "./pages/order-pages/paymentPage";
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
                 <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
                 <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
+                <Route path='/restaurant-manager/new-dish' element={<NewDishRegPage/>}/>
                 <Route path='/customer' element={<CustomerPage/>}/>
             </Routes>
         </>

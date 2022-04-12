@@ -77,3 +77,8 @@ h4 {
 .link:hover{
     color: red;
 }
+
+.load-image{
+    margin-top: 15px;
+    width: 80px;
+}

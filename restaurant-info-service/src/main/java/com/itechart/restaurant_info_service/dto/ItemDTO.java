@@ -42,9 +42,12 @@ public class ItemDTO {
     @NotNull(message = "Restaurant are required")
     private String restaurant;
 
+    @NotNull(message = "Restaurant id are required")
+    private Long restaurantId;
+
     private byte[] image;
 
-    public ItemDTO(Long id, String name, String description, Double price, Boolean available, String itemType, String feature, String restaurant) {
+    public ItemDTO(Long id, String name, String description, Double price, Boolean available, String itemType, String feature, String restaurant, Long restaurantId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,5 +56,6 @@ public class ItemDTO {
         this.itemType = itemType;
         this.feature = feature;
         this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
     }
 }

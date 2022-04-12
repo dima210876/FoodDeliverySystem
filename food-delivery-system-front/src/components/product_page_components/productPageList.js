@@ -106,9 +106,11 @@ function ProductPageList(){
                                       title: item.name,
                                       price: item.price,
                                       restaurant: item.restaurant,
-                                      image: item.image  });
+                                      restaurantId: item.restaurantId,
+                                      image: item.image});
         });
         setProductPageList(listForProductsPage);
+        console.log(listForProductsPage);
         if(listForProductsPage.length === 0)
             setListEmptyCard(true);
         else
@@ -184,6 +186,8 @@ function ProductPageList(){
     }
 
 
+
+
     return(
         <>
             <div className="sort-bar">
@@ -205,6 +209,7 @@ function ProductPageList(){
                         image={obj.image}
                         count={checkItems(obj.id)}
                         restaurant={obj.restaurant}
+                        restaurantId={obj.restaurantId}
                     />
                 ))}
             </div>

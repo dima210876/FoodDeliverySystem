@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -67,8 +68,14 @@ public class RestaurantController {
         return ResponseEntity.ok().body(itemService.getItems(category, filterName, filterMinPrice, filterMaxPrice, filterRestaurant, pageable));
     }
 
-    @PostMapping("/newItem")
-    public void addItem(@RequestBody NewItemDTO newItemDTO) {
-        itemService.addItem(newItemDTO);
+    @PostMapping(value = "/newItem")
+    public ResponseEntity<Long> addItem(@RequestBody NewItemDTO newItemDTO){
+        return ResponseEntity.ok().body(itemService.addItem(newItemDTO));
+
+    }
+
+    @PostMapping(value = "/addImage",  headers = "content-type=multipart/*")
+    public void addImage(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "id") Long id){
+        itemService.addImage(image, id);   
     }
 }

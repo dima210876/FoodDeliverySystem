@@ -44,6 +44,11 @@ const RestaurantManagerPage = () => {
                         </div>
                     </div>
                 </div>
+                <div className='actions'>
+                    <div className='link-div'>
+                      <Link className='link' to='/restaurant-manager/new-dish'><h5>ADD NEW DISH</h5></Link>                      
+                    </div>
+                </div>
             </div>
             </div>
         </>
