@@ -4,6 +4,7 @@ import com.itechart.food_delivery.config.DeletingUserConfig;
 import com.itechart.food_delivery.dto.CustomerDTO;
 import com.itechart.food_delivery.dto.IdentityRegistrationDTO;
 import com.itechart.food_delivery.exception.CustomerRegistrationException;
+import com.itechart.food_delivery.exception.GettingInfoException;
 import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Service
 @Validated
@@ -73,5 +75,18 @@ public class CustomerService {
         }
 
         return customer;
+    }
+
+    public Customer getCustomerInfo(Long customerId) throws GettingInfoException {
+        try {
+            Optional<Customer> optionalCustomer = customerRepository.findByUserId(customerId);
+
+            if (optionalCustomer.isEmpty()) {
+                throw new GettingInfoException(String.format("Customer with id %d doesn't exist", customerId));
+            }
+            return optionalCustomer.get();
+        } catch (Throwable ex) {
+            throw new GettingInfoException("Couldn't get customer with id " + customerId);
+        }
     }
 }

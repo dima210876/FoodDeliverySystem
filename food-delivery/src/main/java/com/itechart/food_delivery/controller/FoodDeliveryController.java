@@ -3,10 +3,7 @@ package com.itechart.food_delivery.controller;
 import com.itechart.food_delivery.dto.CreatedOrderDTO;
 import com.itechart.food_delivery.dto.CustomerDTO;
 import com.itechart.food_delivery.dto.OrderDto;
-import com.itechart.food_delivery.exception.CustomerRegistrationException;
-import com.itechart.food_delivery.exception.OrderCreatingException;
-import com.itechart.food_delivery.exception.OrderNotFoundException;
-import com.itechart.food_delivery.exception.OrderStatusChangeException;
+import com.itechart.food_delivery.exception.*;
 import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.service.CustomerService;
 import com.itechart.food_delivery.service.FoodDeliveryService;
@@ -29,6 +26,11 @@ public class FoodDeliveryController {
             throws CustomerRegistrationException
     {
         return ResponseEntity.ok().body(customerService.registerCustomer(customerDTO));
+    }
+
+    @GetMapping("/getCustomerInfo")
+    public ResponseEntity<Customer> getCustomerInfo(@RequestParam("id") Long customerId) throws GettingInfoException {
+        return ResponseEntity.ok().body(customerService.getCustomerInfo(customerId));
     }
 
     @PostMapping("/createOrder")

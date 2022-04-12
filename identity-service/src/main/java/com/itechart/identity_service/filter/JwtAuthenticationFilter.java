@@ -46,7 +46,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         ObjectMapper mapper = new ObjectMapper();
         LoginData loginData = new LoginData();
-
         try {
             loginData = mapper.readValue(request.getInputStream(), LoginData.class);
         } catch (IOException e) {
@@ -60,7 +59,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (!encoder.matches(loginData.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("1000");
         }
-
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginData.getEmail(), loginData.getPassword(), user.getAuthorities());
         return authenticationToken;

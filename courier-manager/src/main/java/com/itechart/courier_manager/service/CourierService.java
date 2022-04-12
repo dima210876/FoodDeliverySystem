@@ -4,7 +4,9 @@ import com.itechart.courier_manager.config.DeletingUserConfig;
 import com.itechart.courier_manager.dto.CourierDto;
 import com.itechart.courier_manager.dto.IdentityRegistrationDTO;
 import com.itechart.courier_manager.exception.CourierRegistrationException;
+import com.itechart.courier_manager.exception.GettingInfoException;
 import com.itechart.courier_manager.model.Courier;
+import com.itechart.courier_manager.model.CourierManager;
 import com.itechart.courier_manager.model.Organization;
 import com.itechart.courier_manager.repository.CourierRepository;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -74,5 +77,19 @@ public class CourierService {
         }
 
         return courier;
+    }
+
+
+    public Courier getCourierInfo(Long courierId) throws GettingInfoException {
+        try {
+            Optional<Courier> optionalCourier = courierRepository.findByUserId(courierId);
+
+            if (optionalCourier.isEmpty()) {
+                throw new GettingInfoException(String.format("Courier with id %d doesn't exist", courierId));
+            }
+            return optionalCourier.get();
+        } catch (Throwable ex) {
+            throw new GettingInfoException("Couldn't get courier with id " + courierId);
+        }
     }
 }

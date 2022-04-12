@@ -33,7 +33,7 @@ public class OrderService {
 
         try {
             Order order = orderRepository.save(Order.builder()
-                    .customerId(orderDto.getCustomerId())
+                    .customer(orderDto.getCustomer())
                     .orderAddress(orderDto.getOrderAddress())
                     .orderStatus(orderDto.getOrderStatus())
                     .orderPrice(orderDto.getOrderPrice())

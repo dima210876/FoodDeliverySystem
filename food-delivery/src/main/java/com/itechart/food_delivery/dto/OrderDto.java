@@ -1,5 +1,6 @@
 package com.itechart.food_delivery.dto;
 
+import com.itechart.food_delivery.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +21,8 @@ public class OrderDto {
 
     private Long courierId;
 
-    @NotNull(message = "Customer ID is required")
-    @Min(value = 1L, message = "Customer ID min limit exceeded")
-    @Max(value = Long.MAX_VALUE, message = "Customer ID max limit exceeded")
-    private Long customerId;
+    @NotNull(message = "Customer is required")
+    private Customer customer;
 
     @NotNull(message = "Order status is required")
     @NotBlank(message = "Order status can't be empty")
