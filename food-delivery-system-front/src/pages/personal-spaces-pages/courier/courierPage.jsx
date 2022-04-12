@@ -41,7 +41,7 @@ const CourierPage = () => {
                     </div>
                     <div className='actions'>
                         <div className='link-div'>
-                            <Link className='link' to='/courier-manager/courier-registration'><h5>ORDER INFO</h5></Link>
+                            <Link className='link' to='/courier'><h5>ORDER INFO</h5></Link>
                         </div>
                     </div>
                 </div>
