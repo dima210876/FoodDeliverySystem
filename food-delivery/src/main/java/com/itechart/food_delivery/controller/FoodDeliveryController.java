@@ -3,6 +3,7 @@ package com.itechart.food_delivery.controller;
 import com.itechart.food_delivery.dto.CreatedOrderDTO;
 import com.itechart.food_delivery.dto.CustomerDTO;
 import com.itechart.food_delivery.dto.OrderDto;
+import com.itechart.food_delivery.dto.ReadyOrderDTO;
 import com.itechart.food_delivery.exception.*;
 import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.service.CustomerService;
@@ -11,6 +12,9 @@ import com.itechart.food_delivery.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -51,5 +55,10 @@ public class FoodDeliveryController {
     {
         foodDeliveryService.changeOrderStatus(orderId, newStatus);
         return ResponseEntity.ok().body(foodDeliveryService.getOrder(orderId));
+    }
+
+    @GetMapping("/readyOrders")
+    public ResponseEntity<List<ReadyOrderDTO>> getReadyOrders(){
+        return ResponseEntity.ok().body(orderService.getReadyOrders());
     }
 }

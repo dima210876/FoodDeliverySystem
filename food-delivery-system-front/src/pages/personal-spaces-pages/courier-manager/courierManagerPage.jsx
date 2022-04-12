@@ -46,6 +46,9 @@ const CourierManagerPage = () => {
                     <div className='link-div'>
                         <Link className='link' to='/courier-manager/courier-registration'><h5>NEW COURIER REGISTRATION</h5></Link>
                     </div>
+                    <div className='link-div'>
+                        <Link className='link' to='/courier-manager/ready-orders'><h5>SHOW READY ORDERS</h5></Link>
+                    </div>
                 </div>
             </div>
         </div>

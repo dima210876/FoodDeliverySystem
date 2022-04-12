@@ -1,9 +1,6 @@
 package com.itechart.food_delivery.service;
 
-import com.itechart.food_delivery.dto.CreatedOrderDTO;
-import com.itechart.food_delivery.dto.ItemDTO;
-import com.itechart.food_delivery.dto.OrderDto;
-import com.itechart.food_delivery.dto.RestaurantOrderDTO;
+import com.itechart.food_delivery.dto.*;
 import com.itechart.food_delivery.exception.CreatingRestaurantOrderException;
 import com.itechart.food_delivery.exception.OrderCreatingException;
 import com.itechart.food_delivery.model.Order;
@@ -18,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -91,5 +89,10 @@ public class OrderService {
 
             orderAndFoodOrderRepository.save(orderAndFoodOrder);
         }
+    }
+
+    @Transactional
+    public List<ReadyOrderDTO> getReadyOrders(){
+        return orderRepository.getAllReadyOrders();
     }
 }
