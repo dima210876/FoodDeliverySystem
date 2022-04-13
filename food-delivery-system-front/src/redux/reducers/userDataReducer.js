@@ -1,5 +1,6 @@
 import {GET_CUSTOMER_INFO_SUCCESS, GET_COURIER_INFO_SUCCESS, GET_COURIER_MANAGER_INFO_SUCCESS, GET_RESTAURANT_MANAGER_INFO_SUCCESS} from "../actions/userDataActions";
 import {CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS, CHANGE_RESTAURANT_INFO_SUCCESS} from "../actions/changeInfoActions";
+import {CHANGE_ORDER_STATUS_SUCCESS, GET_ORDERS_SUCCESS} from "../actions/orderActions";
 
 const initialState = {
     restaurantManagerData: {
@@ -91,7 +92,8 @@ const initialState = {
                 longitude: ''
             }
         ]
-    }
+    },
+    restaurantOrders: []
 };
 
 export function UserDataReducer(state = initialState, action) {
@@ -108,6 +110,12 @@ export function UserDataReducer(state = initialState, action) {
             return {
                 ...state,
                 courierData: payload,
+            }
+
+        case GET_ORDERS_SUCCESS:
+            return {
+                ...state,
+                restaurantOrders: payload,
             }
 
         case GET_COURIER_MANAGER_INFO_SUCCESS:
@@ -131,6 +139,11 @@ export function UserDataReducer(state = initialState, action) {
             return {
                 ...state,
             };
+
+        case CHANGE_ORDER_STATUS_SUCCESS:
+            return {
+                ...state
+            }
 
         default:
             return state;
