@@ -45,7 +45,6 @@ class AuthService {
     }
 
     registerCourier(organizationId, firstName, lastName, email, phone, password) {
-        console.log(organizationId);
         return axios.post(API_URL + "8084/registerCourier", {
             organizationId: organizationId,
             firstName: firstName,

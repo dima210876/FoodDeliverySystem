@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 
 const CourierManagerPage = () => {
     const deliveryOrgManager = useSelector(state => state.userData.deliveryOrgManagerData);
+
     return(
         <>
         <Navbar />

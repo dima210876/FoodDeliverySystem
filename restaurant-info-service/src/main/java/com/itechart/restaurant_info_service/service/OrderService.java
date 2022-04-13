@@ -1,22 +1,18 @@
 package com.itechart.restaurant_info_service.service;
 
+import com.itechart.restaurant_info_service.dto.ChangeStatusDTO;
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
 import com.itechart.restaurant_info_service.dto.ItemInOrderDTO;
-import com.itechart.restaurant_info_service.exception.ChangingStatusException;
-import com.itechart.restaurant_info_service.exception.ItemNotFoundException;
+import com.itechart.restaurant_info_service.exception.ChangeOrderStatusException;
 import com.itechart.restaurant_info_service.model.*;
 import com.itechart.restaurant_info_service.repository.FoodOrderRepository;
 import com.itechart.restaurant_info_service.repository.ItemInOrderRepository;
-import com.itechart.restaurant_info_service.repository.ItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -24,72 +20,53 @@ import java.util.Set;
 public class OrderService {
     private final FoodOrderRepository foodOrderRepository;
     private final ItemInOrderRepository itemInOrderRepository;
-    private final ItemRepository itemRepository;
 
-    @Transactional
-    public FoodOrderDTO addOrder(@Valid FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
-        Optional<Item> optionalItem = itemRepository.findById(foodOrderDTO.getItemId());
+    public void addOrder(@Valid FoodOrderDTO foodOrderDTO) {
+        //TODO do we need to check if the item is in restaurant's menu
+        //TODO check if item is available
+        //TODO amount validation
 
-        if (optionalItem.isEmpty()) {
-            throw new ItemNotFoundException(String.format("Item with id %d not found", foodOrderDTO.getItemId()));
+        FoodOrder foodOrder = FoodOrder.builder()
+                .restaurant(Restaurant.builder().id(foodOrderDTO.getRestaurantId()).build())
+                .restaurantStatus(RestaurantStatus.VERIFICATION)
+                .build();
+
+        foodOrderRepository.save(foodOrder);
+
+        Set<ItemInOrder> itemsInOrder = new HashSet<>();
+
+        for (ItemInOrderDTO itemInOrderDTO : foodOrderDTO.getItems()) {
+            itemsInOrder.add(ItemInOrder.builder()
+                    .item(Item.builder().id(itemInOrderDTO.getItemId()).build())
+                    .order(foodOrder)
+                    .amount(itemInOrderDTO.getAmount())
+                    .build());
         }
 
-        Item item = optionalItem.get();
-
-        FoodOrder foodOrder = foodOrderRepository.save(FoodOrder.builder()
-                .restaurantId(item.getRestaurant().getId())
-                .restaurantStatus(foodOrderDTO.getOrderStatus())
-                .build());
-
-        itemInOrderRepository.save(ItemInOrder.builder()
-                .item(item)
-                .order(foodOrder)
-                .amount(foodOrderDTO.getAmount())
-                .build());
-
-        return FoodOrderDTO.builder()
-                .id(foodOrder.getId())
-                .itemId(item.getId())
-                .orderStatus(foodOrderDTO.getOrderStatus())
-                .amount(foodOrderDTO.getAmount())
-                .build();
+        itemInOrderRepository.saveAll(itemsInOrder);
     }
 
-    public void changeOrderStatus(Long orderId, String newStatus) throws ChangingStatusException {
-        Optional<FoodOrder> foodOrderOptional = foodOrderRepository.findById(orderId);
-
-        if (foodOrderOptional.isEmpty()) {
-            throw new ChangingStatusException("Couldn't change order status.");
+    public void changeOrderStatus(ChangeStatusDTO changeStatusDTO) throws ChangeOrderStatusException {
+        Optional<FoodOrder> optionalFoodOrder = foodOrderRepository.findById(changeStatusDTO.getId());
+        if (optionalFoodOrder.isEmpty()) {
+            throw new ChangeOrderStatusException(String.format("Order with id %d doesn't exist", changeStatusDTO.getId()));
         }
 
-        FoodOrder foodOrder = foodOrderOptional.get();
+        FoodOrder foodOrder = optionalFoodOrder.get();
+        foodOrder.setRestaurantStatus(changeStatusDTO.getRestaurantStatus());
+        foodOrderRepository.save(foodOrder);
 
-        OrderStatus currentStatus = OrderStatus.valueOf(foodOrder.getRestaurantStatus().toUpperCase());
-        OrderStatus potentialStatus = OrderStatus.valueOf(newStatus.toUpperCase());
+        // TODO: Invoke method of changing restaurant status from delivery service
+        // (as soon as another ticket will be ready)
+    }
 
-        switch (currentStatus) {
-            case NOT_PAID:
-                if (potentialStatus != OrderStatus.PAID) {
-                    throw new ChangingStatusException("Wrong order status.");
-                }
-                break;
-            case PAID:
-                if (potentialStatus != OrderStatus.COOKING) {
-                    throw new ChangingStatusException("Wrong order status.");
-                }
-                break;
-            case COOKING:
-                if (potentialStatus != OrderStatus.READY) {
-                    throw new ChangingStatusException("Wrong order status.");
-                }
-                break;
-        }
+    public List<FoodOrder> getAllRestaurantOrders(Long restaurantId) {
+        List<FoodOrder> foodOrders = foodOrderRepository.findByRestaurantId(restaurantId);
+        return foodOrders;
+    }
 
-        try{
-            foodOrder.setRestaurantStatus(potentialStatus.getStatus());
-            foodOrderRepository.save(foodOrder);
-        } catch (Throwable ex){
-            throw new ChangingStatusException("Couldn't change order status.");
-        }
+    public List<FoodOrder> getAllOrders() {
+        List<FoodOrder> foodOrders = foodOrderRepository.findAll();
+        return foodOrders;
     }
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -63,9 +64,9 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     @JsonManagedReference
-    private Set<IngredientInItem> ingredientsInItems;
+    private List<IngredientInItem> ingredientsInItems;
 
     @OneToMany(mappedBy = "item")
-    @JsonManagedReference
-    private Set<ItemInOrder> itemsInOrders;
+    @JsonBackReference
+    private List<ItemInOrder> itemsInOrders;
 }
