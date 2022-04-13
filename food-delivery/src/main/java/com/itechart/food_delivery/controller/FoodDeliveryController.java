@@ -59,8 +59,9 @@ public class FoodDeliveryController {
     }
 
     @PostMapping("/changeOrderStatus")
-    public ResponseEntity<String> changeOrderStatus(@RequestBody Long id){
+    public ResponseEntity<String> changeOrderStatus(@RequestBody Long id) {
         return ResponseEntity.ok().body(orderService.changeOrderStatus(id));
+    }
       
     @PostMapping("/changeFoodOrderStatus/{foodOrderId}")
     public void changeFoodOrderStatus(@PathVariable Long foodOrderId, @RequestBody String newStatus)
