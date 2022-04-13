@@ -1,5 +1,6 @@
 import {GET_COURIER_MANAGER_INFO_SUCCESS, GET_RESTAURANT_MANAGER_INFO_SUCCESS} from "../actions/userDataActions";
 import {CHANGE_DELIVERY_ORGANIZATION_INFO_SUCCESS, CHANGE_RESTAURANT_INFO_SUCCESS} from "../actions/changeInfoActions";
+import {CHANGE_ORDER_STATUS_SUCCESS, GET_ORDERS_SUCCESS} from "../actions/orderActions";
 
 const initialState = {
     restaurantManagerData: {
@@ -50,12 +51,19 @@ const initialState = {
             couriers: []
         }
         // }
-    }
+    },
+    restaurantOrders: []
 };
 
 export function UserDataReducer(state = initialState, action) {
     const {type, payload} = action;
     switch (type) {
+
+        case GET_ORDERS_SUCCESS:
+            return {
+                ...state,
+                restaurantOrders: payload,
+            }
 
         case GET_COURIER_MANAGER_INFO_SUCCESS:
             return {
@@ -78,6 +86,11 @@ export function UserDataReducer(state = initialState, action) {
             return {
                 ...state,
             };
+
+        case CHANGE_ORDER_STATUS_SUCCESS:
+            return {
+                ...state
+            }
 
         default:
             return state;

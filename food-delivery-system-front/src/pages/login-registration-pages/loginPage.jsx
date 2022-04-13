@@ -32,7 +32,7 @@ const LoginPage = () => {
             validateOnBlur={false}
             onSubmit={(values) => {
                 authActions.login(values.email, values.password)(dispatch).then(() => {
-                    // navigate('/main-page-link-from-another-ticket');
+                    navigate('/');
                 }).catch((error) => {
                     setStateOfAlert(true);
                     setTimeout(() => {
