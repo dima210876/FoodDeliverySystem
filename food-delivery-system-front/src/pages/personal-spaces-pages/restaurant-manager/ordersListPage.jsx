@@ -86,7 +86,7 @@ const OrdersListPage = () => {
                 <Link className='link' to='/restaurant-manager'><h5>Back to personal space</h5></Link>
             </div>
 
-            <Modal show={showModal} onHide={() => handleClose}>
+            <Modal show={showModal} onHide={() => handleClose()}>
                 <Modal.Header closeButton>
                     <Modal.Title>Changing status of an order #{idOrder}</Modal.Title>
                 </Modal.Header>
@@ -99,10 +99,10 @@ const OrdersListPage = () => {
                     </Form.Select>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleClose}>
+                    <Button variant="secondary" onClick={() => handleClose()}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => changeStatus()}>
+                    <Button variant="danger" onClick={() => changeStatus()}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
