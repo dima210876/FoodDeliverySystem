@@ -3,11 +3,17 @@ import Navbar from "../../../components/navbar";
 import React, {useState} from "react";
 import axios from "axios";
 import ProductPageCard from "../../../components/product_page_components/productPageCard";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 const ReadyOrdersPage = () => {
+    const CHOOSE_ORDER = 'CHOOSE_ORDER';
     const endpointName = "http://localhost:8080/readyOrders";
     const [orderList, setOrderList] = useState([]);
     const [listEmptyTitle, setListEmptyTitle] = useState(false);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function getOrderList(orders){
         let readyOrderList = [];
@@ -33,6 +39,17 @@ const ReadyOrdersPage = () => {
             }).catch(() => setListEmptyTitle(true))
     }, [])
 
+    const openUnoccupiedCouriersPage = (props) => {
+        dispatch({type: CHOOSE_ORDER, payload:
+                {firstName: props.customer.firstName,
+                lastName: props.customer.lastName,
+                orderAddress: props.orderAddress,
+                orderPrice: props.orderPrice,
+                id: props.id}
+        })
+        navigate('/courier-manager/unoccupied-couriers');
+    }
+
     return(
         <>
             <Navbar />
@@ -48,7 +65,7 @@ const ReadyOrdersPage = () => {
                 </div>
                 {listEmptyTitle ? <div><h1 className='no-found'>No ready orders found</h1></div> : null}
                 {orderList.map((obj) => (
-                    <div className="order-row">
+                    <div className="order-row" onClick={() => openUnoccupiedCouriersPage(obj)}>
                         <div className="order-element">{obj.customer.firstName}</div>
                         <div className="order-element">{obj.customer.lastName}</div>
                         <div className="order-element">{obj.orderPrice}$</div>

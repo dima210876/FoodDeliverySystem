@@ -95,4 +95,9 @@ public class OrderService {
     public List<ReadyOrderDTO> getReadyOrders(){
         return orderRepository.getAllReadyOrders();
     }
+
+    public String changeOrderStatus(Long id){
+        orderRepository.changeOrderStatus(id);
+        return "Status changed...";
+    }
 }

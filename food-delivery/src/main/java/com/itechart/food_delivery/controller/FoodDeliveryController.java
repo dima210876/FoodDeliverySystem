@@ -61,4 +61,9 @@ public class FoodDeliveryController {
     public ResponseEntity<List<ReadyOrderDTO>> getReadyOrders(){
         return ResponseEntity.ok().body(orderService.getReadyOrders());
     }
+
+    @PostMapping("/changeOrderStatus")
+    public ResponseEntity<String> changeOrderStatus(@RequestBody Long id){
+        return ResponseEntity.ok().body(orderService.changeOrderStatus(id));
+    }
 }

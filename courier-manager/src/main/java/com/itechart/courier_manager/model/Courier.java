@@ -62,6 +62,6 @@ public class Courier {
     private Organization organization;
 
     @OneToMany( mappedBy = "courier")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<CourierOrder> orders;
 }

@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @AllArgsConstructor
@@ -71,7 +73,6 @@ public class RestaurantController {
     @PostMapping(value = "/newItem")
     public ResponseEntity<Long> addItem(@RequestBody NewItemDTO newItemDTO){
         return ResponseEntity.ok().body(itemService.addItem(newItemDTO));
-
     }
 
     @PostMapping(value = "/addImage",  headers = "content-type=multipart/*")

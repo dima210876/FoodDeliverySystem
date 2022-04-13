@@ -21,6 +21,7 @@ import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-m
 import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
 import OrderConfirmationPage from "./pages/order-pages/orderConfirmationPage";
 import PaymentPage from "./pages/order-pages/paymentPage";
+import {UnoccupiedCouriersPage} from "./pages/personal-spaces-pages/courier-manager/UnoccupiedCouriersPage";
 
 function App() {
     const navigate = useNavigate();
@@ -46,6 +47,7 @@ function App() {
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
                 <Route path='/courier-manager/ready-orders' element={<ReadyOrdersPage/>}/>
+                <Route path='/courier-manager/unoccupied-couriers' element={<UnoccupiedCouriersPage/>}/>
                 <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
                 <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
                 <Route path='/restaurant-manager/new-dish' element={<NewDishRegPage/>}/>

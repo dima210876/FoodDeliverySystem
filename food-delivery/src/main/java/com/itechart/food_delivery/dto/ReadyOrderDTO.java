@@ -25,5 +25,4 @@ public class ReadyOrderDTO {
 
     @NotNull(message = "Order address is required")
     private String orderAddress;
-
 }

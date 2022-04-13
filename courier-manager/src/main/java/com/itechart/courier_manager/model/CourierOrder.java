@@ -1,6 +1,7 @@
 package com.itechart.courier_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class CourierOrder {
             )
     )
     @NotNull(message = "Courier is required")
-    @JsonBackReference
+    @JsonManagedReference
     private Courier courier;
 
     @NotNull(message = "Order id is required")
