@@ -44,9 +44,14 @@ public class RestaurantController {
         return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
 
-    @PostMapping("/newOrder")
-    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
-        orderService.addOrder(foodOrderDTO);
+//    @PostMapping("/newOrder")
+//    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
+//        orderService.addOrder(foodOrderDTO);
+//    }
+
+    @PostMapping("/createOrder")
+    public ResponseEntity<FoodOrderDTO> addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
+        return ResponseEntity.ok().body(orderService.addOrder(foodOrderDTO));
     }
 
     @PostMapping("/changeOrderStatus")

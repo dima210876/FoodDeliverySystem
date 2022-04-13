@@ -11,16 +11,11 @@ import "./ourSalesList.css"
 //                          {"title":"Rolls2","price":10,"discount":3,"imageUrl":"/img/food.png"},
 //                          {"title":"Chocolate mues","price":9,"discount":3,"imageUrl":"/img/food.png"}];
 
-// const endpointName = 'https://62265d432dfa524018038bde.mockapi.io/productsWithDiscount';
+const endpointName = 'https://62573a3b4428bb6c082076b4.mockapi.io/api/sales';
 
 function OurSalesList(){
 
-    const [listWithDiscounts, setListWithDiscounts] = React.useState([
-        {"id": 11, "name":"Salat","price":10,"discount":30,"image":"/img/food.png", "restaurant":"Mac Donalds"},
-                          {"id": 21, "name":"Burger","price":12,"discount":30,"image":"/img/food.png", "restaurant":"Mac Donalds"},
-                          {"id": 12, "name":"Rolls","price":100,"discount":30,"image":"/img/food.png", "restaurant":"Mac Donalds"},
-                          {"id": 1, "name":"Rolls2","price":10,"discount":31,"image":"/img/food.png", "restaurant":"Mac Donalds"},
-                          {"id": 61, "name":"Chocolate mues","price":10,"discount":30,"image":"/img/food.png", "restaurant":"Mac Donalds"}]);
+    const [listWithDiscounts, setListWithDiscounts] = React.useState([]);
 
     const items = useSelector(state => state.cart.items);
 
@@ -32,12 +27,12 @@ function OurSalesList(){
         }
     }
 
-    // React.useEffect(() =>{
-    //     axios.get(endpointName)
-    // .then(function (response) {
-    // setListWithDiscounts(response.data);
-    // console.log(listWithDiscounts);
-    // })}, [])
+    React.useEffect(() => {
+        axios.get(endpointName)
+            .then(function (response) {
+                setListWithDiscounts(response.data);
+                console.log(listWithDiscounts);
+            })}, []);
 
     return(
         <div className="most-popular-list">

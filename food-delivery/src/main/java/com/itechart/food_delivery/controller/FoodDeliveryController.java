@@ -30,6 +30,11 @@ public class FoodDeliveryController {
         return ResponseEntity.ok().body(customerService.registerCustomer(customerDTO));
     }
 
+    @GetMapping("/getCustomerInfo")
+    public ResponseEntity<Customer> getCustomerInfo(@RequestParam("id") Long customerId) throws GettingInfoException {
+        return ResponseEntity.ok().body(customerService.getCustomerInfo(customerId));
+    }
+
     @PostMapping("/createOrder")
     public ResponseEntity<CreatedOrderDTO> createOrder(@RequestBody OrderDto orderDto)
             throws OrderCreatingException {
