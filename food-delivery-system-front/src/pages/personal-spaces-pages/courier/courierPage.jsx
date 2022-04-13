@@ -18,7 +18,7 @@ const CourierPage = () => {
                     </div>
                     <div className='info'>
                         <div className='info-block'>
-                            <h4>Manager's info</h4>
+                            <h4>Courier's info</h4>
                             <div className='user-info'>
                                 <h6>First name: {courier.firstName ? courier.firstName : " – "} </h6>
                                 <h6>Last name: {courier.lastName ? courier.lastName : " – "}</h6>
@@ -41,7 +41,7 @@ const CourierPage = () => {
                     </div>
                     <div className='actions'>
                         <div className='link-div'>
-                            <Link className='link' to='/courier-manager/courier-registration'><h5>ORDER INFO</h5></Link>
+                            <Link className='link' to='/courier'><h5>ORDER INFO</h5></Link>
                         </div>
                     </div>
                 </div>

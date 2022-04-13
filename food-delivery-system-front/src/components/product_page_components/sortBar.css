@@ -1,19 +1,21 @@
-.sort-bar{
+.sort-bar, .filter-bar{
     display: flex;
     margin-top: 3%;
     margin-left: 10%;
 }
 
 .sort-text{
-    font-size: 30px;
+    font-size: 25px;
+    font-weight: 500;
 }
 
 .button-sort{
-    margin-left: 50px;
+    margin-left: 30px;
+    margin-top: 2px;
     color: black;
     background-color: aliceblue;
     border: none;
-    font-size: 30px;
+    font-size: 21px;
 }
 
 .button-sort:hover{

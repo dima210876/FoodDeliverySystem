@@ -32,6 +32,7 @@ public class Order {
     @NotNull(message = "Customer is required")
     @JsonBackReference
     private Customer customer;
+
 //    @Column(name = "customer_id")
 //    @NotNull(message = "Customer ID is required")
 //    private Long customerId;

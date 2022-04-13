@@ -2,26 +2,28 @@ import React from 'react';
 import LoginPage from "./pages/login-registration-pages/loginPage";
 import RegistrationPage from "./pages/login-registration-pages/registrationPage";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {RestaurantPage} from './pages/main-menu-pages/restaurantPage';
+import { RestaurantPage } from './pages/main-menu-pages/restaurantPage';
 import RestaurantManagerRegPage from "./pages/personal-spaces-pages/super-admin/restaurantManagerRegPage";
-import {MainPage} from './pages/main-menu-pages/mainPage';
-import {AdminPage} from "./pages/personal-spaces-pages/super-admin/adminPage";
+import { MainPage } from './pages/main-menu-pages/mainPage';
+// import { OrderPage } from './pages/main-menu-pages/orderPage';
+import { AdminPage} from "./pages/personal-spaces-pages/super-admin/adminPage";
 import {useDispatch, useSelector} from "react-redux";
 import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/courierManagerPage";
-import {CourierRegPage} from "./pages/personal-spaces-pages/courier-manager/courierRegPage";
-import {getCustomerInfo, getCourierInfo, getRestaurantManagerInfo, getCourierManagerInfo} from "./redux/actions/userDataActions";
+import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/courierRegPage";
+import { getRestaurantManagerInfo, getCourierManagerInfo, getCustomerInfo, getCourierInfo } from "./redux/actions/userDataActions";
 import {ProductPage} from "./pages/productPage";
-import {CourierPage} from "./pages/personal-spaces-pages/courier/courierPage"
-import {CustomerPage} from "./pages/personal-spaces-pages/customer/customerPage";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/courierManagerRegPage";
 import {ModifyOrganizationInfoPage} from "./pages/personal-spaces-pages/courier-manager/modifyOrganizationInfoPage";
 import {ReadyOrdersPage} from "./pages/personal-spaces-pages/courier-manager/readyOrdersPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantManagerPage";
 import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/modifyRestaurantInfoPage";
-import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
 import OrderConfirmationPage from "./pages/order-pages/orderConfirmationPage";
 import PaymentPage from "./pages/order-pages/paymentPage";
 import {UnoccupiedCouriersPage} from "./pages/personal-spaces-pages/courier-manager/UnoccupiedCouriersPage";
+import {CourierPage} from "./pages/personal-spaces-pages/courier/courierPage";
+import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
+import OrdersListPage from "./pages/personal-spaces-pages/restaurant-manager/ordersListPage";
+import {CustomerPage} from "./pages/personal-spaces-pages/customer/customerPage";
 
 function App() {
     const navigate = useNavigate();
@@ -51,6 +53,7 @@ function App() {
                 <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
                 <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
                 <Route path='/restaurant-manager/new-dish' element={<NewDishRegPage/>}/>
+                <Route path='/restaurant-manager/orders' element={<OrdersListPage/>}/>
                 <Route path='/customer' element={<CustomerPage/>}/>
             </Routes>
         </>

@@ -1,10 +1,13 @@
 package com.itechart.restaurant_info_service.dto;
 
+import com.itechart.restaurant_info_service.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.*;
 
 @Data
@@ -22,7 +25,7 @@ public class FoodOrderDTO {
     private Integer amount;
 
     @NotNull(message = "Order status is required")
-    @NotBlank(message = "Order status can't be empty")
-    @Size(min = 1, max = 20, message = "Order status string length limits exceeded")
-    private String orderStatus;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Restaurant status is required")
+    private OrderStatus orderStatus;
 }

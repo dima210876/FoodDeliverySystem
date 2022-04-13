@@ -1,11 +1,20 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Navbar from "../../../components/navbar";
 import './restaurantManagerPage.css';
+import {getRestaurantOrders} from "../../../redux/actions/orderActions"
 
 const RestaurantManagerPage = () => {
+    const navigate = useNavigate();
     const restaurantManagerData = useSelector(state => state.userData.restaurantManagerData);
+    const dispatch = useDispatch();
+
+    function navigateToOrders() {
+        getRestaurantOrders(restaurantManagerData.restaurant.restaurantId)(dispatch).then(() => {
+            navigate("/restaurant-manager/orders");
+        });
+    }
 
     return (
         <>
@@ -45,8 +54,11 @@ const RestaurantManagerPage = () => {
                     </div>
                 </div>
                 <div className='actions'>
-                    <div className='link-div'>
-                      <Link className='link' to='/restaurant-manager/new-dish'><h5>ADD NEW DISH</h5></Link>                      
+                    <div className='link-div-actions'>
+                      <Link className='link' to='/restaurant-manager/new-dish'><h5>ADD NEW DISH</h5></Link>
+                    </div>
+                    <div className='link-div-actions'>
+                        <Link className='link' to='/restaurant-manager/orders' onClick={() => navigateToOrders()}><h5>RESTAURANT ORDERS</h5></Link>
                     </div>
                 </div>
             </div>
