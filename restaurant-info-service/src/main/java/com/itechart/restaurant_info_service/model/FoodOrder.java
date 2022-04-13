@@ -2,18 +2,18 @@ package com.itechart.restaurant_info_service.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -24,12 +24,23 @@ public class FoodOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="restaurant_id")
-    @NotNull(message = "Restaurant ID is required")
-    private Long restaurantId;
-
+    @Column(name = "restaurant_status")
     @NotNull(message = "Restaurant status is required")
-    @NotBlank(message = "Restaurant status can't be empty")
-    @Size(min = 1, max = 20, message = "Restaurant status string length limits exceeded")
     private String restaurantStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @NotNull(message = "Restaurant is required")
+    @JsonBackReference
+    private Restaurant restaurant;
+
+    @OneToMany(mappedBy = "order")
+    @JsonManagedReference
+    private List<ItemInOrder> itemsInOrders;
+
+    @Transient
+    private Double orderPrice;
+
+    @Transient
+    private Timestamp creationTime;
 }

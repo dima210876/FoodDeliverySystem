@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,8 +38,8 @@ public class OrderService {
         Item item = optionalItem.get();
 
         FoodOrder foodOrder = foodOrderRepository.save(FoodOrder.builder()
-                .restaurantId(item.getRestaurant().getId())
-                .restaurantStatus(foodOrderDTO.getOrderStatus())
+                .restaurant(item.getRestaurant())
+                .restaurantStatus(foodOrderDTO.getOrderStatus().getStatus())
                 .build());
 
         itemInOrderRepository.save(ItemInOrder.builder()
@@ -85,11 +86,20 @@ public class OrderService {
                 break;
         }
 
-        try{
+        try {
             foodOrder.setRestaurantStatus(potentialStatus.getStatus());
             foodOrderRepository.save(foodOrder);
-        } catch (Throwable ex){
+        } catch (Throwable ex) {
             throw new ChangingStatusException("Couldn't change order status.");
         }
+    }
+
+    public List<FoodOrder> getAllRestaurantOrders(Long restaurantId) {
+        List<FoodOrder> foodOrders = foodOrderRepository.findByRestaurantId(restaurantId);
+        for (FoodOrder foodOrder : foodOrders) {
+            //foodOrder.setOrderPrice(foodOrder.getItemInOrder().getItem().getPrice() * foodOrder.getItemInOrder().getAmount());
+
+        }
+        return foodOrders;
     }
 }

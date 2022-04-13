@@ -49,6 +49,21 @@ public class FoodDeliveryService {
                 if (potentialStatus != OrderStatus.PAID) {
                     throw new OrderStatusChangeException("Wrong order status.");
                 }
+                List<OrderAndFoodOrder> orderAndFoodOrderList = orderAndFoodOrderRepository.findAllByOrderId(order.getId());
+                for (OrderAndFoodOrder orderAndFoodOrder : orderAndFoodOrderList) {
+                    final String POST_CHANGE_ORDER_STATUS_URL = "http://RESTAURANT-INFO-SERVICE/setOrderStatusPaid/" +
+                            orderAndFoodOrder.getFoodOrderId();
+
+                    orderAndFoodOrder.setFoodOrderStatus(potentialStatus.getStatus());
+                    orderAndFoodOrderRepository.save(orderAndFoodOrder);
+
+                    ResponseEntity<String> response = restTemplate
+                            .postForEntity(POST_CHANGE_ORDER_STATUS_URL, OrderStatus.PAID.getStatus(), String.class);
+
+                    if (!response.getStatusCode().is2xxSuccessful()) {
+                        throw new OrderStatusChangeException("Couldn't change status");
+                    }
+                }
                 break;
             case PAID:
                 if (potentialStatus != OrderStatus.COOKING) {
@@ -82,27 +97,10 @@ public class FoodDeliveryService {
         try {
             order.setOrderStatus(potentialStatus.getStatus());
             orderRepository.save(order);
-
-            List<OrderAndFoodOrder> orderAndFoodOrderList = orderAndFoodOrderRepository.findAllByOrderId(order.getId());
-            for (OrderAndFoodOrder orderAndFoodOrder : orderAndFoodOrderList) {
-                final String POST_CHANGE_ORDER_STATUS_URL = "http://RESTAURANT-INFO-SERVICE/changeOrderStatus/" +
-                        orderAndFoodOrder.getFoodOrderId();
-
-                orderAndFoodOrder.setFoodOrderStatus(potentialStatus.getStatus());
-                orderAndFoodOrderRepository.save(orderAndFoodOrder);
-
-                ResponseEntity<String> response = restTemplate
-                        .postForEntity(POST_CHANGE_ORDER_STATUS_URL, OrderStatus.PAID.getStatus(), String.class);
-
-                if (!response.getStatusCode().is2xxSuccessful()) {
-                    throw new OrderStatusChangeException("Couldn't change status");
-                }
-            }
         } catch (Throwable ex) {
             throw new OrderStatusChangeException(ex.getMessage());
             // throw new OrderStatusChangeException("Couldn't change status");
         }
-
     }
 
     private OrderDto convertToDto(Order order) {
