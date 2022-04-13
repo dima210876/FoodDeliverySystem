@@ -3,6 +3,7 @@ package com.itechart.food_delivery.service;
 import com.itechart.food_delivery.dto.OrderDto;
 import com.itechart.food_delivery.exception.OrderNotFoundException;
 import com.itechart.food_delivery.exception.OrderStatusChangeException;
+import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.model.Order;
 import com.itechart.food_delivery.model.OrderAndFoodOrder;
 import com.itechart.food_delivery.model.OrderStatus;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -103,11 +105,65 @@ public class FoodDeliveryService {
         }
     }
 
+    public void changeFoodOrderStatus(Long foodOrderId, String newStatus) throws OrderStatusChangeException {
+        Optional<OrderAndFoodOrder> foodOrderOptional = orderAndFoodOrderRepository.findByFoodOrderId(foodOrderId);
+
+        if (foodOrderOptional.isEmpty()) {
+            throw new OrderNotFoundException(String.format("Food order with id %d not found", foodOrderId));
+        }
+        OrderAndFoodOrder orderAndFoodOrder = foodOrderOptional.get();
+
+        OrderStatus currentStatus = OrderStatus.valueOf(orderAndFoodOrder.getFoodOrderStatus().toUpperCase());
+        OrderStatus potentialStatus = OrderStatus.valueOf(newStatus.toUpperCase());
+
+        switch (currentStatus) {
+            case PAID: {
+                if (potentialStatus != OrderStatus.COOKING) {
+                    throw new OrderStatusChangeException("Wrong order status.");
+                }
+                break;
+            }
+            case COOKING:
+                if (potentialStatus != OrderStatus.READY) {
+                    throw new OrderStatusChangeException("Wrong order status.");
+                }
+                break;
+            case READY:
+                if (potentialStatus != OrderStatus.DELIVERING) {
+                    throw new OrderStatusChangeException("Wrong order status.");
+                }
+                break;
+        }
+
+        try {
+            orderAndFoodOrder.setFoodOrderStatus(potentialStatus.getStatus());
+            orderAndFoodOrderRepository.save(orderAndFoodOrder);
+
+            List<OrderAndFoodOrder> orders = orderAndFoodOrderRepository.findAllByOrderId(orderAndFoodOrder.getOrderId());
+
+            boolean key = true;
+
+            for (OrderAndFoodOrder order : orders) {
+                if (!order.getFoodOrderStatus().toUpperCase().equals(OrderStatus.COOKING.toString().toUpperCase())) {
+                    key = false;
+                    break;
+                }
+            }
+
+            if (key) {
+                changeOrderStatus(orderAndFoodOrder.getOrderId(), "READY");
+            }
+        } catch (Throwable ex) {
+            throw new OrderStatusChangeException("Couldn't change status");
+        }
+
+    }
+
     private OrderDto convertToDto(Order order) {
         return OrderDto.builder()
                 .id(order.getId())
                 .courierId(order.getCourierId())
-                .customer(order.getCustomer())
+                .customerId(order.getCustomer().getUserId())
                 .orderStatus(order.getOrderStatus())
                 .orderAddress(order.getOrderAddress())
                 .orderPrice(order.getOrderPrice())

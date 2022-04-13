@@ -1,6 +1,6 @@
 package com.itechart.restaurant_info_service.dto;
 
-import com.itechart.restaurant_info_service.model.RestaurantStatus;
+import com.itechart.restaurant_info_service.model.OrderStatus;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -14,5 +14,5 @@ public class ChangeStatusDTO {
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Restaurant status in restaurant is required")
-    private RestaurantStatus restaurantStatus;
+    private OrderStatus restaurantStatus;
 }

@@ -2,7 +2,6 @@ package com.itechart.restaurant_info_service.dto;
 
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

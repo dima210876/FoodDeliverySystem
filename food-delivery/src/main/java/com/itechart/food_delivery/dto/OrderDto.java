@@ -22,7 +22,8 @@ public class OrderDto {
     private Long courierId;
 
     @NotNull(message = "Customer is required")
-    private Customer customer;
+    // private Customer customer;
+    private Long customerId;
 
     @NotNull(message = "Order status is required")
     @NotBlank(message = "Order status can't be empty")
