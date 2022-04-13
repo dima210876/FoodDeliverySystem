@@ -1,7 +1,7 @@
 package com.itechart.food_delivery.service;
 
 import com.itechart.food_delivery.dto.CustomerDTO;
-import com.itechart.food_delivery.dto.OrderDTO;
+import com.itechart.food_delivery.dto.OrderDto;
 import com.itechart.food_delivery.exception.CustomerRegistrationException;
 import com.itechart.food_delivery.exception.GettingAllOrdersException;
 import com.itechart.food_delivery.model.Customer;
@@ -23,7 +23,7 @@ public class OrderService {
     private final RestTemplate restTemplate;
 
     @Transactional
-    public Order postNewOrder(@Valid OrderDTO orderDTO) {
+    public Order postNewOrder(@Valid OrderDto orderDTO) {
         return new Order();
     }
 

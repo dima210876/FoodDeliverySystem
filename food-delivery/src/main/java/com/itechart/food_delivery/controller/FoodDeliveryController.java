@@ -1,7 +1,7 @@
 package com.itechart.food_delivery.controller;
 
 import com.itechart.food_delivery.dto.CustomerDTO;
-import com.itechart.food_delivery.dto.OrderDTO;
+import com.itechart.food_delivery.dto.OrderDto;
 import com.itechart.food_delivery.exception.CustomerRegistrationException;
 import com.itechart.food_delivery.exception.GettingAllOrdersException;
 import com.itechart.food_delivery.model.Customer;
@@ -24,7 +24,7 @@ public class FoodDeliveryController {
     }
 
     @PostMapping("/postNewOrder")
-    public ResponseEntity<Order> postNewOrder(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<Order> postNewOrder(@RequestBody OrderDto orderDTO) {
         return ResponseEntity.ok().body(orderService.postNewOrder(orderDTO));
     }
 

@@ -61,7 +61,9 @@ public class RestaurantController {
     }
 
     @GetMapping("/getAllRestaurantOrders")
-    public ResponseEntity<List<FoodOrder>> getAllRestaurantOrders(@RequestParam("id") Long restaurantId) {
+    //@RequestParam("id") Long restaurantId
+    public ResponseEntity<List<FoodOrder>> getAllRestaurantOrders() {
+        Long restaurantId = 1L;
         return ResponseEntity.ok().body(orderService.getAllRestaurantOrders(restaurantId));
     }
 

@@ -28,7 +28,7 @@ public class OrderService {
 
         FoodOrder foodOrder = FoodOrder.builder()
                 .restaurant(Restaurant.builder().id(foodOrderDTO.getRestaurantId()).build())
-                .restaurantStatus(RestaurantStatus.VERIFICATION)
+                .restaurantStatus(RestaurantStatus.VERIFICATION.toString())
                 .build();
 
         foodOrderRepository.save(foodOrder);
@@ -53,7 +53,7 @@ public class OrderService {
         }
 
         FoodOrder foodOrder = optionalFoodOrder.get();
-        foodOrder.setRestaurantStatus(changeStatusDTO.getRestaurantStatus());
+        foodOrder.setRestaurantStatus(changeStatusDTO.getRestaurantStatus().toString());
         foodOrderRepository.save(foodOrder);
 
         // TODO: Invoke method of changing restaurant status from delivery service
@@ -62,6 +62,10 @@ public class OrderService {
 
     public List<FoodOrder> getAllRestaurantOrders(Long restaurantId) {
         List<FoodOrder> foodOrders = foodOrderRepository.findByRestaurantId(restaurantId);
+        for(FoodOrder foodOrder: foodOrders){
+            foodOrder.setOrderPrice(foodOrder.getItemsInOrders().get(0).getItem().getPrice() *
+                    Double.valueOf(foodOrder.getItemsInOrders().get(0).getAmount()));
+        }
         return foodOrders;
     }
 

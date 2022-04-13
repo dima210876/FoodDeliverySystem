@@ -27,10 +27,10 @@ public class FoodOrder {
     private Long id;
 
     @Column(name = "restaurant_status")
-    @Enumerated(EnumType.STRING)
+   // @Enumerated(EnumType.STRING)
     @NotNull(message = "Restaurant status is required")
-    private RestaurantStatus restaurantStatus;
-//    private String restaurantStatus;
+   // private RestaurantStatus restaurantStatus;
+   private String restaurantStatus;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -41,4 +41,7 @@ public class FoodOrder {
     @OneToMany(mappedBy = "order")
     @JsonManagedReference
     private List<ItemInOrder> itemsInOrders;
+
+    @Transient
+    private Double orderPrice;
 }
