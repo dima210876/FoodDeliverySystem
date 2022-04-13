@@ -62,7 +62,8 @@ public class Item {
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "item")
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonBackReference
     private Set<IngredientInItem> ingredientsInItems;
 
     @OneToMany(mappedBy = "item")

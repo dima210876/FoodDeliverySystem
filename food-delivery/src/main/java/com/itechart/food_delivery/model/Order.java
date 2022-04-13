@@ -21,20 +21,21 @@ public class Order {
     @Column(name = "courier_id")
     private Long courierId;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "customer_id",
-            foreignKey = @ForeignKey(
-                    name = "FK_customers_id"
-            )
-    )
+//    @ManyToOne
+//    @JoinColumn(
+//            name = "customer_id",
+//            foreignKey = @ForeignKey(
+//                    name = "FK_customers_id"
+//            )
+//    )
+//
+//    @NotNull(message = "Customer is required")
+//    @JsonBackReference
+//    private Customer customer;
 
-    @NotNull(message = "Customer is required")
-    @JsonBackReference
-    private Customer customer;
-//    @Column(name = "customer_id")
-//    @NotNull(message = "Customer ID is required")
-//    private Long customerId;
+    @Column(name = "customer_id")
+    @NotNull(message = "Customer ID is required")
+    private Long customerId;
 
     @Column(name = "order_status")
     @NotNull(message = "Order status is required")

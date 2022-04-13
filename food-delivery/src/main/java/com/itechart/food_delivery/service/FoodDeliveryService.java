@@ -109,7 +109,7 @@ public class FoodDeliveryService {
         return OrderDto.builder()
                 .id(order.getId())
                 .courierId(order.getCourierId())
-                .customer(order.getCustomer())
+                .customerId(order.getCustomerId())
                 .orderStatus(order.getOrderStatus())
                 .orderAddress(order.getOrderAddress())
                 .orderPrice(order.getOrderPrice())
