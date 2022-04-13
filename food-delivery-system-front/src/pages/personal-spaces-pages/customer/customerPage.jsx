@@ -18,7 +18,7 @@ const CustomerPage = () => {
                     </div>
                     <div className='info'>
                         <div className='info-block'>
-                            <h4>Manager's info</h4>
+                            <h4>Customer's info</h4>
                             <div className='user-info'>
                                 <h6>First name: {customer.firstName ? customer.firstName : " – "} </h6>
                                 <h6>Last name: {customer.lastName ? customer.lastName : " – "}</h6>

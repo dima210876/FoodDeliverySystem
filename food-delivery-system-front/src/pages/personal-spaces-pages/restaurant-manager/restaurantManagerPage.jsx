@@ -54,12 +54,12 @@ const RestaurantManagerPage = () => {
                     </div>
                 </div>
                 <div className='actions'>
-                    <div className='link-div'>
+                    <div className='link-div-actions'>
                       <Link className='link' to='/restaurant-manager/new-dish'><h5>ADD NEW DISH</h5></Link>
                     </div>
-                </div>
-                <div className='link-div'>
-                    <Link className='link' to='/restaurant-manager/orders' onClick={() => navigateToOrders()}><h5>RESTAURANT ORDERS</h5></Link>
+                    <div className='link-div-actions'>
+                        <Link className='link' to='/restaurant-manager/orders' onClick={() => navigateToOrders()}><h5>RESTAURANT ORDERS</h5></Link>
+                    </div>
                 </div>
             </div>
             </div>

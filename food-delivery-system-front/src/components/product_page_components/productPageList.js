@@ -195,11 +195,14 @@ function ProductPageList(){
                 <div><button className="button-sort" onClick={sortByPrice}>price</button></div>
                 <div><button className="button-sort" onClick={sortByTitle}>title</button></div>
             </div>
-            <input className='name-filter' value={nameFilter} onChange={changeNameFilter} placeholder='title'/>
-            <input className='restaurant-filter' value={restaurantFilter} onChange={changeRestaurantFilter} placeholder='restaurant'/>
-            <input className='min-price-filter' onChange={changeMinPriceFilter} min={0} placeholder='min price' type='number' />
-            <input className='max-price-filter' onChange={changeMaxPriceFilter} min={0} placeholder='max price' type='number' />
-            {listEmptyCard ? <h1 className='no-found'>No {title} found</h1> : null}
+            <div className="filter-bar">
+                <div><span className="sort-text">Filter by:</span></div>
+                <input className='name-filter' value={nameFilter} onChange={changeNameFilter} placeholder='dish title'/>
+                <input className='restaurant-filter' value={restaurantFilter} onChange={changeRestaurantFilter} placeholder='restaurant name'/>
+                <input className='min-price-filter' onChange={changeMinPriceFilter} min={0} placeholder='min price' type='number' />
+                <input className='max-price-filter' onChange={changeMaxPriceFilter} min={0} placeholder='max price' type='number' />
+            </div>
+            {listEmptyCard ? <div className='no-found'>No {title} found</div> : null}
             <div className="product-page-list">
                 {productPageList.map((obj) => (
                     <ProductPageCard

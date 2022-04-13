@@ -67,12 +67,17 @@ h4 {
     color: red;
 
 }
-.link-div, .link-back-div{
+.link-div, .link-back-div, .link-div-actions{
     margin: 9%;
     padding-top: 6%;
     border-radius: 20rem;
     box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 }
+.link-div-actions {
+    margin: 6%;
+    padding: 3%;
+}
+
 .link-back-div {
     margin: 36%;
     margin-top: 0%;
