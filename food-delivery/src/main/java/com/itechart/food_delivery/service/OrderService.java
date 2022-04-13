@@ -1,9 +1,6 @@
 package com.itechart.food_delivery.service;
 
-import com.itechart.food_delivery.dto.CreatedOrderDTO;
-import com.itechart.food_delivery.dto.ItemDTO;
-import com.itechart.food_delivery.dto.OrderDto;
-import com.itechart.food_delivery.dto.RestaurantOrderDTO;
+import com.itechart.food_delivery.dto.*;
 import com.itechart.food_delivery.exception.CreatingRestaurantOrderException;
 import com.itechart.food_delivery.exception.OrderCreatingException;
 import com.itechart.food_delivery.exception.OrderNotFoundException;
@@ -20,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -96,6 +94,16 @@ public class OrderService {
 
             orderAndFoodOrderRepository.save(orderAndFoodOrder);
         }
+    }
+
+    @Transactional
+    public List<ReadyOrderDTO> getReadyOrders(){
+        return orderRepository.getAllReadyOrders();
+    }
+
+    public String changeOrderStatus(Long id){
+        orderRepository.changeOrderStatus(id);
+        return "Status changed...";
     }
 
     public LocalDateTime getOrderTime(Long foodOrderId) {

@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 public class CourierOrderDto {
-    private Courier courier;
+    private Long userId;
     private Long orderId;
-    private String deliveryStatus;
-    private String deliveryMethod;
 }

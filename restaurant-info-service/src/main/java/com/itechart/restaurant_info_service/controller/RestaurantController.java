@@ -83,7 +83,6 @@ public class RestaurantController {
     @PostMapping(value = "/newItem")
     public ResponseEntity<Long> addItem(@RequestBody NewItemDTO newItemDTO) {
         return ResponseEntity.ok().body(itemService.addItem(newItemDTO));
-
     }
 
     @PostMapping(value = "/addImage", headers = "content-type=multipart/*")
