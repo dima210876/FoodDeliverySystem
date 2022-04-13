@@ -49,7 +49,7 @@ public class Customer {
     @Size(min = 2, max = 50, message = "Role string length limits exceeded")
     private String role;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
-    private List<Order> orders;
+//    @OneToMany(mappedBy = "customer")
+//    @JsonManagedReference
+//    private List<Order> orders;
 }

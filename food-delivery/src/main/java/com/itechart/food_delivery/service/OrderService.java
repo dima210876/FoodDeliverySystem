@@ -65,12 +65,12 @@ public class OrderService {
     @Transactional
     public void sendRestaurantOrders(OrderDto orderDto, Order order) throws CreatingRestaurantOrderException {
         final String POST_FOR_CREATE_RESTAURANT_ORDER = "http://RESTAURANT-INFO-SERVICE/createOrder/";
-        Long i = 1L;
+        //Long i = 1L;
         for (ItemDTO itemDTO : orderDto.getItems()) {
 
             //delete this when in dto will be correct id
-            itemDTO.setId(i);
-            i++;
+            //itemDTO.setId(i);
+            //i++;
 
             RestaurantOrderDTO restaurantOrderDTO = RestaurantOrderDTO.builder()
                     .itemId(itemDTO.getId())
