@@ -1,9 +1,6 @@
 package com.itechart.food_delivery.service;
 
-import com.itechart.food_delivery.dto.CreatedOrderDTO;
-import com.itechart.food_delivery.dto.ItemDTO;
-import com.itechart.food_delivery.dto.OrderDto;
-import com.itechart.food_delivery.dto.RestaurantOrderDTO;
+import com.itechart.food_delivery.dto.*;
 import com.itechart.food_delivery.exception.CreatingRestaurantOrderException;
 import com.itechart.food_delivery.exception.OrderCreatingException;
 import com.itechart.food_delivery.exception.OrderNotFoundException;
@@ -20,8 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -104,5 +102,44 @@ public class OrderService {
             throw new OrderNotFoundException("Order not found");
         }
         return orderRepository.getById(orderAndFoodOrderOptional.get().getOrderId()).getDeliveryTime();
+    }
+
+    public OrderAddressesDTO getOrderAddresses(Long orderId){
+        final String POST_FOR_RESTAURANT_ADDRESSES = "http://RESTAURANT-INFO-SERVICE/getRestaurantAddresses/";
+
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+
+        if(orderOptional.isEmpty()){
+            throw new OrderNotFoundException("Order not found");
+        }
+
+        Order order = orderOptional.get();
+
+        List<OrderAndFoodOrder> foodOrders = orderAndFoodOrderRepository.findAllByOrderId(orderId);
+        List<Long> foodOrderIds = getFoodOrderIds(foodOrders);
+
+        ResponseEntity<RestaurantAddressesDTO> response = restTemplate.postForEntity(POST_FOR_RESTAURANT_ADDRESSES,
+                foodOrderIds, RestaurantAddressesDTO.class);
+
+        if(!response.getStatusCode().is2xxSuccessful()){
+            throw new OrderNotFoundException("Couldn'd find restaurant address");
+        }
+
+        RestaurantAddressesDTO restaurantAddressesDTO = response.getBody();
+
+        return OrderAddressesDTO.builder()
+                .deliveryAddress(order.getOrderAddress())
+                .restaurantAddresses(restaurantAddressesDTO.getAddresses())
+                .build();
+    }
+
+    private List<Long> getFoodOrderIds(List<OrderAndFoodOrder> orders){
+        List<Long> ids = new ArrayList<>();
+
+        for(OrderAndFoodOrder order: orders){
+            ids.add(order.getFoodOrderId());
+        }
+
+        return ids;
     }
 }

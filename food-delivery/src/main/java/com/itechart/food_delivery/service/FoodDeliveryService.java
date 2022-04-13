@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -91,6 +92,7 @@ public class FoodDeliveryService {
                 if (potentialStatus != OrderStatus.DELIVERED) {
                     throw new OrderStatusChangeException("Wrong order status.");
                 }
+                order.setDeliveryTime(LocalDateTime.now());
                 break;
             case DELIVERED:
                 throw new OrderStatusChangeException("The order has reached the final status.");

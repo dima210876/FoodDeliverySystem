@@ -19,6 +19,11 @@ public class CourierServiceExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ChangeOrderStatusException.class)
+    public ResponseEntity<String> handleChangeOrderStatusException(ChangeOrderStatusException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(GettingInfoException.class)
     public ResponseEntity<String> getInfoException(GettingInfoException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);

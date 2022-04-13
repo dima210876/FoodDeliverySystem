@@ -28,6 +28,7 @@ public class RestaurantController {
     private final ManagerService managerService;
     private final ItemService itemService;
     private final AwsService awsService;
+    private final RestaurantInfoService restaurantInfoService;
 
     @PostMapping("/registerManager")
     public ResponseEntity<Manager> registerManager(@RequestBody ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
@@ -89,5 +90,10 @@ public class RestaurantController {
     @PostMapping(value = "/addImage", headers = "content-type=multipart/*")
     public void addImage(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "id") Long id) {
         itemService.addImage(image, id);
+    }
+
+    @PostMapping("/getRestaurantAddresses")
+    public ResponseEntity<RestaurantAddressesDTO> addOrder(@RequestBody List<Long> foodOrderIds) throws GettingInfoException {
+        return ResponseEntity.ok().body(restaurantInfoService.getAddresses(foodOrderIds));
     }
 }

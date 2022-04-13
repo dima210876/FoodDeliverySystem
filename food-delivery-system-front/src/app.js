@@ -22,6 +22,7 @@ import {CourierPage} from "./pages/personal-spaces-pages/courier/courierPage";
 import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
 import OrdersListPage from "./pages/personal-spaces-pages/restaurant-manager/ordersListPage";
 import {CustomerPage} from "./pages/personal-spaces-pages/customer/customerPage";
+import CourierOrderList from "./pages/personal-spaces-pages/courier/courierOrderList";
 
 function App() {
     const navigate = useNavigate();
@@ -43,6 +44,7 @@ function App() {
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
                 <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
                 <Route path='/courier' element={<CourierPage/>}/>
+                <Route path='/courier/orders' element={<CourierOrderList/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>

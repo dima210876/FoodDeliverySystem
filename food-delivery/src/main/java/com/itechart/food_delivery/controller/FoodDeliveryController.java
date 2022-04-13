@@ -2,6 +2,7 @@ package com.itechart.food_delivery.controller;
 
 import com.itechart.food_delivery.dto.CreatedOrderDTO;
 import com.itechart.food_delivery.dto.CustomerDTO;
+import com.itechart.food_delivery.dto.OrderAddressesDTO;
 import com.itechart.food_delivery.dto.OrderDto;
 import com.itechart.food_delivery.exception.*;
 import com.itechart.food_delivery.model.Customer;
@@ -54,5 +55,10 @@ public class FoodDeliveryController {
     public void changeFoodOrderStatus(@PathVariable Long foodOrderId, @RequestBody String newStatus)
             throws OrderStatusChangeException, OrderNotFoundException {
         foodDeliveryService.changeFoodOrderStatus(foodOrderId, newStatus);
+    }
+
+    @PostMapping("/getOrderAddresses/{orderId}")
+    public ResponseEntity<OrderAddressesDTO> getOrderAddresses(@PathVariable Long orderId) throws OrderNotFoundException {
+        return ResponseEntity.ok().body(orderService.getOrderAddresses(orderId));
     }
 }
