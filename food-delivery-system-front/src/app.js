@@ -10,7 +10,7 @@ import { AdminPage} from "./pages/personal-spaces-pages/super-admin/adminPage";
 import {useDispatch, useSelector} from "react-redux";
 import {CourierManagerPage} from "./pages/personal-spaces-pages/courier-manager/courierManagerPage";
 import { CourierRegPage } from "./pages/personal-spaces-pages/courier-manager/courierRegPage";
-import { getRestaurantManagerInfo, getCourierManagerInfo } from "./redux/actions/userDataActions";
+import { getRestaurantManagerInfo, getCourierManagerInfo, getCustomerInfo, getCourierInfo } from "./redux/actions/userDataActions";
 import {ProductPage} from "./pages/productPage";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/courierManagerRegPage";
 import {ModifyOrganizationInfoPage} from "./pages/personal-spaces-pages/courier-manager/modifyOrganizationInfoPage";
@@ -73,12 +73,18 @@ function App() {
                 getCourierManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/courier-manager");
                 });
+            case 'ROLE_COURIER':
+                getCourierInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                    navigate("/courier");
+                });
             case 'ROLE_MANAGER':
                 getRestaurantManagerInfo(authData.user.id, authData.token)(dispatch).then(() => {
                     navigate("/restaurant-manager");
-                })
-            /*case 'customer':
-                return; */
+                });
+            case 'ROLE_CUSTOMER':
+                getCustomerInfo(authData.user.id, authData.token)(dispatch).then(() => {
+                    navigate("/customer");
+                });
             /*default:
                 return ;*/
         }

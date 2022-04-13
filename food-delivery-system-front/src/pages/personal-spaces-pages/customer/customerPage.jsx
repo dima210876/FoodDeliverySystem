@@ -32,7 +32,7 @@ const CustomerPage = () => {
                     </div>
                     <div className='actions'>
                         <div className='link-div'>
-                            <Link className='link' to='/customer'><h5>ORDER INFO</h5></Link>
+                            <Link className='link' to='/customer/confirmedOrderPage'><h5>ORDER INFO</h5></Link>
                         </div>
                     </div>
                 </div>
