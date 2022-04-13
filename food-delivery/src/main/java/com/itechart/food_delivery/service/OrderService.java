@@ -6,11 +6,13 @@ import com.itechart.food_delivery.dto.OrderDto;
 import com.itechart.food_delivery.dto.RestaurantOrderDTO;
 import com.itechart.food_delivery.exception.CreatingRestaurantOrderException;
 import com.itechart.food_delivery.exception.OrderCreatingException;
+import com.itechart.food_delivery.exception.OrderNotFoundException;
+import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.model.Order;
 import com.itechart.food_delivery.model.OrderAndFoodOrder;
 import com.itechart.food_delivery.repository.OrderAndFoodOrderRepository;
 import com.itechart.food_delivery.repository.OrderRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +20,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Validated
+@AllArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
     private final RestTemplate restTemplate;
@@ -33,7 +38,7 @@ public class OrderService {
 
         try {
             Order order = orderRepository.save(Order.builder()
-                    .customerId(orderDto.getCustomerId())
+                    .customer(Customer.builder().userId(orderDto.getCustomerId()).build())
                     .orderAddress(orderDto.getOrderAddress())
                     .orderStatus(orderDto.getOrderStatus())
                     .orderPrice(orderDto.getOrderPrice())
@@ -46,7 +51,7 @@ public class OrderService {
 
             createdOrderDTO = CreatedOrderDTO.builder()
                     .orderId(order.getId())
-                    .totalPrice(order.getOrderPrice())
+                    .totalPrice(order.getOrderPrice() + order.getShippingPrice())
                     .build();
 
             sendRestaurantOrders(orderDto, order);
@@ -91,5 +96,13 @@ public class OrderService {
 
             orderAndFoodOrderRepository.save(orderAndFoodOrder);
         }
+    }
+
+    public LocalDateTime getOrderTime(Long foodOrderId) {
+        Optional<OrderAndFoodOrder> orderAndFoodOrderOptional = orderAndFoodOrderRepository.findByFoodOrderId(foodOrderId);
+        if (orderAndFoodOrderOptional.isEmpty()) {
+            throw new OrderNotFoundException("Order not found");
+        }
+        return orderRepository.getById(orderAndFoodOrderOptional.get().getOrderId()).getDeliveryTime();
     }
 }
