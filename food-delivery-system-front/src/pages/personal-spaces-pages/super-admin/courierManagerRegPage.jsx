@@ -8,7 +8,6 @@ import Navbar from "../../../components/navbar";
 import Footer from "../../../components/footer"
 
 import "./formsInPersonalSpace.css"
-import * as authActions from "../../../redux/actions/authActions";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";
@@ -16,7 +15,7 @@ import {registerOrganization} from "../../../redux/actions/authActions";
 
 const CourierManagerRegPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [submitClicked, setSubmitClicked] = useState(false);
     const [stateOfAlert, setStateOfAlert] = useState(false);
@@ -66,9 +65,9 @@ const CourierManagerRegPage = () => {
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={(values) => {
-                if (!phone || (phone && isValidPhoneNumber(phone))) {
+                if (phone && isValidPhoneNumber(phone)) {
                     registerOrganization(values.organizationName, values.firstName, values.lastName, values.email, phone, values.password)(dispatch).then(() => {
-                        navigate('/admin');
+                        // navigate('/admin-space-link-from-another-ticket');
                     }).catch(() => {
                         setStateOfAlert(true);
                         setTimeout(() => {

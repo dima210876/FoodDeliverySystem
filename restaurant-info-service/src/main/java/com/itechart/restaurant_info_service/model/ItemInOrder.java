@@ -31,13 +31,13 @@ public class ItemInOrder {
     @JsonManagedReference
     private Item item;
 
+    @Column(name = "amount")
+    @NotNull(message = "Amount is required")
+    private Integer amount;
+
     @ManyToOne
     @JoinColumn(name="order_id")
     @NotNull(message = "Order is required")
     @JsonBackReference
     private FoodOrder order;
-
-    @Column(name = "amount")
-    @NotNull(message = "Amount is required")
-    private Integer amount;
 }

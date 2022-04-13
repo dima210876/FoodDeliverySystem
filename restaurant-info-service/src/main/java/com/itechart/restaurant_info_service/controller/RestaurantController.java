@@ -2,7 +2,6 @@ package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.*;
 import com.itechart.restaurant_info_service.exception.*;
-import com.itechart.restaurant_info_service.model.FoodOrder;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.service.*;
@@ -16,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -45,15 +42,14 @@ public class RestaurantController {
         return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
 
-    @PostMapping("/createOrder")
-    public ResponseEntity<FoodOrderDTO> addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
-        return ResponseEntity.ok().body(orderService.addOrder(foodOrderDTO));
+    @PostMapping("/newOrder")
+    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) {
+        orderService.addOrder(foodOrderDTO);
     }
 
-    @PostMapping("/setOrderStatusPaid/{orderId}")
-    public ResponseEntity<String> changeOrderStatus(@PathVariable Long orderId, @RequestBody String newStatus) throws ChangingStatusException {
-        orderService.changeOrderStatus(orderId, newStatus);
-        return new ResponseEntity<>("Status has changed", HttpStatus.OK);
+    @PostMapping("/changeOrderStatus")
+    public void changeOrderStatus(@RequestBody ChangeStatusDTO changeStatusDTO) throws ChangeOrderStatusException {
+        orderService.changeOrderStatus(changeStatusDTO);
     }
 
     @GetMapping("/getAllRestaurantOrders")
@@ -61,6 +57,15 @@ public class RestaurantController {
     public ResponseEntity<List<FoodOrder>> getAllRestaurantOrders() {
         Long restaurantId = 1L;
         return ResponseEntity.ok().body(orderService.getAllRestaurantOrders(restaurantId));
+    }
+
+    @PostMapping("/setOrderStatusPaid/{orderId}")
+    public ResponseEntity<String> changeOrderStatus(@PathVariable Long orderId, @RequestBody String newStatus) throws ChangingStatusException {
+        orderService.changeOrderStatus(orderId, newStatus);
+        return new ResponseEntity<>("Status has changed", HttpStatus.OK);
+    @GetMapping("/getAllOrders")
+    public ResponseEntity<List<FoodOrder>> getAllOrders() {
+        return ResponseEntity.ok().body(orderService.getAllOrders());
     }
 
     @PostMapping("/newFeedback")
