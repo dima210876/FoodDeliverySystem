@@ -4,6 +4,7 @@ import com.itechart.food_delivery.dto.CreatedOrderDTO;
 import com.itechart.food_delivery.dto.CustomerDTO;
 import com.itechart.food_delivery.dto.OrderAddressesDTO;
 import com.itechart.food_delivery.dto.OrderDto;
+import com.itechart.food_delivery.dto.StatisticsDTO;
 import com.itechart.food_delivery.dto.ReadyOrderDTO;
 import com.itechart.food_delivery.exception.*;
 import com.itechart.food_delivery.model.Customer;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.awt.*;
+import java.util.List;
+
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -57,6 +60,11 @@ public class FoodDeliveryController {
             throws OrderStatusChangeException, OrderNotFoundException {
         foodDeliveryService.changeOrderStatus(orderId, newStatus);
         return ResponseEntity.ok().body(foodDeliveryService.getOrder(orderId));
+    }
+
+    @PostMapping("/getRestaurantStatistics")
+    public ResponseEntity<StatisticsDTO> getRestaurantStatistics(@RequestBody List<Long> ordersIds) throws StatisticsException {
+        return ResponseEntity.ok().body(orderService.getRestaurantStatistics(ordersIds));
     }
 
     @GetMapping("/readyOrders")

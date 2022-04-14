@@ -100,4 +100,9 @@ public class RestaurantController {
     public ResponseEntity<RestaurantAddressesDTO> addOrder(@RequestBody List<Long> foodOrderIds) throws GettingInfoException {
         return ResponseEntity.ok().body(restaurantInfoService.getAddresses(foodOrderIds));
     }
+
+    @GetMapping("/getRestaurantStatistics")
+    public ResponseEntity<StatisticsDTO> getRestaurantStatistics(@RequestParam("id") Long restaurantId) throws StatisticsException {
+        return ResponseEntity.ok().body(orderService.getRestaurantStatistics(restaurantId));
+    }
 }

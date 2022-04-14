@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -68,12 +69,12 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
-    private Set<Item> items;
+    private List<Item> items;
 
     @OneToMany
     @JoinColumn(name = "restaurant_id")
     @JsonManagedReference
-    private Set<FoodOrder> foodOrders;
+    private List<FoodOrder> foodOrders;
 
     public Restaurant(Restaurant restaurant){
 

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Navbar from "../../../components/navbar";
 import './restaurantManagerPage.css';
 import {getRestaurantOrders} from "../../../redux/actions/orderActions"
+import {getStatisticsInfo} from "../../../redux/actions/statisticsActions";
 
 const RestaurantManagerPage = () => {
     const navigate = useNavigate();
@@ -13,6 +14,12 @@ const RestaurantManagerPage = () => {
     function navigateToOrders() {
         getRestaurantOrders(restaurantManagerData.restaurant.id)(dispatch).then(() => {
             navigate("/restaurant-manager/orders");
+        });
+    }
+
+    function navigateToStatistics() {
+        getStatisticsInfo(restaurantManagerData.restaurant.id)(dispatch).then(() => {
+            navigate("/restaurant-manager/statistics");
         });
     }
 
@@ -59,6 +66,9 @@ const RestaurantManagerPage = () => {
                     </div>
                     <div className='link-div-actions'>
                         <Link className='link' to='/restaurant-manager/orders' onClick={() => navigateToOrders()}><h5>RESTAURANT ORDERS</h5></Link>
+                    </div>
+                    <div className='link-div-actions'>
+                        <Link className='link' to='/restaurant-manager/statistics' onClick={() => navigateToStatistics()}><h5>RESTAURANT STATISTICS</h5></Link>
                     </div>
                 </div>
             </div>

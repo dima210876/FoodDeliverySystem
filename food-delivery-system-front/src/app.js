@@ -24,6 +24,7 @@ import {CourierPage} from "./pages/personal-spaces-pages/courier/courierPage";
 import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
 import OrdersListPage from "./pages/personal-spaces-pages/restaurant-manager/ordersListPage";
 import {CustomerPage} from "./pages/personal-spaces-pages/customer/customerPage";
+import RestaurantStatisticsPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantStatistics";
 import CourierOrderList from "./pages/personal-spaces-pages/courier/courierOrderList";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
                 <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
                 <Route path='/restaurant-manager/new-dish' element={<NewDishRegPage/>}/>
                 <Route path='/restaurant-manager/orders' element={<OrdersListPage/>}/>
+                <Route path='/restaurant-manager/statistics' element={<RestaurantStatisticsPage/>}/>
                 <Route path='/customer' element={<CustomerPage/>}/>
             </Routes>
         </>

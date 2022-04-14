@@ -42,6 +42,7 @@ const OrdersListPage = () => {
             return (
                 <tr>
                     <td>{restaurant.id}</td>
+                    <td>{restaurant.orderPrice}</td>
                     <td>
                         {restaurant.itemsInOrders.map(
                             (itemInOrder) => {
@@ -51,6 +52,7 @@ const OrdersListPage = () => {
                             })
                         }
                         </td>
+                    <td>{(restaurant.deliveryTime).replace("T", " ")}</td>
                     <td>{restaurant.restaurantStatus[0].toUpperCase() + restaurant.restaurantStatus.substring(1).toLowerCase()}</td>
                     <td>
                         <Button variant="secondary" onClick={() => {
@@ -68,13 +70,18 @@ const OrdersListPage = () => {
     return (
         <>
             <Navbar/>
-            <div className='box'>
+            <div className='box-table'>
+                <div className='title'>
+                    <h1>Restaurant order's</h1>
+                </div>
                 <Table striped bordered hover>
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Order price</th>
                         <th>Order items</th>
                         <th>Order status</th>
+                        <th>Delivery time</th>
                         <th></th>
                     </tr>
                     </thead>
