@@ -49,8 +49,10 @@ function OurSalesCard(props){
             <div className="bottom-row">
                 <div className="our-sales">
                     <div className="discount-block">
-                        <div className="old-price"><b>{(Number(props.price.toFixed(2)) + Number(props.price.toFixed(2) * props.discount.toFixed(2) * 0.01)).toFixed(2)}$</b></div>
-                        <div className="new-price"><b>{props.price.toFixed(2)}$</b></div>
+                        <div className="old-price"><b>{props.price.toFixed(2)}$</b></div>
+                        <div className="new-price"><b>{props.discount.toFixed(2)}$</b></div>
+                        {/*<div className="old-price"><b>{(Number(props.price.toFixed(2)) + Number(props.price.toFixed(2) * props.discount.toFixed(2) * 0.01)).toFixed(2)}$</b></div>*/}
+                        {/*<div className="new-price"><b>{props.price.toFixed(2)}$</b></div>*/}
                     </div>
                     <div className="price-block">
                         <span className="price-text">for 1 portion</span>
