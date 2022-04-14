@@ -83,7 +83,7 @@ const PaymentPage = () => {
                                             </div>
                                         </RadioGroup>
                                     </div>
-                                    <h5>Total price is {order.totalPrice}</h5>
+                                    <h5>Total price is {order.totalPrice}$</h5>
                                     {electronic && (
                                         <>
                                             <Form.Group className="p-4 pt-2" controlId="card-number">

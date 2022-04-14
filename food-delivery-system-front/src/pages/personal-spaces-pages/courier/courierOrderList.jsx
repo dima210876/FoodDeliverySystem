@@ -70,7 +70,14 @@ const CourierOrderList = () => {
                         </td>
                     </tr>
                 )
-            } else {
+            }
+        }
+    )
+
+
+    const OrderHistory = orders.map(
+        (order) => {
+            if (order.orderStatus.toUpperCase() !== 'DELIVERING') {
                 return (
                     <tr>
                         <td>{order.id}</td>
@@ -89,7 +96,6 @@ const CourierOrderList = () => {
                     </tr>
                 )
             }
-
         }
     )
 
@@ -109,6 +115,7 @@ const CourierOrderList = () => {
                     </thead>
                     <tbody>
                     {OrdersData}
+                    {OrderHistory}
                     </tbody>
                 </Table>
             </div>
