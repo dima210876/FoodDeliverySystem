@@ -25,7 +25,7 @@ public class FoodOrderDTO {
     private Integer amount;
 
     @NotNull(message = "Order status is required")
-    @Enumerated(EnumType.STRING)
+    // @Enumerated(EnumType.STRING)
     @NotNull(message = "Restaurant status is required")
-    private OrderStatus orderStatus;
+    private String orderStatus;
 }
