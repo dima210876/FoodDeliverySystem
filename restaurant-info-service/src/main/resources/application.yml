@@ -12,7 +12,7 @@ spring:
       name: food-delivery-dishes
   datasource:
     username: postgres #edit
-    password: mnr1209 #edit
+    password: myroot #edit
     url: jdbc:postgresql://localhost:5432/restaurant_info_service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
   jpa:
     hibernate:
@@ -27,7 +27,7 @@ spring:
     change-log: classpath:liquibase/db/changelog/db-changelog-master.xml
     url: jdbc:postgresql://localhost:5432/restaurant_info_service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     user: postgres #edit
-    password: mnr1209 #edit
+    password: myroot #edit
 
 eureka:
   client:

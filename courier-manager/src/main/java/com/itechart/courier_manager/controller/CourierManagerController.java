@@ -7,6 +7,7 @@ import com.itechart.courier_manager.exception.EditOrganizationException;
 import com.itechart.courier_manager.exception.GettingInfoException;
 import com.itechart.courier_manager.model.Courier;
 import com.itechart.courier_manager.model.CourierManager;
+import com.itechart.courier_manager.model.CourierOrder;
 import com.itechart.courier_manager.model.Organization;
 import com.itechart.courier_manager.service.CourierManagerService;
 import com.itechart.courier_manager.service.CourierOrderService;
@@ -18,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import java.net.URISyntaxException;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -62,5 +65,15 @@ public class CourierManagerController {
     @PostMapping("/changeOrderStatus")
     public void changeOrderStatus(@RequestBody ChangeStatusDTO changeStatusDTO) throws ChangeOrderStatusException {
         courierOrderService.changeOrderStatus(changeStatusDTO);
+    }
+
+    @GetMapping("/getUnoccupiedCouriers")
+    public ResponseEntity<List<Courier>> getUnoccupiedCouriers(@RequestParam("email") String email){
+        return ResponseEntity.ok().body(courierService.getUnoccupiedCouriers(email));
+    }
+
+    @PostMapping("/changeStatus")
+    public ResponseEntity<CourierOrder> changeStatus(@RequestBody AddingCourierOrderDTO courierOrderDto) throws URISyntaxException {
+        return ResponseEntity.ok().body(courierOrderService.addCourierOrder(courierOrderDto));
     }
 }

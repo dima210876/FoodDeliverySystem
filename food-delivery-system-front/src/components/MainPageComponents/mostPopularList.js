@@ -10,7 +10,7 @@ import "./mostPopularList.css"
                          {"title":"Rolls","price":11,"imageUrl":"/img/food.png"},
                          {"title":"Chocolate mues","price":9, "imageUrl":"/img/food.png"}];*/
 
-const endpointName = 'https://62265d432dfa524018038bde.mockapi.io/popularProducts';
+const endpointName = 'https://62573a3b4428bb6c082076b4.mockapi.io/api/popular';
 
 function MostPopularList(){
 

@@ -17,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +96,16 @@ public class OrderService {
 
             orderAndFoodOrderRepository.save(orderAndFoodOrder);
         }
+    }
+
+    @Transactional
+    public List<ReadyOrderDTO> getReadyOrders(){
+        return orderRepository.getAllReadyOrders();
+    }
+
+    public String changeOrderStatus(Long id){
+        orderRepository.changeOrderStatus(id);
+        return "Status changed...";
     }
 
     public LocalDateTime getOrderTime(Long foodOrderId) {

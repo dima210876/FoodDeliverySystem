@@ -48,7 +48,7 @@ public class OrderService {
 
         FoodOrder foodOrder = foodOrderRepository.save(FoodOrder.builder()
                 .restaurant(item.getRestaurant())
-                .restaurantStatus(foodOrderDTO.getOrderStatus().getStatus())
+                .restaurantStatus(foodOrderDTO.getOrderStatus())
                 .build());
 
         itemInOrderRepository.save(ItemInOrder.builder()

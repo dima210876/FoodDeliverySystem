@@ -34,7 +34,7 @@ const CourierPage = () => {
                                 <h6>Phone number: {courier.phoneNumber ? courier.phoneNumber : " – "} </h6>
                             </div>
                             <div className='link-div'>
-                                <Link className='link' to='/courier-manager/modify-courier-info'><h5>Modify</h5></Link>
+                                <Link className='link' to=''><h5>Modify</h5></Link>
                             </div>
                         </div>
                         <div className='delivery-organization-block'>

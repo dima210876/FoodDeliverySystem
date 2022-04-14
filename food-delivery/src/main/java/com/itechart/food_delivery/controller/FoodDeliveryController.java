@@ -4,6 +4,7 @@ import com.itechart.food_delivery.dto.CreatedOrderDTO;
 import com.itechart.food_delivery.dto.CustomerDTO;
 import com.itechart.food_delivery.dto.OrderAddressesDTO;
 import com.itechart.food_delivery.dto.OrderDto;
+import com.itechart.food_delivery.dto.ReadyOrderDTO;
 import com.itechart.food_delivery.exception.*;
 import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.model.Order;
@@ -13,9 +14,11 @@ import com.itechart.food_delivery.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
+import java.awt.*;
+import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 @AllArgsConstructor
 public class FoodDeliveryController {
@@ -26,6 +29,11 @@ public class FoodDeliveryController {
     @PostMapping("/registerCustomer")
     public ResponseEntity<Customer> registerCustomer(@RequestBody CustomerDTO customerDTO) throws CustomerRegistrationException {
         return ResponseEntity.ok().body(customerService.registerCustomer(customerDTO));
+    }
+
+    @GetMapping("/getCustomerInfo")
+    public ResponseEntity<Customer> getCustomerInfo(@RequestParam("id") Long customerId) throws GettingInfoException {
+        return ResponseEntity.ok().body(customerService.getCustomerInfo(customerId));
     }
 
     @PostMapping("/createOrder")
@@ -51,6 +59,16 @@ public class FoodDeliveryController {
         return ResponseEntity.ok().body(foodDeliveryService.getOrder(orderId));
     }
 
+    @GetMapping("/readyOrders")
+    public ResponseEntity<List<ReadyOrderDTO>> getReadyOrders(){
+        return ResponseEntity.ok().body(orderService.getReadyOrders());
+    }
+
+    @PostMapping("/changeOrderStatus")
+    public ResponseEntity<String> changeOrderStatus(@RequestBody Long id) {
+        return ResponseEntity.ok().body(orderService.changeOrderStatus(id));
+    }
+      
     @PostMapping("/changeFoodOrderStatus/{foodOrderId}")
     public void changeFoodOrderStatus(@PathVariable Long foodOrderId, @RequestBody String newStatus)
             throws OrderStatusChangeException, OrderNotFoundException {

@@ -40,7 +40,7 @@ function Navbar(){
                     <Link className="navbar-brand nav-link-style col" to="/">Main page</Link>
                 </div>
                 <div className="row">
-                    <Link className='navbar-brand nav-link-style col' to="/restaurant">Restaurant</Link>
+                    <Link className='navbar-brand nav-link-style col' to="">Restaurant</Link>
                 </div>
                 <div className="row">
                     <Link className="navbar-brand nav-link-style col" to="/order">Order</Link>
