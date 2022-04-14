@@ -79,7 +79,7 @@ public class FoodDeliveryService {
 //                }
 //                break;
             case COOKING:
-                if (potentialStatus != OrderStatus.READY) {
+                if (potentialStatus != OrderStatus.READY && potentialStatus != OrderStatus.COOKING ) {
                     throw new OrderStatusChangeException("Wrong order status.");
                 }
                 break;
@@ -145,8 +145,12 @@ public class FoodDeliveryService {
 
             boolean key = true;
 
+            if(potentialStatus == OrderStatus.COOKING){
+                changeOrderStatus(orderAndFoodOrder.getOrderId(), "COOKING");
+            }
+
             for (OrderAndFoodOrder order : orders) {
-                if (!order.getFoodOrderStatus().toUpperCase().equals(OrderStatus.COOKING.toString().toUpperCase())) {
+                if (!order.getFoodOrderStatus().toUpperCase().equals(OrderStatus.READY.toString().toUpperCase())) {
                     key = false;
                     break;
                 }

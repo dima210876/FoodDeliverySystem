@@ -99,9 +99,8 @@ public class OrderService {
         foodOrder.setRestaurantStatus(changeStatusDTO.getRestaurantStatus().toString());
         foodOrderRepository.save(foodOrder);
 
-        final String POST_CHANGE_ORDER_STATUS_URL = "http://FOOD-DELIVERY/changeOrderStatus/" + foodOrder;
+        final String POST_CHANGE_ORDER_STATUS_URL = "http://FOOD-DELIVERY/changeFoodOrderStatus/" + foodOrder.getId();
 
-        //here always 400 bad request
         ResponseEntity<String> response = restTemplate
                 .postForEntity(POST_CHANGE_ORDER_STATUS_URL,changeStatusDTO.getRestaurantStatus().getStatus(),
                         String.class);

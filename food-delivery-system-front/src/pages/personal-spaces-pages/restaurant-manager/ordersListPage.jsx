@@ -31,6 +31,8 @@ const OrdersListPage = () => {
             getRestaurantOrders(restaurantId)(dispatch).then(() => {
                 navigate("/restaurant-manager/orders");
                 handleClose();
+            }).catch((error) => {
+                handleClose();
             });
         });
     }
