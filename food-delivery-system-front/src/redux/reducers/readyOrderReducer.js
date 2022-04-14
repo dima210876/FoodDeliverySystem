@@ -5,7 +5,8 @@ const initialState = {
     lastName: '',
     orderAddress: '',
     orderPrice: 0,
-    id: 0
+    id: 0,
+    phoneNumber: ''
 };
 
 export function ReadyOrderReducer(state = initialState, action) {
@@ -18,7 +19,8 @@ export function ReadyOrderReducer(state = initialState, action) {
                 lastName: action.payload.lastName,
                 orderAddress: action.payload.orderAddress,
                 orderPrice: action.payload.orderPrice,
-                id: action.payload.id
+                id: action.payload.id,
+                phoneNumber: action.payload.phoneNumber
             };
 
         default:

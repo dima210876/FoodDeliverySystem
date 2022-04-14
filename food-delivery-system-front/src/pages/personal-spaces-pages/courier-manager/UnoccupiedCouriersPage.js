@@ -16,7 +16,7 @@ const UnoccupiedCouriersPage = () => {
     const email = useSelector(state => state.auth.authData.user.email);
     const navigate = useNavigate();
     const [stateOfAlert, setStateOfAlert] = useState(false);
-    const orderId = useSelector(state => state.readyOrder.id);
+    const readyOrder= useSelector(state => state.readyOrder);
 
     function getCourierList(couriers){
         let unoccupiedCourierList = [];
@@ -54,7 +54,7 @@ const UnoccupiedCouriersPage = () => {
     }, [])
 
     const chooseCourier = (obj) => {
-        axios.post(endpointNameForPost,{orderId:orderId,
+        axios.post(endpointNameForPost,{orderId:readyOrder.id,
         userId: obj.userId})
             .then(function (response) {
                 navigate("/courier-manager");
@@ -74,6 +74,10 @@ const UnoccupiedCouriersPage = () => {
                 <div className='courier-title-'>
                     <h1>Unoccupied couriers</h1>
                 </div>
+                <div><h5>Customer: {readyOrder.firstName} {readyOrder.lastName}</h5></div>
+                <div><h5>Phone number: {readyOrder.phoneNumber}</h5></div>
+                <div><h5>Delivery address: {readyOrder.orderAddress}</h5></div>
+                <div><h5>Price: {readyOrder.orderPrice}$</h5></div>
                 <div className="courier-first-row">
                     <div className="courier-element"><b>First name</b></div>
                     <div className="courier-element"><b>Last name</b></div>

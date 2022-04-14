@@ -40,12 +40,16 @@ const ReadyOrdersPage = () => {
     }, [])
 
     const openUnoccupiedCouriersPage = (props) => {
-        dispatch({type: CHOOSE_ORDER, payload:
-                {firstName: props.customer.firstName,
-                lastName: props.customer.lastName,
-                orderAddress: props.orderAddress,
-                orderPrice: props.orderPrice,
-                id: props.id}
+        dispatch({
+            type: CHOOSE_ORDER, payload:
+                {
+                    firstName: props.customer.firstName,
+                    lastName: props.customer.lastName,
+                    orderAddress: props.orderAddress,
+                    orderPrice: props.orderPrice,
+                    id: props.id,
+                    phoneNumber: props.customer.phoneNumber
+                }
         })
         navigate('/courier-manager/unoccupied-couriers');
     }
@@ -60,6 +64,7 @@ const ReadyOrdersPage = () => {
                 <div className="order-first-row">
                     <div className="order-element"><b>First name</b></div>
                     <div className="order-element"><b>Last name</b></div>
+                    <div className="order-element"><b>Phone number</b></div>
                     <div className="order-element"><b>Order price</b></div>
                     <div className="order-element"><b>Order address</b></div>
                 </div>
@@ -68,6 +73,7 @@ const ReadyOrdersPage = () => {
                     <div className="order-row" onClick={() => openUnoccupiedCouriersPage(obj)}>
                         <div className="order-element">{obj.customer.firstName}</div>
                         <div className="order-element">{obj.customer.lastName}</div>
+                        <div className="order-element">{obj.customer.phoneNumber}</div>
                         <div className="order-element">{obj.orderPrice}$</div>
                         <div className="order-element">{obj.orderAddress}</div>
                     </div>
