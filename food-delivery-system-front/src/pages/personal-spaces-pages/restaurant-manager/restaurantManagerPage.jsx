@@ -11,7 +11,7 @@ const RestaurantManagerPage = () => {
     const dispatch = useDispatch();
 
     function navigateToOrders() {
-        getRestaurantOrders(restaurantManagerData.restaurant.restaurantId)(dispatch).then(() => {
+        getRestaurantOrders(restaurantManagerData.restaurant.id)(dispatch).then(() => {
             navigate("/restaurant-manager/orders");
         });
     }

@@ -10,8 +10,7 @@ const OrdersListPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const orders = useSelector(state => state.userData.restaurantOrders);
-    const restaurantId = useSelector(state => state.userData.restaurantManagerData.restaurant.restaurantId);
-
+    const restaurantId = useSelector(state => state.userData.restaurantManagerData.restaurant.id);
     const [showModal, setShowModal] = useState(false);
 
     const [idOrder, setIdOrder] = useState('');
