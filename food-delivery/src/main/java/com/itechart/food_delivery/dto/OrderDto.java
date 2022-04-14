@@ -25,7 +25,7 @@ public class OrderDto {
 //    private Customer customer;
 
     @NotNull(message = "Customer ID is required")
-    @Min(value = 1L, message = "Customer ID min limit exceeded")
+    @Min(value = 0L, message = "Customer ID min limit exceeded")
     @Max(value = Long.MAX_VALUE, message = "Customer ID max limit exceeded")
     private Long customerId;
 

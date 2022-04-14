@@ -6,7 +6,7 @@ class orderConfirmationService {
     confirmOrderDetails(userId, items, address, latitude, longitude, totalPrice, shippingPrice) {
         return axios
             .post(API_URL + "8080/createOrder", {
-                customerId: userId,
+                customerId: userId? userId : 0,
                 orderAddress: address,
                 orderStatus: "not_paid",
                 orderPrice: totalPrice,
