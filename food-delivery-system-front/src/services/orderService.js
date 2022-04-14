@@ -5,7 +5,7 @@ class orderService {
         console.log("g");
         restaurantId = 1;
         return axios
-            .get(API_URL + "8083/getAllOrders", {
+            .get(API_URL + "8083/getAllRestaurantOrders", {
                 params: {
                     id: restaurantId
                 }
