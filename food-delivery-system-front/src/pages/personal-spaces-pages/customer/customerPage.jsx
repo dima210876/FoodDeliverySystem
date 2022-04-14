@@ -26,7 +26,7 @@ const CustomerPage = () => {
                                 <h6>Phone number: {customer.phoneNumber ? customer.phoneNumber : " – "} </h6>
                             </div>
                             <div className='link-div'>
-                                <Link className='link' to='/courier-manager/modify-courier-info'><h5>Modify</h5></Link>
+                                <Link className='link' to=''><h5>Modify</h5></Link>
                             </div>
                         </div>
                     </div>

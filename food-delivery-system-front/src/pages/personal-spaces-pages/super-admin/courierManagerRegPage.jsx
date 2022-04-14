@@ -8,7 +8,6 @@ import Navbar from "../../../components/navbar";
 import Footer from "../../../components/footer"
 
 import "./formsInPersonalSpace.css"
-import * as authActions from "../../../redux/actions/authActions";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {isValidPhoneNumber} from "react-phone-number-input";

@@ -60,13 +60,14 @@ public class Item {
     @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull(message = "Restaurant is required")
     @JsonBackReference
-    private Restaurant restaurant;
+    private Restaurant restaurant;   
 
     @OneToMany(mappedBy = "item")
-    @JsonManagedReference
-    private List<IngredientInItem> ingredientsInItems;
+    //@JsonManagedReference
+    @JsonBackReference
+    private Set<IngredientInItem> ingredientsInItems;
 
     @OneToMany(mappedBy = "item")
-    @JsonManagedReference
+    @JsonBackReference
     private List<ItemInOrder> itemsInOrders;
 }

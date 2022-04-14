@@ -22,7 +22,7 @@ public class OrderDto {
     private Long courierId;
 
     @NotNull(message = "Customer ID is required")
-    @Min(value = 1L, message = "Customer ID min limit exceeded")
+    @Min(value = 0L, message = "Customer ID min limit exceeded")
     @Max(value = Long.MAX_VALUE, message = "Customer ID max limit exceeded")
     private Long customerId;
 
@@ -43,7 +43,7 @@ public class OrderDto {
     private Double shippingPrice;
 
     @NotNull(message = "Discount is required")
-    @Min(value = 1L, message = "Discount min limit exceeded")
+    @Min(value = 0L, message = "Discount min limit exceeded")
     @Max(value = 100L, message = "Discount max limit exceeded")
     private Integer discount;
 

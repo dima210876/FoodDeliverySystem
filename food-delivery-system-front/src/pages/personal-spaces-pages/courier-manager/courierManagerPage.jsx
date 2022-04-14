@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 
 const CourierManagerPage = () => {
     const deliveryOrgManager = useSelector(state => state.userData.deliveryOrgManagerData);
+
     return(
         <>
         <Navbar />
@@ -26,7 +27,7 @@ const CourierManagerPage = () => {
                             <h6>Phone number: {deliveryOrgManager.phoneNumber ? deliveryOrgManager.phoneNumber : " – "} </h6>
                         </div>
                         <div className='link-div'>
-                            <Link className='link' to='/courier-manager/modify-courier-manager-info'><h5>Modify</h5></Link>
+                            <Link className='link' to=''><h5>Modify</h5></Link>
                         </div>
                     </div>
                     <div className='delivery-organization-block'>
@@ -45,6 +46,9 @@ const CourierManagerPage = () => {
                 <div className='actions'>
                     <div className='link-div'>
                         <Link className='link' to='/courier-manager/courier-registration'><h5>NEW COURIER REGISTRATION</h5></Link>
+                    </div>
+                    <div className='link-div'>
+                        <Link className='link' to='/courier-manager/ready-orders'><h5>SHOW READY ORDERS</h5></Link>
                     </div>
                 </div>
             </div>

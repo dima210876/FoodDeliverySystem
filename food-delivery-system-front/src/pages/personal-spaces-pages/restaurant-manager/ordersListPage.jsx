@@ -10,8 +10,7 @@ const OrdersListPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const orders = useSelector(state => state.userData.restaurantOrders);
-    const restaurantId = useSelector(state => state.userData.restaurantManagerData.restaurant.restaurantId);
-
+    const restaurantId = useSelector(state => state.userData.restaurantManagerData.restaurant.id);
     const [showModal, setShowModal] = useState(false);
 
     const [idOrder, setIdOrder] = useState('');
@@ -31,6 +30,8 @@ const OrdersListPage = () => {
         changeOrderStatus(idOrder, newStatus)(dispatch).then(() => {
             getRestaurantOrders(restaurantId)(dispatch).then(() => {
                 navigate("/restaurant-manager/orders");
+                handleClose();
+            }).catch((error) => {
                 handleClose();
             });
         });

@@ -1,10 +1,18 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import '../courier-manager/courierManagerPage.css';
 import Navbar from "../../../components/navbar";
-import {useSelector} from "react-redux";
-
+import {useDispatch, useSelector} from "react-redux";
+import {getCourierOrders} from "../../../redux/actions/orderActions";
 const CourierPage = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const courier = useSelector(state => state.userData.courierData);
+
+    function navigateToOrders() {
+        getCourierOrders(courier.userId)(dispatch).then(() => {
+            navigate("/courier/orders");
+        });
+    }
     return(
         <>
             <Navbar />
@@ -26,7 +34,7 @@ const CourierPage = () => {
                                 <h6>Phone number: {courier.phoneNumber ? courier.phoneNumber : " – "} </h6>
                             </div>
                             <div className='link-div'>
-                                <Link className='link' to='/courier-manager/modify-courier-info'><h5>Modify</h5></Link>
+                                <Link className='link' to=''><h5>Modify</h5></Link>
                             </div>
                         </div>
                         <div className='delivery-organization-block'>
@@ -41,7 +49,7 @@ const CourierPage = () => {
                     </div>
                     <div className='actions'>
                         <div className='link-div'>
-                            <Link className='link' to='/courier'><h5>ORDER INFO</h5></Link>
+                            <Link className='link' to='/courier/orders' onClick={() => navigateToOrders()}><h5>ORDER INFO</h5></Link>
                         </div>
                     </div>
                 </div>

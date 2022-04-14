@@ -14,15 +14,18 @@ import { getRestaurantManagerInfo, getCourierManagerInfo, getCustomerInfo, getCo
 import {ProductPage} from "./pages/productPage";
 import CourierManagerRegPage from "./pages/personal-spaces-pages/super-admin/courierManagerRegPage";
 import {ModifyOrganizationInfoPage} from "./pages/personal-spaces-pages/courier-manager/modifyOrganizationInfoPage";
+import {ReadyOrdersPage} from "./pages/personal-spaces-pages/courier-manager/readyOrdersPage";
 import RestaurantManagerPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantManagerPage";
 import ModifyRestaurantInfoPage from "./pages/personal-spaces-pages/restaurant-manager/modifyRestaurantInfoPage";
 import OrderConfirmationPage from "./pages/order-pages/orderConfirmationPage";
 import PaymentPage from "./pages/order-pages/paymentPage";
+import {UnoccupiedCouriersPage} from "./pages/personal-spaces-pages/courier-manager/UnoccupiedCouriersPage";
 import {CourierPage} from "./pages/personal-spaces-pages/courier/courierPage";
 import NewDishRegPage from "./pages/personal-spaces-pages/restaurant-manager/newDishRegPage";
 import OrdersListPage from "./pages/personal-spaces-pages/restaurant-manager/ordersListPage";
 import {CustomerPage} from "./pages/personal-spaces-pages/customer/customerPage";
 import RestaurantStatisticsPage from "./pages/personal-spaces-pages/restaurant-manager/restaurantStatistics";
+import CourierOrderList from "./pages/personal-spaces-pages/courier/courierOrderList";
 
 function App() {
     const navigate = useNavigate();
@@ -44,9 +47,12 @@ function App() {
                 <Route path='/admin/restaurant-registration' element={<RestaurantManagerRegPage/>}/>
                 <Route path='/admin/delivery-registration' element={<CourierManagerRegPage/>}/>
                 <Route path='/courier' element={<CourierPage/>}/>
+                <Route path='/courier/orders' element={<CourierOrderList/>}/>
                 <Route path='/courier-manager' element={<CourierManagerPage/>}/>
                 <Route path='/courier-manager/courier-registration' element={<CourierRegPage/>}/>
                 <Route path='/courier-manager/modify-organization-info' element={<ModifyOrganizationInfoPage/>}/>
+                <Route path='/courier-manager/ready-orders' element={<ReadyOrdersPage/>}/>
+                <Route path='/courier-manager/unoccupied-couriers' element={<UnoccupiedCouriersPage/>}/>
                 <Route path='/restaurant-manager' element={<RestaurantManagerPage/>}/>
                 <Route path='/restaurant-manager/modify-restaurant-info' element={<ModifyRestaurantInfoPage/>}/>
                 <Route path='/restaurant-manager/new-dish' element={<NewDishRegPage/>}/>

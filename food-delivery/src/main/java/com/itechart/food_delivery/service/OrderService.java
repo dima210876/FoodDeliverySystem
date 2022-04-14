@@ -4,11 +4,14 @@ import com.itechart.food_delivery.dto.*;
 import com.itechart.food_delivery.exception.CreatingRestaurantOrderException;
 import com.itechart.food_delivery.exception.OrderCreatingException;
 import com.itechart.food_delivery.exception.StatisticsException;
+import com.itechart.food_delivery.exception.OrderNotFoundException;
+import com.itechart.food_delivery.model.Customer;
 import com.itechart.food_delivery.model.Order;
 import com.itechart.food_delivery.model.OrderAndFoodOrder;
 import com.itechart.food_delivery.repository.OrderAndFoodOrderRepository;
 import com.itechart.food_delivery.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,12 +28,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-
 import static java.time.temporal.ChronoUnit.DAYS;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Service
-@RequiredArgsConstructor
 @Validated
+@AllArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
     private final RestTemplate restTemplate;
@@ -42,7 +46,7 @@ public class OrderService {
 
         try {
             Order order = orderRepository.save(Order.builder()
-                    .customer(orderDto.getCustomer())
+                    .customer(Customer.builder().userId(orderDto.getCustomerId()).build())
                     .orderAddress(orderDto.getOrderAddress())
                     .orderStatus(orderDto.getOrderStatus())
                     .orderPrice(orderDto.getOrderPrice())
@@ -55,7 +59,7 @@ public class OrderService {
 
             createdOrderDTO = CreatedOrderDTO.builder()
                     .orderId(order.getId())
-                    .totalPrice(order.getOrderPrice())
+                    .totalPrice(order.getOrderPrice() + order.getShippingPrice())
                     .build();
 
             sendRestaurantOrders(orderDto, order);
@@ -69,12 +73,12 @@ public class OrderService {
     @Transactional
     public void sendRestaurantOrders(OrderDto orderDto, Order order) throws CreatingRestaurantOrderException {
         final String POST_FOR_CREATE_RESTAURANT_ORDER = "http://RESTAURANT-INFO-SERVICE/createOrder/";
-        Long i = 1L;
+        //Long i = 1L;
         for (ItemDTO itemDTO : orderDto.getItems()) {
 
             //delete this when in dto will be correct id
-            itemDTO.setId(i);
-            i++;
+            //itemDTO.setId(i);
+            //i++;
 
             RestaurantOrderDTO restaurantOrderDTO = RestaurantOrderDTO.builder()
                     .itemId(itemDTO.getId())
@@ -148,5 +152,62 @@ public class OrderService {
         statisticsDTO.setOrdersNumberPerDay(ordersPerDay);
 
         return statisticsDTO;
+    }
+  
+    @Transactional
+    public List<ReadyOrderDTO> getReadyOrders(){
+        return orderRepository.getAllReadyOrders();
+    }
+
+    public String changeOrderStatus(Long id){
+        orderRepository.changeOrderStatus(id);
+        return "Status changed...";
+    }
+
+    public LocalDateTime getOrderTime(Long foodOrderId) {
+        Optional<OrderAndFoodOrder> orderAndFoodOrderOptional = orderAndFoodOrderRepository.findByFoodOrderId(foodOrderId);
+        if (orderAndFoodOrderOptional.isEmpty()) {
+            throw new OrderNotFoundException("Order not found");
+        }
+        return orderRepository.getById(orderAndFoodOrderOptional.get().getOrderId()).getDeliveryTime();
+    }
+
+    public OrderAddressesDTO getOrderAddresses(Long orderId){
+        final String POST_FOR_RESTAURANT_ADDRESSES = "http://RESTAURANT-INFO-SERVICE/getRestaurantAddresses/";
+
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+
+        if(orderOptional.isEmpty()){
+            throw new OrderNotFoundException("Order not found");
+        }
+
+        Order order = orderOptional.get();
+
+        List<OrderAndFoodOrder> foodOrders = orderAndFoodOrderRepository.findAllByOrderId(orderId);
+        List<Long> foodOrderIds = getFoodOrderIds(foodOrders);
+
+        ResponseEntity<RestaurantAddressesDTO> response = restTemplate.postForEntity(POST_FOR_RESTAURANT_ADDRESSES,
+                foodOrderIds, RestaurantAddressesDTO.class);
+
+        if(!response.getStatusCode().is2xxSuccessful()){
+            throw new OrderNotFoundException("Couldn'd find restaurant address");
+        }
+
+        RestaurantAddressesDTO restaurantAddressesDTO = response.getBody();
+
+        return OrderAddressesDTO.builder()
+                .deliveryAddress(order.getOrderAddress())
+                .restaurantAddresses(restaurantAddressesDTO.getAddresses())
+                .build();
+    }
+
+    private List<Long> getFoodOrderIds(List<OrderAndFoodOrder> orders){
+        List<Long> ids = new ArrayList<>();
+
+        for(OrderAndFoodOrder order: orders){
+            ids.add(order.getFoodOrderId());
+        }
+
+        return ids;
     }
 }

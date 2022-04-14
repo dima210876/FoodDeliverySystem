@@ -2,11 +2,11 @@ package com.itechart.restaurant_info_service.controller;
 
 import com.itechart.restaurant_info_service.dto.*;
 import com.itechart.restaurant_info_service.exception.*;
+import com.itechart.restaurant_info_service.model.FoodOrder;
 import com.itechart.restaurant_info_service.model.Manager;
 import com.itechart.restaurant_info_service.model.Restaurant;
 import com.itechart.restaurant_info_service.service.*;
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
@@ -26,6 +28,7 @@ public class RestaurantController {
     private final ManagerService managerService;
     private final ItemService itemService;
     private final AwsService awsService;
+    private final RestaurantInfoService restaurantInfoService;
 
     @PostMapping("/registerManager")
     public ResponseEntity<Manager> registerManager(@RequestBody ManagerRegistrationInfoDTO managerRegistrationInfoDTO) throws ManagerRegistrationException {
@@ -42,14 +45,29 @@ public class RestaurantController {
         return ResponseEntity.ok().body(managerService.getManagerInfo(managerId));
     }
 
+//    @PostMapping("/newOrder")
+//    public void addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
+//        orderService.addOrder(foodOrderDTO);
+//    }
+
     @PostMapping("/createOrder")
     public ResponseEntity<FoodOrderDTO> addOrder(@RequestBody FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
         return ResponseEntity.ok().body(orderService.addOrder(foodOrderDTO));
     }
 
-    @PostMapping("/changeOrderStatus/{orderId}")
+    @PostMapping("/changeOrderStatus")
+    public void changeOrderStatus(@RequestBody ChangeStatusDTO changeStatusDTO) throws ChangeOrderStatusException {
+        orderService.changeOrderStatus(changeStatusDTO);
+    }
+
+    @GetMapping("/getAllRestaurantOrders")
+    public ResponseEntity<List<FoodOrder>> getAllRestaurantOrders(@RequestParam("id") Long restaurantId) {
+        return ResponseEntity.ok().body(orderService.getAllRestaurantOrders(restaurantId));
+    }
+
+    @PostMapping("/setOrderStatusPaid/{orderId}")
     public ResponseEntity<String> changeOrderStatus(@PathVariable Long orderId, @RequestBody String newStatus) throws ChangingStatusException {
-        orderService.changeOrderStatus(orderId, newStatus);
+        orderService.setOrderStatusPaid(orderId, newStatus);
         return new ResponseEntity<>("Status has changed", HttpStatus.OK);
     }
 
@@ -69,14 +87,18 @@ public class RestaurantController {
     }
 
     @PostMapping(value = "/newItem")
-    public ResponseEntity<Long> addItem(@RequestBody NewItemDTO newItemDTO){
+    public ResponseEntity<Long> addItem(@RequestBody NewItemDTO newItemDTO) {
         return ResponseEntity.ok().body(itemService.addItem(newItemDTO));
-
     }
 
-    @PostMapping(value = "/addImage",  headers = "content-type=multipart/*")
-    public void addImage(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "id") Long id){
-        itemService.addImage(image, id);   
+    @PostMapping(value = "/addImage", headers = "content-type=multipart/*")
+    public void addImage(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "id") Long id) {
+        itemService.addImage(image, id);
+    }
+
+    @PostMapping("/getRestaurantAddresses")
+    public ResponseEntity<RestaurantAddressesDTO> addOrder(@RequestBody List<Long> foodOrderIds) throws GettingInfoException {
+        return ResponseEntity.ok().body(restaurantInfoService.getAddresses(foodOrderIds));
     }
 
     @GetMapping("/getRestaurantStatistics")

@@ -44,7 +44,7 @@ const RestaurantManagerPage = () => {
                             <h6>Phone number: {restaurantManagerData.phoneNumber ? restaurantManagerData.phoneNumber : " – "} </h6>
                         </div>
                         <div className='link-div'>
-                            <Link className='link' to='/restaurant-manager/modify-restaurant-manager-info'><h5>Modify</h5></Link>
+                            <Link className='link' to=''><h5>Modify</h5></Link>
                         </div>
                     </div>
                     <div className='restaurant-block'>

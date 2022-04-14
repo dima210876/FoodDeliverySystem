@@ -1,15 +1,16 @@
 package com.itechart.restaurant_info_service.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -19,21 +20,22 @@ public class ItemInOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     @ManyToOne
     @JoinColumn(name="item_id")
     @NotNull(message = "Item is required")
-    @JsonBackReference
+    @JsonManagedReference
     private Item item;
+
+    @Column(name = "amount")
+    @NotNull(message = "Amount is required")
+    private Integer amount;
 
     @ManyToOne
     @JoinColumn(name="order_id")
     @NotNull(message = "Order is required")
     @JsonBackReference
     private FoodOrder order;
-
-    @Column(name = "amount")
-    @NotNull(message = "Amount is required")
-    private Integer amount;
 }
