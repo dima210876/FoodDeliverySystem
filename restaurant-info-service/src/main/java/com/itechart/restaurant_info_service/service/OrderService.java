@@ -2,21 +2,24 @@ package com.itechart.restaurant_info_service.service;
 
 import com.itechart.restaurant_info_service.dto.FoodOrderDTO;
 import com.itechart.restaurant_info_service.dto.ItemInOrderDTO;
+import com.itechart.restaurant_info_service.dto.StatisticsDTO;
 import com.itechart.restaurant_info_service.exception.ChangingStatusException;
 import com.itechart.restaurant_info_service.exception.ItemNotFoundException;
+import com.itechart.restaurant_info_service.exception.StatisticsException;
 import com.itechart.restaurant_info_service.model.*;
 import com.itechart.restaurant_info_service.repository.FoodOrderRepository;
 import com.itechart.restaurant_info_service.repository.ItemInOrderRepository;
 import com.itechart.restaurant_info_service.repository.ItemRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +28,7 @@ public class OrderService {
     private final FoodOrderRepository foodOrderRepository;
     private final ItemInOrderRepository itemInOrderRepository;
     private final ItemRepository itemRepository;
+    private final RestTemplate restTemplate;
 
     @Transactional
     public FoodOrderDTO addOrder(@Valid FoodOrderDTO foodOrderDTO) throws ItemNotFoundException {
@@ -91,5 +95,24 @@ public class OrderService {
         } catch (Throwable ex){
             throw new ChangingStatusException("Couldn't change order status.");
         }
+    }
+
+    public StatisticsDTO getRestaurantStatistics(Long restaurantId) throws StatisticsException {
+        final String POST_FOR_GET_STATISTICS_BY_ID = "http://FOOD-DELIVERY/getRestaurantStatistics/";
+
+        List<Long> foodOrdersIds = new ArrayList<>();
+        List<FoodOrder> restaurantFoodOrders = foodOrderRepository.findAllByRestaurantId(restaurantId);
+        for (FoodOrder foodOrder: restaurantFoodOrders) {
+            foodOrdersIds.add(foodOrder.getId());
+        }
+        ResponseEntity<StatisticsDTO> response = restTemplate
+                .postForEntity(POST_FOR_GET_STATISTICS_BY_ID, foodOrdersIds, StatisticsDTO.class);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new StatisticsException("couldn't get info from food delivery service");
+        }
+
+        StatisticsDTO statisticsDTO = response.getBody();
+        return statisticsDTO;
     }
 }

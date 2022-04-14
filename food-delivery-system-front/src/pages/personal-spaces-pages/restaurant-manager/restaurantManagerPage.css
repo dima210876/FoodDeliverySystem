@@ -11,7 +11,7 @@
     box-shadow: 0 6px 4px -4px rgba(0, 0, 0, .2);
 }
 
-.box{
+.box, .box-table{
     padding: 20px;
     margin-top: 150px;
     margin-bottom: 50px;
@@ -23,6 +23,9 @@
     display: flex;
 }
 
+.box-table {
+    display: block;
+}
 .actions{
     margin-bottom: auto;
     margin-top: auto;
@@ -96,4 +99,12 @@ h4 {
 
 td, tr {
     text-align: center;
+}
+
+Table {
+    margin-top: 20px;
+}
+
+.chart {
+    margin-top: 40px;
 }

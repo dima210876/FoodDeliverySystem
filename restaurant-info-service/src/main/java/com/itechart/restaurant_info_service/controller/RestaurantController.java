@@ -78,4 +78,9 @@ public class RestaurantController {
     public void addImage(@RequestParam(value = "image") MultipartFile image, @RequestParam(value = "id") Long id){
         itemService.addImage(image, id);   
     }
+
+    @GetMapping("/getRestaurantStatistics")
+    public ResponseEntity<StatisticsDTO> getRestaurantStatistics(@RequestParam("id") Long restaurantId) throws StatisticsException {
+        return ResponseEntity.ok().body(orderService.getRestaurantStatistics(restaurantId));
+    }
 }

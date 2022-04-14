@@ -24,6 +24,11 @@ public class RestaurantServiceExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(StatisticsException.class)
+    public ResponseEntity<String> statisticsException(StatisticsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(GettingInfoException.class)
     public ResponseEntity<String> getInfoException(GettingInfoException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
