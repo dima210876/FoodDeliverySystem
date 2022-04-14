@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="2" author="dima210876">
+        <createTable tableName="orders">
+            <column name="id" type="bigserial" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_orders_id" nullable="false"/>
+            </column>
+            <column name="courier_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_status" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_address" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_price" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shipping_price" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_time" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="latitude" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="decimal">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="customer_id"
+                baseTableName="orders"
+                constraintName="fk_orders_customer_id"
+                referencedColumnNames="user_id"
+                referencedTableName="customers"/>
+    </changeSet>
+</databaseChangeLog>

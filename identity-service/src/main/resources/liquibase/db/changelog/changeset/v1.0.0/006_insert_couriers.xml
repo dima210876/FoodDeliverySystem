@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="6" author="dima210876">
+        <insert tableName="users">
+            <column name="email" value="foodDeliveryCourier@gmail.com"/>
+            <!-- password before encode: qwerty12345QWERTY -->
+            <column name="password" value="$2a$10$5GQdgojSqst72pDXt2/6Ueqo.m62.sJ.R9Yzbrf8V2Tj5ICfzK83q"/>
+            <column name="first_name" value="Jacob"/>
+            <column name="last_name" value="Adamson"/>
+            <column name="role" value="ROLE_COURIER"/>
+            <column name="expiration_date" value="2050-01-01 00:00:00"/>
+            <column name="account_non_locked" value="true"/>
+            <column name="credentials_non_expired" value="true"/>
+            <column name="enabled" value="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="email" value="foodDeliveryCustomer1@gmail.com"/>
+            <!-- password before encode: qwerty12345QWERTY -->
+            <column name="password" value="$2a$12$6stN4rqoYStwOnZ6dLIyGOvitfhKJ5XN971UDCAuF/7K8P6N2vRoa"/>
+            <column name="first_name" value="Bella"/>
+            <column name="last_name" value="Harrison"/>
+            <column name="role" value="ROLE_COURIER"/>
+            <column name="expiration_date" value="2050-01-01 00:00:00"/>
+            <column name="account_non_locked" value="true"/>
+            <column name="credentials_non_expired" value="true"/>
+            <column name="enabled" value="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="email" value="foodDeliveryCustomer2@gmail.com"/>
+            <!-- password before encode: qwerty12345QWERTY -->
+            <column name="password" value="$2a$12$dRPgXj8MzOmNoYYsLQdJs.WUft4i9tTww30X3Xt2/wqDmQZrkV/Zq"/>
+            <column name="first_name" value="Benjamin"/>
+            <column name="last_name" value="Foster"/>
+            <column name="role" value="ROLE_COURIER"/>
+            <column name="expiration_date" value="2050-01-01 00:00:00"/>
+            <column name="account_non_locked" value="true"/>
+            <column name="credentials_non_expired" value="true"/>
+            <column name="enabled" value="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="email" value="foodDeliveryCustomer3@gmail.com"/>
+            <!-- password before encode: qwerty12345QWERTY -->
+            <column name="password" value="$2a$12$PmURzxHbMyknw4WC09LG0O05hNDkNfbgdagHHLS49WdKKBCNMq9ZG"/>
+            <column name="first_name" value="Daniel"/>
+            <column name="last_name" value="Martinez"/>
+            <column name="role" value="ROLE_COURIER"/>
+            <column name="expiration_date" value="2050-01-01 00:00:00"/>
+            <column name="account_non_locked" value="true"/>
+            <column name="credentials_non_expired" value="true"/>
+            <column name="enabled" value="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,25 @@
+.sort-bar, .filter-bar{
+    display: flex;
+    margin-top: 3%;
+    margin-left: 10%;
+}
+
+.sort-text{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.button-sort{
+    margin-left: 30px;
+    margin-top: 2px;
+    color: black;
+    background-color: aliceblue;
+    border: none;
+    font-size: 21px;
+}
+
+.button-sort:hover{
+    color: red;
+    box-shadow: 0 6px 4px -4px rgba(0, 0, 0, .2);
+}
+

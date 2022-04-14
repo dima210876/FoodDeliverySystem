@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="5" author="dima210876">
+        <insert tableName="users">
+            <column name="email" value="foodDeliveryCourierManager@gmail.com"/>
+            <!-- password before encode: qwerty12345QWERTY -->
+            <column name="password" value="$2a$10$.rheRfG5fETJLmKlMAG71eldJ15JSc3Qqt18NOIam75jf2r5rrLlm"/>
+            <column name="first_name" value="Rose"/>
+            <column name="last_name" value="Evans"/>
+            <column name="role" value="ROLE_COURIER_SERVICE_MANAGER"/>
+            <column name="expiration_date" value="2050-01-01 00:00:00"/>
+            <column name="account_non_locked" value="true"/>
+            <column name="credentials_non_expired" value="true"/>
+            <column name="enabled" value="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

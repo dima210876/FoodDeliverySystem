@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${APP_JDBC_URL}/g1_dev_courier_manager_db

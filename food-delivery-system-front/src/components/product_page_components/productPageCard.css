@@ -1,0 +1,45 @@
+.most-popular-card{
+    background-color: white;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    padding: 15px;
+    width:  200px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.product-name{
+    margin-bottom: 0px;
+}
+
+.bottom-row{
+    display: flex;
+}
+
+.popular-card-price{
+    display: block;
+    font-size: 11px;
+    margin-top: 17px;
+}
+.priceNum{
+    font-size: 15px;
+}
+.button{
+    background-color: white;
+    color: red;
+    font-size: 20px;
+    width: 33px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-color: white;
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.btn-plus-minus{
+    font-size: 20px;
+    display: flex;
+    padding-top: 15px;
+    margin-left: 5px;
+}
